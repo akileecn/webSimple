@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+ 		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+		<!-- 基本属性 -->
+		<!-- 根据url可以自动识别需要的jbdc jar包 -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="minIdle" value="${jdbc.minIdle}" /> 
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<!-- 下面信息可以不配置 -->
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" /> 
+	</bean>
+	
+	<!-- sessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis总的配置文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!-- sql映射 -->
+		<property name="mapperLocations" value="classpath:sqlmap/*-mapper.xml" />
+		<!-- 插件 -->
+		<property name="plugins">
+		    <array>
+		    	<!-- 分页插件 -->
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							<!-- 4.0.0以后版本可以不设置该参数 -->
+							dialect=mysql
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+							<!-- 和startPage中的pageNum效果一样-->
+							offsetAsPageNum=true
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+							rowBoundsWithCount=true
+							<!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+							<!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
+							pageSizeZero=true
+							<!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+							<!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+							<!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+							reasonable=false
+							<!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+							<!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
+							<!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 -->
+							<!-- 不理解该含义的前提下，不要随便复制该配置 -->
+							params=pageNum=pageHelperStart;pageSize=pageHelperRows;
+							<!-- 支持通过Mapper接口参数来传递分页参数 -->
+							supportMethodsArguments=false
+							<!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page -->
+							returnPageInfo=none
+						</value>
+					</property>
+				</bean>
+		    </array>
+		</property>
+	</bean>
+	
+	<!-- 扫描mapper接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.aki.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

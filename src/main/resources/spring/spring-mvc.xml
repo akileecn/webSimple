@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 包扫描 -->
+	<context:component-scan base-package="cn.aki.controller"/>
+	<!-- 静态资源 -->	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->
+	<!-- 并相当于注册了RequestMappingHandlerMapping,RequestMappingHandlerAdapter,ExceptionHandlerExceptionResolver -->
+	<mvc:annotation-driven/>
+	<!-- 简单controller -->
+	<mvc:view-controller path="/home" view-name="home"/>
+		  
+	<!--
+		freemarker配置
+		freemarkerSettings属性为java.util.Properties,freemarkerVariables属性为java.util.Map,其他属性直接配
+	-->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/template/"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="incompatible_improvements">2.3.24</prop>
+				<prop key="template_exception_handler">rethrow</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<!-- spring宏 bootstrap自定义宏 -->
+				<prop key="auto_import">"/spring.ftl" as spring,"/base/bootstrap.ftl" as bootstrap</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- freemarker视图解析 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <property name="cache" value="true"/>
+	    <property name="prefix" value=""/>
+	    <property name="suffix" value=".ftl"/>
+	    <!-- 不添加的话生成页面会乱码 -->
+	    <property name="contentType" value="text/html;charset=UTF-8"/>
+	</bean>
+		  
+	<!-- 上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>10485760</value><!-- 10M -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+</beans>

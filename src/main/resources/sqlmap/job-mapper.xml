@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.JobMapper">
+	<cache/>
+	<resultMap type="job" id="jobResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="work_year" property="workYear" jdbcType="VARCHAR"/>
+		<result column="work_city" property="workCity" jdbcType="VARCHAR"/>
+		<result column="requirement" property="requirement" jdbcType="VARCHAR"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="baseSql">
+		select
+			id
+			,name
+			,work_year
+			,work_city
+			,requirement
+			,description
+			,create_time
+		from job
+	</sql>
+	
+	<select id="getList" resultMap="jobResultMap">
+		<include refid="baseSql"/>
+	</select>
+</mapper>

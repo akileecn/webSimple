@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.UserMapper">
+	<!-- 缓存默认eviction="LRU" flushInterval不设置 size="1024" readOnly="false" -->
+	<cache/>
+	<!-- 用户 -->
+	<resultMap type="user" id="userResultMap">
+		<id column="u_id" property="id" jdbcType="INTEGER"/>
+		<result column="u_username" property="username" jdbcType="VARCHAR"/>
+		<result column="u_password" property="password" jdbcType="VARCHAR"/>
+		<!-- 角色 -->
+		<collection property="roles" ofType="role">
+			<id column="r_id" property="id"/>
+			<result column="r_name" property="name"/>
+			<!-- 权限 -->
+			<collection property="permissions" ofType="permission">
+				<id column="p_id" property="id"/>
+				<result column="p_name" property="name"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<sql id="baseSql">
+		select u.id as u_id
+			,u.username as u_username
+			,u.password as u_password
+			,r.id	as r_id
+			,r.name	as r_name
+			,p.id	as p_id
+			,p.name	as p_name
+		from user u
+		left join user_role ur
+			on ur.user_id=u.id
+		left join role r
+			on r.id=ur.role_id
+		left join role_permission rp
+			on rp.role_id=r.id
+		left join permission p
+			on p.id=rp.permission_id
+	</sql>
+	
+	<select id="getList" resultMap="userResultMap" parameterType="user">
+		<include refid="baseSql"/>
+	</select>
+	
+	<select id="getByUsername" resultMap="userResultMap" parameterType="string">
+		<include refid="baseSql"/>
+		where u.username=#{username}
+	</select>
+	
+	<select id="getSimpleByUsername" resultType="user" parameterType="string">
+		select
+			id
+			,username
+			,password
+		from user
+		where username=#{username}
+	</select>
+</mapper>
