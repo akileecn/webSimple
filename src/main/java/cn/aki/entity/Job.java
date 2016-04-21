@@ -1,6 +1,5 @@
 package cn.aki.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,28 +7,30 @@ import java.util.Date;
  * @author aki
  * 2016年4月15日 下午5:08:05
  */
-public class Job implements Serializable{
+public class Job extends BaseEntity{
 	private static final long serialVersionUID = -448298364939140L;
-	private Integer id;
-	private String name;
-	private String workYear;
-	private String workCity;
-	private String requirement;
-	private String description;
-	private Boolean disabled;
-	private Date createTime;
-	private Date modifyTime;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+								//id int primary key auto_increment
+	private String name;		//,name varchar(32)
+	private String resumeType;	//,resume_type varchar(32) -- 招聘类型
+	private String workYear;	//,work_year varchar(32) -- 工作年限
+	private String workCity;	//,work_city varchar(32) -- 工作城市
+	private String requirement;	//,requirement varchar(500) -- 要求
+	private String description;	//,description varchar(500) -- 描述
+	private Boolean disabled;	//,disabled tinyint(1) default 0 -- 是否失效
+	private Date createTime;	//,create_time timestamp
+	private Date modifyTime;	//,modify_time timestamp
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getResumeType() {
+		return resumeType;
+	}
+	public void setResumeType(String resumeType) {
+		this.resumeType = resumeType;
 	}
 	public String getWorkYear() {
 		return workYear;
@@ -72,12 +73,6 @@ public class Job implements Serializable{
 	}
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
-	}
-	@Override
-	public String toString() {
-		return "Job [id=" + id + ", name=" + name + ", workYear=" + workYear + ", workCity=" + workCity
-				+ ", requirement=" + requirement + ", description=" + description + ", disabled=" + disabled
-				+ ", createTime=" + createTime + ", modifyTime=" + modifyTime + "]";
 	}
 	
 }

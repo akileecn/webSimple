@@ -1,9 +1,10 @@
 -- 简历主表
 create table resume(
 	id int primary key auto_increment
+	,user_id int not null -- 用户ID
 	,name varchar(32)	
 	,gender varchar(32)
-	,birthday timestamp
+	,birthday datetime
 	,nation varchar(32) -- 民族
 	,height int
 	,weight int
@@ -11,12 +12,12 @@ create table resume(
 	,id_number varchar(32)
 	,marriage varchar(32) -- 婚姻状况
 	,politics_status varchar(32) -- 政治面貌
-	,join_party_date timestamp -- 入党时间
+	,join_party_date datetime -- 入党时间
 	,mobile varchar(11)
 	,email varchar(50)
 	,highest_education varchar(32) -- 最高学历
 	,highest_degree varchar(32) -- 最高学位
-	,graduate_date timestamp -- 毕业时间
+	,graduate_date datetime -- 毕业时间
 	,cee_province varchar(32) -- 高考省份
 	,cee_score int -- 高考分数
 	,is_first_line tinyint -- 是否一本分数线以上
@@ -46,13 +47,15 @@ create table resume_education(
 	,degree varchar(32) -- 学位
 	,education varchar(32) -- 学历
 	,learn_type varchar(32) -- 学习形式
-	,begin_end varchar(32) -- 起止年月
+	,begin_date datetime -- 开始时间
+	,end_date datetime -- 结束时间
 	,school_type varchar(32) -- 学校类别
 	,has_been_cadre tinyint -- 是否担任过学生干部
 	,grade_rank varchar(32) -- 年级排名
 );
 
--- 外语信息
+/*
+外语信息
 create table resume_foreign_language(
 	id int primary key auto_increment
 	,remsume_id int not null
@@ -62,15 +65,16 @@ create table resume_foreign_language(
 	,others varchar(32) -- 其他语言
 );
 
--- 计算机技能
+计算机技能
 create table resume_computer(
 	id int primary key auto_increment
 	,remsume_id int not null
 	,certificate varchar(32)
-	,obtain_date timestamp
+	,obtain_date datetime
 	,level varchar(32)
 	,detail varchar(500)
 );
+*/
 
 -- 工作经历
 create table resume_work(
@@ -85,30 +89,37 @@ create table resume_work(
 	,work_place varchar(100) -- 工作地点
 	,job_type varchar(32) -- 职位类型
 	,industry varchar(32) -- 行业
-	,begin_end varchar(32) -- 起止时间
+	,begin_date datetime -- 开始时间
+	,end_date datetime -- 结束时间
 	,dimission_reason varchar(500) -- 辞职理由
 	,duty varchar(500) -- 职责
 	,performance varchar(500) -- 业绩
 );
 
--- 实践活动
+/*
+实践活动
 create table resume_practice(
 	id int primary key auto_increment
 	,remsume_id int not null
 	,company varchar(100)
-	,begin_end varchar(32) -- 起止时间
+	,begin_date datetime -- 开始时间
+	,end_date datetime -- 结束时间
 	,job varchar(32)
 	,duty varchar(500) -- 职责
 );
+*/
 
 -- 学生干部
 create table resume_student_cadre(
 	id int primary key auto_increment
 	,remsume_id int not null
-	,job varchar(32) -- 职务
-	,begin_end varchar(32) -- 起止时间
+	,begin_date datetime -- 开始时间
+	,end_date datetime -- 结束时间
+	,school varchar(32) -- 所在院校
+	,name varchar(32) -- 干部名称
 	,level varchar(32) -- 级别
-	,duty varchar(500) -- 职责描述
+	,certifier varchar(32) -- 证明人
+	,certifier_mobile varchar(32) -- 证明人电话
 );
 
 -- 获奖经历
@@ -116,12 +127,13 @@ create table resume_award(
 	id int primary key auto_increment
 	,remsume_id int not null
 	,name varchar(32) -- 奖励名称
-	,time varchar(32) -- 获得时间
+	,time datetime -- 获得时间
 	,level varchar(32) -- 级别
 	,description varchar(500) -- 奖励描述
 );
 
--- 培训经历
+/*
+培训经历
 create table resume_train(
 	id int primary key auto_increment
 	,remsume_id int not null
@@ -131,6 +143,7 @@ create table resume_train(
 	,course varchar(32) -- 培训课程
 	,description varchar(500) -- 详细描述
 );
+*/
 
 -- 家庭关系
 create table resume_family(

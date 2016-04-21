@@ -1,4 +1,7 @@
 package cn.aki.entity;
+
+import java.util.Date;
+
 /**
  * 工作经历
  * @author aki
@@ -17,7 +20,8 @@ public class ResumeWork extends BaseEntity{
 	private String workPlace;		//,work_place varchar(100) -- 工作地点
 	private String jobType;			//,job_type varchar(32) -- 职位类型
 	private String industry;		//,industry varchar(32) -- 行业
-	private String beginEnd;		//,begin_end varchar(32) -- 起止时间
+	private Date beginDate;			//,begin_date datetime -- 开始时间
+	private Date endDate;			//,end_date datetime -- 结束时间
 	private String dimissionReason;	//,dimission_reason varchar(500) -- 辞职理由
 	private String duty;			//,duty varchar(500) -- 职责
 	private String performance;		//,performance varchar(500) -- 业绩
@@ -81,11 +85,17 @@ public class ResumeWork extends BaseEntity{
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
-	public String getBeginEnd() {
-		return beginEnd;
+	public Date getBeginDate() {
+		return beginDate;
 	}
-	public void setBeginEnd(String beginEnd) {
-		this.beginEnd = beginEnd;
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public String getDimissionReason() {
 		return dimissionReason;

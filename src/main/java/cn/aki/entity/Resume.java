@@ -1,6 +1,7 @@
 package cn.aki.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 简历主表
@@ -10,6 +11,7 @@ import java.util.Date;
 public class Resume extends BaseEntity{
 	private static final long serialVersionUID = -1238330598304598884L;
 										//id int primary key auto_increment
+	private Integer userId;				//,user_id int not null -- 用户ID
 	private String name;				//,name varchar(32)	
 	private String gender;				//,gender varchar(32)
 	private Date birthday;				//,birthday timestamp
@@ -43,6 +45,20 @@ public class Resume extends BaseEntity{
 	private String certificate;			//,certificate varchar(500) -- 持证情况
 	private String hobby;				//,hobby varchar(500) -- 爱好特长
 	private String personality;			//,personality varchar(500) -- 性格特点
+	
+	/*关联*/
+	private List<ResumeAward> awardList;
+	private List<ResumeEducation> educationList;
+	private List<ResumeFamily> familyList;
+	private List<ResumeStudentCadre> studentCadreList;
+	private List<ResumeWork> workList;
+	
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 	public String getName() {
 		return name;
 	}
@@ -240,6 +256,36 @@ public class Resume extends BaseEntity{
 	}
 	public void setPersonality(String personality) {
 		this.personality = personality;
+	}
+	public List<ResumeAward> getAwardList() {
+		return awardList;
+	}
+	public void setAwardList(List<ResumeAward> awardList) {
+		this.awardList = awardList;
+	}
+	public List<ResumeEducation> getEducationList() {
+		return educationList;
+	}
+	public void setEducationList(List<ResumeEducation> educationList) {
+		this.educationList = educationList;
+	}
+	public List<ResumeFamily> getFamilyList() {
+		return familyList;
+	}
+	public void setFamilyList(List<ResumeFamily> familyList) {
+		this.familyList = familyList;
+	}
+	public List<ResumeStudentCadre> getStudentCadreList() {
+		return studentCadreList;
+	}
+	public void setStudentCadreList(List<ResumeStudentCadre> studentCadreList) {
+		this.studentCadreList = studentCadreList;
+	}
+	public List<ResumeWork> getWorkList() {
+		return workList;
+	}
+	public void setWorkList(List<ResumeWork> workList) {
+		this.workList = workList;
 	}
 	
 }

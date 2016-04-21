@@ -50,10 +50,10 @@ create table dict_type(
 create table dict_data(
 	id int primary key auto_increment
 	,type_code varchar(32) not null
-	,code varchar(32) not null
-	,name varchar(100) not null
-	,remark varchar(100)
-	,disabled tinyint(1) default 0
+	,code varchar(32) not null -- 代码
+	,name varchar(100) not null -- 中文
+	,remark varchar(100) -- 备注
+	,disabled tinyint(1) default 0 -- 是否失效
 	,create_time timestamp
 	,modify_time timestamp
 );
@@ -61,11 +61,12 @@ create table dict_data(
 create table job(
 	id int primary key auto_increment
 	,name varchar(32)
-	,work_year varchar(32)
-	,work_city varchar(32)
-	,requirement varchar(500)
-	,description varchar(500)
-	,disabled tinyint(1) default 0
+	,resume_type varchar(32) -- 招聘类型
+	,work_year varchar(32) -- 工作年限
+	,work_city varchar(32) -- 工作城市
+	,requirement varchar(500) -- 要求
+	,description varchar(500) -- 描述
+	,disabled tinyint(1) default 0 -- 是否失效
 	,create_time timestamp
 	,modify_time timestamp
 );

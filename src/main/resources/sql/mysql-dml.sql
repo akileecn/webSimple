@@ -1,5 +1,5 @@
 /*2016-03-31*/
-insert into user(username,password)values('aki','123456');
+insert into user(username,password)values('aki','e10adc3949ba59abbe56e057f20f883e');
 insert into role(name)values('admin');
 insert into role(name)values('r2');
 insert into user_role(user_id,role_id)values(1,1);
