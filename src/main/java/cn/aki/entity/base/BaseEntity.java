@@ -1,4 +1,4 @@
-package cn.aki.entity;
+package cn.aki.entity.base;
 
 import java.io.Serializable;
 /**

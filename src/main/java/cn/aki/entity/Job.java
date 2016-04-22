@@ -1,15 +1,14 @@
 package cn.aki.entity;
 
-import java.util.Date;
+import cn.aki.entity.base.BaseTimeEntity;
 
 /**
  * 岗位
  * @author aki
  * 2016年4月15日 下午5:08:05
  */
-public class Job extends BaseEntity{
+public class Job extends BaseTimeEntity{
 	private static final long serialVersionUID = -448298364939140L;
-								//id int primary key auto_increment
 	private String name;		//,name varchar(32)
 	private String resumeType;	//,resume_type varchar(32) -- 招聘类型
 	private String workYear;	//,work_year varchar(32) -- 工作年限
@@ -17,8 +16,6 @@ public class Job extends BaseEntity{
 	private String requirement;	//,requirement varchar(500) -- 要求
 	private String description;	//,description varchar(500) -- 描述
 	private Boolean disabled;	//,disabled tinyint(1) default 0 -- 是否失效
-	private Date createTime;	//,create_time timestamp
-	private Date modifyTime;	//,modify_time timestamp
 	
 	public String getName() {
 		return name;
@@ -61,18 +58,6 @@ public class Job extends BaseEntity{
 	}
 	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getModifyTime() {
-		return modifyTime;
-	}
-	public void setModifyTime(Date modifyTime) {
-		this.modifyTime = modifyTime;
 	}
 	
 }

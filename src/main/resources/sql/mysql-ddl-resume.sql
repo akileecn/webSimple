@@ -13,7 +13,7 @@ create table resume(
 	,marriage varchar(32) -- 婚姻状况
 	,politics_status varchar(32) -- 政治面貌
 	,join_party_date datetime -- 入党时间
-	,mobile varchar(11)
+	,mobile varchar(32)
 	,email varchar(50)
 	,highest_education varchar(32) -- 最高学历
 	,highest_degree varchar(32) -- 最高学位
@@ -35,6 +35,8 @@ create table resume(
 	,certificate varchar(500) -- 持证情况
 	,hobby varchar(500) -- 爱好特长
 	,personality varchar(500) -- 性格特点
+	,create_time datetime -- 创建时间
+	,modify_time datetime -- 修改时间
 );
 
 -- 教育经历

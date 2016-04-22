@@ -16,4 +16,5 @@ public interface UserService {
 	 * @return
 	 */
 	Page<User> getPage(int pageNum,int pageSize,User user);
+	void save(User user);
 }

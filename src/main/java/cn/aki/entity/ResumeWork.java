@@ -2,6 +2,8 @@ package cn.aki.entity;
 
 import java.util.Date;
 
+import cn.aki.entity.base.BaseEntity;
+
 /**
  * 工作经历
  * @author aki
@@ -9,7 +11,6 @@ import java.util.Date;
  */
 public class ResumeWork extends BaseEntity{
 	private static final long serialVersionUID = -1752143847655142682L;
-									//id int primary key auto_increment
 	private Integer remsumeId;		//,remsume_id int not null
 	private String company;			//,company varchar(100)
 	private String department;		//,department varchar(32)

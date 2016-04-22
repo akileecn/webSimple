@@ -1,6 +1,5 @@
 package cn.aki.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -14,18 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.github.pagehelper.Page;
-
-import cn.aki.entity.User;
 import cn.aki.form.UserLoginForm;
+import cn.aki.form.UserRegisterForm;
 import cn.aki.service.UserService;
 
 /**
@@ -43,17 +38,6 @@ public class UserController {
 	@ModelAttribute("userLoginForm")
 	public UserLoginForm createUserLoginForm(){
 		return new UserLoginForm();
-	}
-	/**
-	 * 用户列表
-	 * @return
-	 */
-	@RequestMapping("/list")
-	public String list(Model model){
-		Page<User> page=userService.getPage(1, 4, null);
-		model.addAttribute("page", page);
-		model.addAttribute("total",page.getTotal());
-		return "user/list";
 	}
 	/**
 	 * 跳转到登录页面
@@ -98,20 +82,15 @@ public class UserController {
 		return "user/register";
 	}
 	/**
-	 * 文件上传
-	 * @param file
-	 * @param model
+	 * 注册处理
+	 * @param userRegisterForm
+	 * @param result
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public Map<String, String> handleFileUpload(MultipartFile file,Model model){
-		Map<String,String> result=new HashMap<String, String>();
-		if(file!=null){
-			String fileName=file.getOriginalFilename();
-			result.put("message", "上传文件"+fileName);
-		}else{
-			result.put("message", "上传文件失败");
-		}
-		return result;
+	public Map<String, String> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
+		System.err.println(result);
+		return null;
 	}
 }

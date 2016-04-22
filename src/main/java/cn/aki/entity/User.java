@@ -1,25 +1,24 @@
 package cn.aki.entity;
 
-import java.io.Serializable;
 import java.util.Set;
+
+import cn.aki.entity.base.BaseTimeEntity;
 /**
  * 用户
  * @author aki
  * 2016年4月1日 上午9:25:56
  */
-public class User implements Serializable{
+public class User extends BaseTimeEntity{
 	private static final long serialVersionUID = 4316328239249215538L;
-	private Integer id;
-	private String username;
-	private String password;
-	private Set<Role> roles;//角色集合
+	private String username;	//,username varchar(32) not null unique
+	private String password;	//,password varchar(32) not null
+	private String idNumber;	//,id_number varchar(32) -- 身份证号码
+	private String mobile;		//,mobile varchar(32) -- 手机号码
+	private String email;		//,email varchar(50) -- 邮箱
+	/*关联*/
+	private Set<Role> roles;
+	private Set<UserPasswordQuestion> passwordQuestions;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -32,11 +31,35 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public Set<Role> getRoles() {
 		return roles;
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public Set<UserPasswordQuestion> getPasswordQuestions() {
+		return passwordQuestions;
+	}
+	public void setPasswordQuestions(Set<UserPasswordQuestion> passwordQuestions) {
+		this.passwordQuestions = passwordQuestions;
 	}
 	
 }

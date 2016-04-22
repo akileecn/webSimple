@@ -1,5 +1,7 @@
 package cn.aki.entity;
 
+import cn.aki.entity.base.BaseEntity;
+
 /**
  * 家庭关系
  * @author aki
@@ -7,7 +9,6 @@ package cn.aki.entity;
  */
 public class ResumeFamily extends BaseEntity{
 	private static final long serialVersionUID = 3688500831911368466L;
-								//id int primary key auto_increment
 	private Integer remsume_id;	//,remsume_id int not null
 	private String name;		//,name varchar(32) -- 名称
 	private String relationship;//,relationship varchar(32) -- 关系

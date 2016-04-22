@@ -13,4 +13,5 @@ public interface UserMapper {
 	 * @return
 	 */
 	User getSimpleByUsername(String username);
+	void save(User user);
 }
