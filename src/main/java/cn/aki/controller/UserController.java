@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
+import cn.aki.other.Response;
 import cn.aki.service.UserService;
 
 /**
@@ -30,7 +31,7 @@ import cn.aki.service.UserService;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 	private final Logger logger=LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService userService;
@@ -89,8 +90,13 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public Map<String, String> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
-		System.err.println(result);
-		return null;
+	public Response<Void,Map<String,String>> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
+		Response<Void,Map<String,String>> response=new Response<Void,Map<String,String>>();
+		handleError(response, result);
+		if(response.isSuccess()){
+			//保存用户
+			userService.save(userRegisterForm);
+		}
+		return response;
 	}
 }

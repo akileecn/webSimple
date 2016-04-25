@@ -18,6 +18,8 @@
 	<script src="<@spring.url "/resources/jquery/jquery-1.12.3.js"/>"></script>
 	<#-- 异步提交表单 -->
 	<script src="<@spring.url "/resources/jquery/jquery.form.js"/>"></script>
+	<#-- 公共方法 -->
+	<script src="<@spring.url "/resources/js/common.js"/>"></script>
 	<#nested>
 </head>
 </#macro>

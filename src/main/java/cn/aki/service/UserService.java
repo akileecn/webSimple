@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.Page;
 
 import cn.aki.entity.User;
+import cn.aki.form.UserRegisterForm;
 
 public interface UserService {
 	List<User> getList(User user);
@@ -16,5 +17,9 @@ public interface UserService {
 	 * @return
 	 */
 	Page<User> getPage(int pageNum,int pageSize,User user);
-	void save(User user);
+	/**
+	 * 根据注册表单保存用户 
+	 * @param form
+	 */
+	void save(UserRegisterForm form);
 }

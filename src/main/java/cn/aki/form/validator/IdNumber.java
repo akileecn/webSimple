@@ -18,7 +18,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy=IdNumberValidator.class)
 public @interface IdNumber {
 	/*规定如此*/
-	String message() default "";
+	String message() default "{v.idNumber}";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

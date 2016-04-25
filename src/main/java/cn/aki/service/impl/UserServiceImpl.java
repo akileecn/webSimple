@@ -11,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 
 import cn.aki.dao.UserMapper;
 import cn.aki.entity.User;
+import cn.aki.form.UserRegisterForm;
 import cn.aki.service.UserService;
 
 @Service("userService")
@@ -29,7 +30,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Transactional
-	public void save(User user) {
+	public void save(UserRegisterForm form) {
+		User user=form.createUser();
 		userMapper.save(user);
 	}
 

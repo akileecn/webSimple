@@ -8,17 +8,10 @@ create table user(
 	,id_number varchar(32) -- 身份证号码
 	,mobile varchar(32) -- 手机号码
 	,email varchar(50) -- 邮箱
-	,create_time datetime -- 创建时间
-	,modify_time datetime -- 修改时间
-);
-/**
- * 用户密码找回问题
- */
-create table user_password_question(
-	id int primary key auto_increment
-	,user_id int
 	,question varchar(100) -- 问题
 	,answer varchar(100) -- 答案
+	,create_time datetime -- 创建时间
+	,modify_time datetime -- 修改时间
 );
 /**
  * 角色

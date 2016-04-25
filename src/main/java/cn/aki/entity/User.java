@@ -10,14 +10,16 @@ import cn.aki.entity.base.BaseTimeEntity;
  */
 public class User extends BaseTimeEntity{
 	private static final long serialVersionUID = 4316328239249215538L;
-	private String username;	//,username varchar(32) not null unique
+	private String username;	//,username varchar(32) -- 暂时不需要
 	private String password;	//,password varchar(32) not null
 	private String idNumber;	//,id_number varchar(32) -- 身份证号码
 	private String mobile;		//,mobile varchar(32) -- 手机号码
 	private String email;		//,email varchar(50) -- 邮箱
+	private String question;	//,question varchar(100) -- 问题
+	private String answer;		//,answer varchar(100) -- 答案
+	
 	/*关联*/
 	private Set<Role> roles;
-	private Set<UserPasswordQuestion> passwordQuestions;
 	
 	public String getUsername() {
 		return username;
@@ -55,11 +57,17 @@ public class User extends BaseTimeEntity{
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	public Set<UserPasswordQuestion> getPasswordQuestions() {
-		return passwordQuestions;
+	public String getQuestion() {
+		return question;
 	}
-	public void setPasswordQuestions(Set<UserPasswordQuestion> passwordQuestions) {
-		this.passwordQuestions = passwordQuestions;
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 }

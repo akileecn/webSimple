@@ -43,11 +43,13 @@
 		<include refid="baseSql"/>
 	</select>
 	
+	<!-- 根据用户名查询 -->
 	<select id="getByUsername" resultMap="userResultMap" parameterType="string">
 		<include refid="baseSql"/>
 		where u.username=#{username}
 	</select>
 	
+	<!-- 根据用户名简单查询 -->
 	<select id="getSimpleByUsername" resultType="user" parameterType="string">
 		select
 			id
@@ -56,4 +58,14 @@
 		from user
 		where username=#{username}
 	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+		insert into user(
+			password,id_number,mobile,email,question,answer,create_time,modify_time
+		)values(
+			#{password},#{idNumber},#{mobile},#{email},#{question},#{answer},now(),now()
+		)
+	</insert>
+	
 </mapper>
