@@ -70,9 +70,13 @@ create table job(
 	,resume_type varchar(32) -- 招聘类型
 	,work_year varchar(32) -- 工作年限
 	,work_city varchar(32) -- 工作城市
+	,education varchar(32) -- 学历
+	,publish_date datetime -- 发布时间
+	,end_date datetime -- 截止时间
+	,people_number int -- 人数
 	,requirement varchar(500) -- 要求
 	,description varchar(500) -- 描述
 	,disabled tinyint(1) default 0 -- 是否失效
-	,create_time timestamp
-	,modify_time timestamp
+	,create_time datetime
+	,modify_time datetime
 );

@@ -2,29 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.aki.dao.JobMapper">
 	<cache/>
-	<resultMap type="job" id="jobResultMap">
-		<id column="id" property="id" jdbcType="INTEGER"/>
-		<result column="name" property="name" jdbcType="VARCHAR"/>
-		<result column="work_year" property="workYear" jdbcType="VARCHAR"/>
-		<result column="work_city" property="workCity" jdbcType="VARCHAR"/>
-		<result column="requirement" property="requirement" jdbcType="VARCHAR"/>
-		<result column="description" property="description" jdbcType="VARCHAR"/>
-		<result column="create_time" property="createTime" jdbcType="VARCHAR"/>
-	</resultMap>
-	
-	<sql id="baseSql">
-		select
-			id
+	<sql id="selectSql">
+		select id
 			,name
-			,work_year
-			,work_city
+			,resume_type as resumeType
+			,work_year as workYear
+			,work_city as workCity
+			,education
+			,publish_date as publishDate
+			,end_date as endDate
+			,people_number as peopleNumber
 			,requirement
 			,description
-			,create_time
+			,disabled
+			,create_time as createTime
+			,modify_time as modifyTime
 		from job
 	</sql>
+	<sql id="whereSql">
+		<where>
+			<if test="workCity!=null and workCity!=''">
+				work_city=#{workCity}
+			</if>
+			<if test="education!=null and education!=''">
+				and education=#{education}
+			</if>
+			<if test="publishDate!=null and publishDate!=''">
+				and publish_date=#{publishDate}
+			</if>
+			<if test="name!=null and name!=''">
+				and name like #{name}
+			</if>
+		</where>
+	</sql>
 	
-	<select id="getList" resultMap="jobResultMap">
-		<include refid="baseSql"/>
+	<select id="getList" resultType="job" parameterType="job">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<select id="get" resultType="job" parameterType="int">
+		<include refid="selectSql"/>
+		where id=#{id}
 	</select>
 </mapper>

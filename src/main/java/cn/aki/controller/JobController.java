@@ -5,7 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+
+import cn.aki.entity.Job;
+import cn.aki.form.JobQueryForm;
+import cn.aki.response.PageResponse;
+import cn.aki.response.Response;
+import cn.aki.service.DictDataService;
 import cn.aki.service.JobService;
 
 @Controller
@@ -13,10 +21,34 @@ import cn.aki.service.JobService;
 public class JobController {
 	@Autowired
 	private JobService jobService;
+	@Autowired
+	private DictDataService dictDataService;
 	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
-	public String list(Model model){
-		model.addAttribute("list", jobService.getList());
+	public String list(JobQueryForm form,Model model){
+		PageInfo<Job> page=jobService.getPage(form);
+		dictDataService.translate(page.getList());
+		model.addAttribute("page", page);
 		return "job/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/list",method=RequestMethod.POST)
+	public PageResponse<Job> listData(JobQueryForm form){
+		PageInfo<Job> page=jobService.getPage(form);
+		dictDataService.translate(page.getList());
+		PageResponse<Job> response=new PageResponse<Job>();
+		response.setData(page);
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/detail")
+	public Response<Job, Void> detail(Integer id,Model model){
+		Response<Job, Void> response=new Response<Job, Void>();
+		Job job=jobService.get(id);
+		dictDataService.translate(job);
+		response.setData(job);
+		return response;
 	}
 }

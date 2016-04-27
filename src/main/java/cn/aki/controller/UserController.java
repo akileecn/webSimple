@@ -1,7 +1,5 @@
 package cn.aki.controller;
 
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.apache.shiro.SecurityUtils;
@@ -12,6 +10,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
-import cn.aki.other.Response;
+import cn.aki.response.FormResponse;
 import cn.aki.service.UserService;
 
 /**
@@ -35,6 +34,8 @@ public class UserController extends BaseController{
 	private final Logger logger=LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ResourceBundleMessageSource messageSource;
 	
 	@ModelAttribute("userLoginForm")
 	public UserLoginForm createUserLoginForm(){
@@ -52,27 +53,27 @@ public class UserController extends BaseController{
 	 * 登录操作
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
-		final String FIELD_USERNAME="username";
-		if(!result.hasErrors()){
+	public FormResponse handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
+		FormResponse response=handleFormError(result);
+		if(response.isSuccess()){
 			UsernamePasswordToken token=new UsernamePasswordToken(userLoginForm.getUsername(), userLoginForm.getPassword());
 			token.setRememberMe(true);
 			Subject subject=SecurityUtils.getSubject();
 			try{
 				subject.login(token);
-				return "redirect:/home";
 			}catch(IncorrectCredentialsException ex){
 				//验证失败
 				logger.info("{} 验证失败",userLoginForm.getUsername());
-				result.rejectValue(FIELD_USERNAME, null, "验证失败");
+				response.putError("username", messageSource.getMessage("shiro.incorrect", null,null));
 			}catch(UnknownAccountException ex){
 				//其他异常
 				logger.info("{} 未知异常",userLoginForm.getUsername());
-				result.rejectValue(FIELD_USERNAME, null, "未知异常");
+				response.putError("username", messageSource.getMessage("shiro.unknow", null,null));
 			}
 		}
-		return "user/login";
+		return response;
 	}
 	/**
 	 * 跳转至注册
@@ -90,9 +91,8 @@ public class UserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public Response<Void,Map<String,String>> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
-		Response<Void,Map<String,String>> response=new Response<Void,Map<String,String>>();
-		handleError(response, result);
+	public FormResponse handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
+		FormResponse response=handleFormError(result);
 		if(response.isSuccess()){
 			//保存用户
 			userService.save(userRegisterForm);

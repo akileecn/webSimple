@@ -20,7 +20,15 @@
 		</collection>
 	</resultMap>
 	
-	<sql id="baseSql">
+	<!-- 用户名查询条件 -->
+	<sql id="whereByUsername">
+		where ${prefix}email=#{username}
+			or ${prefix}mobile=#{username}
+			or ${prefix}id_number=#{username}
+	</sql>
+	
+	<!-- 根据用户名查询 -->
+	<select id="getAuthByUsername" resultMap="userResultMap" parameterType="string">
 		select u.id as u_id
 			,u.username as u_username
 			,u.password as u_password
@@ -37,26 +45,23 @@
 			on rp.role_id=r.id
 		left join permission p
 			on p.id=rp.permission_id
-	</sql>
-	
-	<select id="getList" resultMap="userResultMap" parameterType="user">
-		<include refid="baseSql"/>
+		<include refid="whereByUsername">
+			<property name="prefix" value="u."/>
+		</include>
 	</select>
 	
-	<!-- 根据用户名查询 -->
-	<select id="getByUsername" resultMap="userResultMap" parameterType="string">
-		<include refid="baseSql"/>
-		where u.username=#{username}
-	</select>
-	
-	<!-- 根据用户名简单查询 -->
-	<select id="getSimpleByUsername" resultType="user" parameterType="string">
+	<!-- 根据用户名查询账户信息 -->
+	<select id="getByUsername" resultType="user" parameterType="string">
 		select
 			id
-			,username
+			,id_number as isNumber
+			,mobile
+			,email
 			,password
 		from user
-		where username=#{username}
+		<include refid="whereByUsername">
+			<property name="prefix" value=""/>
+		</include>
 	</select>
 	
 	<!-- 保存 -->
@@ -68,4 +73,20 @@
 		)
 	</insert>
 	
+	<!-- 是否存在 -->
+	<select id="exists" parameterType="user" resultType="int">
+		select count(1)
+		from user
+		<where>
+			<if test="email!=null">
+				email=#{email}
+			</if>
+			<if test="mobile!=null">
+				or mobile=#{mobile}
+			</if>
+			<if test="idNumber!=null">
+				or id_number=#{idNumber}
+			</if>
+		</where>
+	</select>
 </mapper>

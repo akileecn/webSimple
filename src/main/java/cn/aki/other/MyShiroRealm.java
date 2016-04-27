@@ -8,7 +8,6 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username=(String)getAvailablePrincipal(principals);
 		if(!StringUtils.isEmpty(username)){
-			User user=userMapper.getByUsername(username);
+			User user=userMapper.getAuthByUsername(username);
 			if(user!=null&&user.getRoles()!=null){
 				SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
 				//角色授权
@@ -58,8 +57,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 			if(user!=null&&token.getCredentials()!=null){
 				String tokenPassword=new String((char[]) token.getCredentials());
 				String password=user.getPassword();
-				Md5Hash md5=new Md5Hash(tokenPassword);
-				if(password.equals(md5.toString())){
+				if(Md5Utils.isEncrypted(tokenPassword, password)){
 					return new SimpleAuthenticationInfo(username, token.getCredentials(), getName());
 				}else{
 					throw new IncorrectCredentialsException();

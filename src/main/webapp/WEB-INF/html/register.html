@@ -11,8 +11,75 @@
 		<label for="answer">答案:</label><input type="text" name="answer"/>
 		<button type="submit">注册</button>
 	</form>
+	
+	<form action="">
+		<select name="" >
+			<option value="" selected="selected"></option>
+		</select>
+	</form>
+	<nav>
+		<ul class="pagination">
+			<li><a href="#" aria-label="Previous"> <span
+					aria-hidden="true">&laquo;</span>
+			</a></li>
+			<li><a href="#" pageNum="1">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+			</a></li>
+		</ul>
+	</nav>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					<h4 class="modal-title">岗位详情</h4>
+				</div>
+				<div id="myModalBody" class="modal-body">
+					<form id="myForm" action="<@spring.url " /job/apply"/>
+					" method="post"> <label for="workYear">工作年限:</label><span>${dictMap['workYear'][job.workYear]}</span><br />
+					<label for="workCity">工作城市:</label><span>${dictMap['workCity'][job.workCity]}</span><br />
+					<label for="education">学历要求:</label><span>${dictMap['education'][job.education]}</span><br />
+					<label for="publishDate">发布时间:</label><span>${job.publishDate?date}</span><br />
+					<label for="endDate">截止时间:</label><span>${job.endDate?date}</span><br />
+					<label for="peopleNumber">人数:</label><span>${job.peopleNumber}</span><br />
+					<label for="requirement">要求:</label><span>${job.requirement}</span><br />
+					<label for="description">描述:</label><span>${job.description}</span><br />
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary">申请</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
-	alert("x".replace("x", "s"));
+$('#myForm').ajaxForm(function(text){
+	if(text.success){
+		var list=text.data.list;
+		var html="";
+		for(var i=0;i<list.length;i++){
+			html+="<tr>"
+					+"<td>"+list[i].name+"</td>"
+					+"<td>"+list[i].t.workCity+"</td>"
+					+"<td>"+list[i].endDate+"</td>"
+					+"<td>"+list[i].peopleNumber+"</td>"
+					+"<td></td>"
+				"</tr>";
+		}
+		$('#myForm').find("tbody").html(html);
+	}else{
+		alert("无更多数据");
+	}
+	
+});
 </script>
 </html>

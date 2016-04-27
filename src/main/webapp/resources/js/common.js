@@ -40,4 +40,25 @@
 		return text;
 	}
 	jQuery.toString=toString;
+	
+	//模板替换
+	function template(html,data){
+		return html.replace(/\%\{.+?\}/g,function(word){
+			var word=word.substring(2,word.length-1);
+			var keys=word.split(".");
+			var value=data;
+			for(var i=0;i<keys.length;i++){
+				value=value[keys[i]];
+				if(!value){
+					return "";
+				}
+			}
+			return value;
+		});
+	}
+	jQuery.template=template;
+	jQuery.fn.template=function(data){
+		var html=$(this).html();
+		$(this).html(template(html,data));
+	}
 }(window.$));

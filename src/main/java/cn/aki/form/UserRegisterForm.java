@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.User;
 import cn.aki.form.validator.IdNumber;
+import cn.aki.form.validator.UserUnique;
 
 /**
  * 用户注册表单
@@ -15,13 +16,13 @@ import cn.aki.form.validator.IdNumber;
  * 2016年4月22日 上午11:01:43
  */
 public class UserRegisterForm {
-	@NotBlank()@Size(max=50)@Email()
+	@NotBlank()@Size(max=50)@Email()@UserUnique(field="email")
 	private String email;//邮箱
 	
-	@NotBlank()@Size(max=32)@IdNumber()
+	@NotBlank()@Size(max=32)@IdNumber()@UserUnique(field="idNumber")
 	private String idNumber;//身份证号码
 	
-	@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")
+	@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")@UserUnique(field="mobile")
 	private String mobile;//手机号码
 	
 	@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$).{6,20}$",message="{v.password}")
