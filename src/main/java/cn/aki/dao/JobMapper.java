@@ -5,5 +5,5 @@ import java.util.List;
 import cn.aki.entity.Job;
 
 public interface JobMapper {
-	List<Job> getList();
+	List<Job> getList(Job condition);
 }

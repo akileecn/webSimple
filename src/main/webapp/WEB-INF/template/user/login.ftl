@@ -40,10 +40,21 @@
 		border-top-right-radius: 0;
 	}
 </style>
+<script>
+	$(document).ready(function() {
+		$('#myForm').ajaxForm(function(text) {
+			alert($.toString(text));
+			if(text.success){
+			}else{
+				alert($.toString(text.error));
+			}
+		});
+	});
+</script>
 </@bootstrap.head>
 <@bootstrap.body>
 <div class="container">
-	<form action="<@spring.url "/user/login"/>" method="post" class="form-signin">
+	<form id="myForm" action="<@spring.url "/user/login"/>" method="post" class="form-signin">
 		<h2>请登录</h2>
 		<label for="username" class="sr-only">用户名:</label>
 		<@spring.formInput path="userLoginForm.username" attributes='placeholder="用户名" class="form-control" required="true" autofocus="true"'/>

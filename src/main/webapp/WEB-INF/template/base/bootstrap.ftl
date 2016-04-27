@@ -1,3 +1,4 @@
+<#-- html头 -->
 <#macro head>
 <!DOCTYPE html >
 <html lang="zh-CN">
@@ -23,6 +24,8 @@
 	<#nested>
 </head>
 </#macro>
+
+<#-- html体 -->
 <#macro body>
 <body>
 	<#nested>

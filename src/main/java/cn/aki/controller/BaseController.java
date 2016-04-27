@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import cn.aki.other.Response;
+import cn.aki.response.FormResponse;
 
 /**
  * controller基类
@@ -17,17 +17,21 @@ import cn.aki.other.Response;
 public abstract class BaseController {
 
 	/**
-	 * 处理验证的公共方法
+	 * 处理表单验证的公共方法
 	 * @param response
 	 * @param result
-	 * @return 
 	 * @return
 	 */
-	protected <T> Response<T, Map<String, String>> handleError(Response<T, Map<String, String>> response,BindingResult result){
+	protected FormResponse handleFormError(FormResponse response,BindingResult result){
+		if(response==null){
+			response=new FormResponse();
+		}
 		if(result.hasErrors()){
-			response.setSuccess(false);
 			List<FieldError> errorList=result.getFieldErrors();
-			Map<String,String> errorMap=new HashMap<String, String>();
+			Map<String,String> errorMap=response.getError();
+			if(errorMap==null){
+				errorMap=new HashMap<String, String>();
+			}
 			for(FieldError error:errorList){
 				String field=error.getField();
 				String message=errorMap.get(field);
@@ -38,9 +42,16 @@ public abstract class BaseController {
 				}
 			}
 			response.setError(errorMap);
-		}else{
-			response.setSuccess(true);
 		}
 		return response;
+	}
+	
+	/**
+	 * 处理表单验证的公共方法
+	 * @param result
+	 * @return
+	 */
+	protected FormResponse handleFormError(BindingResult result){
+		return handleFormError(null, result);
 	}
 }
