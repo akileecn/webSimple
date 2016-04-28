@@ -17,6 +17,7 @@ import cn.aki.dao.UserMapper;
 import cn.aki.entity.Permission;
 import cn.aki.entity.Role;
 import cn.aki.entity.User;
+import cn.aki.utils.Md5Utils;
 
 public class MyShiroRealm extends AuthorizingRealm{
 	@Autowired

@@ -19,10 +19,18 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->
 	<!-- 并相当于注册了RequestMappingHandlerMapping,RequestMappingHandlerAdapter,ExceptionHandlerExceptionResolver -->
-	<mvc:annotation-driven validator="validator"/>
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	            <property name="objectMapper">
+	            	<bean class="cn.aki.other.MyObjectMapper"/>
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
 	<!-- 简单controller -->
 	<mvc:view-controller path="/home" view-name="home"/>
-		  
+	
 	<!--
 		freemarker配置
 		freemarkerSettings属性为java.util.Properties,freemarkerVariables属性为java.util.Map,其他属性直接配

@@ -25,16 +25,13 @@ public class JobController {
 	private DictDataService dictDataService;
 	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
-	public String list(JobQueryForm form,Model model){
-		PageInfo<Job> page=jobService.getPage(form);
-		dictDataService.translate(page.getList());
-		model.addAttribute("page", page);
+	public String toList(JobQueryForm form,Model model){
 		return "job/list";
 	}
 	
 	@ResponseBody
 	@RequestMapping(path="/list",method=RequestMethod.POST)
-	public PageResponse<Job> listData(JobQueryForm form){
+	public PageResponse<Job> handleList(JobQueryForm form){
 		PageInfo<Job> page=jobService.getPage(form);
 		dictDataService.translate(page.getList());
 		PageResponse<Job> response=new PageResponse<Job>();
@@ -42,9 +39,16 @@ public class JobController {
 		return response;
 	}
 	
+	@RequestMapping(path="/detail",method=RequestMethod.GET)
+	public String toDetail(Integer id,Model model){
+		Job job=jobService.get(id);
+		model.addAttribute("job", job);
+		return "job/detail";
+	}
+	
 	@ResponseBody
-	@RequestMapping(path="/detail")
-	public Response<Job, Void> detail(Integer id,Model model){
+	@RequestMapping(path="/detail",method=RequestMethod.POST)
+	public Response<Job, Void> handleDetail(Integer id){
 		Response<Job, Void> response=new Response<Job, Void>();
 		Job job=jobService.get(id);
 		dictDataService.translate(job);

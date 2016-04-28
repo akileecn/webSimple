@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.aki.dao.UserMapper;
 import cn.aki.entity.User;
 import cn.aki.form.UserRegisterForm;
-import cn.aki.other.Md5Utils;
 import cn.aki.service.UserService;
+import cn.aki.utils.Md5Utils;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{

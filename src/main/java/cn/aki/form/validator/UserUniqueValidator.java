@@ -8,8 +8,8 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
 import cn.aki.entity.User;
-import cn.aki.other.SpringContextUtils;
 import cn.aki.service.UserService;
+import cn.aki.utils.SpringContextUtils;
 
 /**
  * 用户唯一字段验证

@@ -17,8 +17,8 @@ import org.springframework.web.context.ServletContextAware;
 
 import cn.aki.dao.DictDataMapper;
 import cn.aki.entity.DictData;
-import cn.aki.other.DateUtils;
 import cn.aki.service.DictDataService;
+import cn.aki.utils.DateUtils;
 
 @Lazy(false)
 @Service("dictDataService")
@@ -81,30 +81,30 @@ public class DictDataServiceImpl implements DictDataService,ServletContextAware,
 		for(Field field:fields){
 			//排除静态变量
 			if(!Modifier.isStatic(field.getModifiers())){
-					String fieldName=field.getName();
-					Object value;
-					try {
-						field.setAccessible(true);
-						value = field.get(obj);
-						if(value!=null){
-							Class<?> clazz=field.getType();
-							String translateName=null;
-							//时间格式
-							if(Date.class.isAssignableFrom(clazz)){
-								translateName=DateUtils.formatDate((Date)value);
-							//一般翻译
-							}else if(String.class.isAssignableFrom(clazz)){
-								if(codeNames==null||contains(codeNames, fieldName)){
-									translateName=getName(fieldName, (String)value);
-								}
-							}
-							if(translateName!=null){
-								translation.put(fieldName,translateName);
+				String fieldName=field.getName();
+				Object value;
+				try {
+					field.setAccessible(true);
+					value = field.get(obj);
+					if(value!=null){
+						Class<?> clazz=field.getType();
+						String translateName=null;
+						//时间格式
+						if(Date.class.isAssignableFrom(clazz)){
+							translateName=DateUtils.formatDate((Date)value);
+						//一般翻译
+						}else if(String.class.isAssignableFrom(clazz)){
+							if(codeNames==null||contains(codeNames, fieldName)){
+								translateName=getName(fieldName, (String)value);
 							}
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
+						if(translateName!=null){
+							translation.put(fieldName,translateName);
+						}
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

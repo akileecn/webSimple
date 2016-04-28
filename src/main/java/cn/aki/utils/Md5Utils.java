@@ -1,4 +1,4 @@
-package cn.aki.other;
+package cn.aki.utils;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 /**

@@ -1,6 +1,6 @@
 (function(jQuery){
 	//json转化为字符串
-	function toString(obj){
+	function _toString(obj){
 		if(obj==undefined||obj==null){
 			return "";
 		}
@@ -39,10 +39,10 @@
 		}
 		return text;
 	}
-	jQuery.toString=toString;
+	jQuery.toString=_toString;
 	
 	//模板替换
-	function template(html,data){
+	function _template(html,data){
 		return html.replace(/\%\{.+?\}/g,function(word){
 			var word=word.substring(2,word.length-1);
 			var keys=word.split(".");
@@ -56,9 +56,13 @@
 			return value;
 		});
 	}
-	jQuery.template=template;
-	jQuery.fn.template=function(data){
-		var html=$(this).html();
-		$(this).html(template(html,data));
+	jQuery.template=_template;
+	jQuery.fn.template=function(html,data){
+		//一个参数
+		if(html instanceof Object){
+			data=html;
+			html=$(this).html();
+		}
+		$(this).html(_template(html,data));
 	}
 }(window.$));

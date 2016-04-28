@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import cn.aki.entity.User;
-import cn.aki.other.Md5Utils;
 import cn.aki.response.FormResponse;
 import cn.aki.response.Response;
+import cn.aki.utils.Md5Utils;
 
 public class MyTest {
 	public static void main(String[] args) {
