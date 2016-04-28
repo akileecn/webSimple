@@ -106,6 +106,8 @@
 			<td>${job.name}</td>
 			<td>${job.t.workCity}</td>
 			<td>${(job.endDate?string('yyyy-MM-dd'))!""}</td>
+			<td>${dictMap['workCity'][job.workCity]}(${job.workCity})</td>
+			<td>${(job.endDime?string('yyyy-MM-dd'))!""}</td>
 			<td>${job.peopleNumber}</td>
 			<td></td>
 		</tr>
