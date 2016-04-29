@@ -1,56 +1,130 @@
 package cn.aki.test;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.commons.io.output.WriterOutputStream;
 
 import cn.aki.entity.Resume;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-
+/**
+ * 自动生成动态sql
+ * @author Aki
+ * 2016年4月30日 上午1:06:15
+ */
 public class CreateSql {
 	public static void main(String[] args)throws Exception {
-		new CreateSql().create(Resume.class);
-//		System.err.println(new CreateSql().parseClass(Resume.class));
+		CreateSql sql=CreateSql.newInstance(Resume.class);
+		sql.create(Type.insert);
+		sql.create(Type.update);
+		sql.create(Type.select);
 	}
 	
-	public void create(Class<?> clazz)throws Exception{
-		Configuration configuration=new Configuration(Configuration.VERSION_2_3_24);
+	private Class<?> clazz;
+	private static final Configuration CONFIGURATION;
+	static{
 		/*配置*/
-		final String tempatePath="D:/Workspace/mine/webSimple/src/main/webapp/WEB-INF/template";
-		configuration.setDirectoryForTemplateLoading(new File(tempatePath));
-		configuration.setDefaultEncoding("utf-8");
-		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		CONFIGURATION=new Configuration(Configuration.VERSION_2_3_24);
+		try {
+			CONFIGURATION.setDirectoryForTemplateLoading(new File(CreateSql.class.getResource("./").getPath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		CONFIGURATION.setDefaultEncoding("utf-8");
+		CONFIGURATION.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		//不记录，抛出来
-		configuration.setLogTemplateExceptions(false);
-		/*模版*/
-		Template template=configuration.getTemplate("sqlCreate.ftl");
-		template.process(parseClass(clazz), new OutputStreamWriter(System.out));
+		CONFIGURATION.setLogTemplateExceptions(false);
+	}
+	private CreateSql(Class<?> clazz){
+		this.clazz=clazz;
 	}
 	
-	private Map<String,Object> parseClass(Class<?> clazz){
-		Map<String,Object> result=new HashMap<String, Object>();
-		String className=clazz.getSimpleName();
-		result.put("table", toLower(className));
-		Field[] fields=clazz.getDeclaredFields();
-		Map<String,String> columns=new HashMap<String, String>();
-		for(Field field:fields){
-			if(isColumn(field)){
-				columns.put(toLower(field.getName()),field.getName());
-			}
+	/**
+	 * 创建实例
+	 * @param clazz
+	 * @return
+	 */
+	public static final CreateSql newInstance(Class<?> clazz){
+		return new CreateSql(clazz);
+	}
+	
+	//sql类型
+	public static enum Type{
+		insert,update,select
+	}
+	/**
+	 * 解析结果类型
+	 * @author Aki
+	 * 2016年4月30日 上午1:25:36
+	 */
+	public static class TableResult{
+		private String table;
+		private Map<String,String> columns;
+		public String getTable() {
+			return table;
 		}
-		result.put("columns", columns);
+		public void setTable(String table) {
+			this.table = table;
+		}
+		public Map<String, String> getColumns() {
+			return columns;
+		}
+		public void setColumns(Map<String, String> columns) {
+			this.columns = columns;
+		}
+	}
+
+	/**
+	 * 创建sql
+	 * @param type
+	 * @throws Exception
+	 */
+	public void create(Type type) throws Exception{
+		String tempalteName=null;
+		switch(type){
+			case insert:tempalteName="sqlInsert.ftl";break;
+			case update:tempalteName="sqlUpdate.ftl";break;
+			case select:tempalteName="sqlSelect.ftl";break;
+		}
+		if(tempalteName!=null){
+			Template template=CONFIGURATION.getTemplate(tempalteName);
+			template.process(parseClass(clazz), new OutputStreamWriter(System.out));	
+		}
+	}
+	
+	/**
+	 * 解析类
+	 * @param clazz
+	 * @return
+	 */
+	public TableResult parseClass(Class<?> clazz){
+		TableResult result=new TableResult();
+		Map<String,String> columns=parseFields(clazz);
+		String className=clazz.getSimpleName();
+		result.table=toLower(className);
+		result.columns=columns;
 		return result;
+	}
+	
+	//解析获得字段
+	private Map<String,String> parseFields(Class<?> clazz){
+		if(clazz==Object.class){
+			return new LinkedHashMap<String, String>();
+		}else{
+			Map<String,String> columns=parseFields(clazz.getSuperclass());
+			Field[] fields=clazz.getDeclaredFields();
+			for(Field field:fields){
+				if(isColumn(field)){
+					columns.put(toLower(field.getName()),field.getName());
+				}
+			}
+			return columns;
+		}
 	}
 	
 	//大写转"_"+小写
