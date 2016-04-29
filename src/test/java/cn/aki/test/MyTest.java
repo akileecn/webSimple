@@ -8,6 +8,7 @@ import org.junit.Test;
 import cn.aki.entity.User;
 import cn.aki.response.FormResponse;
 import cn.aki.response.Response;
+import cn.aki.utils.DateUtils;
 import cn.aki.utils.Md5Utils;
 
 public class MyTest {
@@ -47,5 +48,11 @@ public class MyTest {
 	public void test3(){
 		//对象是否为参数的同类或父类(接口)
 		System.err.println(Response.class.isAssignableFrom(FormResponse.class));
+	}
+	
+	@Test
+	public void test4(){
+		System.err.println("2016-04-29 11:55:50".length());
+		System.err.println(DateUtils.parse("2016-04-29"));
 	}
 }

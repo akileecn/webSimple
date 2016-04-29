@@ -16,9 +16,16 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="<@spring.url "/resources/jquery/jquery-1.12.3.js"/>"></script>
+	<script src="<@spring.url "/resources/jquery/jquery-1.12.3.min.js"/>"></script>
+	<#-- bootstrap日期插件 -->
+	<link href="<@spring.url "/resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
+	<script src="<@spring.url "/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"/>"></script>
+	<#-- 日期国际化 -->
+	<script src="<@spring.url "/resources/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"/>"></script>
 	<#-- 异步提交表单 -->
 	<script src="<@spring.url "/resources/jquery/jquery.form.js"/>"></script>
+	<#-- 自动填充表单 -->
+	<script src="<@spring.url "/resources/jquery/jquery.formautofill.min.js"/>"></script>
 	<#-- 公共方法 -->
 	<script src="<@spring.url "/resources/js/common.js"/>"></script>
 	<#nested>
@@ -29,7 +36,6 @@
 <#macro body>
 <body>
 	<#nested>
-	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<@spring.url "/resources/bootstrap-3.3.6/js/bootstrap.min.js"/>"></script>
 </body>

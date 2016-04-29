@@ -77,14 +77,10 @@
 <!-- 岗位列表 -->
 <div class="container">
 	<form id="myForm" action="<@spring.url "/job/list"/>" method="post">
-		<label for="workCity">工作地点:</label>
-		<@c.select name="workCity" value=form.workCity />
-		<label for="education">学历要求:</label>
-		<@c.select name="education" value=form.education />
-		<label for="publishDateType">发布时间:</label>
-		<@c.select name="publishDateType" value=form.publishDateType />
-		<label for="name">岗位名称:</label>
-		<input type="text" name="name"/>
+		<@c.select name="workCity" label="工作地点"/>
+		<@c.select name="education" label="学历要求"/>
+		<@c.select name="publishDateType" label="发布时间"/>
+		<@c.input type="text" name="name" label="岗位名称"/>
 		<input type="hidden" name="pageNum"/><!-- 页码 -->
 		<button type="submit" class="btn">搜索</button>
 	</form>

@@ -15,7 +15,11 @@ import cn.aki.response.PageResponse;
 import cn.aki.response.Response;
 import cn.aki.service.DictDataService;
 import cn.aki.service.JobService;
-
+/**
+ * 岗位
+ * @author aki
+ * 2016年4月29日 上午9:49:04
+ */
 @Controller
 @RequestMapping("/job")
 public class JobController {

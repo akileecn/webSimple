@@ -19,7 +19,7 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->
 	<!-- 并相当于注册了RequestMappingHandlerMapping,RequestMappingHandlerAdapter,ExceptionHandlerExceptionResolver -->
-	<mvc:annotation-driven validator="validator">
+	<mvc:annotation-driven validator="validator" conversion-service="conversionService">
 		<mvc:message-converters>
 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 	            <property name="objectMapper">
@@ -28,6 +28,18 @@
 	        </bean>
 	    </mvc:message-converters>
 	</mvc:annotation-driven>
+	
+	<!-- 参数类型转换 -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="cn.aki.converter.String2DateConverter"/>
+				<bean class="cn.aki.converter.String2StringConverter"/>
+				<bean class="cn.aki.converter.String2BooleanConverter"/>
+			</set>
+		</property>
+	</bean>
+	
 	<!-- 简单controller -->
 	<mvc:view-controller path="/home" view-name="home"/>
 	

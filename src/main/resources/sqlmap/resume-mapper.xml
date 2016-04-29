@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ResumeMapper">
+	<cache/>
+	<!-- 保存 -->
+	<insert id="save" parameterType="resume">
+		insert into resume(
+			,user_id,name,gender,birthday,nation
+			,height,weight,id_type,id_number,marriage
+			,politics_status,join_party_date,mobile,email,highest_education
+			,highest_degree,graduate_date,cee_province,cee_score,is_first_line
+			,arts_or_science,admission_order,emergency_contact,emergency_mobile,children_count
+			,is_relative_here,current_residence,family_residence,native_place,student_origin
+			,registered_residence,certificate,hobby,personality,create_time
+			,modify_time
+		)values(
+			,user_id,name,gender,birthday,nation
+			,height,weight,id_type,id_number,marriage
+			,politics_status,join_party_date,mobile,email,highest_education
+			,highest_degree,graduate_date,cee_province,cee_score,is_first_line
+			,arts_or_science,admission_order,emergency_contact,emergency_mobile,children_count
+			,is_relative_here,current_residence,family_residence,native_place,student_origin
+			,registered_residence,certificate,hobby,personality,create_time
+			,modify_time
+		)
+	</insert>
+</mapper>
