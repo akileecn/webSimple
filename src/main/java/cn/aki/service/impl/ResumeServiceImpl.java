@@ -12,8 +12,8 @@ public class ResumeServiceImpl implements ResumeService{
 	@Autowired
 	private ResumeMapper resumeMapper;
 	
-	public Resume get(Integer id) {
-		return resumeMapper.get(id);
+	public Resume get(Resume resume) {
+		return resumeMapper.get(resume);
 	}
 
 	public void update(Resume resume) {

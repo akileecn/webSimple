@@ -22,7 +22,7 @@ import freemarker.template.TemplateExceptionHandler;
 public class CreateSql {
 	public static void main(String[] args)throws Exception {
 		CreateSql sql=CreateSql.newInstance(Resume.class);
-		sql.create(Type.all);
+		sql.create();
 		System.err.println("done");
 	}
 	
@@ -46,7 +46,7 @@ public class CreateSql {
 	}
 	
 	private String createTargetPath(){
-		final String TARGET_DIR="D:/Workspace/mine/webSimple/src/main/resources/sqlmap/";
+		final String TARGET_DIR="D:/";
 		final String TARGET_SUFFIX="-mapper-auto.xml";
 		return TARGET_DIR+clazz.getSimpleName()+TARGET_SUFFIX;
 	}
@@ -97,21 +97,12 @@ public class CreateSql {
 	 * @param type
 	 * @throws Exception
 	 */
-	public void create(Type type) throws Exception{
-		String tempalteName=null;
-		switch(type){
-			case insert:tempalteName="sqlInsert.ftl";break;
-			case update:tempalteName="sqlUpdate.ftl";break;
-			case select:tempalteName="sqlSelect.ftl";break;
-			case all:tempalteName="mapper.ftl";break;
-		}
-		if(tempalteName!=null){
-			Template template=CONFIGURATION.getTemplate(tempalteName);
-			TableResult result=parseClass(clazz);
-			Writer out=new OutputStreamWriter(new FileOutputStream(createTargetPath()));
-			template.process(result, out);
-			out.close();
-		}
+	public void create() throws Exception{
+		Template template=CONFIGURATION.getTemplate("mapper.ftl");
+		TableResult result=parseClass(clazz);
+		Writer out=new OutputStreamWriter(new FileOutputStream(createTargetPath()));
+		template.process(result, out);
+		out.close();
 	}
 	
 	/**
@@ -123,7 +114,7 @@ public class CreateSql {
 		TableResult result=new TableResult();
 		Map<String,String> columns=parseFields(clazz);
 		String className=clazz.getSimpleName();
-		result.bean=className;
+		result.bean=Character.toLowerCase(className.charAt(0))+className.substring(1);
 		result.table=toLower(className);
 		result.columns=columns;
 		return result;

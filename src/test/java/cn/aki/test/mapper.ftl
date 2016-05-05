@@ -21,13 +21,7 @@
 	</sql>
 	
 	<!-- 获得 -->
-	<select id="get" parameterType="int" resultType="${bean}">
-		<include refid="selectSql"/>
-		where id=${r'#'}{id}
-	</select>
-	
-	<!-- 查询 -->
-	<select id="query" parameterType="${bean}" resultType="${bean}">
+	<select id="get" parameterType="${bean}" resultType="${bean}">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
@@ -63,11 +57,12 @@
 			</if>
 		</#list>
 		</set>
-		where id=${r'#'}{id}
+		<include refid="whereSql"/>
 	</update>
 	
 	<!-- 删除 -->
-	<delete id="delete" parameterType="int">
-		delete from ${table} where id=${r'#'}{id}
+	<delete id="delete" parameterType="${bean}">
+		delete from ${table}
+		<include refid="whereSql"/>
 	</delete>
 </mapper>

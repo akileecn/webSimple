@@ -29,7 +29,7 @@ public class UserUtils {
 		if(user!=null){
 			return user.getId();
 		}
-		return null;
+		return 0;
 	}
 	/**
 	 * 获得简历ID

@@ -49,8 +49,11 @@ public class ResumeController extends BaseController{
 	@RequestMapping(path="/detail/base",method=POST)
 	public Response<Resume, Void> handleDetail(Integer id){
 		Response<Resume, Void> response=new Response<Resume, Void>();
-		Resume resume=resumeService.get(id);
+		Resume condition=new Resume();
+		condition.setId(id);
+		Resume resume=resumeService.get(condition);
 		response.setData(resume);
 		return response;
 	}
+	
 }

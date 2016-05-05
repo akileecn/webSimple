@@ -16,6 +16,8 @@
 	<import resource="spring-shiro.xml"/>
 	<!-- quartz定时任务 -->
 	<import resource="spring-quartz.xml"/>
+	<!-- 切面 -->
+	<import resource="spring-aop.xml"/>
 	<!-- 其他 -->
 	<import resource="spring-others.xml"/>
 </beans>
