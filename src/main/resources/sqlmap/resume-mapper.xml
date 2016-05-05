@@ -1,27 +1,426 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.aki.dao.ResumeMapper">
-	<cache/>
+	<sql id="whereSql">
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="userId!=null">
+			and user_id=#{userId}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,create_time as createTime
+			,modify_time as modifyTime
+			,user_id as userId
+			,name
+			,gender
+			,birthday
+			,nation
+			,height
+			,weight
+			,id_type as idType
+			,id_number as idNumber
+			,marriage
+			,politics_status as politicsStatus
+			,join_party_date as joinPartyDate
+			,mobile
+			,email
+			,highest_education as highestEducation
+			,highest_degree as highestDegree
+			,graduate_date as graduateDate
+			,cee_province as ceeProvince
+			,cee_score as ceeScore
+			,is_first_line as isFirstLine
+			,arts_or_science as artsOrScience
+			,admission_order as admissionOrder
+			,emergency_contact as emergencyContact
+			,emergency_mobile as emergencyMobile
+			,children_count as childrenCount
+			,is_relative_here as isRelativeHere
+			,current_residence as currentResidence
+			,family_residence as familyResidence
+			,native_place as nativePlace
+			,student_origin as studentOrigin
+			,registered_residence as registeredResidence
+			,certificate
+			,hobby
+			,personality
+		from resume
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="int" resultType="Resume">
+		<include refid="selectSql"/>
+		where id=#{id}
+	</select>
+	
+	<!-- 获得用户的简历ID -->
+	<select id="getIdByUserId" parameterType="int" resultType="int">
+		select id
+		from resume
+		where user_id=#{userId}
+	</select>
+	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resume">
+	<insert id="save" parameterType="Resume">
 		insert into resume(
-			,user_id,name,gender,birthday,nation
-			,height,weight,id_type,id_number,marriage
-			,politics_status,join_party_date,mobile,email,highest_education
-			,highest_degree,graduate_date,cee_province,cee_score,is_first_line
-			,arts_or_science,admission_order,emergency_contact,emergency_mobile,children_count
-			,is_relative_here,current_residence,family_residence,native_place,student_origin
-			,registered_residence,certificate,hobby,personality,create_time
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="createTime!=null">
+			,create_time
+			</if>
+			<if test="modifyTime!=null">
 			,modify_time
+			</if>
+			<if test="userId!=null">
+			,user_id
+			</if>
+			<if test="name!=null">
+			,name
+			</if>
+			<if test="gender!=null">
+			,gender
+			</if>
+			<if test="birthday!=null">
+			,birthday
+			</if>
+			<if test="nation!=null">
+			,nation
+			</if>
+			<if test="height!=null">
+			,height
+			</if>
+			<if test="weight!=null">
+			,weight
+			</if>
+			<if test="idType!=null">
+			,id_type
+			</if>
+			<if test="idNumber!=null">
+			,id_number
+			</if>
+			<if test="marriage!=null">
+			,marriage
+			</if>
+			<if test="politicsStatus!=null">
+			,politics_status
+			</if>
+			<if test="joinPartyDate!=null">
+			,join_party_date
+			</if>
+			<if test="mobile!=null">
+			,mobile
+			</if>
+			<if test="email!=null">
+			,email
+			</if>
+			<if test="highestEducation!=null">
+			,highest_education
+			</if>
+			<if test="highestDegree!=null">
+			,highest_degree
+			</if>
+			<if test="graduateDate!=null">
+			,graduate_date
+			</if>
+			<if test="ceeProvince!=null">
+			,cee_province
+			</if>
+			<if test="ceeScore!=null">
+			,cee_score
+			</if>
+			<if test="isFirstLine!=null">
+			,is_first_line
+			</if>
+			<if test="artsOrScience!=null">
+			,arts_or_science
+			</if>
+			<if test="admissionOrder!=null">
+			,admission_order
+			</if>
+			<if test="emergencyContact!=null">
+			,emergency_contact
+			</if>
+			<if test="emergencyMobile!=null">
+			,emergency_mobile
+			</if>
+			<if test="childrenCount!=null">
+			,children_count
+			</if>
+			<if test="isRelativeHere!=null">
+			,is_relative_here
+			</if>
+			<if test="currentResidence!=null">
+			,current_residence
+			</if>
+			<if test="familyResidence!=null">
+			,family_residence
+			</if>
+			<if test="nativePlace!=null">
+			,native_place
+			</if>
+			<if test="studentOrigin!=null">
+			,student_origin
+			</if>
+			<if test="registeredResidence!=null">
+			,registered_residence
+			</if>
+			<if test="certificate!=null">
+			,certificate
+			</if>
+			<if test="hobby!=null">
+			,hobby
+			</if>
+			<if test="personality!=null">
+			,personality
+			</if>
+		</trim>
 		)values(
-			,user_id,name,gender,birthday,nation
-			,height,weight,id_type,id_number,marriage
-			,politics_status,join_party_date,mobile,email,highest_education
-			,highest_degree,graduate_date,cee_province,cee_score,is_first_line
-			,arts_or_science,admission_order,emergency_contact,emergency_mobile,children_count
-			,is_relative_here,current_residence,family_residence,native_place,student_origin
-			,registered_residence,certificate,hobby,personality,create_time
-			,modify_time
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="createTime!=null">
+			,#{createTime}
+			</if>
+			<if test="modifyTime!=null">
+			,#{modifyTime}
+			</if>
+			<if test="userId!=null">
+			,#{userId}
+			</if>
+			<if test="name!=null">
+			,#{name}
+			</if>
+			<if test="gender!=null">
+			,#{gender}
+			</if>
+			<if test="birthday!=null">
+			,#{birthday}
+			</if>
+			<if test="nation!=null">
+			,#{nation}
+			</if>
+			<if test="height!=null">
+			,#{height}
+			</if>
+			<if test="weight!=null">
+			,#{weight}
+			</if>
+			<if test="idType!=null">
+			,#{idType}
+			</if>
+			<if test="idNumber!=null">
+			,#{idNumber}
+			</if>
+			<if test="marriage!=null">
+			,#{marriage}
+			</if>
+			<if test="politicsStatus!=null">
+			,#{politicsStatus}
+			</if>
+			<if test="joinPartyDate!=null">
+			,#{joinPartyDate}
+			</if>
+			<if test="mobile!=null">
+			,#{mobile}
+			</if>
+			<if test="email!=null">
+			,#{email}
+			</if>
+			<if test="highestEducation!=null">
+			,#{highestEducation}
+			</if>
+			<if test="highestDegree!=null">
+			,#{highestDegree}
+			</if>
+			<if test="graduateDate!=null">
+			,#{graduateDate}
+			</if>
+			<if test="ceeProvince!=null">
+			,#{ceeProvince}
+			</if>
+			<if test="ceeScore!=null">
+			,#{ceeScore}
+			</if>
+			<if test="isFirstLine!=null">
+			,#{isFirstLine}
+			</if>
+			<if test="artsOrScience!=null">
+			,#{artsOrScience}
+			</if>
+			<if test="admissionOrder!=null">
+			,#{admissionOrder}
+			</if>
+			<if test="emergencyContact!=null">
+			,#{emergencyContact}
+			</if>
+			<if test="emergencyMobile!=null">
+			,#{emergencyMobile}
+			</if>
+			<if test="childrenCount!=null">
+			,#{childrenCount}
+			</if>
+			<if test="isRelativeHere!=null">
+			,#{isRelativeHere}
+			</if>
+			<if test="currentResidence!=null">
+			,#{currentResidence}
+			</if>
+			<if test="familyResidence!=null">
+			,#{familyResidence}
+			</if>
+			<if test="nativePlace!=null">
+			,#{nativePlace}
+			</if>
+			<if test="studentOrigin!=null">
+			,#{studentOrigin}
+			</if>
+			<if test="registeredResidence!=null">
+			,#{registeredResidence}
+			</if>
+			<if test="certificate!=null">
+			,#{certificate}
+			</if>
+			<if test="hobby!=null">
+			,#{hobby}
+			</if>
+			<if test="personality!=null">
+			,#{personality}
+			</if>
+		</trim>
 		)
 	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="Resume">
+		update resume
+		<set>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="createTime!=null">
+			,create_time=#{createTime}
+			</if>
+			<if test="modifyTime!=null">
+			,modify_time=#{modifyTime}
+			</if>
+			<if test="userId!=null">
+			,user_id=#{userId}
+			</if>
+			<if test="name!=null">
+			,name=#{name}
+			</if>
+			<if test="gender!=null">
+			,gender=#{gender}
+			</if>
+			<if test="birthday!=null">
+			,birthday=#{birthday}
+			</if>
+			<if test="nation!=null">
+			,nation=#{nation}
+			</if>
+			<if test="height!=null">
+			,height=#{height}
+			</if>
+			<if test="weight!=null">
+			,weight=#{weight}
+			</if>
+			<if test="idType!=null">
+			,id_type=#{idType}
+			</if>
+			<if test="idNumber!=null">
+			,id_number=#{idNumber}
+			</if>
+			<if test="marriage!=null">
+			,marriage=#{marriage}
+			</if>
+			<if test="politicsStatus!=null">
+			,politics_status=#{politicsStatus}
+			</if>
+			<if test="joinPartyDate!=null">
+			,join_party_date=#{joinPartyDate}
+			</if>
+			<if test="mobile!=null">
+			,mobile=#{mobile}
+			</if>
+			<if test="email!=null">
+			,email=#{email}
+			</if>
+			<if test="highestEducation!=null">
+			,highest_education=#{highestEducation}
+			</if>
+			<if test="highestDegree!=null">
+			,highest_degree=#{highestDegree}
+			</if>
+			<if test="graduateDate!=null">
+			,graduate_date=#{graduateDate}
+			</if>
+			<if test="ceeProvince!=null">
+			,cee_province=#{ceeProvince}
+			</if>
+			<if test="ceeScore!=null">
+			,cee_score=#{ceeScore}
+			</if>
+			<if test="isFirstLine!=null">
+			,is_first_line=#{isFirstLine}
+			</if>
+			<if test="artsOrScience!=null">
+			,arts_or_science=#{artsOrScience}
+			</if>
+			<if test="admissionOrder!=null">
+			,admission_order=#{admissionOrder}
+			</if>
+			<if test="emergencyContact!=null">
+			,emergency_contact=#{emergencyContact}
+			</if>
+			<if test="emergencyMobile!=null">
+			,emergency_mobile=#{emergencyMobile}
+			</if>
+			<if test="childrenCount!=null">
+			,children_count=#{childrenCount}
+			</if>
+			<if test="isRelativeHere!=null">
+			,is_relative_here=#{isRelativeHere}
+			</if>
+			<if test="currentResidence!=null">
+			,current_residence=#{currentResidence}
+			</if>
+			<if test="familyResidence!=null">
+			,family_residence=#{familyResidence}
+			</if>
+			<if test="nativePlace!=null">
+			,native_place=#{nativePlace}
+			</if>
+			<if test="studentOrigin!=null">
+			,student_origin=#{studentOrigin}
+			</if>
+			<if test="registeredResidence!=null">
+			,registered_residence=#{registeredResidence}
+			</if>
+			<if test="certificate!=null">
+			,certificate=#{certificate}
+			</if>
+			<if test="hobby!=null">
+			,hobby=#{hobby}
+			</if>
+			<if test="personality!=null">
+			,personality=#{personality}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="int">
+		delete from resume where id=#{id}
+	</delete>
 </mapper>

@@ -1,5 +1,6 @@
 package cn.aki.other;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -9,19 +10,25 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import cn.aki.dao.ResumeMapper;
 import cn.aki.dao.UserMapper;
 import cn.aki.entity.Permission;
 import cn.aki.entity.Role;
 import cn.aki.entity.User;
 import cn.aki.utils.Md5Utils;
+import cn.aki.utils.UserUtils;
 
 public class MyShiroRealm extends AuthorizingRealm{
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private ResumeMapper resumeMapper;
 	/**
 	 * 授权
 	 */
@@ -59,7 +66,14 @@ public class MyShiroRealm extends AuthorizingRealm{
 				String tokenPassword=new String((char[]) token.getCredentials());
 				String password=user.getPassword();
 				if(Md5Utils.isEncrypted(tokenPassword, password)){
-					return new SimpleAuthenticationInfo(username, token.getCredentials(), getName());
+					AuthenticationInfo info=new SimpleAuthenticationInfo(username, token.getCredentials(), getName());
+					//添加额外用户信息
+					Subject subject=SecurityUtils.getSubject();
+					Session session=subject.getSession();
+					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_USER, user);
+					Integer resumeId=resumeMapper.getIdByUserId(user.getId());
+					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_RESUME_ID, resumeId);
+					return info;
 				}else{
 					throw new IncorrectCredentialsException();
 				}

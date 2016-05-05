@@ -13,7 +13,7 @@ import cn.aki.utils.Md5Utils;
 
 public class MyTest {
 	public static void main(String[] args) {
-		System.err.println(Md5Utils.encrypt("123456"));
+		System.err.println(Md5Utils.encrypt("123qwe"));
 		System.err.println(Md5Utils.isEncrypted("123456", "6a15a216fc555826c06f8e0cd8ef141d"));
 	}
 	

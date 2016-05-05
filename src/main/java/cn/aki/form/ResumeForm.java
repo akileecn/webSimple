@@ -99,8 +99,8 @@ public class ResumeForm extends Resume{
 	public Integer getChildrenCount() {
 		return super.getChildrenCount();
 	}
-	public Boolean getIsEelativeHere() {
-		return super.getIsEelativeHere();
+	public Boolean getIsRelativeHere() {
+		return super.getIsRelativeHere();
 	}
 	@Size(max=100)
 	public String getCurrentResidence() {

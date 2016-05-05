@@ -1,8 +1,10 @@
 package cn.aki.test;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -20,9 +22,8 @@ import freemarker.template.TemplateExceptionHandler;
 public class CreateSql {
 	public static void main(String[] args)throws Exception {
 		CreateSql sql=CreateSql.newInstance(Resume.class);
-		sql.create(Type.insert);
-		sql.create(Type.update);
-		sql.create(Type.select);
+		sql.create(Type.all);
+		System.err.println("done");
 	}
 	
 	private Class<?> clazz;
@@ -44,6 +45,11 @@ public class CreateSql {
 		this.clazz=clazz;
 	}
 	
+	private String createTargetPath(){
+		final String TARGET_DIR="D:/Workspace/mine/webSimple/src/main/resources/sqlmap/";
+		final String TARGET_SUFFIX="-mapper-auto.xml";
+		return TARGET_DIR+clazz.getSimpleName()+TARGET_SUFFIX;
+	}
 	/**
 	 * 创建实例
 	 * @param clazz
@@ -55,7 +61,7 @@ public class CreateSql {
 	
 	//sql类型
 	public static enum Type{
-		insert,update,select
+		insert,update,select,all
 	}
 	/**
 	 * 解析结果类型
@@ -63,13 +69,20 @@ public class CreateSql {
 	 * 2016年4月30日 上午1:25:36
 	 */
 	public static class TableResult{
-		private String table;
-		private Map<String,String> columns;
+		private String table;//表名
+		private String bean;//实体名
+		private Map<String,String> columns;//列名 属性名键值对
 		public String getTable() {
 			return table;
 		}
 		public void setTable(String table) {
 			this.table = table;
+		}
+		public String getBean() {
+			return bean;
+		}
+		public void setBean(String bean) {
+			this.bean = bean;
 		}
 		public Map<String, String> getColumns() {
 			return columns;
@@ -90,10 +103,14 @@ public class CreateSql {
 			case insert:tempalteName="sqlInsert.ftl";break;
 			case update:tempalteName="sqlUpdate.ftl";break;
 			case select:tempalteName="sqlSelect.ftl";break;
+			case all:tempalteName="mapper.ftl";break;
 		}
 		if(tempalteName!=null){
 			Template template=CONFIGURATION.getTemplate(tempalteName);
-			template.process(parseClass(clazz), new OutputStreamWriter(System.out));	
+			TableResult result=parseClass(clazz);
+			Writer out=new OutputStreamWriter(new FileOutputStream(createTargetPath()));
+			template.process(result, out);
+			out.close();
 		}
 	}
 	
@@ -106,6 +123,7 @@ public class CreateSql {
 		TableResult result=new TableResult();
 		Map<String,String> columns=parseFields(clazz);
 		String className=clazz.getSimpleName();
+		result.bean=className;
 		result.table=toLower(className);
 		result.columns=columns;
 		return result;

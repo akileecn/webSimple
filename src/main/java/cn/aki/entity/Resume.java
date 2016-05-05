@@ -37,7 +37,7 @@ public class Resume extends BaseTimeEntity{
 	private String emergencyContact;	//,emergency_contact varchar(32) -- 紧急联系人
 	private String emergencyMobile;		//,emergency_mobile varchar(32) -- 紧急联系人电话
 	private Integer childrenCount;		//,children_count int -- 子女
-	private Boolean isEelativeHere;		//,is_relative_here tinyint -- 是否有亲友受雇与本公司
+	private Boolean isRelativeHere;		//,is_relative_here tinyint -- 是否有亲友受雇与本公司
 	private String currentResidence;	//,current_residence varchar(100) -- 现居住地址
 	private String familyResidence;		//,family_residence varchar(100) -- 家庭住址
 	private String nativePlace;			//,native_place varchar(100) -- 籍贯
@@ -204,11 +204,11 @@ public class Resume extends BaseTimeEntity{
 	public void setChildrenCount(Integer childrenCount) {
 		this.childrenCount = childrenCount;
 	}
-	public Boolean getIsEelativeHere() {
-		return isEelativeHere;
+	public Boolean getIsRelativeHere() {
+		return isRelativeHere;
 	}
-	public void setIsEelativeHere(Boolean isEelativeHere) {
-		this.isEelativeHere = isEelativeHere;
+	public void setIsRelativeHere(Boolean isRelativeHere) {
+		this.isRelativeHere = isRelativeHere;
 	}
 	public String getCurrentResidence() {
 		return currentResidence;

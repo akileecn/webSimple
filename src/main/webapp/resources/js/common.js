@@ -29,10 +29,10 @@
 			var isFirst=true;
 			for(var key in obj){
 				if(isFirst){
-					text+="\""+key+"\":"+toString(obj[key]);
+					text+="\""+key+"\":"+_toString(obj[key]);
 					isFirst=false;
 				}else{
-					text+=",\""+key+"\":"+toString(obj[key]);
+					text+=",\""+key+"\":"+_toString(obj[key]);
 				}
 			}
 			text+="}";

@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import cn.aki.entity.Resume;
 import cn.aki.entity.User;
 import cn.aki.form.validator.IdNumber;
 import cn.aki.form.validator.UserUnique;
@@ -47,6 +48,18 @@ public class UserRegisterForm {
 		user.setQuestion(question);
 		user.setAnswer(answer);
 		return user;
+	}
+	
+	/**
+	 * 创建简历
+	 * @return
+	 */
+	public Resume createResume(){
+		Resume resume=new Resume();
+		resume.setEmail(email);
+		resume.setIdNumber(idNumber);
+		resume.setMobile(mobile);
+		return resume;
 	}
 	
 	public String getEmail() {
