@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.aki.dao.ResumeAwardMapper">
+<mapper namespace="cn.aki.dao.ResumeFamilyMapper">
 	<cache/>
 	<sql id="whereSql">
 		<where>
 			<if test="id!=null">
 			id=#{id}
 			</if>
-			<if test="remsumeId!=null">
-			and remsume_id=#{remsumeId}
+			<if test="remsume_id!=null">
+			and remsume_id=#{remsume_id}
 			</if>
 		</where>
 	</sql>
@@ -16,44 +16,48 @@
 	<sql id="selectSql">
 		select
 			id
-			,remsume_id as remsumeId
+			,remsume_id
 			,name
-			,time
-			,level
+			,relationship
+			,work_company as workCompany
+			,work_job as workJob
 			,description
-		from resume_award
+		from resume_family
 	</sql>
 	
 	<!-- 获得 -->
-	<select id="get" parameterType="resumeAward" resultType="resumeAward">
+	<select id="get" parameterType="resumeFamily" resultType="resumeFamily">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="resumeAward" resultType="resumeAward">
+	<select id="getList" parameterType="resumeFamily" resultType="resumeFamily">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resumeAward">
-		insert into resume_award(
+	<insert id="save" parameterType="resumeFamily">
+		insert into resume_family(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
 			</if>
-			<if test="remsumeId!=null">
+			<if test="remsume_id!=null">
 			,remsume_id
 			</if>
 			<if test="name!=null">
 			,name
 			</if>
-			<if test="time!=null">
-			,time
+			<if test="relationship!=null">
+			,relationship
 			</if>
-			<if test="level!=null">
-			,level
+			<if test="workCompany!=null">
+			,work_company
+			</if>
+			<if test="workJob!=null">
+			,work_job
 			</if>
 			<if test="description!=null">
 			,description
@@ -64,17 +68,20 @@
 			<if test="id!=null">
 			#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,#{remsumeId}
+			<if test="remsume_id!=null">
+			,#{remsume_id}
 			</if>
 			<if test="name!=null">
 			,#{name}
 			</if>
-			<if test="time!=null">
-			,#{time}
+			<if test="relationship!=null">
+			,#{relationship}
 			</if>
-			<if test="level!=null">
-			,#{level}
+			<if test="workCompany!=null">
+			,#{workCompany}
+			</if>
+			<if test="workJob!=null">
+			,#{workJob}
 			</if>
 			<if test="description!=null">
 			,#{description}
@@ -84,23 +91,26 @@
 	</insert>
 	
 	<!-- 更新 -->
-	<update id="update" parameterType="resumeAward">
-		update resume_award
+	<update id="update" parameterType="resumeFamily">
+		update resume_family
 		<set>
 			<if test="id!=null">
 			id=#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,remsume_id=#{remsumeId}
+			<if test="remsume_id!=null">
+			,remsume_id=#{remsume_id}
 			</if>
 			<if test="name!=null">
 			,name=#{name}
 			</if>
-			<if test="time!=null">
-			,time=#{time}
+			<if test="relationship!=null">
+			,relationship=#{relationship}
 			</if>
-			<if test="level!=null">
-			,level=#{level}
+			<if test="workCompany!=null">
+			,work_company=#{workCompany}
+			</if>
+			<if test="workJob!=null">
+			,work_job=#{workJob}
 			</if>
 			<if test="description!=null">
 			,description=#{description}
@@ -110,8 +120,8 @@
 	</update>
 	
 	<!-- 删除 -->
-	<delete id="delete" parameterType="resumeAward">
-		delete from resume_award
+	<delete id="delete" parameterType="resumeFamily">
+		delete from resume_family
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

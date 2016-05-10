@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ResumeEducationMapper">
+	<cache/>
+	<sql id="whereSql">
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			and remsume_id=#{remsumeId}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,remsume_id as remsumeId
+			,school_name as schoolName
+			,major
+			,graduate_type as graduateType
+			,degree
+			,education
+			,learn_type as learnType
+			,begin_date as beginDate
+			,end_date as endDate
+			,school_type as schoolType
+			,has_been_cadre as hasBeenCadre
+			,grade_rank as gradeRank
+		from resume_education
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="resumeEducation" resultType="resumeEducation">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="resumeEducation" resultType="resumeEducation">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="resumeEducation">
+		insert into resume_education(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id
+			</if>
+			<if test="schoolName!=null">
+			,school_name
+			</if>
+			<if test="major!=null">
+			,major
+			</if>
+			<if test="graduateType!=null">
+			,graduate_type
+			</if>
+			<if test="degree!=null">
+			,degree
+			</if>
+			<if test="education!=null">
+			,education
+			</if>
+			<if test="learnType!=null">
+			,learn_type
+			</if>
+			<if test="beginDate!=null">
+			,begin_date
+			</if>
+			<if test="endDate!=null">
+			,end_date
+			</if>
+			<if test="schoolType!=null">
+			,school_type
+			</if>
+			<if test="hasBeenCadre!=null">
+			,has_been_cadre
+			</if>
+			<if test="gradeRank!=null">
+			,grade_rank
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,#{remsumeId}
+			</if>
+			<if test="schoolName!=null">
+			,#{schoolName}
+			</if>
+			<if test="major!=null">
+			,#{major}
+			</if>
+			<if test="graduateType!=null">
+			,#{graduateType}
+			</if>
+			<if test="degree!=null">
+			,#{degree}
+			</if>
+			<if test="education!=null">
+			,#{education}
+			</if>
+			<if test="learnType!=null">
+			,#{learnType}
+			</if>
+			<if test="beginDate!=null">
+			,#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			,#{endDate}
+			</if>
+			<if test="schoolType!=null">
+			,#{schoolType}
+			</if>
+			<if test="hasBeenCadre!=null">
+			,#{hasBeenCadre}
+			</if>
+			<if test="gradeRank!=null">
+			,#{gradeRank}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="resumeEducation">
+		update resume_education
+		<set>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id=#{remsumeId}
+			</if>
+			<if test="schoolName!=null">
+			,school_name=#{schoolName}
+			</if>
+			<if test="major!=null">
+			,major=#{major}
+			</if>
+			<if test="graduateType!=null">
+			,graduate_type=#{graduateType}
+			</if>
+			<if test="degree!=null">
+			,degree=#{degree}
+			</if>
+			<if test="education!=null">
+			,education=#{education}
+			</if>
+			<if test="learnType!=null">
+			,learn_type=#{learnType}
+			</if>
+			<if test="beginDate!=null">
+			,begin_date=#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			,end_date=#{endDate}
+			</if>
+			<if test="schoolType!=null">
+			,school_type=#{schoolType}
+			</if>
+			<if test="hasBeenCadre!=null">
+			,has_been_cadre=#{hasBeenCadre}
+			</if>
+			<if test="gradeRank!=null">
+			,grade_rank=#{gradeRank}
+			</if>
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="resumeEducation">
+		delete from resume_education
+		<include refid="whereSql"/>
+	</delete>
+</mapper>

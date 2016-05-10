@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ResumeWorkMapper">
+	<cache/>
+	<sql id="whereSql">
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			and remsume_id=#{remsumeId}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,remsume_id as remsumeId
+			,company
+			,department
+			,annual_salary as annualSalary
+			,job
+			,certifier
+			,certifier_mobile as certifierMobile
+			,work_place as workPlace
+			,job_type as jobType
+			,industry
+			,begin_date as beginDate
+			,end_date as endDate
+			,dimission_reason as dimissionReason
+			,duty
+			,performance
+		from resume_work
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="resumeWork" resultType="resumeWork">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="resumeWork" resultType="resumeWork">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="resumeWork">
+		insert into resume_work(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id
+			</if>
+			<if test="company!=null">
+			,company
+			</if>
+			<if test="department!=null">
+			,department
+			</if>
+			<if test="annualSalary!=null">
+			,annual_salary
+			</if>
+			<if test="job!=null">
+			,job
+			</if>
+			<if test="certifier!=null">
+			,certifier
+			</if>
+			<if test="certifierMobile!=null">
+			,certifier_mobile
+			</if>
+			<if test="workPlace!=null">
+			,work_place
+			</if>
+			<if test="jobType!=null">
+			,job_type
+			</if>
+			<if test="industry!=null">
+			,industry
+			</if>
+			<if test="beginDate!=null">
+			,begin_date
+			</if>
+			<if test="endDate!=null">
+			,end_date
+			</if>
+			<if test="dimissionReason!=null">
+			,dimission_reason
+			</if>
+			<if test="duty!=null">
+			,duty
+			</if>
+			<if test="performance!=null">
+			,performance
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,#{remsumeId}
+			</if>
+			<if test="company!=null">
+			,#{company}
+			</if>
+			<if test="department!=null">
+			,#{department}
+			</if>
+			<if test="annualSalary!=null">
+			,#{annualSalary}
+			</if>
+			<if test="job!=null">
+			,#{job}
+			</if>
+			<if test="certifier!=null">
+			,#{certifier}
+			</if>
+			<if test="certifierMobile!=null">
+			,#{certifierMobile}
+			</if>
+			<if test="workPlace!=null">
+			,#{workPlace}
+			</if>
+			<if test="jobType!=null">
+			,#{jobType}
+			</if>
+			<if test="industry!=null">
+			,#{industry}
+			</if>
+			<if test="beginDate!=null">
+			,#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			,#{endDate}
+			</if>
+			<if test="dimissionReason!=null">
+			,#{dimissionReason}
+			</if>
+			<if test="duty!=null">
+			,#{duty}
+			</if>
+			<if test="performance!=null">
+			,#{performance}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="resumeWork">
+		update resume_work
+		<set>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id=#{remsumeId}
+			</if>
+			<if test="company!=null">
+			,company=#{company}
+			</if>
+			<if test="department!=null">
+			,department=#{department}
+			</if>
+			<if test="annualSalary!=null">
+			,annual_salary=#{annualSalary}
+			</if>
+			<if test="job!=null">
+			,job=#{job}
+			</if>
+			<if test="certifier!=null">
+			,certifier=#{certifier}
+			</if>
+			<if test="certifierMobile!=null">
+			,certifier_mobile=#{certifierMobile}
+			</if>
+			<if test="workPlace!=null">
+			,work_place=#{workPlace}
+			</if>
+			<if test="jobType!=null">
+			,job_type=#{jobType}
+			</if>
+			<if test="industry!=null">
+			,industry=#{industry}
+			</if>
+			<if test="beginDate!=null">
+			,begin_date=#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			,end_date=#{endDate}
+			</if>
+			<if test="dimissionReason!=null">
+			,dimission_reason=#{dimissionReason}
+			</if>
+			<if test="duty!=null">
+			,duty=#{duty}
+			</if>
+			<if test="performance!=null">
+			,performance=#{performance}
+			</if>
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="resumeWork">
+		delete from resume_work
+		<include refid="whereSql"/>
+	</delete>
+</mapper>
