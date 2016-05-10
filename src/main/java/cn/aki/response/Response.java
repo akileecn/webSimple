@@ -6,7 +6,7 @@ package cn.aki.response;
  * @param <T>
  * @param <E>
  */
-public class Response<T, E>{
+public abstract class Response<T, E>{
 	protected T data;//返回数据
 	protected E error;//错误信息
 	

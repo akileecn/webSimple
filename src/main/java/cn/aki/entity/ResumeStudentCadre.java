@@ -3,13 +3,14 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.BaseEntity;
+import cn.aki.entity.base.ResumeSub;
 
 /**
  * 学生干部经历
  * @author aki
  * 2016年4月21日 下午7:21:42
  */
-public class ResumeStudentCadre extends BaseEntity{
+public class ResumeStudentCadre extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = 875804192695265860L;
 	private Integer remsumeId;		//,remsume_id int not null
 	private Date beginDate;			//,begin_date datetime -- 开始时间

@@ -3,13 +3,14 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.BaseEntity;
+import cn.aki.entity.base.ResumeSub;
 
 /**
  * 获奖经历
  * @author aki
  * 2016年4月21日 下午7:21:15
  */
-public class ResumeAward extends BaseEntity{
+public class ResumeAward extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = 2140345429528353456L;
 	private Integer remsumeId;	//,remsume_id int not null
 	private String name;		//,name varchar(32) -- 奖励名称

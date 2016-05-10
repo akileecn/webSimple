@@ -11,8 +11,8 @@ import com.github.pagehelper.PageInfo;
 
 import cn.aki.entity.Job;
 import cn.aki.form.JobQueryForm;
+import cn.aki.response.DataResponse;
 import cn.aki.response.PageResponse;
-import cn.aki.response.Response;
 import cn.aki.service.DictDataService;
 import cn.aki.service.JobService;
 /**
@@ -52,8 +52,8 @@ public class JobController {
 	
 	@ResponseBody
 	@RequestMapping(path="/detail",method=RequestMethod.POST)
-	public Response<Job, Void> handleDetail(Integer id){
-		Response<Job, Void> response=new Response<Job, Void>();
+	public DataResponse<Job> handleDetail(Integer id){
+		DataResponse<Job> response=new DataResponse<Job>();
 		Job job=jobService.get(id);
 		dictDataService.translate(job);
 		response.setData(job);

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ResumeAwardMapper">
+	<cache/>
+	<sql id="whereSql">
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			and remsume_id=#{remsumeId}
+			</if>
+			<if test="name!=null">
+			and name=#{name}
+			</if>
+			<if test="time!=null">
+			and time=#{time}
+			</if>
+			<if test="level!=null">
+			and level=#{level}
+			</if>
+			<if test="description!=null">
+			and description=#{description}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,remsume_id as remsumeId
+			,name
+			,time
+			,level
+			,description
+		from resume_award
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="resumeAward" resultType="resumeAward">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="resumeAward" resultType="resumeAward">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="resumeAward">
+		insert into resume_award(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id
+			</if>
+			<if test="name!=null">
+			,name
+			</if>
+			<if test="time!=null">
+			,time
+			</if>
+			<if test="level!=null">
+			,level
+			</if>
+			<if test="description!=null">
+			,description
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,#{remsumeId}
+			</if>
+			<if test="name!=null">
+			,#{name}
+			</if>
+			<if test="time!=null">
+			,#{time}
+			</if>
+			<if test="level!=null">
+			,#{level}
+			</if>
+			<if test="description!=null">
+			,#{description}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="resumeAward">
+		update resume_award
+		<set>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="remsumeId!=null">
+			,remsume_id=#{remsumeId}
+			</if>
+			<if test="name!=null">
+			,name=#{name}
+			</if>
+			<if test="time!=null">
+			,time=#{time}
+			</if>
+			<if test="level!=null">
+			,level=#{level}
+			</if>
+			<if test="description!=null">
+			,description=#{description}
+			</if>
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="resumeAward">
+		delete from resume_award
+		<include refid="whereSql"/>
+	</delete>
+</mapper>

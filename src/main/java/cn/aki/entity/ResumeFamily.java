@@ -1,13 +1,14 @@
 package cn.aki.entity;
 
 import cn.aki.entity.base.BaseEntity;
+import cn.aki.entity.base.ResumeSub;
 
 /**
  * 家庭关系
  * @author aki
  * 2016年4月21日 下午7:21:30
  */
-public class ResumeFamily extends BaseEntity{
+public class ResumeFamily extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = 3688500831911368466L;
 	private Integer remsume_id;	//,remsume_id int not null
 	private String name;		//,name varchar(32) -- 名称

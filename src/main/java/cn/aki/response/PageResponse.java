@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
  * @author aki
  * 2016年4月28日 上午11:36:38
  */
-public class PageResponse<T> extends Response<PageInfo<T>, Void>{
+public class PageResponse<T> extends DataResponse<PageInfo<T>>{
 
 	@Override
 	public boolean isSuccess() {
