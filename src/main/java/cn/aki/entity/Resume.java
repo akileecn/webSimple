@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import cn.aki.entity.base.BaseTimeEntity;
+import cn.aki.entity.base.UserSub;
 
 /**
  * 简历主表
  * @author aki
  * 2016年4月19日 上午10:28:56
  */
-public class Resume extends BaseTimeEntity{
+public class Resume extends BaseTimeEntity implements UserSub{
 	private static final long serialVersionUID = -1238330598304598884L;
 	private Integer userId;				//,user_id int not null -- 用户ID
 	private String name;				//,name varchar(32)	

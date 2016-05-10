@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import cn.aki.entity.Resume;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -20,12 +19,6 @@ import freemarker.template.TemplateExceptionHandler;
  * 2016年4月30日 上午1:06:15
  */
 public class CreateSql {
-	public static void main(String[] args)throws Exception {
-		CreateSql sql=CreateSql.newInstance(Resume.class);
-		sql.create();
-		System.err.println("done");
-	}
-	
 	private Class<?> clazz;
 	private static final Configuration CONFIGURATION;
 	static{
@@ -43,12 +36,6 @@ public class CreateSql {
 	}
 	private CreateSql(Class<?> clazz){
 		this.clazz=clazz;
-	}
-	
-	private String createTargetPath(){
-		final String TARGET_DIR="D:/";
-		final String TARGET_SUFFIX="-mapper-auto.xml";
-		return TARGET_DIR+clazz.getSimpleName()+TARGET_SUFFIX;
 	}
 	/**
 	 * 创建实例
@@ -71,6 +58,7 @@ public class CreateSql {
 	public static class TableResult{
 		private String table;//表名
 		private String bean;//实体名
+		private String type;//类型
 		private Map<String,String> columns;//列名 属性名键值对
 		public String getTable() {
 			return table;
@@ -83,6 +71,12 @@ public class CreateSql {
 		}
 		public void setBean(String bean) {
 			this.bean = bean;
+		}
+		public String getType() {
+			return type;
+		}
+		public void setType(String type) {
+			this.type = type;
 		}
 		public Map<String, String> getColumns() {
 			return columns;
@@ -97,12 +91,21 @@ public class CreateSql {
 	 * @param type
 	 * @throws Exception
 	 */
-	public void create() throws Exception{
-		Template template=CONFIGURATION.getTemplate("mapper.ftl");
-		TableResult result=parseClass(clazz);
-		Writer out=new OutputStreamWriter(new FileOutputStream(createTargetPath()));
-		template.process(result, out);
-		out.close();
+	public void create(){
+		try {
+			Template template = CONFIGURATION.getTemplate("mapper.ftl");
+			TableResult result=parseClass(clazz);
+			Writer out=new OutputStreamWriter(new FileOutputStream("D:/"+result.bean+"-mapper.xml"));
+			template.process(result, out);
+			out.close();
+			Template template2=CONFIGURATION.getTemplate("dao.ftl");
+			Writer out2=new OutputStreamWriter(new FileOutputStream("D:/"+result.type+"Mapper.java"));
+			template2.process(result, out2);
+			out2.close();
+			System.err.println("done");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -114,6 +117,7 @@ public class CreateSql {
 		TableResult result=new TableResult();
 		Map<String,String> columns=parseFields(clazz);
 		String className=clazz.getSimpleName();
+		result.type=className;
 		result.bean=Character.toLowerCase(className.charAt(0))+className.substring(1);
 		result.table=toLower(className);
 		result.columns=columns;

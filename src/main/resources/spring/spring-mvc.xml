@@ -15,6 +15,8 @@
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 包扫描 -->
 	<context:component-scan base-package="cn.aki.controller"/>
+	<!-- aop -->
+	<aop:aspectj-autoproxy/>
 	<!-- 静态资源 -->	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->

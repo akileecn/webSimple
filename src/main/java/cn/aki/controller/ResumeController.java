@@ -3,6 +3,8 @@ package cn.aki.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.entity.Resume;
+import cn.aki.entity.ResumeAward;
 import cn.aki.form.ResumeForm;
+import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
-import cn.aki.response.Response;
 import cn.aki.service.ResumeService;
+import cn.aki.service.ResumeSubService;
 
 /**
  * 简历
@@ -28,6 +32,8 @@ import cn.aki.service.ResumeService;
 public class ResumeController extends BaseController{
 	@Autowired
 	private ResumeService resumeService;
+	@Autowired
+	private ResumeSubService resumeSubService;
 	
 	@RequestMapping(path="/detail",method=GET)
 	public String toDetail(Integer id,Model model){
@@ -46,14 +52,20 @@ public class ResumeController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(path="/detail/base",method=POST)
-	public Response<Resume, Void> handleDetail(Integer id){
-		Response<Resume, Void> response=new Response<Resume, Void>();
-		Resume condition=new Resume();
-		condition.setId(id);
-		Resume resume=resumeService.get(condition);
+	@RequestMapping(path="/detail/base")
+	public DataResponse<Resume> handleDetail(Resume resume){
+		DataResponse<Resume> response=new DataResponse<Resume>();
+		resume=resumeService.get(resume);
 		response.setData(resume);
 		return response;
 	}
 	
+	@ResponseBody
+	@RequestMapping(path="/detail/award")
+	public DataResponse<List<ResumeAward>> handleDetailAward(ResumeAward award){
+		DataResponse<List<ResumeAward>> response=new DataResponse<List<ResumeAward>>();
+		List<ResumeAward> list=resumeSubService.getList(award);
+		response.setData(list);
+		return response;
+	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.aki.dao.ResumeMapper">
+<mapper namespace="cn.aki.dao.${type}Mapper">
 	<cache/>
 	<sql id="whereSql">
 		<where>
@@ -22,6 +22,12 @@
 	
 	<!-- 获得 -->
 	<select id="get" parameterType="${bean}" resultType="${bean}">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="${bean}" resultType="${bean}">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>

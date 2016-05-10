@@ -3,13 +3,14 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.BaseEntity;
+import cn.aki.entity.base.ResumeSub;
 
 /**
  * 工作经历
  * @author aki
  * 2016年4月19日 上午11:09:44
  */
-public class ResumeWork extends BaseEntity{
+public class ResumeWork extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = -1752143847655142682L;
 	private Integer remsumeId;		//,remsume_id int not null
 	private String company;			//,company varchar(100)
