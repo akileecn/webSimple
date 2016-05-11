@@ -22,3 +22,9 @@
 <#if label??><label for="${name}">${label}:</label></#if>
 <input type="${type}" name="${name}" value="${value}" <#if attr??>${attr}</#if>/>
 </#macro>
+
+<#-- 文本 -->
+<#macro text label attr name="" value="">
+<#if label??><label for="${name}">${label}:</label></#if>
+<span <#if attr??>${attr}</#if>><#if value??>${value}<#else>%{${name}}</#if></span>
+</#macro>

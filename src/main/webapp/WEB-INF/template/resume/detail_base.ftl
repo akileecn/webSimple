@@ -28,13 +28,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//初始化时间插件
-		$(".form_datetime").datetimepicker({
-			format:"yyyy-mm-dd"
-			,minView:"month"
-			,language:"zh-CN"
-		});
+		$(".form_datetime").datetimepicker();
 	
-		$.post("<@spring.url "/resume/detail/base"/>",{"id":${id}},function(text){
+		$.post("<@spring.url "/resume/detail/base"/>",{"id":"${id}"},function(text){
 			if(text.success){
 				$("#baseForm").autofill(text.data);
 			}

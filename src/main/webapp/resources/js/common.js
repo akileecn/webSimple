@@ -65,4 +65,11 @@
 		}
 		$(this).html(_template(html,data));
 	}
+	
+	//设置时间插件的默认格式
+	jQuery.fn.datetimepicker.defaults={
+		format:"yyyy-mm-dd"
+		,minView:"month"
+		,language:"zh-CN"
+	}
 }(window.$));

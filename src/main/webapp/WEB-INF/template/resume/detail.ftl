@@ -3,4 +3,5 @@
 </@bootstrap.head>
 <@bootstrap.body>
 <#include "/resume/detail_base.ftl"/>
+<#include "/resume/detail_sub.ftl">
 </@bootstrap.body>
