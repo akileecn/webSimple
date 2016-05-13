@@ -7,7 +7,7 @@ import java.util.Map;
  * @author aki
  * 2016年4月26日 下午12:29:26
  */
-public class FormResponse extends Response<Void, Map<String, String>>{
+public class FormResponse extends Response<Integer, Map<String, String>>{
 
 	@Override
 	public boolean isSuccess() {

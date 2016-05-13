@@ -12,16 +12,17 @@ import cn.aki.entity.base.ResumeSub;
  */
 public class ResumeAward extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = 2140345429528353456L;
-	private Integer remsumeId;	//,remsume_id int not null
+	private Integer resumeId;	//,resume_id int not null
 	private String name;		//,name varchar(32) -- 奖励名称
 	private Date time;			//,time datetime -- 获得时间
 	private String level;		//,level varchar(32) -- 级别
 	private String description;	//,description varchar(500) -- 奖励描述
-	public Integer getRemsumeId() {
-		return remsumeId;
+	
+	public Integer getResumeId() {
+		return resumeId;
 	}
-	public void setRemsumeId(Integer remsumeId) {
-		this.remsumeId = remsumeId;
+	public void setResumeId(Integer resumeId) {
+		this.resumeId = resumeId;
 	}
 	public String getName() {
 		return name;

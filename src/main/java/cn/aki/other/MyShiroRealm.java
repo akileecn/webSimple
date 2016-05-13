@@ -1,5 +1,7 @@
 package cn.aki.other;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -71,8 +73,8 @@ public class MyShiroRealm extends AuthorizingRealm{
 					Subject subject=SecurityUtils.getSubject();
 					Session session=subject.getSession();
 					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_USER, user);
-					Integer resumeId=resumeMapper.getIdByUserId(user.getId());
-					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_RESUME_ID, resumeId);
+					List<Integer> resumeIds=resumeMapper.getIdByUserId(user.getId());
+					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_RESUME_IDS, resumeIds);
 					return info;
 				}else{
 					throw new IncorrectCredentialsException();

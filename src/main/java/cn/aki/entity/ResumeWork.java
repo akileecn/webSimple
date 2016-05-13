@@ -12,7 +12,7 @@ import cn.aki.entity.base.ResumeSub;
  */
 public class ResumeWork extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = -1752143847655142682L;
-	private Integer remsumeId;		//,remsume_id int not null
+	private Integer resumeId;		//,resume_id int not null
 	private String company;			//,company varchar(100)
 	private String department;		//,department varchar(32)
 	private String annualSalary;	//,annual_salary varchar(32) -- 年薪
@@ -27,11 +27,12 @@ public class ResumeWork extends BaseEntity implements ResumeSub{
 	private String dimissionReason;	//,dimission_reason varchar(500) -- 辞职理由
 	private String duty;			//,duty varchar(500) -- 职责
 	private String performance;		//,performance varchar(500) -- 业绩
-	public Integer getRemsumeId() {
-		return remsumeId;
+
+	public Integer getResumeId() {
+		return resumeId;
 	}
-	public void setRemsumeId(Integer remsumeId) {
-		this.remsumeId = remsumeId;
+	public void setResumeId(Integer resumeId) {
+		this.resumeId = resumeId;
 	}
 	public String getCompany() {
 		return company;

@@ -1,5 +1,7 @@
 package cn.aki.utils;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 
 import cn.aki.entity.User;
@@ -12,7 +14,7 @@ import cn.aki.entity.User;
 public class UserUtils {
 	//shiro session中的属性
 	public static final String SHIRO_SESSION_KEY_USER="user";//用户对象
-	public static final String SHIRO_SESSION_KEY_RESUME_ID="resumeId";//简历ID
+	public static final String SHIRO_SESSION_KEY_RESUME_IDS="resumeIds";//简历ID
 	/**
 	 * 获得用户
 	 * @return
@@ -32,10 +34,19 @@ public class UserUtils {
 		return 0;
 	}
 	/**
-	 * 获得简历ID
+	 * 使用拥有简历操作权限
 	 * @return
 	 */
-	public static Integer getResumeId(){
-		return (Integer)SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_RESUME_ID);
+	public static boolean hasResume(Integer resumeId){
+		@SuppressWarnings("unchecked")
+		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_RESUME_IDS);
+		if(ids!=null&&resumeId!=null){
+			for(Integer id:ids){
+				if(id.equals(resumeId)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -1,6 +1,6 @@
 <div class="container">
 	<div id="awardDiv"><div>
-	<button type="submit" class="btn" onclick="addTemplate('award','input');">添加</button>
+	<button type="submit" class="btn" onclick="addSub('award','input');">添加</button>
 </div>
 <script type="text/javascript">
 	Tempate.award={};
@@ -11,7 +11,7 @@
 			<@c.text name="level" label="级别"/>
 			<@c.text name="description" label="奖励描述"/><br/>
 			<button type="button" class="btn">编辑</button>
-			<button type="button" class="btn" oncl>删除</button>
+			<button type="button" class="btn" onclick="deleteSub(this);">删除</button>
 		</form>
 	</@compress>';
 	Tempate.award.input='<@compress single_line=true>
@@ -20,8 +20,8 @@
 			<@c.input type="text" name="time" label="获得时间" attr="class=\"form_datetime\""/><br/>
 			<@c.select name="level" label="级别"/>
 			<@c.input type="text" name="description" label="奖励描述"/><br/>
-			<button type="button" class="btn">保存</button>
-			<button type="button" class="btn" onclick="deleteTemplate(this);">删除</button>
+			<button type="button" class="btn" onclick="saveSub(\'award\',this)">保存</button>
+			<button type="button" class="btn" onclick="deleteSub(this);">删除</button>
 		</form>
 	</@compress>';
 </script>

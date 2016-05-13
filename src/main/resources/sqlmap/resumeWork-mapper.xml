@@ -7,8 +7,50 @@
 			<if test="id!=null">
 			id=#{id}
 			</if>
-			<if test="remsumeId!=null">
-			and remsume_id=#{remsumeId}
+			<if test="resumeId!=null">
+			and resume_id=#{resumeId}
+			</if>
+			<if test="company!=null">
+			and company=#{company}
+			</if>
+			<if test="department!=null">
+			and department=#{department}
+			</if>
+			<if test="annualSalary!=null">
+			and annual_salary=#{annualSalary}
+			</if>
+			<if test="job!=null">
+			and job=#{job}
+			</if>
+			<if test="certifier!=null">
+			and certifier=#{certifier}
+			</if>
+			<if test="certifierMobile!=null">
+			and certifier_mobile=#{certifierMobile}
+			</if>
+			<if test="workPlace!=null">
+			and work_place=#{workPlace}
+			</if>
+			<if test="jobType!=null">
+			and job_type=#{jobType}
+			</if>
+			<if test="industry!=null">
+			and industry=#{industry}
+			</if>
+			<if test="beginDate!=null">
+			and begin_date=#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			and end_date=#{endDate}
+			</if>
+			<if test="dimissionReason!=null">
+			and dimission_reason=#{dimissionReason}
+			</if>
+			<if test="duty!=null">
+			and duty=#{duty}
+			</if>
+			<if test="performance!=null">
+			and performance=#{performance}
 			</if>
 		</where>
 	</sql>
@@ -16,7 +58,7 @@
 	<sql id="selectSql">
 		select
 			id
-			,remsume_id as remsumeId
+			,resume_id as resumeId
 			,company
 			,department
 			,annual_salary as annualSalary
@@ -53,8 +95,8 @@
 			<if test="id!=null">
 			id
 			</if>
-			<if test="remsumeId!=null">
-			,remsume_id
+			<if test="resumeId!=null">
+			,resume_id
 			</if>
 			<if test="company!=null">
 			,company
@@ -104,8 +146,8 @@
 			<if test="id!=null">
 			#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,#{remsumeId}
+			<if test="resumeId!=null">
+			,#{resumeId}
 			</if>
 			<if test="company!=null">
 			,#{company}
@@ -160,8 +202,8 @@
 			<if test="id!=null">
 			id=#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,remsume_id=#{remsumeId}
+			<if test="resumeId!=null">
+			,resume_id=#{resumeId}
 			</if>
 			<if test="company!=null">
 			,company=#{company}

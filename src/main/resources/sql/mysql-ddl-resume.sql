@@ -42,7 +42,7 @@ create table resume(
 -- 教育经历
 create table resume_education(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,school_name varchar(32)
 	,major varchar(32)
 	,graduate_type varchar(32) -- 毕业方式
@@ -60,7 +60,7 @@ create table resume_education(
 外语信息
 create table resume_foreign_language(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,level varchar(32)
 	,score int
 	,speaking varchar(32) -- 口语
@@ -70,7 +70,7 @@ create table resume_foreign_language(
 计算机技能
 create table resume_computer(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,certificate varchar(32)
 	,obtain_date datetime
 	,level varchar(32)
@@ -81,7 +81,7 @@ create table resume_computer(
 -- 工作经历
 create table resume_work(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,company varchar(100)
 	,department varchar(32)
 	,annual_salary varchar(32) -- 年薪
@@ -102,7 +102,7 @@ create table resume_work(
 实践活动
 create table resume_practice(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,company varchar(100)
 	,begin_date datetime -- 开始时间
 	,end_date datetime -- 结束时间
@@ -114,7 +114,7 @@ create table resume_practice(
 -- 学生干部
 create table resume_student_cadre(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,begin_date datetime -- 开始时间
 	,end_date datetime -- 结束时间
 	,school varchar(32) -- 所在院校
@@ -127,7 +127,7 @@ create table resume_student_cadre(
 -- 获奖经历
 create table resume_award(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,name varchar(32) -- 奖励名称
 	,time datetime -- 获得时间
 	,level varchar(32) -- 级别
@@ -138,7 +138,7 @@ create table resume_award(
 培训经历
 create table resume_train(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,time varchar(32)
 	,company varchar(100) -- 培训机构
 	,place varchar(100) -- 培训地点
@@ -150,7 +150,7 @@ create table resume_train(
 -- 家庭关系
 create table resume_family(
 	id int primary key auto_increment
-	,remsume_id int not null
+	,resume_id int not null
 	,name varchar(32) -- 名称
 	,relationship varchar(32) -- 关系
 	,work_company varchar(100) -- 工作单位

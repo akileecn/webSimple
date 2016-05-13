@@ -4,19 +4,15 @@
 	<cache/>
 	<sql id="whereSql">
 		<where>
-			<if test="id!=null">
 			id=#{id}
-			</if>
-			<if test="remsumeId!=null">
-			and remsume_id=#{remsumeId}
-			</if>
+			and resume_id=#{resumeId}
 		</where>
 	</sql>
 	
 	<sql id="selectSql">
 		select
 			id
-			,remsume_id as remsumeId
+			,resume_id as resumeId
 			,name
 			,time
 			,level
@@ -43,8 +39,8 @@
 			<if test="id!=null">
 			id
 			</if>
-			<if test="remsumeId!=null">
-			,remsume_id
+			<if test="resumeId!=null">
+			,resume_id
 			</if>
 			<if test="name!=null">
 			,name
@@ -64,8 +60,8 @@
 			<if test="id!=null">
 			#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,#{remsumeId}
+			<if test="resumeId!=null">
+			,#{resumeId}
 			</if>
 			<if test="name!=null">
 			,#{name}
@@ -90,8 +86,8 @@
 			<if test="id!=null">
 			id=#{id}
 			</if>
-			<if test="remsumeId!=null">
-			,remsume_id=#{remsumeId}
+			<if test="resumeId!=null">
+			,resume_id=#{resumeId}
 			</if>
 			<if test="name!=null">
 			,name=#{name}

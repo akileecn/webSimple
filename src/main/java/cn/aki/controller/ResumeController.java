@@ -52,7 +52,7 @@ public class ResumeController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(path="/detail/base")
+	@RequestMapping(path="/detail/base",method=POST)
 	public DataResponse<Resume> handleDetail(Resume resume){
 		DataResponse<Resume> response=new DataResponse<Resume>();
 		resume=resumeService.get(resume);
@@ -66,6 +66,17 @@ public class ResumeController extends BaseController{
 		DataResponse<List<ResumeAward>> response=new DataResponse<List<ResumeAward>>();
 		List<ResumeAward> list=resumeSubService.getList(award);
 		response.setData(list);
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/save/award",method=POST)
+	public FormResponse saveAward(ResumeAward award,BindingResult result){
+		FormResponse response=handleFormError(result);
+		if(response.isSuccess()){
+			resumeSubService.save(award);
+			response.setData(award.getId());
+		}
 		return response;
 	}
 }

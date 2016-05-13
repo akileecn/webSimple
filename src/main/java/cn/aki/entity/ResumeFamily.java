@@ -10,17 +10,18 @@ import cn.aki.entity.base.ResumeSub;
  */
 public class ResumeFamily extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = 3688500831911368466L;
-	private Integer remsume_id;	//,remsume_id int not null
+	private Integer resumeId;	//,resume_id int not null
 	private String name;		//,name varchar(32) -- 名称
 	private String relationship;//,relationship varchar(32) -- 关系
 	private String workCompany;	//,work_company varchar(100) -- 工作单位
 	private String workJob;		//,work_job varchar(32) -- 职位
 	private String description;	//,description varchar(500) -- 说明
-	public Integer getRemsume_id() {
-		return remsume_id;
+	
+	public Integer getResumeId() {
+		return resumeId;
 	}
-	public void setRemsume_id(Integer remsume_id) {
-		this.remsume_id = remsume_id;
+	public void setResumeId(Integer resumeId) {
+		this.resumeId = resumeId;
 	}
 	public String getName() {
 		return name;

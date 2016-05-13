@@ -12,7 +12,7 @@ import cn.aki.entity.base.ResumeSub;
  */
 public class ResumeEducation extends BaseEntity implements ResumeSub{
 	private static final long serialVersionUID = -3184168895563521363L;
-	private Integer remsumeId;		//,remsume_id int not null
+	private Integer resumeId;		//,resume_id int not null
 	private String schoolName;		//,school_name varchar(32)
 	private String major;			//,major varchar(32)
 	private String graduateType;	//,graduate_type varchar(32) -- 毕业方式
@@ -24,11 +24,12 @@ public class ResumeEducation extends BaseEntity implements ResumeSub{
 	private String schoolType;		//,school_type varchar(32) -- 学校类别
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
-	public Integer getRemsumeId() {
-		return remsumeId;
+
+	public Integer getResumeId() {
+		return resumeId;
 	}
-	public void setRemsumeId(Integer remsumeId) {
-		this.remsumeId = remsumeId;
+	public void setResumeId(Integer resumeId) {
+		this.resumeId = resumeId;
 	}
 	public String getSchoolName() {
 		return schoolName;

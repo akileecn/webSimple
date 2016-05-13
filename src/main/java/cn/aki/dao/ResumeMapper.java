@@ -1,5 +1,7 @@
 package cn.aki.dao;
 
+import java.util.List;
+
 import cn.aki.entity.Resume;
 
 public interface ResumeMapper {
@@ -12,5 +14,5 @@ public interface ResumeMapper {
 	 * @return
 	 * 
 	 */
-	Integer getIdByUserId(Integer userId);
+	List<Integer> getIdByUserId(Integer userId);
 }
