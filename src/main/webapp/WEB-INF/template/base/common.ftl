@@ -24,7 +24,7 @@
 </#macro>
 
 <#-- 文本 -->
-<#macro text label attr name="" value="">
+<#macro text label attr value name="">
 <#if label??><label for="${name}">${label}:</label></#if>
-<span <#if attr??>${attr}</#if>><#if value??>${value}<#else>%{${name}}</#if></span>
+<span data-name="${name}" <#if attr??>${attr}</#if>><#if value??>${value}<#else>%{${name}}</#if></span>
 </#macro>

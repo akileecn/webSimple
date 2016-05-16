@@ -34,7 +34,7 @@ public class UserUtils {
 		return 0;
 	}
 	/**
-	 * 使用拥有简历操作权限
+	 * 是否拥有简历操作权限
 	 * @return
 	 */
 	public static boolean hasResume(Integer resumeId){

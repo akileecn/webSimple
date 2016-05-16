@@ -45,6 +45,16 @@
 	<!-- 简单controller -->
 	<mvc:view-controller path="/home" view-name="home"/>
 	
+	<!-- 拦截器
+	<mvc:interceptors>
+	    <mvc:interceptor>
+	        <mvc:mapping path="/resume/**"/>
+	        <mvc:exclude-mapping path="/resume/*/base"/>
+	        <bean class="cn.aki.interceptor.ResumeSubIntercaptor"/>
+	    </mvc:interceptor>
+	</mvc:interceptors>
+	 -->
+	
 	<!--
 		freemarker配置
 		freemarkerSettings属性为java.util.Properties,freemarkerVariables属性为java.util.Map,其他属性直接配

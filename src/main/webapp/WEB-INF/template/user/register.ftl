@@ -5,7 +5,7 @@
 		$('#myForm').ajaxForm(function(text) {
 			if(text.success){
 			}else{
-				alert($.toString(text.error));
+				$.alert(text.error);
 			}
 		});
 	});

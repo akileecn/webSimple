@@ -5,13 +5,17 @@
 	//添加
 	function addSub(dataType,templateType){
 		var template=Tempate[dataType][templateType];
-		$("#"+dataType+"Div").append($.template(template));
+		$("#"+dataType+"Div").appendTemplate(template);
 		if(templateType=="input"){
 			//初始化时间插件
 			$("#"+dataType+"Div:last-child").find(".form_datetime").datetimepicker();
 		}
 	}
 	
+	//切换为编辑
+	function toUpdateSub(dataType,self){
+	
+	}
 	//删除
 	function deleteSub(dataType,self){
 		$form=$(self).parents("form");
@@ -29,7 +33,9 @@
 			,type:"post"
 			,success:function(text){
 				if(text.success){
-					alert($.toString(text));
+					var data=$form.getFormData();
+					data.resumeId=text.data;
+					
 				}
 			}
 		});

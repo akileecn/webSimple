@@ -43,10 +43,10 @@
 <script>
 	$(document).ready(function() {
 		$('#myForm').ajaxForm(function(text) {
-			alert($.toString(text));
+			$.alert(text);
 			if(text.success){
 			}else{
-				alert($.toString(text.error));
+				$.alert(text.error);
 			}
 		});
 	});

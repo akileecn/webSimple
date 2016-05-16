@@ -17,9 +17,9 @@
 			text+="[";
 			for(var i=0;i<obj.length;i++){
 				if(i==0){
-					text+=toString(obj[i]);
+					text+=_toString(obj[i]);
 				}else{
-					text+=","+toString(obj[i]);
+					text+=","+_toString(obj[i]);
 				}
 			}
 			text+="]";
@@ -39,11 +39,17 @@
 		}
 		return text;
 	}
-	jQuery.toString=_toString;
+	//alert对象属性
+	jQuery.alert=function(data){
+		alert(_toString(data));
+	}
 	
 	//模板替换
 	function _template(html,data){
 		return html.replace(/\%\{.+?\}/g,function(word){
+			if(!data){
+				return "";
+			}
 			var word=word.substring(2,word.length-1);
 			var keys=word.split(".");
 			var value=data;
@@ -65,11 +71,38 @@
 		}
 		$(this).html(_template(html,data));
 	}
+	jQuery.fn.appendTemplate=function(html,data){
+		$(this).append(_template(html,data));
+	}
 	
 	//设置时间插件的默认格式
 	jQuery.fn.datetimepicker.defaults={
 		format:"yyyy-mm-dd"
 		,minView:"month"
 		,language:"zh-CN"
+	}
+	
+	//获得表单数据
+	jQuery.fn.getFormData=function(){
+		var arr=$(this).serializeArray();
+		var obj={};
+		if(arr&&arr.length>0){
+			for(var i=0;i<arr.length;i++){
+				var item=arr[i];
+				if(item.value!=null&&item.value!=""){
+					if(obj[item.name]==null){
+						obj[item.name]=item.value;
+					}else if(obj[item.name] instanceof Array){
+						obj[item.name].push(item.value);
+					}else{
+						var valueArr=[];
+						valueArr.push(obj[item.name]);
+						valueArr.push(item.value);
+						obj[item.name]=valueArr;
+					}
+				}
+			}
+		}
+		return obj;
 	}
 }(window.$));

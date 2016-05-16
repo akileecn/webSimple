@@ -22,7 +22,7 @@
 	</#if>
 	<#if item?is_even_item><br/></#if>
 </#list>
-		<button type="submit" class="btn">保存</button>
+		<button type="button" class="btn">保存</button>
 	</form>
 </div>
 <script type="text/javascript">
@@ -35,5 +35,6 @@
 				$("#baseForm").autofill(text.data);
 			}
 		});
+		
 	});
 </script>            
