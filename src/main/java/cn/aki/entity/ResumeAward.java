@@ -2,28 +2,20 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import cn.aki.entity.base.BaseEntity;
-import cn.aki.entity.base.ResumeSub;
+import cn.aki.entity.base.ResumeSubEntity;
 
 /**
  * 获奖经历
  * @author aki
  * 2016年4月21日 下午7:21:15
  */
-public class ResumeAward extends BaseEntity implements ResumeSub{
+public class ResumeAward extends ResumeSubEntity{
 	private static final long serialVersionUID = 2140345429528353456L;
-	private Integer resumeId;	//,resume_id int not null
 	private String name;		//,name varchar(32) -- 奖励名称
 	private Date time;			//,time datetime -- 获得时间
 	private String level;		//,level varchar(32) -- 级别
 	private String description;	//,description varchar(500) -- 奖励描述
 	
-	public Integer getResumeId() {
-		return resumeId;
-	}
-	public void setResumeId(Integer resumeId) {
-		this.resumeId = resumeId;
-	}
 	public String getName() {
 		return name;
 	}

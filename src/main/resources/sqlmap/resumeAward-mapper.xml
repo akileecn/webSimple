@@ -27,9 +27,9 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="resumeAward" resultType="resumeAward">
+	<select id="getList" parameterType="int" resultType="resumeAward">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where resume_id=#{resumeId}
 	</select>
 	
 	<!-- 保存 -->

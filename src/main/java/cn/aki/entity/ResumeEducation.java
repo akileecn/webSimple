@@ -2,17 +2,15 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import cn.aki.entity.base.BaseEntity;
-import cn.aki.entity.base.ResumeSub;
+import cn.aki.entity.base.ResumeSubEntity;
 
 /**
  * 教育经历
  * @author aki
  * 2016年4月19日 上午10:40:23
  */
-public class ResumeEducation extends BaseEntity implements ResumeSub{
+public class ResumeEducation extends ResumeSubEntity{
 	private static final long serialVersionUID = -3184168895563521363L;
-	private Integer resumeId;		//,resume_id int not null
 	private String schoolName;		//,school_name varchar(32)
 	private String major;			//,major varchar(32)
 	private String graduateType;	//,graduate_type varchar(32) -- 毕业方式
@@ -25,12 +23,6 @@ public class ResumeEducation extends BaseEntity implements ResumeSub{
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
 
-	public Integer getResumeId() {
-		return resumeId;
-	}
-	public void setResumeId(Integer resumeId) {
-		this.resumeId = resumeId;
-	}
 	public String getSchoolName() {
 		return schoolName;
 	}

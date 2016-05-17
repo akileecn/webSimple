@@ -4,27 +4,8 @@
 	<cache/>
 	<sql id="whereSql">
 		<where>
-			<if test="id!=null">
 			id=#{id}
-			</if>
-			<if test="resumeId!=null">
 			and resume_id=#{resumeId}
-			</if>
-			<if test="name!=null">
-			and name=#{name}
-			</if>
-			<if test="relationship!=null">
-			and relationship=#{relationship}
-			</if>
-			<if test="workCompany!=null">
-			and work_company=#{workCompany}
-			</if>
-			<if test="workJob!=null">
-			and work_job=#{workJob}
-			</if>
-			<if test="description!=null">
-			and description=#{description}
-			</if>
 		</where>
 	</sql>
 	
@@ -47,9 +28,9 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="resumeFamily" resultType="resumeFamily">
+	<select id="getList" parameterType="int" resultType="resumeFamily">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where resume_id=#{resumeId}
 	</select>
 	
 	<!-- 保存 -->

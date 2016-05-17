@@ -1,28 +1,20 @@
 package cn.aki.entity;
 
-import cn.aki.entity.base.BaseEntity;
-import cn.aki.entity.base.ResumeSub;
+import cn.aki.entity.base.ResumeSubEntity;
 
 /**
  * 家庭关系
  * @author aki
  * 2016年4月21日 下午7:21:30
  */
-public class ResumeFamily extends BaseEntity implements ResumeSub{
+public class ResumeFamily extends ResumeSubEntity{
 	private static final long serialVersionUID = 3688500831911368466L;
-	private Integer resumeId;	//,resume_id int not null
 	private String name;		//,name varchar(32) -- 名称
 	private String relationship;//,relationship varchar(32) -- 关系
 	private String workCompany;	//,work_company varchar(100) -- 工作单位
 	private String workJob;		//,work_job varchar(32) -- 职位
 	private String description;	//,description varchar(500) -- 说明
 	
-	public Integer getResumeId() {
-		return resumeId;
-	}
-	public void setResumeId(Integer resumeId) {
-		this.resumeId = resumeId;
-	}
 	public String getName() {
 		return name;
 	}

@@ -25,16 +25,3 @@
 		<button type="button" class="btn">保存</button>
 	</form>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//初始化时间插件
-		$(".form_datetime").datetimepicker();
-	
-		$.post("<@spring.url "/resume/detail/base"/>",{"id":"${id}"},function(text){
-			if(text.success){
-				$("#baseForm").autofill(text.data);
-			}
-		});
-		
-	});
-</script>            

@@ -4,45 +4,8 @@
 	<cache/>
 	<sql id="whereSql">
 		<where>
-			<if test="id!=null">
 			id=#{id}
-			</if>
-			<if test="resumeId!=null">
 			and resume_id=#{resumeId}
-			</if>
-			<if test="schoolName!=null">
-			and school_name=#{schoolName}
-			</if>
-			<if test="major!=null">
-			and major=#{major}
-			</if>
-			<if test="graduateType!=null">
-			and graduate_type=#{graduateType}
-			</if>
-			<if test="degree!=null">
-			and degree=#{degree}
-			</if>
-			<if test="education!=null">
-			and education=#{education}
-			</if>
-			<if test="learnType!=null">
-			and learn_type=#{learnType}
-			</if>
-			<if test="beginDate!=null">
-			and begin_date=#{beginDate}
-			</if>
-			<if test="endDate!=null">
-			and end_date=#{endDate}
-			</if>
-			<if test="schoolType!=null">
-			and school_type=#{schoolType}
-			</if>
-			<if test="hasBeenCadre!=null">
-			and has_been_cadre=#{hasBeenCadre}
-			</if>
-			<if test="gradeRank!=null">
-			and grade_rank=#{gradeRank}
-			</if>
 		</where>
 	</sql>
 	
@@ -71,9 +34,9 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="resumeEducation" resultType="resumeEducation">
+	<select id="getList" parameterType="int" resultType="resumeEducation">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where resume_id=#{resumeId}
 	</select>
 	
 	<!-- 保存 -->

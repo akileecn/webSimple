@@ -1,4 +1,4 @@
-(function(jQuery){
+(function($){
 	//json转化为字符串
 	function _toString(obj){
 		if(obj==undefined||obj==null){
@@ -40,7 +40,7 @@
 		return text;
 	}
 	//alert对象属性
-	jQuery.alert=function(data){
+	$.alert=function(data){
 		alert(_toString(data));
 	}
 	
@@ -62,8 +62,8 @@
 			return value;
 		});
 	}
-	jQuery.template=_template;
-	jQuery.fn.template=function(html,data){
+	$.template=_template;
+	$.fn.template=function(html,data){
 		//一个参数
 		if(html instanceof Object){
 			data=html;
@@ -71,19 +71,16 @@
 		}
 		$(this).html(_template(html,data));
 	}
-	jQuery.fn.appendTemplate=function(html,data){
-		$(this).append(_template(html,data));
-	}
 	
 	//设置时间插件的默认格式
-	jQuery.fn.datetimepicker.defaults={
+	$.fn.datetimepicker.defaults={
 		format:"yyyy-mm-dd"
 		,minView:"month"
 		,language:"zh-CN"
 	}
 	
 	//获得表单数据
-	jQuery.fn.getFormData=function(){
+	$.fn.getFormData=function(){
 		var arr=$(this).serializeArray();
 		var obj={};
 		if(arr&&arr.length>0){
@@ -101,6 +98,21 @@
 						obj[item.name]=valueArr;
 					}
 				}
+			}
+		}
+		return obj;
+	}
+	
+	//获得文本表单数据
+	$.fn.getFormTextData=function(){
+		var $spans=$(this).find("span[data-name]");
+		var obj={};
+		for(var i=0;i<$spans.length;i++){
+			var $span=$($spans[i]);
+			var name=$span.attr("data-name");
+			var value=$span.text();
+			if(name&&value){
+				obj[name]=value;
 			}
 		}
 		return obj;

@@ -4,54 +4,8 @@
 	<cache/>
 	<sql id="whereSql">
 		<where>
-			<if test="id!=null">
 			id=#{id}
-			</if>
-			<if test="resumeId!=null">
 			and resume_id=#{resumeId}
-			</if>
-			<if test="company!=null">
-			and company=#{company}
-			</if>
-			<if test="department!=null">
-			and department=#{department}
-			</if>
-			<if test="annualSalary!=null">
-			and annual_salary=#{annualSalary}
-			</if>
-			<if test="job!=null">
-			and job=#{job}
-			</if>
-			<if test="certifier!=null">
-			and certifier=#{certifier}
-			</if>
-			<if test="certifierMobile!=null">
-			and certifier_mobile=#{certifierMobile}
-			</if>
-			<if test="workPlace!=null">
-			and work_place=#{workPlace}
-			</if>
-			<if test="jobType!=null">
-			and job_type=#{jobType}
-			</if>
-			<if test="industry!=null">
-			and industry=#{industry}
-			</if>
-			<if test="beginDate!=null">
-			and begin_date=#{beginDate}
-			</if>
-			<if test="endDate!=null">
-			and end_date=#{endDate}
-			</if>
-			<if test="dimissionReason!=null">
-			and dimission_reason=#{dimissionReason}
-			</if>
-			<if test="duty!=null">
-			and duty=#{duty}
-			</if>
-			<if test="performance!=null">
-			and performance=#{performance}
-			</if>
 		</where>
 	</sql>
 	
@@ -83,9 +37,9 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="resumeWork" resultType="resumeWork">
+	<select id="getList" parameterType="int" resultType="resumeWork">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where resume_id=#{resumeId}
 	</select>
 	
 	<!-- 保存 -->

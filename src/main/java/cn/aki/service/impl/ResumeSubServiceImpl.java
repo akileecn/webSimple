@@ -1,8 +1,11 @@
 package cn.aki.service.impl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +14,11 @@ import cn.aki.dao.ResumeAwardMapper;
 import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeFamilyMapper;
 import cn.aki.dao.ResumeWorkMapper;
-import cn.aki.entity.base.ResumeSub;
+import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.service.ResumeSubService;
 
 @Service("resumeSubService")
-public class ResumeSubServiceImpl implements ResumeSubService{
+public class ResumeSubServiceImpl implements ResumeSubService,InitializingBean{
 	@SuppressWarnings("unused")
 	@Autowired
 	private ResumeAwardMapper awardMapper;
@@ -28,24 +31,27 @@ public class ResumeSubServiceImpl implements ResumeSubService{
 	@SuppressWarnings("unused")
 	@Autowired
 	private ResumeWorkMapper workMapper;
+	
+	private HashMap<Class<? extends ResumeSubEntity>, BaseResumeSubMapper<? extends ResumeSubEntity>> mapperMap;
 
-	public <T extends ResumeSub> void save(T t) {
-		getMapper(t).save(t);
+	public <T extends ResumeSubEntity> void saveOrUpdate(T t) {
+		BaseResumeSubMapper<T> mapper=getMapper(t);
+		if(t.getId()!=null){
+			mapper.update(t);
+		}else{
+			mapper.save(t);
+		}
 	}
-
-	public <T extends ResumeSub> T get(T t) {
+	
+	public <T extends ResumeSubEntity> T get(T t) {
 		return getMapper(t).get(t);
 	}
 
-	public <T extends ResumeSub> List<T> getList(T t) {
-		return getMapper(t).getList(t);
+	public <T extends ResumeSubEntity> List<T> getList(T t) {
+		return getMapper(t).getList(t.getResumeId());
 	}
 
-	public <T extends ResumeSub> void update(T t) {
-		getMapper(t).update(t);
-	}
-
-	public <T extends ResumeSub> void delete(T t) {
+	public <T extends ResumeSubEntity> void delete(T t) {
 		getMapper(t).delete(t);
 	}
 	
@@ -53,23 +59,28 @@ public class ResumeSubServiceImpl implements ResumeSubService{
 	 * 获得对应的mapper
 	 */
 	@SuppressWarnings("unchecked")
-	private <T extends ResumeSub>BaseResumeSubMapper<T> getMapper(T t){
-		Field[] fields=getClass().getDeclaredFields();
-		String tClassName=t.getClass().getSimpleName();
-		for(Field field:fields){
-			if(BaseResumeSubMapper.class.isAssignableFrom(field.getType())){
-				if(field.getType().getSimpleName().equals(tClassName+"Mapper")){
-					try {
-						return (BaseResumeSubMapper<T>) field.get(this);
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}
+	private <T extends ResumeSubEntity>BaseResumeSubMapper<T> getMapper(T t){
+		for(Class<? extends ResumeSubEntity> clazz:mapperMap.keySet()){
+			if(clazz.isAssignableFrom(t.getClass())){
+				return (BaseResumeSubMapper<T>) mapperMap.get(clazz);
 			}
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void afterPropertiesSet() throws Exception {
+		mapperMap=new HashMap<Class<? extends ResumeSubEntity>, BaseResumeSubMapper<? extends ResumeSubEntity>>();
+		Field[] fields=getClass().getDeclaredFields();
+		for(Field field:fields){
+			if(BaseResumeSubMapper.class.isAssignableFrom(field.getType())){
+				//泛型父类接口
+				ParameterizedType type=(ParameterizedType)field.getType().getGenericInterfaces()[0];
+				//泛型类型
+				Class<? extends ResumeSubEntity> clazz=(Class<? extends ResumeSubEntity>) type.getActualTypeArguments()[0];
+				mapperMap.put(clazz, (BaseResumeSubMapper<? extends ResumeSubEntity>) field.get(this));
+			}
+		}
 	}
 
 }

@@ -2,17 +2,15 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import cn.aki.entity.base.BaseEntity;
-import cn.aki.entity.base.ResumeSub;
+import cn.aki.entity.base.ResumeSubEntity;
 
 /**
  * 工作经历
  * @author aki
  * 2016年4月19日 上午11:09:44
  */
-public class ResumeWork extends BaseEntity implements ResumeSub{
+public class ResumeWork extends ResumeSubEntity{
 	private static final long serialVersionUID = -1752143847655142682L;
-	private Integer resumeId;		//,resume_id int not null
 	private String company;			//,company varchar(100)
 	private String department;		//,department varchar(32)
 	private String annualSalary;	//,annual_salary varchar(32) -- 年薪
@@ -28,12 +26,6 @@ public class ResumeWork extends BaseEntity implements ResumeSub{
 	private String duty;			//,duty varchar(500) -- 职责
 	private String performance;		//,performance varchar(500) -- 业绩
 
-	public Integer getResumeId() {
-		return resumeId;
-	}
-	public void setResumeId(Integer resumeId) {
-		this.resumeId = resumeId;
-	}
 	public String getCompany() {
 		return company;
 	}
