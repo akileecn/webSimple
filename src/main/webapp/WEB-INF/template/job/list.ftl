@@ -96,7 +96,7 @@
 		<tr jobId="%{id}">
 			<td>%{name}</td>
 			<td>%{t.workCity}</td>
-			<td>%{t.endDate}</td>
+			<td>%{endDate}</td>
 			<td>%{peopleNumber}</td>
 			<td></td>
 		</tr>

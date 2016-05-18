@@ -13,7 +13,6 @@ import cn.aki.entity.Job;
 import cn.aki.form.JobQueryForm;
 import cn.aki.response.DataResponse;
 import cn.aki.response.PageResponse;
-import cn.aki.service.DictDataService;
 import cn.aki.service.JobService;
 /**
  * 岗位
@@ -25,8 +24,6 @@ import cn.aki.service.JobService;
 public class JobController {
 	@Autowired
 	private JobService jobService;
-	@Autowired
-	private DictDataService dictDataService;
 	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
 	public String toList(JobQueryForm form,Model model){
@@ -37,7 +34,6 @@ public class JobController {
 	@RequestMapping(path="/list",method=RequestMethod.POST)
 	public PageResponse<Job> handleList(JobQueryForm form){
 		PageInfo<Job> page=jobService.getPage(form);
-		dictDataService.translate(page.getList());
 		PageResponse<Job> response=new PageResponse<Job>();
 		response.setData(page);
 		return response;
@@ -55,7 +51,6 @@ public class JobController {
 	public DataResponse<Job> handleDetail(Integer id){
 		DataResponse<Job> response=new DataResponse<Job>();
 		Job job=jobService.get(id);
-		dictDataService.translate(job);
 		response.setData(job);
 		return response;
 	}

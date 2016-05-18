@@ -3,6 +3,7 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.BaseTimeEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 岗位
@@ -13,8 +14,11 @@ public class Job extends BaseTimeEntity{
 	private static final long serialVersionUID = -448298364939140L;
 	private String name;		//,name varchar(32)
 	private String resumeType;	//,resume_type varchar(32) -- 招聘类型
+	@TranslateTypeCode
 	private String workYear;	//,work_year varchar(32) -- 工作年限
+	@TranslateTypeCode
 	private String workCity;	//,work_city varchar(32) -- 工作城市
+	@TranslateTypeCode
 	private String education;	//,education varchar(32) -- 学历
 	private Date publishDate;	//,publish_date datetime -- 发布时间
 	private Date endDate;		//,end_date datetime -- 截止时间

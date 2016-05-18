@@ -1,5 +1,7 @@
 package cn.aki.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 /**
  * service基本接口
@@ -23,4 +25,11 @@ public interface BaseService<T> {
 	 * @return
 	 */
 	PageInfo<T> getPage(Integer pageNum,Integer pageSize);
+	/**
+	 * 基本查询
+	 * @param condition
+	 * @return
+	 */
+	List<T> getList(T condition);
+
 }

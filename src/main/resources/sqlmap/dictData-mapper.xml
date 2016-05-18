@@ -4,7 +4,6 @@
 	<cache/>
 	<resultMap type="dictData" id="dictDataResultMap">
 		<id column="id" property="id" jdbcType="INTEGER"/>
-		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="type_code" property="typeCode" jdbcType="VARCHAR"/>
 		<result column="code" property="code" jdbcType="VARCHAR"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>

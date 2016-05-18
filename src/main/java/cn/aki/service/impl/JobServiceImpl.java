@@ -17,7 +17,6 @@ public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
 	@Autowired
 	private JobMapper jobMapper;
 	
-	@Override
 	public List<Job> getList(Job condition) {
 		return jobMapper.getList(condition);
 	}

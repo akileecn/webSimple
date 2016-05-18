@@ -28,10 +28,4 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 		return getPage(pageNum, pageSize, null);
 	}
 	
-	/**
-	 * 基本查询
-	 * @param condition
-	 * @return
-	 */
-	public abstract List<T> getList(T condition);
 }
