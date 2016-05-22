@@ -1,27 +1,156 @@
-<div class="container">
-	<form id="baseForm" action="<@spring.url "/resume/save/base"/>" method="post">
-		<input type="hidden" name="id" value="${id}"/>
-<#assign fields=[
-	["text","name","姓名"],["select","gender","性别"],["date","birthday","出生日期"],["select","nation","民族"],["text","height","身高"]
-	,["text","weight","体重"],["select","idType","证件类型"],["text","idNumber","证件号码"],["select","marriage","婚姻状况"],["select","politicsStatus","政治面貌"]
-	,["date","joinPartyDate","入党时间"],["text","mobile","手机"],["text","email","邮箱"],["select","highestEducation","最高学历"],["select","highestDegree","最高学位"]
-	,["date","graduateDate","毕业时间"],["select","ceeProvince","高考省份"],["text","ceeScore","高考分数"],["selectIf","isFirstLine","是否一本分数线以上"],["select","artsOrScience","文理科"]
-	,["select","admissionOrder","录取批次"],["text","emergencyContact","紧急联系人"],["text","emergencyMobile","紧急联系人电话"],["text","childrenCount","子女个数"],["selectIf","isEelativeHere","是否有亲友受雇与本公司"]
-	,["text","currentResidence","现居住地址"],["text","familyResidence","家庭住址"],["text","nativePlace","籍贯"],["text","studentOrigin","生源地"],["text","registeredResidence","户口所在地"]
-	,["text","certificate","持证情况"],["text","hobby","爱好特长"],["text","personality","性格特点"]
-]/>
-<#list fields as item>
-	<#if item[0]=="text">
-		<@c.input type="text" name=item[1] label=item[2]/>
-	<#elseif item[0]=="date">
-		<@c.input type="text" name=item[1] label=item[2] attr="class='form_datetime'"/>
-	<#elseif item[0]=="select">
-		<@c.select name=item[1] label=item[2]/>
-	<#elseif item[0]=="selectIf">
-		<@c.select name=item[1] label=item[2] options={"true":"是","false":"否"}/>
-	</#if>
-	<#if item?is_even_item><br/></#if>
-</#list>
-		<button type="button" class="btn">保存</button>
-	</form>
+<div class="col_cv_tab">
+    <form id="baseForm" action="<@spring.url "/resume/save/base"/>" method="post"></form>
 </div>
+<script type="text/javascript">
+	T.base={};
+	T.base.text='<@compress single_line=true>
+        <h4>基本信息</h4>
+		<div class="edit fr"><a href="javascript:toEditBase();"><img src="<@c.resource "images/icon-1.png"/>" width="18"></a></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            	<span data-name="id" data-value="${id}" style="display:none;"/>
+            	<@span label="姓名" name="name"/>
+				<td rowspan="4">
+                    <div class="user_pic fr">
+                        <label>个人照片：</label>
+                        <img src="<@c.resource "images/pic_tx.jpg"/>" width="150" height="180" alt="点击上传个人照片">
+                    </div>
+                </td>
+            </tr>
+            <tr><@span label="性别" name="gender" translate=true/></tr>
+            <tr><@span label="民族" name="nation" translate=true/></tr>
+            <tr><@span label="出生日期" name="birthday"/></tr>
+            <tr><@span label="身份证号码" name="idNumber" wide=true/></tr>
+            <tr>
+				<@span label="身高" name="height"/>
+            	<@span label="体重" name="weight"/>
+			</tr>
+            <tr>
+				<@span label="婚姻状况" name="marriage" translate=true/>
+            	<@span label="政治面貌" name="politicsStatus" translate=true/>
+			</tr>
+            <tr><@span label="籍贯" name="nativePlace" wide=true/></tr>
+            <tr><@span label="户口所在地" name="registeredResidence" wide=true/></tr>
+            <tr>
+				<@span label="入党（团）时间" name="joinPartyDate"/>
+				<@span label="联系电话" name="mobile"/>
+			</tr>
+            <tr><@span label="邮箱" name="email"/></tr>
+            <tr>
+				<@span label="工作年限" name="workYear" translate=true/>
+            	<@span label="期望工作地点" name="workCity" translate=true/>
+			</tr>
+            <tr>
+				<@span label="最高全日制学历" name="highestEducation" translate=true/>
+            	<@span label="最高学位" name="highestDegree" translate=true/>
+			</tr>
+            <tr>
+            	<@span label="毕业时间" name="graduateDate"/>
+				<@span label="高考省份" name="ceeProvince"/>
+			</tr>
+            <tr>
+				<@span label="高考分数" name="ceeScore"/>
+            	<@span label="是否一本分数线以上" name="isFirstLine" translate=true attr="style=\"width:200px;\""/>
+			</tr>
+            <tr>
+				<@span label="文理科" name="artsOrScience" translate=true/>
+            	<@span label="录取批次" name="admissionOrder" translate=true/>
+			</tr>
+            <tr>
+				<@span label="紧急联系人" name="emergencyContact"/>
+            	<@span label="紧急联系人电话" name="emergencyMobile"/>
+			</tr>
+            <tr>
+				<@span label="子女（个）" name="childrenCount"/>
+            	<@span label="是否有亲友受雇于本公司" name="isEelativeHere" translate=true attr="style=\"width:200px;\""/>
+			</tr>
+            <tr><@span label="现居住地址" name="currentResidence" wide=true/></tr>
+            <tr><@span label="家庭住址" name="familyResidence" wide=true/></tr>
+            <tr>
+				<@span label="生源地" name="studentOrigin"/>
+            	<@span label="健康状况" name="health" translate=true/>
+			</tr>
+            <tr><@span label="持证情况" name="certificate"/></tr>
+            <tr><@span label="爱好特长" name="hobby"/></tr>
+            <tr><@span label="性格特点" name="personality"/></tr>
+        </table>
+	</@compress>';
+	T.base.input='<@compress single_line=true>
+		<h4>基本信息</h4>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            	<input type="hidden" name="id" value="${id}"/>
+            	<@input label="姓名" name="name" required=true/>
+				<td rowspan="4">
+                    <div class="user_pic fr">
+                        <label>个人照片：</label>
+                        <img src="<@c.resource "images/pic_tx.jpg"/>" width="150" height="180" alt="点击上传个人照片">
+                        <span class="red">*</span>
+                    </div>
+                </td>
+            </tr>
+            <tr><@select label="性别" name="gender" required=true/></tr>
+            <tr><@select label="民族" name="nation" required=true/></tr>
+            <tr><@date label="出生日期" name="birthday" required=true/></tr>
+            <tr><@input label="身份证号码" name="idNumber" required=true wide=true/></tr>
+            <tr>
+				<@input label="身高" name="height" required=true/>
+            	<@input label="体重" name="weight" required=true/>
+			</tr>
+            <tr>
+				<@select label="婚姻状况" name="marriage" required=true/>
+            	<@select label="政治面貌" name="politicsStatus"/>
+			</tr>
+            <tr><@input label="籍贯" name="nativePlace" required=true wide=true/></tr>
+            <tr><@input label="户口所在地" name="registeredResidence" required=true wide=true/></tr>
+            <tr>
+				<@date label="入党（团）时间" name="joinPartyDate"/>
+				<@input label="联系电话" name="mobile" required=true/>
+			</tr>
+            <tr><@input label="邮箱" name="email" required=true/></tr>
+            <tr>
+				<@select label="工作年限" name="workYear" required=true/>
+            	<@select label="期望工作地点" name="workCity" required=true/>
+			</tr>
+            <tr>
+				<@select label="最高全日制学历" name="highestEducation" dict="education" required=true/>
+            	<@select label="最高学位" name="highestDegree" dict="degree" required=true/>
+			</tr>
+            <tr>
+            	<@date label="毕业时间" name="graduateDate" required=true/>
+				<@input label="高考省份" name="ceeProvince" required=true/>
+			</tr>
+            <tr>
+				<@input label="高考分数" name="ceeScore" required=true/>
+            	<@radio label="是否一本分数线以上" name="isFirstLine" required=true/>
+			</tr>
+            <tr>
+				<@select label="文理科" name="artsOrScience" required=true/>
+            	<@select label="录取批次" name="admissionOrder" required=true/>
+			</tr>
+            <tr>
+				<@input label="紧急联系人" name="emergencyContact" required=true/>
+            	<@input label="紧急联系人电话" name="emergencyMobile" required=true/>
+			</tr>
+            <tr>
+				<@input label="子女（个）" name="childrenCount"/>
+            	<@radio label="是否有亲友受雇于本公司" name="isEelativeHere"/>
+			</tr>
+            <tr><@input label="现居住地址" name="currentResidence" required=true wide=true/></tr>
+            <tr><@input label="家庭住址" name="familyResidence" wide=true/></tr>
+            <tr>
+				<@input label="生源地" name="studentOrigin"/>
+            	<@select label="健康状况" name="health" required=true/>
+			</tr>
+            <tr><@textarea label="持证情况" name="certificate"/></tr>
+            <tr><@textarea label="爱好特长" name="hobby" required=true/></tr>
+            <tr><@textarea label="性格特点" name="personality" required=true/></tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="reset" value="重置" class="reset">
+                    <input type="submit" value="保存" class="submit">
+                </td>
+            </tr>
+        </table>
+	</@compress>';
+</script>

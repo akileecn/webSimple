@@ -8,7 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 	<!-- Bootstrap -->
-	<link href="<@spring.url "/resources/bootstrap-3.3.6/css/bootstrap.min.css"/>" rel="stylesheet">
+	<#-- 用美工的
+	<link href="<@c.resource "bootstrap-3.3.6/css/bootstrap.min.css"/>" rel="stylesheet">
+	-->
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -16,18 +18,46 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="<@spring.url "/resources/jquery/jquery-1.12.3.min.js"/>"></script>
+	<script src="<@c.resource "jquery/jquery-1.12.3.min.js"/>"></script>
 	<#-- bootstrap日期插件 -->
-	<link href="<@spring.url "/resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
-	<script src="<@spring.url "/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"/>"></script>
+	<link href="<@c.resource "bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
+	<script src="<@c.resource "bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"/>"></script>
 	<#-- 日期国际化 -->
-	<script src="<@spring.url "/resources/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"/>"></script>
+	<script src="<@c.resource "bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"/>"></script>
 	<#-- 异步提交表单 -->
-	<script src="<@spring.url "/resources/jquery/jquery.form.js"/>"></script>
+	<script src="<@c.resource "jquery/jquery.form.js"/>"></script>
 	<#-- 自动填充表单 -->
-	<script src="<@spring.url "/resources/jquery/jquery.formautofill.min.js"/>"></script>
+	<script src="<@c.resource "jquery/jquery.formautofill.min.js"/>"></script>
 	<#-- 公共方法 -->
-	<script src="<@spring.url "/resources/js/common.js"/>"></script>
+	<script src="<@c.resource "js/common.js"/>"></script>
+	<#-- 美工样式相关 -->
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<link href="<@c.resource "css/bootstrap.css"/>" rel='stylesheet' type='text/css' />
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="<@c.resource "js/jquery.artDialog.js"/>"></script><!-- Custom Theme files -->
+	<link href="<@c.resource "css/style.css"/>" rel='stylesheet' type='text/css' />
+	<!----start-top-nav-script---->
+	<script>
+		$(function() {
+			var pull 		= $('#pull');
+				menu 		= $('nav ul');
+				menuHeight	= menu.height();
+			$(pull).on('click', function(e) {
+				e.preventDefault();
+				menu.slideToggle();
+			});
+			$(window).resize(function(){
+        		var w = $(window).width();
+        		if(w > 320 && menu.is(':hidden')) {
+        			menu.removeAttr('style');
+        		}
+    		});
+		});
+	</script>
+	<!----//End-top-nav-script---->
+	<script src="<@c.resource "js/jquery.easydropdown.js"/>"></script>
+	<script src="<@c.resource "js/hover_pack.js"/>"></script>
+	<#-- //End美工样式相关 -->
 	<#nested>
 </head>
 </#macro>
@@ -35,9 +65,32 @@
 <#-- html体 -->
 <#macro body>
 <body>
+	<!----start-header---->
+	<div class="header">
+		<div class="container"  >
+			<div class="header_top">
+				<div class="logo">
+					<a href="index.html"><img src="<@c.resource "images/logo.jpg"/>" alt=""></a>
+				</div>
+				<div class="menu">					
+					<ul class="nav" id="nav">
+						<li class="current"><a href="index.html">首页</a></li>
+						<li><a href="campus.html">校园招聘</a></li>
+						<li><a href="society.html">社会招聘</a></li>
+						<li><a href="trainee.html">实习生招聘</a></li>
+						<li><a href="about.html">认识瑞丰</a></li>								
+					</ul>
+					<script type="text/javascript" src="<@c.resource "js/responsive-nav.js"/>"></script>
+				</div>							
+				<div class="clearfix"> </div>
+				<!----//End-top-nav---->
+			</div>
+		</div>
+	</div>
+	<!----//End-header---->
 	<#nested>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="<@spring.url "/resources/bootstrap-3.3.6/js/bootstrap.min.js"/>"></script>
+	<script src="<@c.resource "bootstrap-3.3.6/js/bootstrap.min.js"/>"></script>
 </body>
 </html>
 </#macro>

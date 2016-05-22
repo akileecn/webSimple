@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="${bean}">
+	<insert id="save" parameterType="${bean}" useGeneratedKeys="true" keyProperty="id">
 		insert into ${table}(
 		<trim prefix="" prefixOverrides=",">
 		<#list columns?keys as key>

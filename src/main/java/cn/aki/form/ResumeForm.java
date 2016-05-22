@@ -134,5 +134,17 @@ public class ResumeForm extends Resume{
 	public String getPersonality() {
 		return super.getPersonality();
 	}
+	@Size(max=32)
+	public String getWorkYear() {
+		return super.getWorkYear();
+	}
+	@Size(max=32)
+	public String getWorkCity() {
+		return super.getWorkCity();
+	}
+	@Size(max=32)
+	public String getHealth() {
+		return super.getHealth();
+	}
 	
 }

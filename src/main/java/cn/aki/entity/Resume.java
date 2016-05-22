@@ -5,39 +5,51 @@ import java.util.List;
 
 import cn.aki.entity.base.BaseTimeEntity;
 import cn.aki.entity.base.UserSub;
+import cn.aki.entity.translate.Translatable;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 简历主表
  * @author aki
  * 2016年4月19日 上午10:28:56
  */
-public class Resume extends BaseTimeEntity implements UserSub{
+public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private static final long serialVersionUID = -1238330598304598884L;
 	private Integer userId;				//,user_id int not null -- 用户ID
 	private String name;				//,name varchar(32)	
+	@TranslateTypeCode
 	private String gender;				//,gender varchar(32)
 	private Date birthday;				//,birthday timestamp
+	@TranslateTypeCode
 	private String nation;				//,nation varchar(32) -- 民族
 	private Integer height;				//,height int
 	private Integer weight;				//,weight int
 	private String idType;				//,id_type varchar(32) -- 证件类型
 	private String idNumber;			//,id_number varchar(32)
+	@TranslateTypeCode
 	private String marriage;			//,marriage varchar(32) -- 婚姻状况
+	@TranslateTypeCode
 	private String politicsStatus;		//,politics_status varchar(32) -- 政治面貌
 	private Date joinPartyDate;			//,join_party_date timestamp -- 入党时间
 	private String mobile;				//,mobile varchar(11)
 	private String email;				//,email varchar(50)
+	@TranslateTypeCode("education")
 	private String highestEducation;	//,highest_education varchar(32) -- 最高学历
+	@TranslateTypeCode("degree")
 	private String highestDegree;		//,highest_degree varchar(32) -- 最高学位
 	private Date graduateDate;			//,graduate_date timestamp -- 毕业时间
 	private String ceeProvince;			//,cee_province varchar(32) -- 高考省份
 	private Integer ceeScore;			//,cee_score int -- 高考分数
+	@TranslateTypeCode
 	private Boolean isFirstLine;		//,is_first_line tinyint -- 是否一本分数线以上
+	@TranslateTypeCode
 	private String artsOrScience;		//,arts_or_science varchar(32) -- 文理科
+	@TranslateTypeCode
 	private String admissionOrder;		//,admission_order varchar(32) -- 录取批次
 	private String emergencyContact;	//,emergency_contact varchar(32) -- 紧急联系人
 	private String emergencyMobile;		//,emergency_mobile varchar(32) -- 紧急联系人电话
 	private Integer childrenCount;		//,children_count int -- 子女
+	@TranslateTypeCode
 	private Boolean isRelativeHere;		//,is_relative_here tinyint -- 是否有亲友受雇与本公司
 	private String currentResidence;	//,current_residence varchar(100) -- 现居住地址
 	private String familyResidence;		//,family_residence varchar(100) -- 家庭住址
@@ -47,6 +59,12 @@ public class Resume extends BaseTimeEntity implements UserSub{
 	private String certificate;			//,certificate varchar(500) -- 持证情况
 	private String hobby;				//,hobby varchar(500) -- 爱好特长
 	private String personality;			//,personality varchar(500) -- 性格特点
+	@TranslateTypeCode
+	private String workYear;//,work_year varchar(32) -- 工作年前
+	@TranslateTypeCode
+	private String workCity;//,work_city varchar(32) -- 期望工作城市
+	@TranslateTypeCode
+	private String health;//,health varchar(32) -- 健康
 	
 	/*关联*/
 	private List<ResumeAward> awardList;
@@ -288,6 +306,24 @@ public class Resume extends BaseTimeEntity implements UserSub{
 	}
 	public void setWorkList(List<ResumeWork> workList) {
 		this.workList = workList;
+	}
+	public String getWorkYear() {
+		return workYear;
+	}
+	public void setWorkYear(String workYear) {
+		this.workYear = workYear;
+	}
+	public String getWorkCity() {
+		return workCity;
+	}
+	public void setWorkCity(String workCity) {
+		this.workCity = workCity;
+	}
+	public String getHealth() {
+		return health;
+	}
+	public void setHealth(String health) {
+		this.health = health;
 	}
 	
 }

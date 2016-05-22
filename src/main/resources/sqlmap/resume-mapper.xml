@@ -45,6 +45,9 @@
 			,certificate
 			,hobby
 			,personality
+			,work_year as workYear
+			,work_city as workCity
+			,health
 		from resume
 	</sql>
 	
@@ -62,7 +65,7 @@
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resume">
+	<insert id="save" parameterType="resume" useGeneratedKeys="true" keyProperty="id">
 		insert into resume(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
@@ -175,6 +178,15 @@
 			</if>
 			<if test="personality!=null">
 			,personality
+			</if>
+			<if test="workYear!=null">
+			,work_year
+			</if>
+			<if test="workCity!=null">
+			,work_city
+			</if>
+			<if test="health!=null">
+			,health
 			</if>
 		</trim>
 		)values(
@@ -289,6 +301,15 @@
 			</if>
 			<if test="personality!=null">
 			,#{personality}
+			</if>
+			<if test="workYear!=null">
+			,#{workYear}
+			</if>
+			<if test="workCity!=null">
+			,#{workCity}
+			</if>
+			<if test="health!=null">
+			,#{health}
 			</if>
 		</trim>
 		)
@@ -408,6 +429,15 @@
 			</if>
 			<if test="personality!=null">
 			,personality=#{personality}
+			</if>
+			<if test="workYear!=null">
+			,work_year=#{workYear}
+			</if>
+			<if test="workCity!=null">
+			,work_city=#{workCity}
+			</if>
+			<if test="health!=null">
+			,health=#{health}
 			</if>
 		</set>
 		<include refid="whereSql"/>

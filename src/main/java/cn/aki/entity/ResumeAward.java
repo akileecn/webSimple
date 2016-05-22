@@ -3,6 +3,7 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 获奖经历
@@ -13,6 +14,7 @@ public class ResumeAward extends ResumeSubEntity{
 	private static final long serialVersionUID = 2140345429528353456L;
 	private String name;		//,name varchar(32) -- 奖励名称
 	private Date time;			//,time datetime -- 获得时间
+	@TranslateTypeCode("awardLevel")
 	private String level;		//,level varchar(32) -- 级别
 	private String description;	//,description varchar(500) -- 奖励描述
 	

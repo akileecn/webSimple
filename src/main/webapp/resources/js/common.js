@@ -55,7 +55,7 @@
 			var value=data;
 			for(var i=0;i<keys.length;i++){
 				value=value[keys[i]];
-				if(!value){
+				if(value==null){
 					return "";
 				}
 			}
@@ -81,8 +81,9 @@
 	
 	//获得表单数据
 	$.fn.getFormData=function(){
-		var arr=$(this).serializeArray();
 		var obj={};
+		//正常表单值
+		var arr=$(this).serializeArray();
 		if(arr&&arr.length>0){
 			for(var i=0;i<arr.length;i++){
 				var item=arr[i];
@@ -100,6 +101,22 @@
 				}
 			}
 		}
+		//翻译信息
+		obj.t={};
+		$(this).find("option:selected").each(function(){
+			var value=$(this).val();
+			//排除空选项
+			if(value){
+				var name=$(this).parent("select").attr("name");
+				var text=$(this).text();
+				obj.t[name]=text;
+			}
+		});
+		$(this).find("input:checked").each(function(){
+			var name=$(this).attr("name");
+			var value=$(this)[0].nextSibling.nodeValue;
+			obj.t[name]=value;
+		});
 		return obj;
 	}
 	
@@ -110,7 +127,10 @@
 		for(var i=0;i<$spans.length;i++){
 			var $span=$($spans[i]);
 			var name=$span.attr("data-name");
-			var value=$span.text();
+			var value=$span.attr("data-value");
+			if(value==null||value==""){
+				value=$span.text();
+			}
 			if(name&&value){
 				obj[name]=value;
 			}

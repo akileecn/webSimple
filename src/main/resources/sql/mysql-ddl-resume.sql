@@ -37,6 +37,9 @@ create table resume(
 	,personality varchar(500) -- 性格特点
 	,create_time datetime -- 创建时间
 	,modify_time datetime -- 修改时间
+	,work_year varchar(32) -- 工作年前
+	,work_city varchar(32) -- 期望工作城市
+	,health varchar(32) -- 健康
 );
 
 -- 教育经历

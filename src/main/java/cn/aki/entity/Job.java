@@ -3,6 +3,7 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.BaseTimeEntity;
+import cn.aki.entity.translate.Translatable;
 import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
@@ -10,7 +11,7 @@ import cn.aki.entity.translate.TranslateTypeCode;
  * @author aki
  * 2016年4月15日 下午5:08:05
  */
-public class Job extends BaseTimeEntity{
+public class Job extends BaseTimeEntity implements Translatable{
 	private static final long serialVersionUID = -448298364939140L;
 	private String name;		//,name varchar(32)
 	private String resumeType;	//,resume_type varchar(32) -- 招聘类型

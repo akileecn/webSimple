@@ -1,3 +1,7 @@
+<#-- 资源链接 -->
+<#macro resource relativeUrl>
+	<@spring.url "/resources/"+relativeUrl />
+</#macro>
 <#-- select标签 -->
 <#macro select label options name="" value="">
 <#if label??><label for="${name}">${label}:</label></#if>

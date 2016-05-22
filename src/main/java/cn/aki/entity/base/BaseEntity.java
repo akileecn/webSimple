@@ -2,14 +2,12 @@ package cn.aki.entity.base;
 
 import java.io.Serializable;
 import java.util.Map;
-
-import cn.aki.entity.translate.Translatable;
 /**
  * 实体基类
  * @author aki
  * 2016年4月19日 上午10:27:58
  */
-public abstract class BaseEntity implements Serializable,Translatable{
+public abstract class BaseEntity implements Serializable{
 	private static final long serialVersionUID = -876875333935298576L;
 	protected Integer id;//主键
 	protected Map<String,String> translation;
