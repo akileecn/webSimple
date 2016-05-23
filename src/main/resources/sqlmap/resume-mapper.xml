@@ -316,129 +316,48 @@
 	</insert>
 	
 	<!-- 更新 -->
-	<update id="update" parameterType="resume">
+		<update id="update" parameterType="resume">
 		update zp_resume
 		<set>
-			<if test="id!=null">
-			id=#{id}
-			</if>
-			<if test="createTime!=null">
-			,create_time=#{createTime}
-			</if>
-			<if test="modifyTime!=null">
-			,modify_time=#{modifyTime}
-			</if>
-			<if test="userId!=null">
-			,user_id=#{userId}
-			</if>
-			<if test="name!=null">
-			,name=#{name}
-			</if>
-			<if test="gender!=null">
-			,gender=#{gender}
-			</if>
-			<if test="birthday!=null">
-			,birthday=#{birthday}
-			</if>
-			<if test="nation!=null">
-			,nation=#{nation}
-			</if>
-			<if test="height!=null">
-			,height=#{height}
-			</if>
-			<if test="weight!=null">
-			,weight=#{weight}
-			</if>
-			<if test="idType!=null">
-			,id_type=#{idType}
-			</if>
-			<if test="idNumber!=null">
-			,id_number=#{idNumber}
-			</if>
-			<if test="marriage!=null">
-			,marriage=#{marriage}
-			</if>
-			<if test="politicsStatus!=null">
-			,politics_status=#{politicsStatus}
-			</if>
-			<if test="joinPartyDate!=null">
-			,join_party_date=#{joinPartyDate}
-			</if>
-			<if test="mobile!=null">
-			,mobile=#{mobile}
-			</if>
-			<if test="email!=null">
-			,email=#{email}
-			</if>
-			<if test="highestEducation!=null">
-			,highest_education=#{highestEducation}
-			</if>
-			<if test="highestDegree!=null">
-			,highest_degree=#{highestDegree}
-			</if>
-			<if test="graduateDate!=null">
-			,graduate_date=#{graduateDate}
-			</if>
-			<if test="ceeProvince!=null">
-			,cee_province=#{ceeProvince}
-			</if>
-			<if test="ceeScore!=null">
-			,cee_score=#{ceeScore}
-			</if>
-			<if test="isFirstLine!=null">
-			,is_first_line=#{isFirstLine}
-			</if>
-			<if test="artsOrScience!=null">
-			,arts_or_science=#{artsOrScience}
-			</if>
-			<if test="admissionOrder!=null">
-			,admission_order=#{admissionOrder}
-			</if>
-			<if test="emergencyContact!=null">
-			,emergency_contact=#{emergencyContact}
-			</if>
-			<if test="emergencyMobile!=null">
-			,emergency_mobile=#{emergencyMobile}
-			</if>
-			<if test="childrenCount!=null">
-			,children_count=#{childrenCount}
-			</if>
-			<if test="isRelativeHere!=null">
-			,is_relative_here=#{isRelativeHere}
-			</if>
-			<if test="currentResidence!=null">
-			,current_residence=#{currentResidence}
-			</if>
-			<if test="familyResidence!=null">
-			,family_residence=#{familyResidence}
-			</if>
-			<if test="nativePlace!=null">
-			,native_place=#{nativePlace}
-			</if>
-			<if test="studentOrigin!=null">
-			,student_origin=#{studentOrigin}
-			</if>
-			<if test="registeredResidence!=null">
-			,registered_residence=#{registeredResidence}
-			</if>
-			<if test="certificate!=null">
-			,certificate=#{certificate}
-			</if>
-			<if test="hobby!=null">
-			,hobby=#{hobby}
-			</if>
-			<if test="personality!=null">
-			,personality=#{personality}
-			</if>
-			<if test="workYear!=null">
-			,work_year=#{workYear}
-			</if>
-			<if test="workCity!=null">
-			,work_city=#{workCity}
-			</if>
-			<if test="health!=null">
-			,health=#{health}
-			</if>
+			create_time=#{createTime},
+			modify_time=#{modifyTime},
+			user_id=#{userId},
+			name=#{name},
+			gender=#{gender},
+			birthday=#{birthday},
+			nation=#{nation},
+			height=#{height},
+			weight=#{weight},
+			id_type=#{idType},
+			id_number=#{idNumber},
+			marriage=#{marriage},
+			politics_status=#{politicsStatus},
+			join_party_date=#{joinPartyDate},
+			mobile=#{mobile},
+			email=#{email},
+			highest_education=#{highestEducation},
+			highest_degree=#{highestDegree},
+			graduate_date=#{graduateDate},
+			cee_province=#{ceeProvince},
+			cee_score=#{ceeScore},
+			is_first_line=#{isFirstLine},
+			arts_or_science=#{artsOrScience},
+			admission_order=#{admissionOrder},
+			emergency_contact=#{emergencyContact},
+			emergency_mobile=#{emergencyMobile},
+			children_count=#{childrenCount},
+			is_relative_here=#{isRelativeHere},
+			current_residence=#{currentResidence},
+			family_residence=#{familyResidence},
+			native_place=#{nativePlace},
+			student_origin=#{studentOrigin},
+			registered_residence=#{registeredResidence},
+			certificate=#{certificate},
+			hobby=#{hobby},
+			personality=#{personality},
+			work_year=#{workYear},
+			work_city=#{workCity},
+			health=#{health},
 		</set>
 		<include refid="whereSql"/>
 	</update>

@@ -1,6 +1,7 @@
 package cn.aki.entity;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 家庭关系
@@ -10,6 +11,7 @@ import cn.aki.entity.base.ResumeSubEntity;
 public class ResumeFamily extends ResumeSubEntity{
 	private static final long serialVersionUID = 3688500831911368466L;
 	private String name;		//,name varchar(32) -- 名称
+	@TranslateTypeCode
 	private String relationship;//,relationship varchar(32) -- 关系
 	private String workCompany;	//,work_company varchar(100) -- 工作单位
 	private String workJob;		//,work_job varchar(32) -- 职位

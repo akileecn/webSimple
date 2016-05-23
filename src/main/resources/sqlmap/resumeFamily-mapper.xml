@@ -3,10 +3,8 @@
 <mapper namespace="cn.aki.dao.ResumeFamilyMapper">
 	<cache/>
 	<sql id="whereSql">
-		<where>
-			id=#{id}
+		where id=#{id}
 			and resume_id=#{resumeId}
-		</where>
 	</sql>
 	
 	<sql id="selectSql">
@@ -34,7 +32,7 @@
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resumeFamily">
+	<insert id="save" parameterType="resumeFamily" useGeneratedKeys="true" keyProperty="id">
 		insert into zp_resume_family(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
@@ -90,27 +88,12 @@
 	<update id="update" parameterType="resumeFamily">
 		update zp_resume_family
 		<set>
-			<if test="id!=null">
-			id=#{id}
-			</if>
-			<if test="resumeId!=null">
-			,resume_id=#{resumeId}
-			</if>
-			<if test="name!=null">
-			,name=#{name}
-			</if>
-			<if test="relationship!=null">
-			,relationship=#{relationship}
-			</if>
-			<if test="workCompany!=null">
-			,work_company=#{workCompany}
-			</if>
-			<if test="workJob!=null">
-			,work_job=#{workJob}
-			</if>
-			<if test="description!=null">
-			,description=#{description}
-			</if>
+			resume_id=#{resumeId},
+			name=#{name},
+			relationship=#{relationship},
+			work_company=#{workCompany},
+			work_job=#{workJob},
+			description=#{description},
 		</set>
 		<include refid="whereSql"/>
 	</update>

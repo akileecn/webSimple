@@ -72,6 +72,8 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private List<ResumeFamily> familyList;
 	private List<ResumeStudentCadre> studentCadreList;
 	private List<ResumeWork> workList;
+	private List<ResumeComputer> computerList;
+	private List<ResumeForeignLanguage> foreignLanguageList;
 	
 	public Integer getUserId() {
 		return userId;
@@ -324,6 +326,18 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	}
 	public void setHealth(String health) {
 		this.health = health;
+	}
+	public List<ResumeComputer> getComputerList() {
+		return computerList;
+	}
+	public void setComputerList(List<ResumeComputer> computerList) {
+		this.computerList = computerList;
+	}
+	public List<ResumeForeignLanguage> getForeignLanguageList() {
+		return foreignLanguageList;
+	}
+	public void setForeignLanguageList(List<ResumeForeignLanguage> foreignLanguageList) {
+		this.foreignLanguageList = foreignLanguageList;
 	}
 	
 }

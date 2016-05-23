@@ -20,6 +20,7 @@
 ,"relationship":"父亲,母亲,丈夫,妻子,兄弟,姐妹,其他"
 ,"artsOrScience":"文科,理科"
 ,"admissionOrder":"第一批,第二批,第三批,其他"
+,"cadreLevel":"校级,院级,班级"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');

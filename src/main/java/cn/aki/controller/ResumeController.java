@@ -14,9 +14,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.entity.Resume;
 import cn.aki.entity.ResumeAward;
+import cn.aki.entity.ResumeComputer;
+import cn.aki.entity.ResumeEducation;
+import cn.aki.entity.ResumeFamily;
+import cn.aki.entity.ResumeForeignLanguage;
+import cn.aki.entity.ResumeStudentCadre;
+import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.form.ResumeAwardForm;
+import cn.aki.form.ResumeComputerForm;
+import cn.aki.form.ResumeEducationForm;
+import cn.aki.form.ResumeFamilyForm;
+import cn.aki.form.ResumeForeignLanguageForm;
 import cn.aki.form.ResumeForm;
+import cn.aki.form.ResumeStudentCadreForm;
+import cn.aki.form.ResumeWorkForm;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
@@ -61,18 +73,77 @@ public class ResumeController extends BaseController{
 		return response;
 	}
 	
+	/* begin从属信息 */
 	@ResponseBody
 	@RequestMapping(path="/save/award",method=POST)
-	public FormResponse saveAward(ResumeAwardForm award,BindingResult result){
-		return saveSub(award,result);
+	public FormResponse saveAward(ResumeAwardForm form,BindingResult result){
+		return saveSub(form,result);
 	}
-	
 	@ResponseBody
 	@RequestMapping(path="/delete/award",method=POST)
-	public SimpleResponse deleteAward(ResumeAward award,BindingResult result){
-		return deleteSub(award);
+	public SimpleResponse deleteAward(ResumeAward bean,BindingResult result){
+		return deleteSub(bean);
 	}
-	
+	@ResponseBody
+	@RequestMapping(path="/save/computer",method=POST)
+	public FormResponse saveComputer(ResumeComputerForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/computer",method=POST)
+	public SimpleResponse deleteComputer(ResumeComputer bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/education",method=POST)
+	public FormResponse saveEducation(ResumeEducationForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/education",method=POST)
+	public SimpleResponse deleteEducation(ResumeEducation bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/family",method=POST)
+	public FormResponse saveFamily(ResumeFamilyForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/family",method=POST)
+	public SimpleResponse deleteFamily(ResumeFamily bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/foreignLanguage",method=POST)
+	public FormResponse saveForeignLanguage(ResumeForeignLanguageForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/foreignLanguage",method=POST)
+	public SimpleResponse deleteForeignLanguage(ResumeForeignLanguage bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/studentCadre",method=POST)
+	public FormResponse saveStudentCadre(ResumeStudentCadreForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/studentCadre",method=POST)
+	public SimpleResponse deleteStudentCadre(ResumeStudentCadre bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/work",method=POST)
+	public FormResponse saveWork(ResumeWorkForm form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/work",method=POST)
+	public SimpleResponse deleteWork(ResumeWork bean,BindingResult result){
+		return deleteSub(bean);
+	}
 	/**
 	 * 公共修改方法
 	 * @param sub
@@ -98,4 +169,5 @@ public class ResumeController extends BaseController{
 		response.setSuccess(true);
 		return response;
 	}
+	/* end从属信息 */
 }

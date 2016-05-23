@@ -3,13 +3,8 @@
 <mapper namespace="cn.aki.dao.${type}Mapper">
 	<cache/>
 	<sql id="whereSql">
-		<where>
-<#list columns?keys as key>
-			<if test="${columns[key]}!=null">
-			<#if !(key?is_first)>and </#if>${key}=${r'#'}{${columns[key]}}
-			</if>
-		</#list>
-		</where>
+		where id=${r'#'}{id}
+			and resume_id=${r'#'}{resumeId}
 	</sql>
 	
 	<sql id="selectSql">
@@ -17,7 +12,7 @@
 		<#list columns?keys as key>
 			<#if !(key?is_first)>,</#if>${key}<#if key!=columns[key]> as ${columns[key]}</#if>
 		</#list>	
-		from ${table}
+		from zp_${table}
 	</sql>
 	
 	<!-- 获得 -->
@@ -27,14 +22,20 @@
 	</select>
 	
 	<!-- 查询 -->
+	<#--
 	<select id="getList" parameterType="${bean}" resultType="${bean}">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
+	-->
+	<select id="getList" parameterType="int" resultType="${bean}">
+		<include refid="selectSql"/>
+		where resume_id=${r'#'}{resumeId}
+	</select>
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="${bean}" useGeneratedKeys="true" keyProperty="id">
-		insert into ${table}(
+		insert into zp_${table}(
 		<trim prefix="" prefixOverrides=",">
 		<#list columns?keys as key>
 			<if test="${columns[key]}!=null">
@@ -55,12 +56,12 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="${bean}">
-		update ${table}
+		update zp_${table}
 		<set>
 		<#list columns?keys as key>
-			<if test="${columns[key]}!=null">
-			<#if !(key?is_first)>,</#if>${key}=${r'#'}{${columns[key]}}
-			</if>
+			<#if key!="id"&&key!="create_time">
+			${key}=${r'#'}{${columns[key]}},
+			</#if>
 		</#list>
 		</set>
 		<include refid="whereSql"/>
@@ -68,7 +69,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="${bean}">
-		delete from ${table}
+		delete from zp_${table}
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

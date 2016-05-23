@@ -3,6 +3,7 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 教育经历
@@ -13,14 +14,21 @@ public class ResumeEducation extends ResumeSubEntity{
 	private static final long serialVersionUID = -3184168895563521363L;
 	private String schoolName;		//,school_name varchar(32)
 	private String major;			//,major varchar(32)
+	@TranslateTypeCode
 	private String graduateType;	//,graduate_type varchar(32) -- 毕业方式
+	@TranslateTypeCode
 	private String degree;			//,degree varchar(32) -- 学位
+	@TranslateTypeCode
 	private String education;		//,education varchar(32) -- 学历
+	@TranslateTypeCode
 	private String learnType;		//,learn_type varchar(32) -- 学习形式
 	private Date beginDate;			//,begin_date datetime -- 开始时间
 	private Date endDate;			//,end_date datetime -- 结束时间
+	@TranslateTypeCode
 	private String schoolType;		//,school_type varchar(32) -- 学校类别
+	@TranslateTypeCode
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
+	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
 
 	public String getSchoolName() {

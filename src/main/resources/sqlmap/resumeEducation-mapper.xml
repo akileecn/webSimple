@@ -3,10 +3,8 @@
 <mapper namespace="cn.aki.dao.ResumeEducationMapper">
 	<cache/>
 	<sql id="whereSql">
-		<where>
-			id=#{id}
+		where id=#{id}
 			and resume_id=#{resumeId}
-		</where>
 	</sql>
 	
 	<sql id="selectSql">
@@ -40,7 +38,7 @@
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resumeEducation">
+	<insert id="save" parameterType="resumeEducation" useGeneratedKeys="true" keyProperty="id">
 		insert into zp_resume_education(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
@@ -132,45 +130,18 @@
 	<update id="update" parameterType="resumeEducation">
 		update zp_resume_education
 		<set>
-			<if test="id!=null">
-			id=#{id}
-			</if>
-			<if test="resumeId!=null">
-			,resume_id=#{resumeId}
-			</if>
-			<if test="schoolName!=null">
-			,school_name=#{schoolName}
-			</if>
-			<if test="major!=null">
-			,major=#{major}
-			</if>
-			<if test="graduateType!=null">
-			,graduate_type=#{graduateType}
-			</if>
-			<if test="degree!=null">
-			,degree=#{degree}
-			</if>
-			<if test="education!=null">
-			,education=#{education}
-			</if>
-			<if test="learnType!=null">
-			,learn_type=#{learnType}
-			</if>
-			<if test="beginDate!=null">
-			,begin_date=#{beginDate}
-			</if>
-			<if test="endDate!=null">
-			,end_date=#{endDate}
-			</if>
-			<if test="schoolType!=null">
-			,school_type=#{schoolType}
-			</if>
-			<if test="hasBeenCadre!=null">
-			,has_been_cadre=#{hasBeenCadre}
-			</if>
-			<if test="gradeRank!=null">
-			,grade_rank=#{gradeRank}
-			</if>
+			resume_id=#{resumeId},
+			school_name=#{schoolName},
+			major=#{major},
+			graduate_type=#{graduateType},
+			degree=#{degree},
+			education=#{education},
+			learn_type=#{learnType},
+			begin_date=#{beginDate},
+			end_date=#{endDate},
+			school_type=#{schoolType},
+			has_been_cadre=#{hasBeenCadre},
+			grade_rank=#{gradeRank},
 		</set>
 		<include refid="whereSql"/>
 	</update>

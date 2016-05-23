@@ -10,6 +10,9 @@ public class CreateSqlTest {
 //		CreateSql.newInstance(ResumeEducation.class).create();
 //		CreateSql.newInstance(ResumeFamily.class).create();
 //		CreateSql.newInstance(ResumeWork.class).create();
+//		CreateSql.newInstance(ResumeComputer.class).create();
+//		CreateSql.newInstance(ResumeForeignLanguage.class).create();
+//		CreateSql.newInstance(ResumeStudentCadre.class).create();
 		CreateSql.create("dict.ftl", null);
 	}
 }

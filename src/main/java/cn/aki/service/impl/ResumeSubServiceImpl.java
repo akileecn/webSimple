@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import cn.aki.dao.BaseResumeSubMapper;
 import cn.aki.dao.ResumeAwardMapper;
+import cn.aki.dao.ResumeComputerMapper;
 import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeFamilyMapper;
+import cn.aki.dao.ResumeForeignLanguageMapper;
+import cn.aki.dao.ResumeStudentCadreMapper;
 import cn.aki.dao.ResumeWorkMapper;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.service.ResumeSubService;
@@ -31,6 +34,15 @@ public class ResumeSubServiceImpl implements ResumeSubService,InitializingBean{
 	@SuppressWarnings("unused")
 	@Autowired
 	private ResumeWorkMapper workMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumeComputerMapper computerMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumeForeignLanguageMapper foreignLanguageMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumeStudentCadreMapper studentCadreMapper;
 	
 	private HashMap<Class<? extends ResumeSubEntity>, BaseResumeSubMapper<? extends ResumeSubEntity>> mapperMap;
 

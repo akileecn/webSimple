@@ -91,7 +91,7 @@ create table zp_resume_work(
 	,certifier_mobile nvarchar(32) -- 证明人电话
 	,work_place nvarchar(100) -- 工作地点
 	,job_type nvarchar(32) -- 职位类型
-	,industry nvarchar(32) -- 行业
+	-- ,industry nvarchar(32) -- 行业
 	,begin_date datetime -- 开始时间
 	,end_date datetime -- 结束时间
 	,dimission_reason nvarchar(500) -- 辞职理由

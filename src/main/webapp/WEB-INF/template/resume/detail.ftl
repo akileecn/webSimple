@@ -14,10 +14,10 @@
 	    <div class="box_3">
 	        <div class="box_4 minheight">
 	            <h3>我的简历</h3>
-	            <div class="col_more fr"><a href="#">首页</a> - <a href="#">我的简历</a> - <a href="#"><span >更多 &nbsp;<img src="images/arrow1.png" alt=""/></span></a></div>
+	            <div class="col_more fr"><a href="#">首页</a> - <a href="#">我的简历</a> - <a href="#"><span >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a></div>
 	            <div class="col_cv_main">
 					<#include "/resume/detail_base.ftl"/>
-					<#include "/resume/detail_sub_award.ftl"/>
+					<#include "/resume/detail_sub.ftl"/>
 	            </div>
 	        </div>
 	    </div>
@@ -33,13 +33,13 @@
 				//基本信息
 				$("#baseForm").html($.template(T.base.text,resume));
 				//从属信息
-				var subs=["award"];
+				var subs=["award","computer","education","family","foreignLanguage","studentCadre","work"];
 				for(var i=0;i<subs.length;i++){
 					var dataType=subs[i];
 					var datas=resume[dataType+"List"];
 					if(datas){
-						for(var i=0;i<datas.length;i++){
-							addSub(dataType,"text",datas[i]);
+						for(var j=0;j<datas.length;j++){
+							addSub(dataType,"text",datas[j]);
 						}
 					}
 				}

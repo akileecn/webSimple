@@ -3,6 +3,7 @@ package cn.aki.entity;
 import java.util.Date;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 
 /**
  * 学生干部经历
@@ -15,6 +16,7 @@ public class ResumeStudentCadre extends ResumeSubEntity{
 	private Date endDate;			//,end_date datetime -- 结束时间
 	private String school;			//,school varchar(32) -- 所在院校
 	private String name;			//,name varchar(32) -- 干部名称
+	@TranslateTypeCode("cadreLevel")
 	private String level;			//,level varchar(32) -- 级别
 	private String certifier;		//,certifier varchar(32) -- 证明人
 	private String certifierMobile;	//,certifier_mobile varchar(32) -- 证明人电话

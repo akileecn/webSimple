@@ -3,10 +3,8 @@
 <mapper namespace="cn.aki.dao.ResumeWorkMapper">
 	<cache/>
 	<sql id="whereSql">
-		<where>
-			id=#{id}
+		where id=#{id}
 			and resume_id=#{resumeId}
-		</where>
 	</sql>
 	
 	<sql id="selectSql">
@@ -43,7 +41,7 @@
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resumeWork">
+	<insert id="save" parameterType="resumeWork" useGeneratedKeys="true" keyProperty="id">
 		insert into zp_resume_work(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
@@ -153,54 +151,21 @@
 	<update id="update" parameterType="resumeWork">
 		update zp_resume_work
 		<set>
-			<if test="id!=null">
-			id=#{id}
-			</if>
-			<if test="resumeId!=null">
-			,resume_id=#{resumeId}
-			</if>
-			<if test="company!=null">
-			,company=#{company}
-			</if>
-			<if test="department!=null">
-			,department=#{department}
-			</if>
-			<if test="annualSalary!=null">
-			,annual_salary=#{annualSalary}
-			</if>
-			<if test="job!=null">
-			,job=#{job}
-			</if>
-			<if test="certifier!=null">
-			,certifier=#{certifier}
-			</if>
-			<if test="certifierMobile!=null">
-			,certifier_mobile=#{certifierMobile}
-			</if>
-			<if test="workPlace!=null">
-			,work_place=#{workPlace}
-			</if>
-			<if test="jobType!=null">
-			,job_type=#{jobType}
-			</if>
-			<if test="industry!=null">
-			,industry=#{industry}
-			</if>
-			<if test="beginDate!=null">
-			,begin_date=#{beginDate}
-			</if>
-			<if test="endDate!=null">
-			,end_date=#{endDate}
-			</if>
-			<if test="dimissionReason!=null">
-			,dimission_reason=#{dimissionReason}
-			</if>
-			<if test="duty!=null">
-			,duty=#{duty}
-			</if>
-			<if test="performance!=null">
-			,performance=#{performance}
-			</if>
+			resume_id=#{resumeId},
+			company=#{company},
+			department=#{department},
+			annual_salary=#{annualSalary},
+			job=#{job},
+			certifier=#{certifier},
+			certifier_mobile=#{certifierMobile},
+			work_place=#{workPlace},
+			job_type=#{jobType},
+			industry=#{industry},
+			begin_date=#{beginDate},
+			end_date=#{endDate},
+			dimission_reason=#{dimissionReason},
+			duty=#{duty},
+			performance=#{performance},
 		</set>
 		<include refid="whereSql"/>
 	</update>

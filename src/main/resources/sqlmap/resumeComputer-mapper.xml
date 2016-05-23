@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.aki.dao.ResumeAwardMapper">
+<mapper namespace="cn.aki.dao.ResumeComputerMapper">
 	<cache/>
 	<sql id="whereSql">
 		where id=#{id}
@@ -11,28 +11,28 @@
 		select
 			id
 			,resume_id as resumeId
-			,name
-			,time
+			,certificate
+			,obtain_date as obtainDate
 			,level
-			,description
-		from zp_resume_award
+			,detail
+		from zp_resume_computer
 	</sql>
 	
 	<!-- 获得 -->
-	<select id="get" parameterType="resumeAward" resultType="resumeAward">
+	<select id="get" parameterType="resumeComputer" resultType="resumeComputer">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="int" resultType="resumeAward">
+	<select id="getList" parameterType="int" resultType="resumeComputer">
 		<include refid="selectSql"/>
 		where resume_id=#{resumeId}
 	</select>
 	
 	<!-- 保存 -->
-	<insert id="save" parameterType="resumeAward" useGeneratedKeys="true" keyProperty="id">
-		insert into zp_resume_award(
+	<insert id="save" parameterType="resumeComputer" useGeneratedKeys="true" keyProperty="id">
+		insert into zp_resume_computer(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -40,17 +40,17 @@
 			<if test="resumeId!=null">
 			,resume_id
 			</if>
-			<if test="name!=null">
-			,name
+			<if test="certificate!=null">
+			,certificate
 			</if>
-			<if test="time!=null">
-			,time
+			<if test="obtainDate!=null">
+			,obtain_date
 			</if>
 			<if test="level!=null">
 			,level
 			</if>
-			<if test="description!=null">
-			,description
+			<if test="detail!=null">
+			,detail
 			</if>
 		</trim>
 		)values(
@@ -61,38 +61,38 @@
 			<if test="resumeId!=null">
 			,#{resumeId}
 			</if>
-			<if test="name!=null">
-			,#{name}
+			<if test="certificate!=null">
+			,#{certificate}
 			</if>
-			<if test="time!=null">
-			,#{time}
+			<if test="obtainDate!=null">
+			,#{obtainDate}
 			</if>
 			<if test="level!=null">
 			,#{level}
 			</if>
-			<if test="description!=null">
-			,#{description}
+			<if test="detail!=null">
+			,#{detail}
 			</if>
 		</trim>
 		)
 	</insert>
 	
 	<!-- 更新 -->
-	<update id="update" parameterType="resumeAward">
-		update zp_resume_award
+	<update id="update" parameterType="resumeComputer">
+		update zp_resume_computer
 		<set>
 			resume_id=#{resumeId},
-			name=#{name},
-			time=#{time},
+			certificate=#{certificate},
+			obtain_date=#{obtainDate},
 			level=#{level},
-			description=#{description},
+			detail=#{detail},
 		</set>
 		<include refid="whereSql"/>
 	</update>
 	
 	<!-- 删除 -->
-	<delete id="delete" parameterType="resumeAward">
-		delete from zp_resume_award
+	<delete id="delete" parameterType="resumeComputer">
+		delete from zp_resume_computer
 		<include refid="whereSql"/>
 	</delete>
 </mapper>
