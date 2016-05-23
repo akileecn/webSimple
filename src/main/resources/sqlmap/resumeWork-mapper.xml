@@ -27,7 +27,7 @@
 			,dimission_reason as dimissionReason
 			,duty
 			,performance
-		from resume_work
+		from zp_resume_work
 	</sql>
 	
 	<!-- 获得 -->
@@ -44,7 +44,7 @@
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="resumeWork">
-		insert into resume_work(
+		insert into zp_resume_work(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -151,7 +151,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="resumeWork">
-		update resume_work
+		update zp_resume_work
 		<set>
 			<if test="id!=null">
 			id=#{id}
@@ -207,7 +207,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="resumeWork">
-		delete from resume_work
+		delete from zp_resume_work
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

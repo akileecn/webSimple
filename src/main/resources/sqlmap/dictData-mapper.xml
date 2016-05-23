@@ -15,7 +15,7 @@
 			,type_code
 			,code
 			,name
-		from dict_data
+		from zp_dict_data
 	</sql>
 	
 	<select id="getListByTypes" resultMap="dictDataResultMap" parameterType="list">

@@ -2,15 +2,14 @@ package cn.aki.test;
 
 import org.junit.Test;
 
-import cn.aki.entity.Resume;
-
 public class CreateSqlTest {
 	@Test
-	public void resumeSub(){
-		CreateSql.newInstance(Resume.class).create();
+	public void resumeSub() throws Exception{
+//		CreateSql.newInstance(Resume.class).create();
 //		CreateSql.newInstance(ResumeAward.class).create();
 //		CreateSql.newInstance(ResumeEducation.class).create();
 //		CreateSql.newInstance(ResumeFamily.class).create();
 //		CreateSql.newInstance(ResumeWork.class).create();
+		CreateSql.create("dict.ftl", null);
 	}
 }

@@ -48,7 +48,7 @@
 			,work_year as workYear
 			,work_city as workCity
 			,health
-		from resume
+		from zp_resume
 	</sql>
 	
 	<!-- 获得 -->
@@ -60,13 +60,13 @@
 	<!-- 获得用户的简历ID -->
 	<select id="getIdByUserId" parameterType="int" resultType="int">
 		select id
-		from resume
+		from zp_resume
 		where user_id=#{userId}
 	</select>
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="resume" useGeneratedKeys="true" keyProperty="id">
-		insert into resume(
+		insert into zp_resume(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -317,7 +317,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="resume">
-		update resume
+		update zp_resume
 		<set>
 			<if test="id!=null">
 			id=#{id}
@@ -445,7 +445,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="resume">
-		delete from resume
+		delete from zp_resume
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

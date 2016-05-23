@@ -22,8 +22,8 @@
 ,"admissionOrder":"第一批,第二批,第三批,其他"
 }/>
 <#list data?keys as key>
-insert into dict_type(code,name)values('${key}','${key}');
+insert into zp_dict_type(code,name)values('${key}',N'${key}');
 <#list data[key]?split(",") as item>
-insert into dict_data(type_code,code,name)values('${key}','${item?index+1}','${item}');
+insert into zp_dict_data(type_code,code,name)values('${key}','${item?index+1}',N'${item}');
 </#list>
 </#list>

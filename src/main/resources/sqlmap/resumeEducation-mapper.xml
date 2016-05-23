@@ -24,7 +24,7 @@
 			,school_type as schoolType
 			,has_been_cadre as hasBeenCadre
 			,grade_rank as gradeRank
-		from resume_education
+		from zp_resume_education
 	</sql>
 	
 	<!-- 获得 -->
@@ -41,7 +41,7 @@
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="resumeEducation">
-		insert into resume_education(
+		insert into zp_resume_education(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -130,7 +130,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="resumeEducation">
-		update resume_education
+		update zp_resume_education
 		<set>
 			<if test="id!=null">
 			id=#{id}
@@ -177,7 +177,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="resumeEducation">
-		delete from resume_education
+		delete from zp_resume_education
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

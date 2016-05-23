@@ -35,14 +35,14 @@
 			,r.name	as r_name
 			,p.id	as p_id
 			,p.name	as p_name
-		from user u
-		left join user_role ur
+		from zp_user u
+		left join zp_user_role ur
 			on ur.user_id=u.id
-		left join role r
+		left join zp_role r
 			on r.id=ur.role_id
-		left join role_permission rp
+		left join zp_role_permission rp
 			on rp.role_id=r.id
-		left join permission p
+		left join zp_permission p
 			on p.id=rp.permission_id
 		<include refid="whereByUsername">
 			<property name="prefix" value="u."/>
@@ -57,7 +57,7 @@
 			,mobile
 			,email
 			,password
-		from user
+		from zp_user
 		<include refid="whereByUsername">
 			<property name="prefix" value=""/>
 		</include>
@@ -65,7 +65,7 @@
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="user" useGeneratedKeys="true" keyProperty="id">
-		insert into user(
+		insert into zp_user(
 			password,id_number,mobile,email,question,answer,create_time,modify_time
 		)values(
 			#{password},#{idNumber},#{mobile},#{email},#{question},#{answer},now(),now()
@@ -75,7 +75,7 @@
 	<!-- 是否存在 -->
 	<select id="exists" parameterType="user" resultType="int">
 		select count(1)
-		from user
+		from zp_user
 		<where>
 			<if test="email!=null">
 				email=#{email}

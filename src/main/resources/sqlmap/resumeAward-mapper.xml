@@ -17,7 +17,7 @@
 			,time
 			,level
 			,description
-		from resume_award
+		from zp_resume_award
 	</sql>
 	
 	<!-- 获得 -->
@@ -34,7 +34,7 @@
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="resumeAward">
-		insert into resume_award(
+		insert into zp_resume_award(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -81,7 +81,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="resumeAward">
-		update resume_award
+		update zp_resume_award
 		<set>
 			<if test="id!=null">
 			id=#{id}
@@ -107,7 +107,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="resumeAward">
-		delete from resume_award
+		delete from zp_resume_award
 		<include refid="whereSql"/>
 	</delete>
 </mapper>

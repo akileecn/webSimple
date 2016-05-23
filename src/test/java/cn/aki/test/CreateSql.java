@@ -25,7 +25,7 @@ public class CreateSql {
 		/*配置*/
 		CONFIGURATION=new Configuration(Configuration.VERSION_2_3_24);
 		try {
-			CONFIGURATION.setDirectoryForTemplateLoading(new File(CreateSql.class.getResource("./").getPath()));
+			CONFIGURATION.setDirectoryForTemplateLoading(new File(CreateSql.class.getResource("./template").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +44,17 @@ public class CreateSql {
 	 */
 	public static final CreateSql newInstance(Class<?> clazz){
 		return new CreateSql(clazz);
+	}
+	
+	/**
+	 * 简单生成
+	 * @param templateName
+	 * @param data
+	 * @throws Exception
+	 */
+	public static void create(String templateName,Object data) throws Exception{
+		Template template = CONFIGURATION.getTemplate(templateName);
+		template.process(data, new OutputStreamWriter(System.err));
 	}
 	
 	//sql类型

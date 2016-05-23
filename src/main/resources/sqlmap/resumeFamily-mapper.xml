@@ -18,7 +18,7 @@
 			,work_company as workCompany
 			,work_job as workJob
 			,description
-		from resume_family
+		from zp_resume_family
 	</sql>
 	
 	<!-- 获得 -->
@@ -35,7 +35,7 @@
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="resumeFamily">
-		insert into resume_family(
+		insert into zp_resume_family(
 		<trim prefix="" prefixOverrides=",">
 			<if test="id!=null">
 			id
@@ -88,7 +88,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="resumeFamily">
-		update resume_family
+		update zp_resume_family
 		<set>
 			<if test="id!=null">
 			id=#{id}
@@ -117,7 +117,7 @@
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="resumeFamily">
-		delete from resume_family
+		delete from zp_resume_family
 		<include refid="whereSql"/>
 	</delete>
 </mapper>
