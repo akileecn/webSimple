@@ -58,6 +58,49 @@
 	<script src="<@c.resource "js/jquery.easydropdown.js"/>"></script>
 	<script src="<@c.resource "js/hover_pack.js"/>"></script>
 	<#-- //End美工样式相关 -->
+	<script>
+		(function($){
+			//分页条
+			$.fn.page=function(p,callback){
+				if(!p||!p.pages||!p.pageNum){
+					return;
+				}
+				var html="";
+				if(p.pages>0){
+					var begin=p.pageNum-3;
+					if(begin<1){
+						begin=1;
+					}
+					var end=p.pageNum+3;
+					if(end>p.pages){
+						end=p.pages;
+					}
+					if(begin!=1){
+						html+='<a href="javascript:void(0);" data-index="'+(begin-1)+'"><img src="<@c.resource "images/arrow_left1.png"/>"></a>';
+					}
+					for(var i=begin;i<=end;i++){
+						if(i==p.pageNum){
+							html+='<a href="javascript:void(0);"><font class="green">'+i+'</font></a>';
+						}else{
+							html+='<a href="javascript:void(0);" data-index="'+i+'">'+i+'</a>';
+						}
+					}
+					if(end!=p.pages){
+						html+='<a href="javascript:void(0);" data-index="'+(end+1)+'"><img src="<@c.resource "images/arrow_right1.png"/>"></a>';
+					}
+				}
+				html+='<a href="#">共<b class="green">'+p.pages+'</b>条</a>';
+				var $self=$(this);
+				$self.html(html);
+				$self.on("click","a",function(text){
+					var index=$(this).attr("data-index");
+					if(index&&callback){
+						callback(index);
+					}
+				});
+			}
+		}(window.$));
+	</script>
 	<#nested>
 </head>
 </#macro>
@@ -89,6 +132,15 @@
 	</div>
 	<!----//End-header---->
 	<#nested>
+	<div class="footer">
+	    <div class="container">
+	        <div class="col-xs-12 footer_grid">
+	            <div class="copy">
+	                <p>Copyright &copy; 2016.Company name All rights reserved.</p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<@c.resource "bootstrap-3.3.6/js/bootstrap.min.js"/>"></script>
 </body>

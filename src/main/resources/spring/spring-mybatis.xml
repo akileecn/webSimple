@@ -53,7 +53,7 @@
 					<property name="properties">
 						<value>
 							<!-- 4.0.0以后版本可以不设置该参数 -->
-							dialect=mysql
+							dialect=sqlserver
 							<!-- 该参数默认为false -->
 							<!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
 							<!-- 和startPage中的pageNum效果一样-->
