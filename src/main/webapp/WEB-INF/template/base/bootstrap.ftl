@@ -63,6 +63,7 @@
 			//分页条
 			$.fn.page=function(p,callback){
 				if(!p||!p.pages||!p.pageNum){
+					$(this).html('<a href="javascript:void(0);"><font class="green">1</font></a><a href="javascript:void(0);">共<b class="green">0</b>条</a>');
 					return;
 				}
 				var html="";
@@ -89,7 +90,7 @@
 						html+='<a href="javascript:void(0);" data-index="'+(end+1)+'"><img src="<@c.resource "images/arrow_right1.png"/>"></a>';
 					}
 				}
-				html+='<a href="#">共<b class="green">'+p.pages+'</b>条</a>';
+				html+='<a href="javascript:void(0);">共<b class="green">'+p.pages+'</b>条</a>';
 				var $self=$(this);
 				$self.html(html);
 				$self.on("click","a",function(text){
@@ -106,22 +107,22 @@
 </#macro>
 
 <#-- html体 -->
-<#macro body>
+<#macro body menu>
 <body>
 	<!----start-header---->
 	<div class="header">
 		<div class="container"  >
 			<div class="header_top">
 				<div class="logo">
-					<a href="index.html"><img src="<@c.resource "images/logo.jpg"/>" alt=""></a>
+					<a href="<@spring.url "/index"/>"><img src="<@c.resource "images/logo.jpg"/>" alt=""></a>
 				</div>
 				<div class="menu">					
 					<ul class="nav" id="nav">
-						<li class="current"><a href="index.html">首页</a></li>
-						<li><a href="campus.html">校园招聘</a></li>
-						<li><a href="society.html">社会招聘</a></li>
-						<li><a href="trainee.html">实习生招聘</a></li>
-						<li><a href="about.html">认识瑞丰</a></li>								
+						<li <#if !menu??>class="current"</#if>><a href="<@spring.url "/index"/>">首页</a></li>
+						<li <#if menu=="campus">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=campus"/>">校园招聘</a></li>
+						<li <#if menu=="society">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=society"/>">社会招聘</a></li>
+						<li <#if menu=="trainee">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=trainee"/>">实习生招聘</a></li>
+						<li <#if menu=="about">class="current"</#if>><a href="<@spring.url "/about"/>">认识瑞丰</a></li>								
 					</ul>
 					<script type="text/javascript" src="<@c.resource "js/responsive-nav.js"/>"></script>
 				</div>							

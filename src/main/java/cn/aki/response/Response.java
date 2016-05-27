@@ -9,6 +9,7 @@ package cn.aki.response;
 public abstract class Response<T, E>{
 	protected T data;//返回数据
 	protected E error;//错误信息
+	protected String message;//提示信息
 	
 	public T getData() {
 		return data;
@@ -29,4 +30,11 @@ public abstract class Response<T, E>{
 	public void setError(E error) {
 		this.error = error;
 	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

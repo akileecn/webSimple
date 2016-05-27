@@ -1,5 +1,7 @@
 package cn.aki.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 
 import cn.aki.entity.Job;
@@ -18,4 +20,9 @@ public interface JobService extends BaseService<Job>{
 	 * @return
 	 */
 	Job get(Integer id);
+	/**
+	 * 获得惹着岗位
+	 * @return
+	 */
+	List<Job> getHotList();
 }

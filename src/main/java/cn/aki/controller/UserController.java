@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.aki.entity.User;
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
 import cn.aki.response.FormResponse;
@@ -55,8 +56,8 @@ public class UserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public FormResponse handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
-		FormResponse response=handleFormError(result);
+	public FormResponse<User> handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
+		FormResponse<User> response=handleFormError(result);
 		if(response.isSuccess()){
 			UsernamePasswordToken token=new UsernamePasswordToken(userLoginForm.getUsername(), userLoginForm.getPassword());
 			token.setRememberMe(true);
@@ -91,8 +92,8 @@ public class UserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public FormResponse handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
-		FormResponse response=handleFormError(result);
+	public FormResponse<Void> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
+		FormResponse<Void> response=handleFormError(result);
 		if(response.isSuccess()){
 			//保存用户
 			userService.save(userRegisterForm);

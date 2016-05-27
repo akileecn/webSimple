@@ -80,3 +80,6 @@ create table zp_job(
 	,create_time datetime
 	,modify_time datetime
 );
+
+/*用户增加姓名*/
+alter table zp_user add name nvarchar(32);

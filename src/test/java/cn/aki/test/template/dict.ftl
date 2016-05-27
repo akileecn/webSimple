@@ -21,10 +21,16 @@
 ,"artsOrScience":"文科,理科"
 ,"admissionOrder":"第一批,第二批,第三批,其他"
 ,"cadreLevel":"校级,院级,班级"
+,"resumeType":"campus:校园,society:社会,trainee:实习生"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');
 <#list data[key]?split(",") as item>
+	<#if item?contains(":")>
+	<#assign words=item?split(":")>
+insert into zp_dict_data(type_code,code,name)values('${key}','${words[0]}',N'${words[1]}');	
+	<#else>
 insert into zp_dict_data(type_code,code,name)values('${key}','${item?index+1}',N'${item}');
+	</#if>
 </#list>
 </#list>

@@ -1,7 +1,5 @@
 package cn.aki.form;
 
-import org.springframework.util.StringUtils;
-
 import cn.aki.entity.Job;
 import cn.aki.form.base.BasePageForm;
 
@@ -11,6 +9,7 @@ import cn.aki.form.base.BasePageForm;
  * 2016年4月27日 下午6:10:59
  */
 public class JobQueryForm extends BasePageForm{
+	private Integer id;				//主键
 	private String name;			//岗位名称
 	private String resumeType;		//招聘类型
 	private String workCity;		//工作城市
@@ -19,13 +18,19 @@ public class JobQueryForm extends BasePageForm{
 	
 	public Job createJob(){
 		Job job=new Job();
-		if(!StringUtils.isEmpty(name)){
-			job.setName("%"+name+"%");
-		}
+		job.setId(id);//查询时不会用到
+		job.setName(name);
 		job.setResumeType(resumeType);
 		job.setWorkCity(workCity);
 		job.setEducation(education);
 		return job;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

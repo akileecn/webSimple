@@ -6,7 +6,7 @@
     </td>
 </#macro>
 <@bootstrap.head>
-<title>校园招聘-招聘岗位</title>
+<title>${dictMap["resumeType"][job.resumeType]}招聘</title>
 <style>
     ._more {
         position: relative;
@@ -29,68 +29,64 @@
     }
 </style>
 </@bootstrap.head>
-<@bootstrap.body>
+<@bootstrap.body menu=job.resumeType>
 <div class="banner">
     <div class="banner_container">
-        <img src="<@c.resource "images/campus-banner.jpg"/>" width="100%">
+        <img src="<@c.resource "images/"+(job.resumeType!"campus")+"-banner.jpg"/>" width="100%">
     </div>
 </div>
 <div class="container">
+	<#-- left -->
     <div class='col-xs-3 padding-r  padding-t'>
         <div class="box_3">
             <div class="box_4 minheight">
-                <span class="left_title">校园招聘</span>
+                <span class="left_title">${dictMap["resumeType"][job.resumeType]}招聘</span>
                 <ul class="left_col">
+                	<#if job.resumeType=="campus">
                     <li><a href="campus.html">招聘公告</a></li>
-                    <li><a href="campus_job.html">招聘岗位</a></li>
+                    </#if>
+                    <li><a href="<@spring.url "/job/list?resumeType="+job.resumeType/>">招聘岗位</a></li>
                     <li><a href="user.html">个人中心</a></li>
                     <li><a href="notice.html">通知信</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class='col-xs-9 padding-l  padding-t'>
-        <div class="box_3">
-            <div class="box_4 minheight">
-                <h3>招聘岗位</h3>
-                <div class="col_more fr">
-                    <a href="#">首页</a> - <a href="#">招聘岗位</a> - <a href="#"><span >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a>
-                </div>
-                <form id="listForm" action="<@spring.url "/job/list"/>" method="post" class="col_search">
-                <div>
-                	<input type="hidden" name="pageNum"/>
-                	<input type="hidden" name="pageSize"/>
-					<@c.select label="工作地点" name="workCity" selectAttr="class=\"col_search_add\""/>
-					<@c.select label="学历要求" name="education" selectAttr="class=\"col_search_add\""/>
-					<br>
-                    <label>岗位名称关键字</label>
-                    <input name="name" type="text" class="col_search_text" placeholder="请输入关键字">
-                </div>
-                <input type="submit" class="col_search_btn fr" value="搜索">
-            	</form>
-                <div class="col_h">
-                    <h3>岗位列表</h3>
-                </div>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="col_tab">
-                    <tr class="col_tab_title">
-                        <td width="30%">招聘岗位</td>
-                        <td>工作地点</td>
-                        <td>截止时间</td>
-                        <td>人数</td>
-                        <td width="160">
-                    		每页<a href="javascript:void(0);" class="col_tab_num">10</a>
-                    		<a href="javascript:void(0);" class="col_tab_num">20</a>
-                    		<a href="javascript:void(0);" class="col_tab_num">50</a>条
-                    	</td>
-                    </tr>
-                    <tbody id="listTbody"></tbody>
-                </table>
-                <div id="showjobb"></div>
-                <div class="page" id="pageDiv"></div>
-            </div>
-        </div>
+    <#-- right -->
+    <@c.right title="招聘岗位">
+    <form id="listForm" action="<@spring.url "/job/list"/>" method="post" class="col_search">
+    <div>
+    	<#-- 分页参数 -->
+    	<input type="hidden" name="pageNum"/>
+    	<input type="hidden" name="pageSize"/>
+		<@c.select label="工作地点" name="workCity" value=job.workCity selectAttr="class=\"col_search_add\""/>
+		<@c.select label="学历要求" name="education" value=job.education selectAttr="class=\"col_search_add\""/>
+		<br>
+        <label>岗位名称关键字</label>
+        <input name="name" type="text" value="${job.name}" class="col_search_text" placeholder="请输入关键字">
     </div>
-    <div class="clearfix"></div>
+    <input type="submit" class="col_search_btn fr" value="搜索">
+	</form>
+    <div class="col_h">
+        <h3>岗位列表</h3>
+    </div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="col_tab">
+        <tr class="col_tab_title">
+            <td width="30%">招聘岗位</td>
+            <td>工作地点</td>
+            <td>截止时间</td>
+            <td>人数</td>
+            <td width="160">
+        		每页<a href="javascript:void(0);" class="col_tab_num">10</a>
+        		<a href="javascript:void(0);" class="col_tab_num">20</a>
+        		<a href="javascript:void(0);" class="col_tab_num">50</a>条
+        	</td>
+        </tr>
+        <tbody id="listTbody"></tbody>
+    </table>
+    <div id="showjobb"></div>
+    <div class="page" id="pageDiv"></div>
+	</@c.right>
 </div>
 <script type="text/javascript" id="templete_div">
 	$(document).ready(function() {
@@ -212,18 +208,23 @@
 					html+=$.template(T.item,list[i]);
 				}
 				$("#listTbody").html(html);
-				//分页条
-				$("#pageDiv").page(text.data,function(index){
-					$("#listForm").find("input[name='pageNum']").val(index);
-					$("#listForm").submit();
-				});
 			}else{
-				$("#listTbody").html("<tr><td>无相关数据</td></tr>")
+				$("#listTbody").html("<tr><td colspan=\"5\">无相关数据</td></tr>");
 			}
+			//分页条
+			$("#pageDiv").page(text.data,function(index){
+				$("#listForm").find("input[name='pageNum']").val(index);
+				$("#listForm").submit();
+			});
 		});
 		
 		//初始化加载
 		$("#listForm").submit();
+		
+		<#-- 如果需要显示岗位详情 -->
+		<#if job.id??>
+		showDetail(${job.id});
+		</#if>
 		
 		//每页显示条数
 		$(".col_tab_num").click(function(){
@@ -259,17 +260,21 @@
 			var $tr=$(this).parents("tr");
 			var id=$tr.attr("data-id");
 			if(id){
-				$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
-					if(text.success){
-						art.dialog({
-					        lock: true,
-					        id: "abc",
-					        content: $.template(T.detail,text.data)
-					    });
-					}
-				});
+				showDetail(id);
 			}
 		});
+		function showDetail(id){
+			$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
+				if(text.success){
+					art.dialog({
+				        lock: true,
+				        id: "abc",
+				        content: $.template(T.detail,text.data)
+				    });
+				}
+			});
+		}
+		
 		//确认
 		$("body").on("click","._confirm",function(){
 			var $tr=$(this).parents("tr");

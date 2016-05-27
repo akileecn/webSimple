@@ -46,4 +46,12 @@
 		<include refid="selectSql"/>
 		where id=#{id}
 	</select>
+	
+	<select id="getHotList" resultType="job" parameterType="int">
+		select top ${_parameter} id
+			,name
+			,resume_type as resumeType
+		from zp_job
+		order by id desc
+	</select>
 </mapper>

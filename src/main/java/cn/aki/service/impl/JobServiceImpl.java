@@ -29,4 +29,9 @@ public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
 		return jobMapper.get(id);
 	}
 
+	public List<Job> getHotList() {
+		final int dedaultCount=16;
+		return jobMapper.getHotList(dedaultCount);
+	}
+
 }

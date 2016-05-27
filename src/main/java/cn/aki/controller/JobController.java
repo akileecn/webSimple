@@ -3,6 +3,7 @@ package cn.aki.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,11 @@ public class JobController {
 	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
 	public String toList(JobQueryForm form,Model model){
+		//默认跳转到校招
+		if(StringUtils.isEmpty(form.getResumeType())){
+			form.setResumeType("campus");
+		}
+		model.addAttribute("job", form.createJob());
 		return "job/list";
 	}
 	

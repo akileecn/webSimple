@@ -10,19 +10,12 @@
 </script>
 <div class="container">
 	<#include "/resume/left.ftl"/>
-	<div class='col-xs-9 padding-l  padding-t'>
-	    <div class="box_3">
-	        <div class="box_4 minheight">
-	            <h3>我的简历</h3>
-	            <div class="col_more fr"><a href="#">首页</a> - <a href="#">我的简历</a> - <a href="#"><span >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a></div>
-	            <div class="col_cv_main">
-					<#include "/resume/detail_base.ftl"/>
-					<#include "/resume/detail_sub.ftl"/>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<div class="clearfix"></div>
+	<@c.right title="我的简历">
+	<div class="col_cv_main">
+		<#include "/resume/detail_base.ftl"/>
+		<#include "/resume/detail_sub.ftl"/>
+    </div>
+	</@c.right>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -55,7 +48,7 @@
 				$("#baseForm").html($.template(T.base.text,data));
 			}else{
 				alert("表单信息有误");
-				$("#baseForm").find(".col_cv_alt").text("");
+				$("#baseForm").find(".col_cv_alt").empty();
 				if(text.error){
 					for(var key in text.error){
 						$("#baseForm").find(".col_cv_alt[data-error='"+key+"']").text(text.error[key]);

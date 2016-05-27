@@ -625,7 +625,7 @@ i.icon3{
     width:56px;
     display: inline-block;
     text-align: right;
-    margin-right:5px;
+/*     margin-right:5px; */
 }
 .box_4 .login  span{ 
 display: block; 

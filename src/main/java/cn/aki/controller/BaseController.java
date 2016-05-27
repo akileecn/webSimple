@@ -22,9 +22,9 @@ public abstract class BaseController {
 	 * @param result
 	 * @return
 	 */
-	protected FormResponse handleFormError(FormResponse response,BindingResult result){
+	protected <T> FormResponse<T> handleFormError(FormResponse<T> response,BindingResult result){
 		if(response==null){
-			response=new FormResponse();
+			response=new FormResponse<T>();
 		}
 		if(result.hasErrors()){
 			List<FieldError> errorList=result.getFieldErrors();
@@ -51,7 +51,7 @@ public abstract class BaseController {
 	 * @param result
 	 * @return
 	 */
-	protected FormResponse handleFormError(BindingResult result){
+	protected <T> FormResponse<T> handleFormError(BindingResult result){
 		return handleFormError(null, result);
 	}
 }

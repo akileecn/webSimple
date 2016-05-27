@@ -56,8 +56,8 @@ public class ResumeController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="/save/base",method=POST)
-	public FormResponse saveBase(@Valid ResumeForm form,BindingResult result){
-		FormResponse response=handleFormError(result);
+	public FormResponse<Void> saveBase(@Valid ResumeForm form,BindingResult result){
+		FormResponse<Void> response=handleFormError(result);
 		if(response.isSuccess()){
 			resumeService.update(form);
 		}
@@ -76,7 +76,7 @@ public class ResumeController extends BaseController{
 	/* begin从属信息 */
 	@ResponseBody
 	@RequestMapping(path="/save/award",method=POST)
-	public FormResponse saveAward(ResumeAwardForm form,BindingResult result){
+	public FormResponse<Integer> saveAward(ResumeAwardForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -86,7 +86,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/computer",method=POST)
-	public FormResponse saveComputer(ResumeComputerForm form,BindingResult result){
+	public FormResponse<Integer> saveComputer(ResumeComputerForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -96,7 +96,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/education",method=POST)
-	public FormResponse saveEducation(ResumeEducationForm form,BindingResult result){
+	public FormResponse<Integer> saveEducation(ResumeEducationForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -106,7 +106,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/family",method=POST)
-	public FormResponse saveFamily(ResumeFamilyForm form,BindingResult result){
+	public FormResponse<Integer> saveFamily(ResumeFamilyForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -116,7 +116,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/foreignLanguage",method=POST)
-	public FormResponse saveForeignLanguage(ResumeForeignLanguageForm form,BindingResult result){
+	public FormResponse<Integer> saveForeignLanguage(ResumeForeignLanguageForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -126,7 +126,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/studentCadre",method=POST)
-	public FormResponse saveStudentCadre(ResumeStudentCadreForm form,BindingResult result){
+	public FormResponse<Integer> saveStudentCadre(ResumeStudentCadreForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -136,7 +136,7 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/work",method=POST)
-	public FormResponse saveWork(ResumeWorkForm form,BindingResult result){
+	public FormResponse<Integer> saveWork(ResumeWorkForm form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -150,8 +150,8 @@ public class ResumeController extends BaseController{
 	 * @param result
 	 * @return
 	 */
-	private FormResponse saveSub(ResumeSubEntity sub,BindingResult result){
-		FormResponse response=handleFormError(result);
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
+		FormResponse<Integer> response=handleFormError(result);
 		if(response.isSuccess()){
 			resumeSubService.saveOrUpdate(sub);
 			response.setData(sub.getId());
