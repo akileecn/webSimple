@@ -119,9 +119,9 @@
 				<div class="menu">					
 					<ul class="nav" id="nav">
 						<li <#if !menu??>class="current"</#if>><a href="<@spring.url "/index"/>">首页</a></li>
-						<li <#if menu=="campus">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=campus"/>">校园招聘</a></li>
-						<li <#if menu=="society">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=society"/>">社会招聘</a></li>
-						<li <#if menu=="trainee">class="current"</#if>><a href="<@spring.url "/job/list?resumeType=trainee"/>">实习生招聘</a></li>
+						<li <#if menu=="campus">class="current"</#if>><a href="<@spring.url "/job/list?recruitType=campus"/>">校园招聘</a></li>
+						<li <#if menu=="society">class="current"</#if>><a href="<@spring.url "/job/list?recruitType=society"/>">社会招聘</a></li>
+						<li <#if menu=="trainee">class="current"</#if>><a href="<@spring.url "/job/list?recruitType=trainee"/>">实习生招聘</a></li>
 						<li <#if menu=="about">class="current"</#if>><a href="<@spring.url "/about"/>">认识瑞丰</a></li>								
 					</ul>
 					<script type="text/javascript" src="<@c.resource "js/responsive-nav.js"/>"></script>

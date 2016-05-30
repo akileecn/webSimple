@@ -11,7 +11,7 @@ import cn.aki.form.base.BasePageForm;
 public class JobQueryForm extends BasePageForm{
 	private Integer id;				//主键
 	private String name;			//岗位名称
-	private String resumeType;		//招聘类型
+	private String recruitType;		//招聘类型
 	private String workCity;		//工作城市
 	private String education;		//学历
 	private String publishDateType;	//发布时间类型
@@ -20,7 +20,7 @@ public class JobQueryForm extends BasePageForm{
 		Job job=new Job();
 		job.setId(id);//查询时不会用到
 		job.setName(name);
-		job.setResumeType(resumeType);
+		job.setrecruitType(recruitType);
 		job.setWorkCity(workCity);
 		job.setEducation(education);
 		return job;
@@ -38,11 +38,11 @@ public class JobQueryForm extends BasePageForm{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getResumeType() {
-		return resumeType;
+	public String getrecruitType() {
+		return recruitType;
 	}
-	public void setResumeType(String resumeType) {
-		this.resumeType = resumeType;
+	public void setrecruitType(String recruitType) {
+		this.recruitType = recruitType;
 	}
 	public String getWorkCity() {
 		return workCity;

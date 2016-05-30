@@ -67,7 +67,7 @@ create table zp_dict_data(
 create table zp_job(
 	id int primary key identity(1,1)
 	,name nvarchar(32)
-	,resume_type nvarchar(32) -- 招聘类型
+	,recruit_type nvarchar(32) -- 招聘类型
 	,work_year nvarchar(32) -- 工作年限
 	,work_city nvarchar(32) -- 工作城市
 	,education nvarchar(32) -- 学历
@@ -79,6 +79,25 @@ create table zp_job(
 	,disabled bit default 0 -- 是否失效
 	,create_time datetime
 	,modify_time datetime
+);
+
+-- 志愿
+create table zp_application(
+	job_id int not null-- 岗位id
+	,resume_id int not null -- 简历id
+	,status nvarchar(32) -- 申请状态
+	,create_time datetime -- 投递时间
+	,modity_time datetime -- 修改时间
+);
+alter table zp_application add primary key(job_id,resume_id);
+
+-- 通知
+create table zp_notice(
+	id int primary key identity(1,1)
+	,user_id int not null -- 用户id
+	,create_time datetime -- 创建时间
+	,title nvarchar(100) -- 标题
+	,content nvarchar(1000) -- 内容
 );
 
 /*用户增加姓名*/

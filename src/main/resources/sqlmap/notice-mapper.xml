@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.NoticeMapper">
+	<cache/>
+	<sql id="whereSql">
+		where id=#{id}
+			and user_id=#{userId}
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,user_id as userId
+			,create_time as createTime
+			,title
+			,content
+		from zp_notice
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="notice" resultType="notice">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="notice" resultType="notice">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="notice" useGeneratedKeys="true" keyProperty="id">
+		insert into zp_notice(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="userId!=null">
+			,user_id
+			</if>
+			<if test="createTime!=null">
+			,create_time
+			</if>
+			<if test="title!=null">
+			,title
+			</if>
+			<if test="content!=null">
+			,content
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="userId!=null">
+			,#{userId}
+			</if>
+			<if test="createTime!=null">
+			,#{createTime}
+			</if>
+			<if test="title!=null">
+			,#{title}
+			</if>
+			<if test="content!=null">
+			,#{content}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="notice">
+		update zp_notice
+		<set>
+			user_id=#{userId},
+			title=#{title},
+			content=#{content},
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="notice">
+		delete from zp_notice
+		<include refid="whereSql"/>
+	</delete>
+</mapper>

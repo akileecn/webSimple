@@ -29,8 +29,8 @@ public class JobController {
 	@RequestMapping(path="/list",method=RequestMethod.GET)
 	public String toList(JobQueryForm form,Model model){
 		//默认跳转到校招
-		if(StringUtils.isEmpty(form.getResumeType())){
-			form.setResumeType("campus");
+		if(StringUtils.isEmpty(form.getrecruitType())){
+			form.setrecruitType("campus");
 		}
 		model.addAttribute("job", form.createJob());
 		return "job/list";

@@ -21,7 +21,7 @@
 ,"artsOrScience":"文科,理科"
 ,"admissionOrder":"第一批,第二批,第三批,其他"
 ,"cadreLevel":"校级,院级,班级"
-,"resumeType":"campus:校园,society:社会,trainee:实习生"
+,"recruitType":"campus:校园,society:社会,trainee:实习生"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');

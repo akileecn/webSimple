@@ -5,7 +5,7 @@
 	<sql id="selectSql">
 		select id
 			,name
-			,resume_type as resumeType
+			,recruit_type as recruitType
 			,work_year as workYear
 			,work_city as workCity
 			,education
@@ -50,7 +50,7 @@
 	<select id="getHotList" resultType="job" parameterType="int">
 		select top ${_parameter} id
 			,name
-			,resume_type as resumeType
+			,recruit_type as recruitType
 		from zp_job
 		order by id desc
 	</select>

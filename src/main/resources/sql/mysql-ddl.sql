@@ -67,7 +67,7 @@ create table dict_data(
 create table job(
 	id int primary key auto_increment
 	,name varchar(32)
-	,resume_type varchar(32) -- 招聘类型
+	,recruit_type varchar(32) -- 招聘类型
 	,work_year varchar(32) -- 工作年限
 	,work_city varchar(32) -- 工作城市
 	,education varchar(32) -- 学历

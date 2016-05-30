@@ -14,7 +14,7 @@ import cn.aki.entity.translate.TranslateTypeCode;
 public class Job extends BaseTimeEntity implements Translatable{
 	private static final long serialVersionUID = -448298364939140L;
 	private String name;		//,name varchar(32)
-	private String resumeType;	//,resume_type varchar(32) -- 招聘类型
+	private String recruitType;	//,recruit_type varchar(32) -- 招聘类型
 	@TranslateTypeCode
 	private String workYear;	//,work_year varchar(32) -- 工作年限
 	@TranslateTypeCode
@@ -34,11 +34,11 @@ public class Job extends BaseTimeEntity implements Translatable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getResumeType() {
-		return resumeType;
+	public String getrecruitType() {
+		return recruitType;
 	}
-	public void setResumeType(String resumeType) {
-		this.resumeType = resumeType;
+	public void setrecruitType(String recruitType) {
+		this.recruitType = recruitType;
 	}
 	public String getWorkYear() {
 		return workYear;

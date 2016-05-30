@@ -6,9 +6,9 @@
                 <div class="search_con">
                 	<div class="search_ul">
                         <span>招聘类型：</span>
-                        <#list dictMap["resumeType"]?keys as key>
-                        <input type="radio" name="resumeType" value="${key}" id="resumeType_${key?index+1}" <#if key?index==0>checked</#if>>
-                        <label class="search_bg" for="resumeType_${key?index+1}">${dictMap["resumeType"][key]}</label>
+                        <#list dictMap["recruitType"]?keys as key>
+                        <input type="radio" name="recruitType" value="${key}" id="recruitType_${key?index+1}" <#if key?index==0>checked</#if>>
+                        <label class="search_bg" for="recruitType_${key?index+1}">${dictMap["recruitType"][key]}</label>
 						</#list>
                     </div>
                     <div class="search_ul">

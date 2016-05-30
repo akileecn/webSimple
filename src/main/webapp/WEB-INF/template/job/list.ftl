@@ -6,7 +6,7 @@
     </td>
 </#macro>
 <@bootstrap.head>
-<title>${dictMap["resumeType"][job.resumeType]}招聘</title>
+<title>${dictMap["recruitType"][job.recruitType]}招聘</title>
 <style>
     ._more {
         position: relative;
@@ -29,10 +29,10 @@
     }
 </style>
 </@bootstrap.head>
-<@bootstrap.body menu=job.resumeType>
+<@bootstrap.body menu=job.recruitType>
 <div class="banner">
     <div class="banner_container">
-        <img src="<@c.resource "images/"+(job.resumeType!"campus")+"-banner.jpg"/>" width="100%">
+        <img src="<@c.resource "images/"+(job.recruitType!"campus")+"-banner.jpg"/>" width="100%">
     </div>
 </div>
 <div class="container">
@@ -40,12 +40,12 @@
     <div class='col-xs-3 padding-r  padding-t'>
         <div class="box_3">
             <div class="box_4 minheight">
-                <span class="left_title">${dictMap["resumeType"][job.resumeType]}招聘</span>
+                <span class="left_title">${dictMap["recruitType"][job.recruitType]}招聘</span>
                 <ul class="left_col">
-                	<#if job.resumeType=="campus">
+                	<#if job.recruitType=="campus">
                     <li><a href="campus.html">招聘公告</a></li>
                     </#if>
-                    <li><a href="<@spring.url "/job/list?resumeType="+job.resumeType/>">招聘岗位</a></li>
+                    <li><a href="<@spring.url "/job/list?recruitType="+job.recruitType/>">招聘岗位</a></li>
                     <li><a href="user.html">个人中心</a></li>
                     <li><a href="notice.html">通知信</a></li>
                 </ul>

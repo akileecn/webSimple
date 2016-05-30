@@ -5,7 +5,7 @@
             <a href="<@spring.url "/job/list"/>"><span class="more fr" >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a>
             <ul class="hotjob">
             	<#list hotJoblist as job>
-                <li><a href="<@spring.url "/job/list?resumeType="+job.resumeType+"&id="+job.id/>">${job.name}</a></li>
+                <li><a href="<@spring.url "/job/list?recruitType="+job.recruitType+"&id="+job.id/>">${job.name}</a></li>
             	</#list>
             </ul>
         </div>

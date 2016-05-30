@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ApplicationMapper">
+	<resultMap type="application" id="applicationMap">
+		<id column="jobId" property="jobId"/>
+		<id column="resumeId" property="resumeId"/>
+		<result column="createTime" property="createTime"/>
+		<result column="status" property="status"/>
+		<!-- 岗位 -->
+		<collection property="job" ofType="job">
+			<id column="j_id" property="id"/>
+			<result column="j_name" property="name"/>
+			<result column="j_recruit_type" property="recruitType"/>
+			<result column="j_work_city" property="workCity"/>
+		</collection>
+	</resultMap>
+	<sql id="whereSql">
+		where ${prefix}job_id=#{jobId}
+			and ${prefix}resume_id=#{resumeId}
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			a.job_id as jobId
+			,a.resume_id as resumeId
+			,a.create_time as createTime
+			,a.status
+			,j.id as j_id
+			,j.name as j_name
+			,j.recruit_type as j_recruit_type
+			,j.work_city as j_work_city
+		from zp_application a
+		inner join zp_job j
+			on j.id=a.job_id
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="application" resultType="application">
+		<include refid="selectSql"/>
+		<include refid="whereSql">
+			<property name="prefix" value="a."/>
+		</include>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="application" resultType="application">
+		<include refid="selectSql"/>
+		<include refid="whereSql">
+			<property name="prefix" value="a."/>
+		</include>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="application" useGeneratedKeys="true" keyProperty="id">
+		insert into zp_application(
+		<trim prefix="" prefixOverrides=",">
+			<if test="jobId!=null">
+			job_id
+			</if>
+			<if test="resumeId!=null">
+			,resume_id
+			</if>
+			<if test="createTime!=null">
+			,create_time
+			</if>
+			<if test="status!=null">
+			,status
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="jobId!=null">
+			#{jobId}
+			</if>
+			<if test="resumeId!=null">
+			,#{resumeId}
+			</if>
+			<if test="createTime!=null">
+			,#{createTime}
+			</if>
+			<if test="status!=null">
+			,#{status}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="application">
+		update zp_application
+		<set>
+			job_id=#{jobId},
+			resume_id=#{resumeId},
+			<if test="status!=null">
+			status=#{status},
+			</if>
+		</set>
+		<include refid="whereSql">
+			<property name="prefix" value=""/>
+		</include>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="application">
+		delete from zp_application
+		<include refid="whereSql">
+			<property name="prefix" value=""/>
+		</include>
+	</delete>
+</mapper>

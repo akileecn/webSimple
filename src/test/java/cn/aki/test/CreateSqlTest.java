@@ -2,6 +2,8 @@ package cn.aki.test;
 
 import org.junit.Test;
 
+import cn.aki.entity.Application;
+
 public class CreateSqlTest {
 	@Test
 	public void resumeSub() throws Exception{
@@ -13,6 +15,8 @@ public class CreateSqlTest {
 //		CreateSql.newInstance(ResumeComputer.class).create();
 //		CreateSql.newInstance(ResumeForeignLanguage.class).create();
 //		CreateSql.newInstance(ResumeStudentCadre.class).create();
-		CreateSql.create("dict.ftl", null);
+//		CreateSql.create("dict.ftl", null);
+		CreateSql.newInstance(Application.class).create();
+//		CreateSql.newInstance(Notice.class).create();
 	}
 }
