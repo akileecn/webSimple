@@ -67,12 +67,19 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private String health;//,health varchar(32) -- 健康
 	
 	/*关联*/
+	@TranslateTypeCode
 	private List<ResumeAward> awardList;
+	@TranslateTypeCode
 	private List<ResumeEducation> educationList;
+	@TranslateTypeCode
 	private List<ResumeFamily> familyList;
+	@TranslateTypeCode
 	private List<ResumeStudentCadre> studentCadreList;
+	@TranslateTypeCode
 	private List<ResumeWork> workList;
+	@TranslateTypeCode
 	private List<ResumeComputer> computerList;
+	@TranslateTypeCode
 	private List<ResumeForeignLanguage> foreignLanguageList;
 	
 	public Integer getUserId() {

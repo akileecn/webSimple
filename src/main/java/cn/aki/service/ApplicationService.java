@@ -10,6 +10,9 @@ import cn.aki.entity.Application;
  * 2016年5月30日 下午11:13:29
  */
 public interface ApplicationService {
-	List<Application> getList(Integer resumeId);
+	void save(Application application);
 	void delete(Application application);
+	void update(Application application);
+	Application get(Application application);
+	List<Application> getList(Application application);
 }

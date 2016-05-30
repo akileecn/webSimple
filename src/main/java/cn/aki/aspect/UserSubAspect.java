@@ -18,10 +18,16 @@ import cn.aki.utils.UserUtils;
 @Aspect
 public class UserSubAspect {
 	@Pointcut("execution(* cn.aki.controller.ResumeController.*(..))")
-	private void inAnyMethod(){
+	private void inResumeMethod(){
+	}
+	@Pointcut("execution(* cn.aki.controller.NoticeController.*(..))")
+	private void inNoticeMethod(){
+	}
+	@Pointcut("execution(* cn.aki.controller.ApplicationController.*(..))")
+	private void inApplicationMethod(){
 	}
 	
-	@Around("inAnyMethod()")
+	@Around("inResumeMethod()||inNoticeMethod()||inApplicationMethod()")
 	public Object doAspect(ProceedingJoinPoint pjp){
 		Object result=null;
 		try {

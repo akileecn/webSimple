@@ -100,5 +100,7 @@ create table zp_notice(
 	,content nvarchar(1000) -- 内容
 );
 
-/*用户增加姓名*/
+-- 用户增加姓名
 alter table zp_user add name nvarchar(32);
+-- 申请增加用户id
+alter table zp_application add user_id int;

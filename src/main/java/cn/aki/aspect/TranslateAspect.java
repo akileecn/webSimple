@@ -23,7 +23,7 @@ public class TranslateAspect{
 	@Autowired
 	private TranslateService translateService;
 	
-	@Pointcut("execution(* cn.aki.dao.*.get*(..))")
+	@Pointcut("execution(* cn.aki.service.*.get*(..))")
 	private void inAnyMethod(){
 	}
 	

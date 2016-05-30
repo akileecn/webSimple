@@ -3,8 +3,12 @@
 <mapper namespace="cn.aki.dao.NoticeMapper">
 	<cache/>
 	<sql id="whereSql">
-		where id=#{id}
+		<where>
+			<if test="id!=null">
+				id=#{id}
+			</if>
 			and user_id=#{userId}
+		</where>
 	</sql>
 	
 	<sql id="selectSql">
@@ -27,6 +31,7 @@
 	<select id="getList" parameterType="notice" resultType="notice">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
+		order by id desc
 	</select>
 	
 	<!-- 保存 -->

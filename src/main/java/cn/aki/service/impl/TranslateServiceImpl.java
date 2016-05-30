@@ -55,6 +55,7 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 		servletContext.setAttribute(DictData.CONTEXT_ATTR_KEY, dictMap);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void translate(Translatable obj){
 		if(obj==null){
 			return;
@@ -84,6 +85,14 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 							}
 						}else if(value instanceof Boolean){
 							translation.put(fieldName,(Boolean)value?"是":"否");
+						}else if(value instanceof Translatable){
+							translate((Translatable)value);
+						}else if(value instanceof List){
+							List<?> listValue=(List<?>) value;
+							if(listValue.size()>0&&listValue.get(0) instanceof Translatable){
+								//递归翻译
+								translate((List<Translatable>)listValue);
+							}
 						}
 					}
 				} catch (Exception e) {

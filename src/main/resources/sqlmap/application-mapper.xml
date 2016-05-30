@@ -7,12 +7,12 @@
 		<result column="createTime" property="createTime"/>
 		<result column="status" property="status"/>
 		<!-- 岗位 -->
-		<collection property="job" ofType="job">
+		<association property="job" javaType="job" >
 			<id column="j_id" property="id"/>
 			<result column="j_name" property="name"/>
 			<result column="j_recruit_type" property="recruitType"/>
 			<result column="j_work_city" property="workCity"/>
-		</collection>
+		</association>
 	</resultMap>
 	<sql id="whereSql">
 		where ${prefix}job_id=#{jobId}
@@ -43,11 +43,9 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="getList" parameterType="application" resultType="application">
+	<select id="getList" parameterType="application" resultMap="applicationMap">
 		<include refid="selectSql"/>
-		<include refid="whereSql">
-			<property name="prefix" value="a."/>
-		</include>
+		where a.user_id=#{userId}
 	</select>
 	
 	<!-- 保存 -->

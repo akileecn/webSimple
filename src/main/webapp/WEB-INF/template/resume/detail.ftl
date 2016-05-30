@@ -9,7 +9,7 @@
 	var T={};
 </script>
 <div class="container">
-	<#include "/resume/left.ftl"/>
+	<#include "/user/left.ftl"/>
 	<@c.right title="我的简历">
 	<div class="col_cv_main">
 		<#include "/resume/detail_base.ftl"/>

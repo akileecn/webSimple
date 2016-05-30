@@ -14,12 +14,24 @@ public class ApplicationServiceImpl implements ApplicationService{
 	@Autowired
 	private ApplicationMapper applicationMapper;
 	
-	public List<Application> getList(Integer resumeId) {
-		return applicationMapper.getList(resumeId);
-	}
-
 	public void delete(Application application) {
 		applicationMapper.delete(application);
+	}
+
+	public void save(Application application) {
+		applicationMapper.save(application);
+	}
+
+	public void update(Application application) {
+		applicationMapper.update(application);
+	}
+
+	public Application get(Application application) {
+		return applicationMapper.get(application);
+	}
+
+	public List<Application> getList(Application application) {
+		return applicationMapper.getList(application);
 	}
 
 }
