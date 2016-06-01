@@ -86,6 +86,14 @@
 	    <property name="suffix" value=".ftl"/>
 	    <!-- 不添加的话生成页面会乱码 -->
 	    <property name="contentType" value="text/html;charset=UTF-8"/>
+	    <property name="order" value="1"></property>
+	</bean>
+	
+	<!-- jsp视图解析 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=""/>
+		<property name="order" value="2"/>
 	</bean>
 		  
 	<!-- 上传 -->
