@@ -1,33 +1,38 @@
 package cn.aki.form;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import cn.aki.entity.User;
 
 /**
  * 用户登录表单
  * @author aki
  * 2016年4月6日 上午10:28:29
  */
-public class UserLoginForm {
+public class UserLoginForm extends User{
+	private static final long serialVersionUID = 7977609986583434106L;
+	private String captcha;
+	
 	@NotBlank()
 	@Size(max=50)
-	private String username;
-	@NotBlank()
-	@Size(min=6,max=20)
-	private String password;
-
 	public String getUsername() {
-		return username;
+		return super.getUsername();
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	@NotBlank()
+	@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$).{6,20}$",message="{v.password}")
 	public String getPassword() {
-		return password;
+		return super.getPassword();
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	@NotBlank()
+	@Size(min=4,max=4)
+	public String getCaptcha() {
+		return captcha;
+	}
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 	
 }

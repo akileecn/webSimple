@@ -25,7 +25,10 @@
                         </li>
                         <li>
                             <label>验证码：</label>
-                            <input type="text" name="" style="width:70px;"><img src="<@c.resource "images/image007.jpg"/>" width="auto" height="34px" alt="" /><a href="#">换一张</a>
+                            <input type="text" name="captcha" style="width:70px;"/>
+                        	<img id="captcha" src="<@spring.url "/user/captchaImage.png"/>" width="auto" height="34px" alt="" />
+                        	<a href="javascript:changeCaptcha();">换一张</a>
+                        	<div class="col_cv_alt" data-error="captcha"></div>
                         </li>
                         <p> <a href="#">忘记密码?</a></p>
                         <li style="margin-left: 5px;">
@@ -60,6 +63,7 @@
 			if(text.success){
 			}else{
 				if(text.error){
+					changeCaptcha();
 					for(var key in text.error){
 						$("#loginForm").find(".col_cv_alt[data-error='"+key+"']").text(text.error[key]);
 					}
@@ -67,4 +71,9 @@
 			}
 		});
 	});
+	
+	//换验证码
+	function changeCaptcha(){
+		$("#captcha").attr("src","<@spring.url "/user/captchaImage.png"/>?r="+Math.random());
+	}
 </script>

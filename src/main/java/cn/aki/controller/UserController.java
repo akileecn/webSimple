@@ -1,5 +1,6 @@
 package cn.aki.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.shiro.SecurityUtils;
@@ -24,6 +25,7 @@ import cn.aki.form.UserRegisterForm;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.UserService;
+import cn.aki.utils.UserUtils;
 
 /**
  * 用户控制层
@@ -44,6 +46,11 @@ public class UserController extends BaseController{
 		return new UserLoginForm();
 	}
 	
+	@RequestMapping(value="/captchaImage.png",method=RequestMethod.GET)
+	public void createCaptchaImage(HttpServletResponse response){
+		UserUtils.createCaptcha(response);
+	}
+	
 	//跳转到登录页面
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String toLogin(){
@@ -55,6 +62,10 @@ public class UserController extends BaseController{
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public FormResponse<User> handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
 		FormResponse<User> response=handleFormError(result);
+		if(!UserUtils.isValidCaptcha(userLoginForm.getCaptcha())){
+			response.putError("captcha", "验证码错误");
+			return response;
+		}
 		if(response.isSuccess()){
 			UsernamePasswordToken token=new UsernamePasswordToken(userLoginForm.getUsername(), userLoginForm.getPassword());
 			token.setRememberMe(true);
