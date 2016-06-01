@@ -58,7 +58,7 @@
 	</tr><tr>
 	<@select label="毕业方式" name="graduateType"/>
 	<@select label="所得学位" name="degree"/>
-	/tr><tr>
+	</tr><tr>
 	<@select label="学历等级" name="education"/>
 	<@select label="学习形式" name="learnType"/>
 	</tr><tr>

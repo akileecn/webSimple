@@ -22,6 +22,7 @@ import cn.aki.entity.User;
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
 import cn.aki.response.FormResponse;
+import cn.aki.response.SimpleResponse;
 import cn.aki.service.UserService;
 
 /**
@@ -42,18 +43,14 @@ public class UserController extends BaseController{
 	public UserLoginForm createUserLoginForm(){
 		return new UserLoginForm();
 	}
-	/**
-	 * 跳转到登录页面
-	 * @return
-	 */
+	
+	//跳转到登录页面
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String toLogin(){
 		return "user/login";
 	}
-	/**
-	 * 登录操作
-	 * @return
-	 */
+	
+	//登录操作
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public FormResponse<User> handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
@@ -76,20 +73,14 @@ public class UserController extends BaseController{
 		}
 		return response;
 	}
-	/**
-	 * 跳转至注册
-	 * @return
-	 */
+	
+	//跳转至注册
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String toRegister(){
 		return "user/register";
 	}
-	/**
-	 * 注册处理
-	 * @param userRegisterForm
-	 * @param result
-	 * @return
-	 */
+	
+	//注册处理
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public FormResponse<Void> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
@@ -98,6 +89,20 @@ public class UserController extends BaseController{
 			//保存用户
 			userService.save(userRegisterForm);
 		}
+		return response;
+	}
+	
+	//跳转至修改密码
+	@RequestMapping(value="/updatePassword",method=RequestMethod.GET)
+	public String toUpdatePassword(){
+		return "user/updatePassword";
+	}
+	
+	//修改密码
+	@ResponseBody
+	@RequestMapping(value="/updatePassword",method=RequestMethod.POST)
+	public SimpleResponse UpdatePassword(){
+		SimpleResponse response=new SimpleResponse();
 		return response;
 	}
 }

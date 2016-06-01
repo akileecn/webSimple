@@ -34,6 +34,7 @@ import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
+import cn.aki.utils.UserUtils;
 
 /**
  * 简历
@@ -47,6 +48,12 @@ public class ResumeController extends BaseController{
 	private ResumeService resumeService;
 	@Autowired
 	private ResumeSubService resumeSubService;
+	
+	@RequestMapping(path="/list",method=GET)
+	public String toList(Model model){
+		model.addAttribute("id", UserUtils.getResumeId());
+		return "resume/list";
+	}
 	
 	@RequestMapping(path="/detail",method=GET)
 	public String toDetail(Integer id,Model model){

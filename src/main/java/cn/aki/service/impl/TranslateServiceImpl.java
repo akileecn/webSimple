@@ -3,6 +3,7 @@ package cn.aki.service.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,8 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 		}
 		Map<String,String> translation=obj.getT();
 		if(translation==null){
-			translation=new HashMap<String, String>();
+			//有序
+			translation=new LinkedHashMap<String, String>();
 			obj.setT(translation);
 		}
 		Field[] fields=obj.getClass().getDeclaredFields();

@@ -37,21 +37,7 @@
 </div>
 <div class="container">
 	<#-- left -->
-    <div class='col-xs-3 padding-r  padding-t'>
-        <div class="box_3">
-            <div class="box_4 minheight">
-                <span class="left_title">${dictMap["recruitType"][job.recruitType]}招聘</span>
-                <ul class="left_col">
-                	<#if job.recruitType=="campus">
-                    <li><a href="campus.html">招聘公告</a></li>
-                    </#if>
-                    <li><a href="<@spring.url "/job/list?recruitType="+job.recruitType/>">招聘岗位</a></li>
-                    <li><a href="user.html">个人中心</a></li>
-                    <li><a href="notice.html">通知信</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <#include "/job/left.ftl"/>
     <#-- right -->
     <@c.right title="招聘岗位">
     <form id="listForm" action="<@spring.url "/job/list"/>" method="post" class="col_search">

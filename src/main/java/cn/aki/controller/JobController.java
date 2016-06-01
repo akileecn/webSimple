@@ -60,4 +60,12 @@ public class JobController {
 		response.setData(job);
 		return response;
 	}
+	
+	//公告
+	@RequestMapping(path="/notice",method=RequestMethod.GET)
+	public String toNotice(Job job,Model model){
+		model.addAttribute("job", job);
+		return "job/notice";
+	}
+	
 }
