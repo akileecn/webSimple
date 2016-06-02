@@ -124,4 +124,19 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 		}
 		return null;
 	}
+
+	public Map<String, String> findDict(String type) {
+		return dictMap.get(type);
+	}
+
+	public Map<String,Map<String,String>> findDicts(String[] types) {
+		Map<String,Map<String,String>> map=new HashMap<String,Map<String,String>>();
+		for(String type:types){
+			Map<String, String> dict=findDict(type);
+			if(dict!=null){
+				map.put(type, dict);
+			}
+		}
+		return map;
+	}
 }
