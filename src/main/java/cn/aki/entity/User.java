@@ -17,9 +17,12 @@ public class User extends BaseTimeEntity{
 	private String email;		//,email varchar(50) -- 邮箱
 	private String question;	//,question varchar(100) -- 问题
 	private String answer;		//,answer varchar(100) -- 答案
+	private String name;		//姓名s
 	
 	/*关联*/
 	private Set<Role> roles;
+	//通知数
+	private Integer noticeCount;
 	
 	public String getUsername() {
 		return username;
@@ -68,6 +71,18 @@ public class User extends BaseTimeEntity{
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getNoticeCount() {
+		return noticeCount;
+	}
+	public void setNoticeCount(Integer noticeCount) {
+		this.noticeCount = noticeCount;
 	}
 	
 }

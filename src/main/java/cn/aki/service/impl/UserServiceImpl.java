@@ -1,5 +1,7 @@
 package cn.aki.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,18 +23,24 @@ public class UserServiceImpl implements UserService{
 	
 	@Transactional
 	public void save(UserRegisterForm form) {
-		User user=form.createUser();
 		//密码加密
-		user.setPassword(Md5Utils.encrypt(user.getPassword()));
-		userMapper.save(user);
+		form.setPassword(Md5Utils.encrypt(form.getPassword()));
+		form.setCreateTime(new Date());
+		form.setModifyTime(new Date());
+		userMapper.save(form);
 		Resume resume=form.createResume();
-		resume.setUserId(user.getId());
+		//id由mybatis保存的赋值
+		resume.setUserId(form.getId());
 		resumeMapper.save(resume);
 	}
 
 	public boolean exists(User user) {
 		int count=userMapper.exists(user);
 		return count>0;
+	}
+
+	public void update(User user) {
+		userMapper.update(user);
 	}
 
 }

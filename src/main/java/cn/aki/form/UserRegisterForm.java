@@ -1,5 +1,8 @@
 package cn.aki.form;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -16,38 +19,64 @@ import cn.aki.form.validator.UserUnique;
  * @author aki
  * 2016年4月22日 上午11:01:43
  */
-public class UserRegisterForm {
-	@NotBlank()@Size(max=50)@Email()@UserUnique(field="email")
-	private String email;//邮箱
+public class UserRegisterForm extends User{
+	private static final long serialVersionUID = 3099193257950243875L;
+	private String captcha;
 	
+	@NotBlank()
+	public String getCaptcha() {
+		return captcha;
+	}
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return super.getUsername();
+	}
+	@Override
+	@NotBlank()@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$)[a-zA-Z\\d]{6,16}$",message="{v.password}")
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return super.getPassword();
+	}
+	@Override
 	@NotBlank()@Size(max=32)@IdNumber()@UserUnique(field="idNumber")
-	private String idNumber;//身份证号码
-	
-	@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")@UserUnique(field="mobile")
-	private String mobile;//手机号码
-	
-	@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$).{6,20}$",message="{v.password}")
-	private String password;
-	
+	public String getIdNumber() {
+		// TODO Auto-generated method stub
+		return super.getIdNumber();
+	}
+	@Override
+	@NotBlank()@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")@UserUnique(field="mobile")
+	public String getMobile() {
+		// TODO Auto-generated method stub
+		return super.getMobile();
+	}
+	@Override
+	@NotBlank()@Size(max=50)@Email()@UserUnique(field="email")
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return super.getEmail();
+	}
+	@Override
 	@NotBlank()@Size(max=100)
-	private String question;//找回密码问题
-	
+	public String getQuestion() {
+		// TODO Auto-generated method stub
+		return super.getQuestion();
+	}
+	@Override
 	@NotBlank()@Size(max=100)
-	private String answer;//答案
-	
-	/**
-	 * 构建用户实体
-	 * @return
-	 */
-	public User createUser(){
-		User user=new User();
-		user.setPassword(password);
-		user.setEmail(email);
-		user.setIdNumber(idNumber);
-		user.setMobile(mobile);
-		user.setQuestion(question);
-		user.setAnswer(answer);
-		return user;
+	public String getAnswer() {
+		// TODO Auto-generated method stub
+		return super.getAnswer();
+	}
+
+	@Override
+	@NotBlank()@Size(max=32)
+	public String getName() {
+		// TODO Auto-generated method stub
+		return super.getName();
 	}
 	
 	/**
@@ -56,47 +85,17 @@ public class UserRegisterForm {
 	 */
 	public Resume createResume(){
 		Resume resume=new Resume();
-		resume.setEmail(email);
-		resume.setIdNumber(idNumber);
-		resume.setMobile(mobile);
+		resume.setEmail(getEmail());
+		resume.setIdNumber(getIdNumber());
+		resume.setMobile(getMobile());
+		//提取生日
+		try {
+			Date birthday=new SimpleDateFormat("yyyyMMdd").parse(getIdNumber().substring(6, 14));
+			resume.setBirthday(birthday);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return resume;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getIdNumber() {
-		return idNumber;
-	}
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getQuestion() {
-		return question;
-	}
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-	
+
 }

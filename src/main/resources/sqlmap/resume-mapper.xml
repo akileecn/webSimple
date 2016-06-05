@@ -48,12 +48,27 @@
 			,work_year as workYear
 			,work_city as workCity
 			,health
+			,photo
 		from zp_resume
 	</sql>
 	
 	<!-- 获得 -->
 	<select id="get" parameterType="resume" resultType="resume">
 		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 更新头像 -->
+	<select id="updatePhoto" parameterType="resume" resultType="resume">
+		update zp_resume
+		set photo=#{photo}
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 获得头像 -->
+	<select id="getPhoto" parameterType="resume" resultType="resume">
+		select photo
+		from zp_resume
 		<include refid="whereSql"/>
 	</select>
 	
@@ -316,7 +331,7 @@
 	</insert>
 	
 	<!-- 更新 -->
-		<update id="update" parameterType="resume">
+	<update id="update" parameterType="resume">
 		update zp_resume
 		<set>
 			create_time=#{createTime},

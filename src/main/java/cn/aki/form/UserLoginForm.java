@@ -22,12 +22,11 @@ public class UserLoginForm extends User{
 		return super.getUsername();
 	}
 	@NotBlank()
-	@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$).{6,20}$",message="{v.password}")
+	@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$)[a-zA-Z\\d]{6,20}$",message="{v.password}")
 	public String getPassword() {
 		return super.getPassword();
 	}
 	@NotBlank()
-	@Size(min=4,max=4)
 	public String getCaptcha() {
 		return captcha;
 	}

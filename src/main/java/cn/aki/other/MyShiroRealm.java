@@ -18,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import cn.aki.dao.NoticeMapper;
 import cn.aki.dao.ResumeMapper;
 import cn.aki.dao.UserMapper;
 import cn.aki.entity.Permission;
@@ -31,6 +32,8 @@ public class MyShiroRealm extends AuthorizingRealm{
 	private UserMapper userMapper;
 	@Autowired
 	private ResumeMapper resumeMapper;
+	@Autowired
+	private NoticeMapper noticeMapper;
 	/**
 	 * 授权
 	 */
@@ -73,8 +76,12 @@ public class MyShiroRealm extends AuthorizingRealm{
 					Subject subject=SecurityUtils.getSubject();
 					Session session=subject.getSession();
 					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_USER, user);
+					//简历信息
 					List<Integer> resumeIds=resumeMapper.getIdByUserId(user.getId());
 					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_RESUME_IDS, resumeIds);
+					//通知信息
+					Integer count=noticeMapper.getCountByUserId(user.getId());
+					user.setNoticeCount(count);
 					return info;
 				}else{
 					throw new IncorrectCredentialsException();

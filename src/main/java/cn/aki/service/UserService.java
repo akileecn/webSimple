@@ -15,4 +15,5 @@ public interface UserService {
 	 * @return
 	 */
 	boolean exists(User user);
+	void update(User user);
 }

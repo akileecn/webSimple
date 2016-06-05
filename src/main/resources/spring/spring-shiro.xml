@@ -11,9 +11,9 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 	    <property name="securityManager" ref="securityManager"/>
 	    <!-- override these for application-specific URLs if you like: -->
-	    <property name="loginUrl" value="/user/login"/>
-	    <property name="successUrl" value="/home"/>
-	    <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+	    <property name="loginUrl" value="/index"/>
+	    <property name="successUrl" value="/index"/>
+	    <property name="unauthorizedUrl" value="/index"/>
 	    <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean  -->
 	    <!-- defined will be automatically acquired and available via its beanName in chain        -->
 	    <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
@@ -25,11 +25,18 @@
 	    <property name="filterChainDefinitions">
 	        <value>
 	            # some example chain definitions:
-	            /home.do = authc
-	            /admin/** = authc, roles[admin]
+	            #/home.do = authc
+	            #/admin/** = authc, roles[admin]
 	            #/docs/** = authc, perms[document:read]
 	            #/** = authc
 	            # more URL-to-FilterChain definitions here
+	            /user/login=anon
+	            /user/register=anon
+	            /user/captchaImage.png=anon
+	            /user/**=authc
+	            /resume/**=authc
+	            /notice/**=authc
+	            /application/**=authc
 	        </value>
 	    </property>
 	</bean>

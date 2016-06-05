@@ -55,4 +55,11 @@ public class MyTest {
 		System.err.println("2016-04-29 11:55:50".length());
 		System.err.println(DateUtils.parse("2016-04-29"));
 	}
+	
+	@Test
+	public void test5(){
+		String password="123qwe";
+		System.err.println(password.matches("^(?![^a-zA-Z]+$)(?!\\D+$)[a-zA-Z\\d]{6,20}$"));
+		
+	}
 }

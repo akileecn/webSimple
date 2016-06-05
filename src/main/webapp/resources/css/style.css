@@ -1333,3 +1333,11 @@ span.more:hover{
 .col_cv_tab .user_pic label{
 	width:100px;
 } 
+
+/*新增*/
+.userForm .col_cv_alt{
+	margin:0 0 0 175px;
+	text-align:left;
+	font-size:0.85em;
+	color:#F00;	
+}

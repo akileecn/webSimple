@@ -102,4 +102,12 @@ public class UserUtils {
 		System.err.println(validCaptcha);
 		return (captcha!=null&&captcha.equals(validCaptcha));
 	}
+	
+	/**
+	 * 刷新用户
+	 * @param user
+	 */
+	public static void refreshUser(User user){
+		SecurityUtils.getSubject().getSession().setAttribute(SHIRO_SESSION_KEY_USER,user);
+	}
 }

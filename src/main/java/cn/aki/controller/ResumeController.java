@@ -3,14 +3,29 @@ package cn.aki.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import cn.aki.entity.Resume;
 import cn.aki.entity.ResumeAward;
@@ -43,11 +58,82 @@ import cn.aki.utils.UserUtils;
  */
 @Controller
 @RequestMapping("/resume")
-public class ResumeController extends BaseController{
+public class ResumeController extends BaseController implements ServletContextAware{
 	@Autowired
 	private ResumeService resumeService;
 	@Autowired
 	private ResumeSubService resumeSubService;
+	private ServletContext servletContext;
+	
+	/**
+	 * 上传头像
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/photo/upload")
+	public SimpleResponse upload(MultipartHttpServletRequest request,Resume resume) {
+		SimpleResponse response=new SimpleResponse();
+		Iterator<String> itr = request.getFileNames();
+		if (itr.hasNext()) {
+			MultipartFile mpf = request.getFile(itr.next());
+			//上传校验
+			if(mpf.getSize()>200*1024){
+				response.setMessage("上传文件必须小于200Kb");
+				return response;
+			}
+			if(!mpf.getContentType().startsWith("image/")){
+				response.setMessage("只能上传图片");
+				return response;
+			}
+			//文件命名
+			String originalFileName=mpf.getOriginalFilename();
+			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM/dd/");
+			String parentName="/upload/"+sdf.format(new Date());
+			File parentDir=new File(servletContext.getRealPath(parentName));
+			if(!parentDir.exists()){
+				parentDir.mkdirs();
+			}
+			try {
+				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
+				String webPath=parentName+newFileName;
+				resume.setPhoto(webPath);
+				resumeService.updatePhoto(resume);
+				response.setSuccess(true);
+				response.setMessage("上传成功");
+			} catch (IOException e) {
+				e.printStackTrace();
+				response.setMessage("上传失败");
+			}
+		}
+		return response;
+	}
+	
+	@RequestMapping(path="/phote/show")
+	public void getPhote(Resume resume,HttpServletResponse response){
+		resume=resumeService.getPhoto(resume);
+		File photo=null;
+		if(resume!=null&&resume.getPhoto()!=null){
+			photo=new File(servletContext.getRealPath(resume.getPhoto()));
+			if(photo.exists()){
+				FileInputStream is=null;
+				try {
+					is = new FileInputStream(photo);
+					FileCopyUtils.copy(is , response.getOutputStream());
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					if(is!=null){
+						try {
+							is.close();
+						} catch (IOException e) {
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	@RequestMapping(path="/list",method=GET)
 	public String toList(Model model){
@@ -177,4 +263,9 @@ public class ResumeController extends BaseController{
 		return response;
 	}
 	/* end从属信息 */
+
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext=servletContext;
+	}
+	
 }

@@ -11,4 +11,13 @@ public interface ResumeService {
 	 */
 	Resume get(Resume resume,boolean isAll);
 	void update(Resume resume);
+	/**
+	 * 更新照片
+	 * @param resume
+	 */
+	void updatePhoto(Resume resume);
+	/**
+	 * 获得照片
+	 */
+	Resume getPhoto(Resume resume);
 }

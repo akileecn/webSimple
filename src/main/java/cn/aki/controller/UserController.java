@@ -1,5 +1,7 @@
 package cn.aki.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.aki.entity.User;
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
+import cn.aki.form.UserUpdatePassworForm;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.UserService;
+import cn.aki.utils.Md5Utils;
 import cn.aki.utils.UserUtils;
 
 /**
@@ -60,25 +64,21 @@ public class UserController extends BaseController{
 	//登录操作
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public FormResponse<User> handleLogin(@Valid UserLoginForm userLoginForm,BindingResult result){
-		FormResponse<User> response=handleFormError(result);
-		if(!UserUtils.isValidCaptcha(userLoginForm.getCaptcha())){
-			response.putError("captcha", "验证码错误");
-			return response;
-		}
+	public FormResponse<User> handleLogin(@Valid UserLoginForm form,BindingResult result){
+		FormResponse<User> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
-			UsernamePasswordToken token=new UsernamePasswordToken(userLoginForm.getUsername(), userLoginForm.getPassword());
+			UsernamePasswordToken token=new UsernamePasswordToken(form.getUsername(), form.getPassword());
 			token.setRememberMe(true);
 			Subject subject=SecurityUtils.getSubject();
 			try{
 				subject.login(token);
 			}catch(IncorrectCredentialsException ex){
 				//验证失败
-				logger.info("{} 验证失败",userLoginForm.getUsername());
+				logger.info("{} 验证失败",form.getUsername());
 				response.putError("username", messageSource.getMessage("shiro.incorrect", null,null));
 			}catch(UnknownAccountException ex){
 				//其他异常
-				logger.info("{} 未知异常",userLoginForm.getUsername());
+				logger.info("{} 未知异常",form.getUsername());
 				response.putError("username", messageSource.getMessage("shiro.unknow", null,null));
 			}
 		}
@@ -94,11 +94,11 @@ public class UserController extends BaseController{
 	//注册处理
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public FormResponse<Void> handleRegister(@Valid UserRegisterForm userRegisterForm,BindingResult result){
-		FormResponse<Void> response=handleFormError(result);
+	public FormResponse<Void> handleRegister(@Valid UserRegisterForm form,BindingResult result){
+		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
 			//保存用户
-			userService.save(userRegisterForm);
+			userService.save(form);
 		}
 		return response;
 	}
@@ -112,8 +112,42 @@ public class UserController extends BaseController{
 	//修改密码
 	@ResponseBody
 	@RequestMapping(value="/updatePassword",method=RequestMethod.POST)
-	public SimpleResponse UpdatePassword(){
-		SimpleResponse response=new SimpleResponse();
+	public FormResponse<Void> handleUpdatePassword(@Valid UserUpdatePassworForm form,BindingResult result){
+		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
+		if(response.isSuccess()){
+			User user=UserUtils.getUser();
+			if(Md5Utils.isEncrypted(form.getOldPassword(), user.getPassword())){
+				user.setModifyTime(new Date());
+				//密码加密
+				user.setPassword(Md5Utils.encrypt(form.getPassword()));
+				userService.update(user);
+				UserUtils.refreshUser(user);
+			}else{
+				response.putError("oldPassword", "密码不正确");
+			}
+		}
 		return response;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/logout")
+	public SimpleResponse handleLogout(){
+		SimpleResponse response=new SimpleResponse();
+		Subject subject=SecurityUtils.getSubject();
+		subject.logout();
+		response.setSuccess(true);
+		return response;
+	}
+
+	/**
+	 * 带验证码的校验
+	 */
+	private <T> FormResponse<T> handleFormError(BindingResult result,String captcha) {
+		FormResponse<T> response=super.handleFormError(result);
+//		if(!UserUtils.isValidCaptcha(captcha)){
+//			response.putError("captcha", "验证码错误");
+//		}
+		return response;
+	}
+	
 }

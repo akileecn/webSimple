@@ -1,17 +1,31 @@
 <style>
-	.col_cv_alt{
-		margin:0 0 0 60px;
-		text-align:left;
-		font-size:0.85em;
-		color:#F00;	
-	}
+	.userForm .col_cv_alt {
+    	margin: 0 0 0 60px;
+    }
 </style>
+
 <div class='col-xs-4 padding-l'>
     <div class="box_3">
         <div class="box_4">
-            <div>
+            <div id="loginDiv">
+	        	<#if user??>
+                <h3>欢迎回来！</h3>
+                <form class="login in">
+                    <ul>
+                        <li>您好！<b>${user.name}</b><a href="#" class="fr">您有<b class="red">${user.noticeCount}</b>个通知</a></li>
+                        <li style="margin-bottom:0;">
+                            <input type="button" class="button btnbg3" value="我的简历" onclick="window.location.href='<@spring.url "/resume/list"/>';"/>
+                            <input type="button" class="button btnbg4" value="我的通知" onclick="window.location.href='<@spring.url "/notice/list"/>';"/>
+                            <input type="button" class="button btnbg5" value="退出登陆" onclick="logout();">
+                        </li>
+                        <#--
+                        <li class="last">上次登录时间：2016.05.13 10:59:54</li>
+                        -->
+                    </ul>
+                </form>
+                <#else>
                 <h3>请登录</h3>
-                <form id="loginForm" action="<@spring.url "/user/login"/>" method="post" class="login">
+                <form id="loginForm" action="<@spring.url "/user/login"/>" method="post" class="login userForm">
                     <ul>
                         <li>
                             <label>用户名：</label>
@@ -37,20 +51,7 @@
                         </li>
                     </ul>
                 </form>
-            </div>
-            <div style="display: none;">
-                <h3>欢迎回来！</h3>
-                <form class="login in">
-                    <ul>
-                        <li>上午好！<b>张三</b><a href="#" class="fr">您有<b class="red">xxxx</b>个通知</a></li>
-                        <li style="margin-bottom:0;">
-                            <input type="button" class="button btnbg3" value="我的简历">
-                            <input type="button" class="button btnbg4" value="我的通知">
-                            <input type="button" class="button btnbg5" value="退出登陆">
-                        </li>
-                        <li class="last">上次登录时间：2016.05.13 10:59:54</li>
-                    </ul>
-                </form>
+	            </#if>
             </div>
         </div>
     </div>
@@ -61,6 +62,8 @@
 		$("#loginForm").ajaxForm(function(text) {
 			$("#loginForm").find(".col_cv_alt").empty();
 			if(text.success){
+				alert("登录成功");
+				window.location.reload();
 			}else{
 				if(text.error){
 					changeCaptcha();
@@ -75,5 +78,16 @@
 	//换验证码
 	function changeCaptcha(){
 		$("#captcha").attr("src","<@spring.url "/user/captchaImage.png"/>?r="+Math.random());
+	}
+	
+	//注销
+	function logout(){
+		$.ajax({
+			url:"<@spring.url "/user/logout"/>"
+			,success:function(){
+				alert("退出成功");
+				window.location.reload();
+			}
+		});
 	}
 </script>

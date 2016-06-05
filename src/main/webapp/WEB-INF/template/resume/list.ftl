@@ -17,7 +17,7 @@
                 <li class="col_cv_btn">
                     <p>${dictMap["recruitType"][key]}简历</p>
                 </li>
-                <li class="col_cv_btn"><a href="<@spring.url "/resume/detail?id="+id+"recruitType="+key />">编辑查看</a></li>
+                <li class="col_cv_btn"><a href="<@spring.url "/resume/detail?id="+id+"&recruitType="+key />">编辑查看</a></li>
             </ul>
             </#list>
             <#--

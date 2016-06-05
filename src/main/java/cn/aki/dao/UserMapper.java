@@ -20,5 +20,6 @@ public interface UserMapper {
 	 * @return 用户个数
 	 */
 	int exists(User user);
+	void update(User user);
 	
 }

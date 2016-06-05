@@ -15,4 +15,12 @@ public interface ResumeMapper {
 	 * 
 	 */
 	List<Integer> getIdByUserId(Integer userId);
+	/**
+	 * 更新照片
+	 */
+	void updatePhoto(Resume resume);
+	/**
+	 * 获得照片
+	 */
+	Resume getPhoto(Resume resume);
 }

@@ -61,6 +61,7 @@
 			,answer
 			,create_time as createTime
 			,modify_time as modifyTime
+			,name
 		from zp_user
 		<include refid="whereByUsername">
 			<property name="prefix" value=""/>
@@ -70,11 +71,116 @@
 	<!-- 保存 -->
 	<insert id="save" parameterType="user" useGeneratedKeys="true" keyProperty="id">
 		insert into zp_user(
-			name,password,id_number,mobile,email,question,answer,create_time,modify_time
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="createTime!=null">
+			,create_time
+			</if>
+			<if test="modifyTime!=null">
+			,modify_time
+			</if>
+			<if test="username!=null">
+			,username
+			</if>
+			<if test="password!=null">
+			,password
+			</if>
+			<if test="idNumber!=null">
+			,id_number
+			</if>
+			<if test="mobile!=null">
+			,mobile
+			</if>
+			<if test="email!=null">
+			,email
+			</if>
+			<if test="question!=null">
+			,question
+			</if>
+			<if test="answer!=null">
+			,answer
+			</if>
+			<if test="name!=null">
+			,name
+			</if>
+		</trim>
 		)values(
-			#{name},#{password},#{idNumber},#{mobile},#{email},#{question},#{answer},now(),now()
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="createTime!=null">
+			,#{createTime}
+			</if>
+			<if test="modifyTime!=null">
+			,#{modifyTime}
+			</if>
+			<if test="username!=null">
+			,#{username}
+			</if>
+			<if test="password!=null">
+			,#{password}
+			</if>
+			<if test="idNumber!=null">
+			,#{idNumber}
+			</if>
+			<if test="mobile!=null">
+			,#{mobile}
+			</if>
+			<if test="email!=null">
+			,#{email}
+			</if>
+			<if test="question!=null">
+			,#{question}
+			</if>
+			<if test="answer!=null">
+			,#{answer}
+			</if>
+			<if test="name!=null">
+			,#{name}
+			</if>
+		</trim>
 		)
 	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="user">
+		update zp_user
+		<set>
+		<trim prefix="" prefixOverrides=",">
+			<if test="modifyTime!=null">
+			,modify_time=#{modifyTime}
+			</if>
+			<if test="username!=null">
+			,username=#{username}
+			</if>
+			<if test="password!=null">
+			,password=#{password}
+			</if>
+			<if test="idNumber!=null">
+			,id_number=#{idNumber}
+			</if>
+			<if test="mobile!=null">
+			,mobile=#{mobile}
+			</if>
+			<if test="email!=null">
+			,email=#{email}
+			</if>
+			<if test="question!=null">
+			,question=#{question}
+			</if>
+			<if test="answer!=null">
+			,answer=#{answer}
+			</if>
+			<if test="name!=null">
+			,name=#{name}
+			</if>
+		</trim>
+		</set>
+		where id=#{id}
+	</update>
 	
 	<!-- 是否存在 -->
 	<select id="exists" parameterType="user" resultType="int">

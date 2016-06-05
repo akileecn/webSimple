@@ -1,5 +1,7 @@
 <div class="col_cv_tab">
     <form id="baseForm" action="<@spring.url "/resume/save/base"/>" method="post"></form>
+    <#-- 头像上传 -->
+    <input id="fileupload" type="file" name="files[]" data-url="<@spring.url "/resume/photo/upload?id=${id}"/>" style="display:none;" multiple/>
 </div>
 <script type="text/javascript">
 	T.base={};
@@ -13,7 +15,7 @@
 				<td rowspan="4">
                     <div class="user_pic fr">
                         <label>个人照片：</label>
-                        <img src="<@c.resource "images/pic_tx.jpg"/>" width="150" height="180" alt="点击上传个人照片">
+                        <img src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
                     </div>
                 </td>
             </tr>
@@ -84,7 +86,7 @@
 				<td rowspan="4">
                     <div class="user_pic fr">
                         <label>个人照片：</label>
-                        <img src="<@c.resource "images/pic_tx.jpg"/>" width="150" height="180" alt="点击上传个人照片">
+                        <img id="photoImg" src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
                         <span class="red">*</span>
                     </div>
                 </td>

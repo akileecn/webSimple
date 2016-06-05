@@ -21,6 +21,11 @@
 		from zp_notice
 	</sql>
 	
+	<!-- 获得用户通知数 -->
+	<select id="getCountByUserId" parameterType="int" resultType="int">
+		select count(1) from zp_notice where user_id=#{userId};
+	</select>
+	
 	<!-- 获得 -->
 	<select id="get" parameterType="notice" resultType="notice">
 		<include refid="selectSql"/>

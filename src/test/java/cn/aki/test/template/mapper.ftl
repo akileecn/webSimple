@@ -60,11 +60,15 @@
 	<update id="update" parameterType="${bean}">
 		update zp_${table}
 		<set>
+		<trim prefix="" prefixOverrides=",">
 		<#list columns?keys as key>
 			<#if key!="id"&&key!="create_time">
-			${key}=${r'#'}{${columns[key]}},
+			<if test="${columns[key]}!=null">
+			,${key}=${r'#'}{${columns[key]}}
+			</if>
 			</#if>
 		</#list>
+		</trim>
 		</set>
 		<include refid="whereSql"/>
 	</update>

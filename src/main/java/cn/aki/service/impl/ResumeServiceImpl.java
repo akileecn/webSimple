@@ -68,4 +68,12 @@ public class ResumeServiceImpl implements ResumeService{
 		resumeMapper.update(resume);
 	}
 
+	public void updatePhoto(Resume resume) {
+		resumeMapper.updatePhoto(resume);
+	}
+
+	public Resume getPhoto(Resume resume) {
+		return resumeMapper.getPhoto(resume);
+	}
+
 }

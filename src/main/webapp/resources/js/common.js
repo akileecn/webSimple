@@ -137,4 +137,15 @@
 		}
 		return obj;
 	}
+	
+	//显示错误信息
+	$.fn.showError=function(error){
+		$(this).find(".col_cv_alt").empty();
+		if(error){
+			for(var key in error){
+				$(this).find(".col_cv_alt[data-error='"+key+"']").text(error[key]);
+			}
+		}
+		
+	}
 }(window.$));

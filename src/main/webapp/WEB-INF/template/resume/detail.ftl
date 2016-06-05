@@ -2,6 +2,9 @@
 <#include "/resume/detail_common.ftl"/>
 <@bootstrap.head>
 <title>简历详情</title>
+<#-- 文件上传插件 -->
+<script src="<@c.resource "/jquery/jquery.ui.widget.js"/>"></script>
+<script src="<@c.resource "/jquery/jquery.fileupload.js"/>"></script>
 </@bootstrap.head>
 <@bootstrap.body>
 <script type="text/javascript">
@@ -46,6 +49,7 @@
 				alert("保存成功");
 				var data=$("#baseForm").getFormData();
 				$("#baseForm").html($.template(T.base.text,data));
+				$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
 			}else{
 				alert("表单信息有误");
 				$("#baseForm").find(".col_cv_alt").empty();
@@ -55,6 +59,25 @@
 					}
 				}
 			}
+		});
+		
+		//头像上传
+		$('#fileupload').fileupload({
+			dataType : 'json',
+			done : function(e, data) {
+				var message=data.result.message;
+				if(message){
+					alert(message);
+				}
+				if(data.result.message){
+					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
+				}
+			}
+		});
+		
+		
+		$("body").on("click","#photoImg",function(){
+			$('#fileupload').click();
 		});
 		
 	});

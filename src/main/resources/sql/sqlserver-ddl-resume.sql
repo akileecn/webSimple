@@ -132,3 +132,6 @@ create table zp_resume_family(
 	,work_job nvarchar(32) -- 职位
 	,description nvarchar(500) -- 说明
 );
+
+/*简历增加头像*/
+alter table zp_resume add photo nvarchar(100);
