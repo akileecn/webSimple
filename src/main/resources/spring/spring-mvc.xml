@@ -19,7 +19,7 @@
 	<aop:aspectj-autoproxy/>
 	<!-- 静态资源 -->	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<mvc:resources mapping="/wechat/**" location="/WEB-INF/html/" />
+	<mvc:resources mapping="/wechat/**" location="/WEB-INF/html/wechat/" />
 	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->
 	<!-- 并相当于注册了RequestMappingHandlerMapping,RequestMappingHandlerAdapter,ExceptionHandlerExceptionResolver -->
 	<mvc:annotation-driven validator="validator" conversion-service="conversionService">

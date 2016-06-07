@@ -1,0 +1,122 @@
+ <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
+  <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
+  <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+  <script src="../jquerymobile/js/common.js"></script>
+  
+  </head>
+  <body>
+   <div data-role="page" id="pageone">
+       <div data-role="header" data-position="fixed"   data-theme="a">
+          <h1>校招岗位</h1>
+       </div>
+       <div data-role="content" style="margin-top:-10px" >
+          <ul id="joblist" data-role="listview" data-dividertheme="d" style="margin-top: 0;">
+          </ul>
+       </div>
+       <div data-role="footer" data-position="fixed">
+          <h1>
+              <a onclick="onpage('FIRST')">【首页】</a>
+              <a onclick="onpage('PREV')">【上一页】</a>
+              <a onclick="onpage('NEXT')">【下一页】</a>
+              <a onclick="onpage('LAST')">【末页】</a>
+              <br>
+              <span id="total"></span>
+          </h1>
+       </div>
+   </div>
+   </body>
+</html>
+<script>
+var page;
+var params = getUrlParam(location.search);
+    params.PageNum = 1 ;
+$(document).ready(function() {
+// alert(baseUrl);
+	dataload(params);
+});	
+
+/***
+ * 
+ * 数据加载
+ */
+
+function dataload(pagenum){
+    $.ajax({
+    	url:baseUrl+"wechatjob/list",
+    	data:params,
+    	type:"post",
+    	success:function(text){
+    		if(text.data.list && text.data.list.length>0){
+    			console.log(text.data);
+    			page = text.data;
+    			console.log(text.data.list);
+                var html = '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-inherit ui-first-child ui-last-child">请选择职位</li>';
+                var _data = text.data.list ;
+                for(var i=0;i<_data.length;i++){
+                	var _t='<li>'
+                	      +'<a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r" onclick="detail('+ _data[i].id +')">'
+                	      +'<h2>'  + _data[i].name +'</h2>'
+                	      +'<p>'   + _data[i].t.workCity +'</p>'
+                	      +'<span>'+ _data[i].peopleNumber+'人</span>'
+                	      +'<span style="float:right;">'+ _data[i].publishDate+'</span>'
+                	      +'</a>'
+                	      +'</li>';
+                	html+=_t;      
+                }
+                $("#joblist").empty();
+    			$("#joblist").append(html);
+    			$("#total").html("第"+page.pageNum+"/"+page.pages+"页    共"+page.total+"条");
+    		}
+    	}
+    });
+    
+}
+
+/**
+岗位详情
+*/
+function detail(jobid){
+	
+	location.href="jobDetail.html?id="+jobid+"&_t="+Math.random();
+}
+
+/***
+ * 
+ *  翻页
+ */
+function onpage(param){
+	var num = 1 ;
+	if(param=="FIRST"){
+		num = 1;
+	}else if(param=="PREV"){
+		num = page.prePage;
+	}else if(param=="NEXT"){
+		num = page.nextPage;
+	}else if(param=="LAST"){
+		num = page.lastPage ;
+	}
+	params.PageNum = num ;
+	dataload(params);
+}
+
+/**
+获取链接中的参数
+**/
+function getUrlParam(url){
+var Request = {};
+if(url.indexOf("?")!=-1){
+	var str = url.substr(1)　//去掉?号
+	　　strs = str.split("&");
+	for(var i=0;i<strs.length;i++)
+	{
+	 　 Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+	}
+}
+return Request ;
+}
+</script>

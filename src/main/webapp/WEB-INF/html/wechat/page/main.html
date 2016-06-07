@@ -1,0 +1,114 @@
+ <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
+      <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
+      <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+      <style>
+        
+        div {
+            display: block;
+          } 
+        img {
+            color: transparent;
+            font-size: 0;
+            vertical-align: middle;
+            -ms-interpolation-mode: bicubic;
+          }
+        .full-screen {
+            width: 94%;
+            margin: 0 auto;
+            clear: both;
+          }  
+        .zhaopin{
+            height: auto;
+            overflow: hidden;
+            margin-top: 20px;
+          }
+          
+        .zhaopin ul {
+            list-style: none;
+            text-align: center;
+            padding:0 0 0 0 ;
+          }
+         .zhaopin ul li {
+            float: left;
+            width: 33%;
+            height: 140px;
+            padding-bottom: 0px;
+          } 
+          .zhaopin ul li a img {
+            max-width: 50%;
+            max-height: 90px;
+          }
+          .zhaopin ul li a span {
+            display: block;
+            text-align: center;
+            padding-top: 10px;
+            box-sizing: border-box;
+            color: black;
+          }
+      </style>
+  </head>
+  <body>
+   <div data-role="page" id="pageone">
+       <div data-role="header" data-position="fixed" data-theme="a">
+          <h1>个人中心</h1></h1>
+       </div>
+       
+       <div data-role="content" style="margin-top:-10px">
+            <div class="zhaopin full-screen">
+              <ul id="meun">
+                <li url="myJob.html">
+                  <a>
+                    <img src="../img/me.png">
+                    <span>我的应聘</span>
+                  </a>
+                </li>
+                <li url="resume.html">
+                  <a>
+                    <img src="../img/resume.png">
+                    <span>我的简历</span>
+                  </a>
+                </li>
+                <li url="notice.html">
+                  <a>
+                    <img src="../img/email.png">
+                    <span>通知信</span>
+                  </a>
+                </li>
+                <li url="jobList.html?recruitType=campus">
+                  <a>
+                    <img src="../img/xiaozhao2.png">
+                    <span>校招岗位</span>
+                  </a>
+                </li>
+                <li url="jobList.html?recruitType=society">
+                  <a>
+                    <img src="../img/shezhao.png">
+                    <span>社招岗位</span>
+                  </a>
+                </li>
+                <li url="jobList.html?recruitType=trainee">
+                  <a>
+                    <img src="../img/xiaozhao.png">
+                    <span>实习生</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+       </div>
+   </div>
+   </body>
+</html>
+<script>
+$(document).ready(function() {
+    $("#meun").find("li").each(function(){
+  	$(this).click(function(){
+    		location.href=$(this).attr("url");
+    	});
+    });
+});	    
+</script>

@@ -1,0 +1,100 @@
+ <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
+  <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
+  <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../jquerymobile/js/common.js"></script>
+  </head>
+  <body>
+   <div data-role="page" id="pageone">
+       <div data-role="header" data-position="fixed" data-theme="a">
+          <h1>我的应聘</h1>
+       </div>
+       
+       <div data-role="content" style="margin-top:-10px" >
+         		<a data-role="button" href="#" data-inline="true">我的简历</a>
+         		<a id="myResume" data-role="button"  url="resume.html">我的简历</a>
+         		<a data-role="button" href="#" data-inline="true">我的应聘</a>
+         		<table id="application" data-role="table" >
+					     <thead>
+					       <tr>
+					         <th>投递时间</th>
+					         <th>岗位名称</th>
+					         <th>招聘机构</th>
+					         <th>工作城市</th>
+					         <th>状态</th>
+					       </tr>
+					     </thead>
+					     <tbody>
+					       <tr>
+					       	 <th>2016-5-1</th>
+					         <td>前台柜员</td>
+					         <td>绍兴分行</td>
+					         <td>绍兴</td>
+					         <td>通过</td>
+					       </tr>
+					       <tr>
+					       	 <th>2016-5-1</th>
+					         <td>前台柜员</td>
+					         <td>绍兴分行</td>
+					         <td>绍兴</td>
+					         <td>通过</td>
+					       </tr>
+					     </tbody>
+					  </table>     
+       </div>
+       <div data-role="footer" data-position="fixed">
+          
+       </div>
+   </div>
+   </body>
+</html>
+<script>
+$(document).ready(function() {
+	
+	dataload();
+    
+
+    $("#myResume").click(function(){
+     	location.href=$(this).attr("url");
+    });
+});
+
+
+function dataload(){
+	
+	$.ajax({
+		url:baseUrl+"wechatApplication/list",
+	    data:{},
+	    type:"post",
+	    success:function(text){
+	    	console.log(text);
+	    	if(text.success){
+	    		var data = text.data;
+	    		if(data && data.length>0){
+	    			var html = "" ;
+	    			console.log(data[0]);
+	    			for(var i=0;i<data.length;i++){
+	    				var hl = "<tbody><tr>"
+	    						+'<td><b class="ui-table-cell-label">投递时间</b>'+data[i]["createTime"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">岗位名称</b>'+data[i]["job"]["name"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">状态</b>'+data[i]["status"]+'</td>'
+	    				        +'</tr><tr><td><hr></td></tr></tbody>';
+	    				html+=hl;
+	    			}
+	    			$("#application").html(html);
+	    			
+	    		}else{
+	    		    $("#application").html("<h3>无应聘信息！</h3>");
+	    		}
+	    	}
+	    }
+		
+	});
+}
+
+	console.log("asaaaaaaaaaaa");
+</script>
