@@ -17,11 +17,11 @@
 	    <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean  -->
 	    <!-- defined will be automatically acquired and available via its beanName in chain        -->
 	    <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
-	    <!-- <property name="filters">
-	        <util:map>
-	            <entry key="anAlias" value-ref="someFilter"/>
-	        </util:map>
-	    </property> -->
+	    <property name="filters">
+	        <map>
+	            <entry key="authc" value-ref="ajaxFormAuthenticationFilter"/>
+	        </map>
+	    </property>
 	    <property name="filterChainDefinitions">
 	        <value>
 	            # some example chain definitions:
@@ -41,6 +41,10 @@
 	        </value>
 	    </property>
 	</bean>
+	
+	<!-- 自定义过滤器 -->
+	<!-- ajax请求被拦截是返回json -->
+	<bean id="ajaxFormAuthenticationFilter" class="cn.aki.other.AjaxFormAuthenticationFilter"/>
 	
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 	    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
