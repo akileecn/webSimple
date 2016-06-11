@@ -29,7 +29,7 @@
 				//基本信息
 				$("#baseForm").html($.template(T.base.text,resume));
 				//从属信息
-				var subs=["award","computer","education","family","foreignLanguage","studentCadre","work"];
+				var subs=["award","computer","education","family","foreignLanguage"<#if recruitType=="campus">,"studentCadre"</#if>,"work"];
 				for(var i=0;i<subs.length;i++){
 					var dataType=subs[i];
 					var datas=resume[dataType+"List"];
@@ -44,19 +44,37 @@
 		</#if>
 
 		//保存基本信息
-		$("#baseForm").ajaxForm(function(text) {
-			if(text.success){
-				alert("保存成功");
-				var data=$("#baseForm").getFormData();
-				$("#baseForm").html($.template(T.base.text,data));
-				$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
-			}else{
-				alert("表单信息有误");
-				$("#baseForm").find(".col_cv_alt").empty();
-				if(text.error){
-					for(var key in text.error){
-						$("#baseForm").find(".col_cv_alt[data-error='"+key+"']").text(text.error[key]);
+		$("#baseForm").ajaxForm({
+			"beforeSubmit":function(datas){
+				<#-- 校招额外验证 -->
+				<#if recruitType=="campus">
+				$("#baseForm").clearError();
+				var hasError=false;
+				var error={};
+				var fields=["height","weight","highestDegree","ceeProvince","ceeScore","isFirstLine","artsOrScience","admissionOrder"];
+				for(var i=0;i<fields.length;i++){
+					var value=$("#baseForm :input[name='"+fields[i]+"']").val();
+					if(!value){
+						hasError=true;
+						error[fields[i]]="字段不能为空";
 					}
+				}
+				if(hasError){
+					alert("表单信息有误");
+					$("#baseForm").showError(error);
+					return false;
+				}
+				</#if>
+				return true;
+			},"success":function(text) {
+				if(text.success){
+					alert("保存成功");
+					var data=$("#baseForm").getFormData();
+					$("#baseForm").html($.template(T.base.text,data));
+					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
+				}else{
+					alert("表单信息有误");
+					$("#baseForm").showError(text.error);
 				}
 			}
 		});
@@ -172,6 +190,9 @@
 			,success:function(text){
 				if(text.success){
 					switchSub(dataType,self,{id:text.data});
+				}else{
+					alert("表单信息有误");
+					$form.showError(text.error);
 				}
 			}
 		});

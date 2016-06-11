@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.aki.dao.ResumeMapper">
+	<cache/>
+	
 	<sql id="whereSql">
 		where id=#{id}
 			and user_id=#{userId}
@@ -49,6 +51,7 @@
 			,work_city as workCity
 			,health
 			,photo
+			,recruit_type as recruitType
 		from zp_resume
 	</sql>
 	
@@ -203,6 +206,9 @@
 			<if test="health!=null">
 			,health
 			</if>
+			<if test="recruitType!=null">
+			,recruit_type
+			</if>
 		</trim>
 		)values(
 		<trim prefix="" prefixOverrides=",">
@@ -326,6 +332,9 @@
 			<if test="health!=null">
 			,#{health}
 			</if>
+			<if test="recruitType!=null">
+			,#{recruitType}
+			</if>
 		</trim>
 		)
 	</insert>
@@ -373,6 +382,7 @@
 			work_year=#{workYear},
 			work_city=#{workCity},
 			health=#{health},
+			recruit_type=#{recruitType},
 		</set>
 		<include refid="whereSql"/>
 	</update>

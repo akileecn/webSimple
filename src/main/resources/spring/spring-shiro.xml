@@ -34,9 +34,9 @@
 	            /user/register=anon
 	            /user/captchaImage.png=anon
 	            /user/**=authc
-	            /resume/**=authc
-	            /notice/**=authc
-	            /application/**=authc
+	            #/resume/**=authc
+	            #/notice/**=authc
+	            #/application/**=authc
 	        </value>
 	    </property>
 	</bean>

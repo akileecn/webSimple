@@ -36,14 +36,6 @@ import cn.aki.entity.ResumeForeignLanguage;
 import cn.aki.entity.ResumeStudentCadre;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
-import cn.aki.form.ResumeAwardForm;
-import cn.aki.form.ResumeComputerForm;
-import cn.aki.form.ResumeEducationForm;
-import cn.aki.form.ResumeFamilyForm;
-import cn.aki.form.ResumeForeignLanguageForm;
-import cn.aki.form.ResumeForm;
-import cn.aki.form.ResumeStudentCadreForm;
-import cn.aki.form.ResumeWorkForm;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
@@ -136,20 +128,24 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	
 	@RequestMapping(path="/list",method=GET)
-	public String toList(Model model){
-		model.addAttribute("id", UserUtils.getResumeId());
+	public String toList(Resume resume,Model model){
+		Integer id=UserUtils.getResumeId();
+		resume.setId(id);
+		resume=resumeService.get(resume, false);
+		model.addAttribute("resume", resume);
 		return "resume/list";
 	}
 	
 	@RequestMapping(path="/detail",method=GET)
-	public String toDetail(Integer id,Model model){
+	public String toDetail(Integer id,String recruitType,Model model){
 		model.addAttribute("id", id);
+		model.addAttribute("recruitType", recruitType);
 		return "resume/detail";
 	}
 	
 	@ResponseBody
 	@RequestMapping(path="/save/base",method=POST)
-	public FormResponse<Void> saveBase(@Valid ResumeForm form,BindingResult result){
+	public FormResponse<Void> saveBase(@Valid Resume form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result);
 		if(response.isSuccess()){
 			resumeService.update(form);
@@ -169,7 +165,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	/* begin从属信息 */
 	@ResponseBody
 	@RequestMapping(path="/save/award",method=POST)
-	public FormResponse<Integer> saveAward(ResumeAwardForm form,BindingResult result){
+	public FormResponse<Integer> saveAward(@Valid ResumeAward form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -179,7 +175,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/computer",method=POST)
-	public FormResponse<Integer> saveComputer(ResumeComputerForm form,BindingResult result){
+	public FormResponse<Integer> saveComputer(@Valid ResumeComputer form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -189,7 +185,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/education",method=POST)
-	public FormResponse<Integer> saveEducation(ResumeEducationForm form,BindingResult result){
+	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -199,7 +195,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/family",method=POST)
-	public FormResponse<Integer> saveFamily(ResumeFamilyForm form,BindingResult result){
+	public FormResponse<Integer> saveFamily(@Valid ResumeFamily form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -209,7 +205,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/foreignLanguage",method=POST)
-	public FormResponse<Integer> saveForeignLanguage(ResumeForeignLanguageForm form,BindingResult result){
+	public FormResponse<Integer> saveForeignLanguage(@Valid ResumeForeignLanguage form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -219,7 +215,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/studentCadre",method=POST)
-	public FormResponse<Integer> saveStudentCadre(ResumeStudentCadreForm form,BindingResult result){
+	public FormResponse<Integer> saveStudentCadre(@Valid ResumeStudentCadre form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody
@@ -229,7 +225,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/work",method=POST)
-	public FormResponse<Integer> saveWork(ResumeWorkForm form,BindingResult result){
+	public FormResponse<Integer> saveWork(@Valid ResumeWork form,BindingResult result){
 		return saveSub(form,result);
 	}
 	@ResponseBody

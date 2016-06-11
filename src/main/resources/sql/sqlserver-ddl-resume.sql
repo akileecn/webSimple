@@ -135,3 +135,5 @@ create table zp_resume_family(
 
 /*简历增加头像*/
 alter table zp_resume add photo nvarchar(100);
+/*简历增加招聘类型*/
+alter table zp_resume add recruit_type nvarchar(32);

@@ -1,5 +1,9 @@
 package cn.aki.entity;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
 
@@ -17,32 +21,38 @@ public class ResumeFamily extends ResumeSubEntity{
 	private String workJob;		//,work_job varchar(32) -- 职位
 	private String description;	//,description varchar(500) -- 说明
 	
+	@Size(max=32)@NotBlank()
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	@Size(max=32)@NotBlank()
 	public String getRelationship() {
 		return relationship;
+	}
+	@Size(max=32)
+	public String getWorkCompany() {
+		return workCompany;
+	}
+	@Size(max=100)
+	public String getWorkJob() {
+		return workJob;
+	}
+	@Size(max=500)
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}
-	public String getWorkCompany() {
-		return workCompany;
-	}
 	public void setWorkCompany(String workCompany) {
 		this.workCompany = workCompany;
 	}
-	public String getWorkJob() {
-		return workJob;
-	}
 	public void setWorkJob(String workJob) {
 		this.workJob = workJob;
-	}
-	public String getDescription() {
-		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;

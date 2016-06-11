@@ -24,8 +24,8 @@
             <tr><@span label="出生日期" name="birthday"/></tr>
             <tr><@span label="身份证号码" name="idNumber" wide=true/></tr>
             <tr>
-				<@span label="身高" name="height"/>
-            	<@span label="体重" name="weight"/>
+				<@span label="身高(cm)" name="height"/>
+            	<@span label="体重(kg)" name="weight"/>
 			</tr>
             <tr>
 				<@span label="婚姻状况" name="marriage" translate=true/>
@@ -63,7 +63,7 @@
             	<@span label="紧急联系人电话" name="emergencyMobile"/>
 			</tr>
             <tr>
-				<@span label="子女（个）" name="childrenCount"/>
+				<@span label="子女(个)" name="childrenCount"/>
             	<@span label="是否有亲友受雇于本公司" name="isEelativeHere" translate=true attr="style=\"width:200px;\""/>
 			</tr>
             <tr><@span label="现居住地址" name="currentResidence" wide=true/></tr>
@@ -82,6 +82,7 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
             	<input type="hidden" name="id" value="${id}"/>
+            	<input type="hidden" name="recruitType" value="${recruitType}"/>
             	<@input label="姓名" name="name" required=true/>
 				<td rowspan="4">
                     <div class="user_pic fr">
@@ -96,8 +97,8 @@
             <tr><@date label="出生日期" name="birthday" required=true/></tr>
             <tr><@input label="身份证号码" name="idNumber" required=true wide=true/></tr>
             <tr>
-				<@input label="身高" name="height" required=true/>
-            	<@input label="体重" name="weight" required=true/>
+				<@input label="身高(cm)" name="height" required=(recruitType=="campus")/>
+            	<@input label="体重(kg)" name="weight" required=(recruitType=="campus")/>
 			</tr>
             <tr>
 				<@select label="婚姻状况" name="marriage" required=true/>
@@ -116,26 +117,26 @@
 			</tr>
             <tr>
 				<@select label="最高全日制学历" name="highestEducation" dict="education" required=true/>
-            	<@select label="最高学位" name="highestDegree" dict="degree" required=true/>
+            	<@select label="最高学位" name="highestDegree" dict="degree" required=(recruitType=="campus")/>
 			</tr>
             <tr>
             	<@date label="毕业时间" name="graduateDate" required=true/>
-				<@input label="高考省份" name="ceeProvince" required=true/>
+				<@input label="高考省份" name="ceeProvince" required=(recruitType=="campus")/>
 			</tr>
             <tr>
-				<@input label="高考分数" name="ceeScore" required=true/>
-            	<@radio label="是否一本分数线以上" name="isFirstLine" required=true/>
+				<@input label="高考分数" name="ceeScore" required=(recruitType=="campus")/>
+            	<@radio label="是否一本分数线以上" name="isFirstLine" required=(recruitType=="campus")/>
 			</tr>
             <tr>
-				<@select label="文理科" name="artsOrScience" required=true/>
-            	<@select label="录取批次" name="admissionOrder" required=true/>
+				<@select label="文理科" name="artsOrScience" required=(recruitType=="campus")/>
+            	<@select label="录取批次" name="admissionOrder" required=(recruitType=="campus")/>
 			</tr>
             <tr>
 				<@input label="紧急联系人" name="emergencyContact" required=true/>
             	<@input label="紧急联系人电话" name="emergencyMobile" required=true/>
 			</tr>
             <tr>
-				<@input label="子女（个）" name="childrenCount"/>
+				<@input label="子女(个)" name="childrenCount"/>
             	<@radio label="是否有亲友受雇于本公司" name="isEelativeHere"/>
 			</tr>
             <tr><@input label="现居住地址" name="currentResidence" required=true wide=true/></tr>

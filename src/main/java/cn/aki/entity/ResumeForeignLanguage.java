@@ -1,5 +1,10 @@
 package cn.aki.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
 /**
@@ -16,26 +21,32 @@ public class ResumeForeignLanguage extends ResumeSubEntity{
 	private String speaking;//,speaking nvarchar(32) -- 口语
 	@TranslateTypeCode("language")
 	private String others;//,others nvarchar(32) -- 其他语言
+	
+	@Size(max=32)@NotBlank()
 	public String getLevel() {
 		return level;
 	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
+	@NotNull()
 	public Integer getScore() {
 		return score;
+	}
+	@Size(max=32)
+	public String getSpeaking() {
+		return speaking;
+	}
+	@Size(max=32)
+	public String getOthers() {
+		return others;
+	}
+	
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	public void setScore(Integer score) {
 		this.score = score;
 	}
-	public String getSpeaking() {
-		return speaking;
-	}
 	public void setSpeaking(String speaking) {
 		this.speaking = speaking;
-	}
-	public String getOthers() {
-		return others;
 	}
 	public void setOthers(String others) {
 		this.others = others;

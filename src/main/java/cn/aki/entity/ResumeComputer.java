@@ -2,6 +2,11 @@ package cn.aki.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.ResumeSubEntity;
 /**
  * 计算机
@@ -14,26 +19,32 @@ public class ResumeComputer extends ResumeSubEntity{
 	private Date obtainDate;//,obtain_date datetime
 	private String level;//,level nvarchar(32)
 	private String detail;//,detail nvarchar(500)
+	
+	@Size(max=32)@NotBlank()
 	public String getCertificate() {
 		return certificate;
 	}
-	public void setCertificate(String certificate) {
-		this.certificate = certificate;
-	}
+	@NotNull
 	public Date getObtainDate() {
 		return obtainDate;
+	}
+	@Size(max=32)
+	public String getLevel() {
+		return level;
+	}
+	@Size(max=500)
+	public String getDetail() {
+		return detail;
+	}
+	
+	public void setCertificate(String certificate) {
+		this.certificate = certificate;
 	}
 	public void setObtainDate(Date obtainDate) {
 		this.obtainDate = obtainDate;
 	}
-	public String getLevel() {
-		return level;
-	}
 	public void setLevel(String level) {
 		this.level = level;
-	}
-	public String getDetail() {
-		return detail;
 	}
 	public void setDetail(String detail) {
 		this.detail = detail;

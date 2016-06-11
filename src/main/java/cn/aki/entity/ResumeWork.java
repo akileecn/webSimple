@@ -2,6 +2,11 @@ package cn.aki.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
 
@@ -27,90 +32,104 @@ public class ResumeWork extends ResumeSubEntity{
 	private String dimissionReason;	//,dimission_reason varchar(500) -- 辞职理由
 	private String duty;			//,duty varchar(500) -- 职责
 	private String performance;		//,performance varchar(500) -- 业绩
-
+	
+	@Size(max=100)@NotBlank()
 	public String getCompany() {
 		return company;
 	}
-	public void setCompany(String company) {
-		this.company = company;
-	}
+	@Size(max=32)@NotBlank()
 	public String getDepartment() {
 		return department;
 	}
-	public void setDepartment(String department) {
-		this.department = department;
-	}
+	@Size(max=32)
 	public String getAnnualSalary() {
 		return annualSalary;
 	}
-	public void setAnnualSalary(String annualSalary) {
-		this.annualSalary = annualSalary;
-	}
+	@Size(max=32)@NotBlank()
 	public String getJob() {
 		return job;
 	}
-	public void setJob(String job) {
-		this.job = job;
-	}
+	@Size(max=32)@NotBlank()
 	public String getCertifier() {
 		return certifier;
 	}
-	public void setCertifier(String certifier) {
-		this.certifier = certifier;
-	}
+	@Size(max=32)@NotBlank()
 	public String getCertifierMobile() {
 		return certifierMobile;
 	}
-	public void setCertifierMobile(String certifierMobile) {
-		this.certifierMobile = certifierMobile;
-	}
+	@Size(max=100)@NotBlank()
 	public String getWorkPlace() {
 		return workPlace;
 	}
-	public void setWorkPlace(String workPlace) {
-		this.workPlace = workPlace;
-	}
+	@Size(max=32)@NotBlank()
 	public String getJobType() {
 		return jobType;
-	}
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
 	}
 	public String getIndustry() {
 		return industry;
 	}
-	public void setIndustry(String industry) {
-		this.industry = industry;
-	}
+	@NotNull
 	public Date getBeginDate() {
 		return beginDate;
+	}
+	@NotNull
+	public Date getEndDate() {
+		return endDate;
+	}
+	@Size(max=500)
+	public String getDimissionReason() {
+		return dimissionReason;
+	}
+	@Size(max=500)@NotBlank()
+	public String getDuty() {
+		return duty;
+	}
+	@Size(max=500)@NotBlank()
+	public String getPerformance() {
+		return performance;
+	}
+	
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public void setAnnualSalary(String annualSalary) {
+		this.annualSalary = annualSalary;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public void setCertifier(String certifier) {
+		this.certifier = certifier;
+	}
+	public void setCertifierMobile(String certifierMobile) {
+		this.certifierMobile = certifierMobile;
+	}
+	public void setWorkPlace(String workPlace) {
+		this.workPlace = workPlace;
+	}
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
 	}
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
-	public Date getEndDate() {
-		return endDate;
-	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-	public String getDimissionReason() {
-		return dimissionReason;
 	}
 	public void setDimissionReason(String dimissionReason) {
 		this.dimissionReason = dimissionReason;
 	}
-	public String getDuty() {
-		return duty;
-	}
 	public void setDuty(String duty) {
 		this.duty = duty;
-	}
-	public String getPerformance() {
-		return performance;
 	}
 	public void setPerformance(String performance) {
 		this.performance = performance;
 	}
-	
+
 }

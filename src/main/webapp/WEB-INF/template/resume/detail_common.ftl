@@ -60,9 +60,9 @@
 </#macro>
 
 <#-- 从属编辑页面 -->
-<#macro subpage1 name title>
+<#macro subpage1 name title required=false>
 <div class="col_cv_tab">
-    <h4>${title}</h4>
+    <h4>${title}<#if required><span class="red">*</span></#if></h4>
 	<div id="${name}Div"></div>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	    <tr>

@@ -2,6 +2,11 @@ package cn.aki.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
 
@@ -30,69 +35,80 @@ public class ResumeEducation extends ResumeSubEntity{
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
 	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
-
+	
+	@Size(max=32)@NotBlank()
 	public String getSchoolName() {
 		return schoolName;
 	}
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
+	@Size(max=32)@NotBlank()
 	public String getMajor() {
 		return major;
 	}
-	public void setMajor(String major) {
-		this.major = major;
-	}
+	@Size(max=32)@NotBlank()
 	public String getGraduateType() {
 		return graduateType;
 	}
-	public void setGraduateType(String graduateType) {
-		this.graduateType = graduateType;
-	}
+	@Size(max=32)@NotBlank()
 	public String getDegree() {
 		return degree;
 	}
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
+	@Size(max=32)@NotBlank()
 	public String getEducation() {
 		return education;
 	}
-	public void setEducation(String education) {
-		this.education = education;
-	}
+	@Size(max=32)@NotBlank()
 	public String getLearnType() {
 		return learnType;
 	}
-	public void setLearnType(String learnType) {
-		this.learnType = learnType;
-	}
+	@NotNull
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
+	@NotNull
 	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+	@Size(max=32)@NotBlank()
 	public String getSchoolType() {
 		return schoolType;
-	}
-	public void setSchoolType(String schoolType) {
-		this.schoolType = schoolType;
 	}
 	public Boolean getHasBeenCadre() {
 		return hasBeenCadre;
 	}
-	public void setHasBeenCadre(Boolean hasBeenCadre) {
-		this.hasBeenCadre = hasBeenCadre;
-	}
+	@Size(max=32)@NotBlank()
 	public String getGradeRank() {
 		return gradeRank;
+	}
+	
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	public void setGraduateType(String graduateType) {
+		this.graduateType = graduateType;
+	}
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	public void setLearnType(String learnType) {
+		this.learnType = learnType;
+	}
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public void setSchoolType(String schoolType) {
+		this.schoolType = schoolType;
+	}
+	public void setHasBeenCadre(Boolean hasBeenCadre) {
+		this.hasBeenCadre = hasBeenCadre;
 	}
 	public void setGradeRank(String gradeRank) {
 		this.gradeRank = gradeRank;

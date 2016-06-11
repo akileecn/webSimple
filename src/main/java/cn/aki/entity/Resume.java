@@ -3,10 +3,17 @@ package cn.aki.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import cn.aki.entity.base.BaseTimeEntity;
 import cn.aki.entity.base.UserSub;
 import cn.aki.entity.translate.Translatable;
 import cn.aki.entity.translate.TranslateTypeCode;
+import cn.aki.form.validator.IdNumber;
 
 /**
  * 简历主表
@@ -66,6 +73,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	@TranslateTypeCode
 	private String health;//,health varchar(32) -- 健康
 	private String photo;	//头像
+	private String recruitType;	//招聘类型
 	
 	/*关联*/
 	@TranslateTypeCode
@@ -86,206 +94,266 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+	@NotBlank@Size(max=32)
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	@NotBlank@Size(max=32)
 	public String getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+	@NotNull
 	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+	@NotBlank@Size(max=32)
 	public String getNation() {
 		return nation;
-	}
-	public void setNation(String nation) {
-		this.nation = nation;
 	}
 	public Integer getHeight() {
 		return height;
 	}
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
 	public Integer getWeight() {
 		return weight;
 	}
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
+	@Size(max=32)
 	public String getIdType() {
 		return idType;
 	}
-	public void setIdType(String idType) {
-		this.idType = idType;
-	}
+	@NotBlank@Size(max=32)@IdNumber()
 	public String getIdNumber() {
 		return idNumber;
 	}
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
+	@NotBlank@Size(max=32)
 	public String getMarriage() {
 		return marriage;
 	}
-	public void setMarriage(String marriage) {
-		this.marriage = marriage;
-	}
+	@Size(max=32)
 	public String getPoliticsStatus() {
 		return politicsStatus;
-	}
-	public void setPoliticsStatus(String politicsStatus) {
-		this.politicsStatus = politicsStatus;
 	}
 	public Date getJoinPartyDate() {
 		return joinPartyDate;
 	}
-	public void setJoinPartyDate(Date joinPartyDate) {
-		this.joinPartyDate = joinPartyDate;
-	}
+	@NotBlank@Size(max=32)@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")
 	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+	@Size(max=50)
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	@NotBlank@Size(max=32)
 	public String getHighestEducation() {
 		return highestEducation;
 	}
-	public void setHighestEducation(String highestEducation) {
-		this.highestEducation = highestEducation;
-	}
+	@Size(max=32)
 	public String getHighestDegree() {
 		return highestDegree;
 	}
-	public void setHighestDegree(String highestDegree) {
-		this.highestDegree = highestDegree;
-	}
+	@NotNull
 	public Date getGraduateDate() {
 		return graduateDate;
 	}
-	public void setGraduateDate(Date graduateDate) {
-		this.graduateDate = graduateDate;
-	}
+	@Size(max=32)
 	public String getCeeProvince() {
 		return ceeProvince;
-	}
-	public void setCeeProvince(String ceeProvince) {
-		this.ceeProvince = ceeProvince;
 	}
 	public Integer getCeeScore() {
 		return ceeScore;
 	}
-	public void setCeeScore(Integer ceeScore) {
-		this.ceeScore = ceeScore;
-	}
 	public Boolean getIsFirstLine() {
 		return isFirstLine;
 	}
-	public void setIsFirstLine(Boolean isFirstLine) {
-		this.isFirstLine = isFirstLine;
-	}
+	@Size(max=32)
 	public String getArtsOrScience() {
 		return artsOrScience;
 	}
-	public void setArtsOrScience(String artsOrScience) {
-		this.artsOrScience = artsOrScience;
-	}
+	@Size(max=32)
 	public String getAdmissionOrder() {
 		return admissionOrder;
 	}
-	public void setAdmissionOrder(String admissionOrder) {
-		this.admissionOrder = admissionOrder;
-	}
+	@NotBlank@Size(max=32)
 	public String getEmergencyContact() {
 		return emergencyContact;
 	}
-	public void setEmergencyContact(String emergencyContact) {
-		this.emergencyContact = emergencyContact;
-	}
+	@NotBlank@Size(max=32)
 	public String getEmergencyMobile() {
 		return emergencyMobile;
-	}
-	public void setEmergencyMobile(String emergencyMobile) {
-		this.emergencyMobile = emergencyMobile;
 	}
 	public Integer getChildrenCount() {
 		return childrenCount;
 	}
-	public void setChildrenCount(Integer childrenCount) {
-		this.childrenCount = childrenCount;
-	}
 	public Boolean getIsRelativeHere() {
 		return isRelativeHere;
+	}
+	@NotBlank@Size(max=100)
+	public String getCurrentResidence() {
+		return currentResidence;
+	}
+	@Size(max=100)
+	public String getFamilyResidence() {
+		return familyResidence;
+	}
+	@NotBlank@Size(max=100)
+	public String getNativePlace() {
+		return nativePlace;
+	}
+	@Size(max=100)
+	public String getStudentOrigin() {
+		return studentOrigin;
+	}
+	@NotBlank@Size(max=100)
+	public String getRegisteredResidence() {
+		return registeredResidence;
+	}
+	@Size(max=500)
+	public String getCertificate() {
+		return certificate;
+	}
+	@NotBlank@Size(max=500)
+	public String getHobby() {
+		return hobby;
+	}
+	@NotBlank@Size(max=500)
+	public String getPersonality() {
+		return personality;
+	}
+	@NotBlank@Size(max=32)
+	public String getWorkYear() {
+		return workYear;
+	}
+	@NotBlank@Size(max=32)
+	public String getWorkCity() {
+		return workCity;
+	}
+	@NotBlank@Size(max=32)
+	public String getHealth() {
+		return health;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public String getRecruitType() {
+		return recruitType;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+	public void setIdType(String idType) {
+		this.idType = idType;
+	}
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+	public void setMarriage(String marriage) {
+		this.marriage = marriage;
+	}
+	public void setPoliticsStatus(String politicsStatus) {
+		this.politicsStatus = politicsStatus;
+	}
+	public void setJoinPartyDate(Date joinPartyDate) {
+		this.joinPartyDate = joinPartyDate;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setHighestEducation(String highestEducation) {
+		this.highestEducation = highestEducation;
+	}
+	public void setHighestDegree(String highestDegree) {
+		this.highestDegree = highestDegree;
+	}
+	public void setGraduateDate(Date graduateDate) {
+		this.graduateDate = graduateDate;
+	}
+	public void setCeeProvince(String ceeProvince) {
+		this.ceeProvince = ceeProvince;
+	}
+	public void setCeeScore(Integer ceeScore) {
+		this.ceeScore = ceeScore;
+	}
+	public void setIsFirstLine(Boolean isFirstLine) {
+		this.isFirstLine = isFirstLine;
+	}
+	public void setArtsOrScience(String artsOrScience) {
+		this.artsOrScience = artsOrScience;
+	}
+	public void setAdmissionOrder(String admissionOrder) {
+		this.admissionOrder = admissionOrder;
+	}
+	public void setEmergencyContact(String emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+	public void setEmergencyMobile(String emergencyMobile) {
+		this.emergencyMobile = emergencyMobile;
+	}
+	public void setChildrenCount(Integer childrenCount) {
+		this.childrenCount = childrenCount;
 	}
 	public void setIsRelativeHere(Boolean isRelativeHere) {
 		this.isRelativeHere = isRelativeHere;
 	}
-	public String getCurrentResidence() {
-		return currentResidence;
-	}
 	public void setCurrentResidence(String currentResidence) {
 		this.currentResidence = currentResidence;
-	}
-	public String getFamilyResidence() {
-		return familyResidence;
 	}
 	public void setFamilyResidence(String familyResidence) {
 		this.familyResidence = familyResidence;
 	}
-	public String getNativePlace() {
-		return nativePlace;
-	}
 	public void setNativePlace(String nativePlace) {
 		this.nativePlace = nativePlace;
-	}
-	public String getStudentOrigin() {
-		return studentOrigin;
 	}
 	public void setStudentOrigin(String studentOrigin) {
 		this.studentOrigin = studentOrigin;
 	}
-	public String getRegisteredResidence() {
-		return registeredResidence;
-	}
 	public void setRegisteredResidence(String registeredResidence) {
 		this.registeredResidence = registeredResidence;
-	}
-	public String getCertificate() {
-		return certificate;
 	}
 	public void setCertificate(String certificate) {
 		this.certificate = certificate;
 	}
-	public String getHobby() {
-		return hobby;
-	}
 	public void setHobby(String hobby) {
 		this.hobby = hobby;
 	}
-	public String getPersonality() {
-		return personality;
-	}
 	public void setPersonality(String personality) {
 		this.personality = personality;
+	}
+	public void setWorkYear(String workYear) {
+		this.workYear = workYear;
+	}
+	public void setWorkCity(String workCity) {
+		this.workCity = workCity;
+	}
+	public void setHealth(String health) {
+		this.health = health;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public void setRecruitType(String recruitType) {
+		this.recruitType = recruitType;
 	}
 	public List<ResumeAward> getAwardList() {
 		return awardList;
@@ -316,30 +384,6 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	}
 	public void setWorkList(List<ResumeWork> workList) {
 		this.workList = workList;
-	}
-	public String getWorkYear() {
-		return workYear;
-	}
-	public void setWorkYear(String workYear) {
-		this.workYear = workYear;
-	}
-	public String getWorkCity() {
-		return workCity;
-	}
-	public void setWorkCity(String workCity) {
-		this.workCity = workCity;
-	}
-	public String getHealth() {
-		return health;
-	}
-	public void setHealth(String health) {
-		this.health = health;
-	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
 	}
 	public List<ResumeComputer> getComputerList() {
 		return computerList;

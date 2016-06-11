@@ -35,10 +35,15 @@ public abstract class BaseController {
 			for(FieldError error:errorList){
 				String field=error.getField();
 				String message=errorMap.get(field);
+				String errorMessage=error.getDefaultMessage();
+				//数字格式异常报错转译
+				if(errorMessage!=null&&errorMessage.contains("NumberFormatException")){
+					errorMessage="请输入整数";
+				}
 				if(message==null){
-					errorMap.put(field, error.getDefaultMessage());
+					errorMap.put(field, errorMessage);
 				}else{
-					errorMap.put(field, message+","+error.getDefaultMessage());
+					errorMap.put(field, message+","+errorMessage);
 				}
 			}
 			response.setError(errorMap);
