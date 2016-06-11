@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.aki.dao.UserMapper">
 	<!-- 缓存默认eviction="LRU" flushInterval不设置 size="1024" readOnly="false" -->
+	<cache/>
 	<!-- 用户 -->
 	<resultMap type="user" id="userResultMap">
 		<id column="u_id" property="id" jdbcType="INTEGER"/>

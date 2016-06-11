@@ -40,6 +40,12 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 	 * 初始化dictMap
 	 */
 	public void afterPropertiesSet() throws Exception {
+		init();
+	}
+	/**
+	 * 初始化
+	 */
+	private void init(){
 		List<DictData> list=dictDataMapper.getAllList();
 		if(list!=null&&list.size()>0){
 			dictMap=new HashMap<String,Map<String,String>>();
@@ -138,5 +144,9 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 			}
 		}
 		return map;
+	}
+
+	public void refresh() {
+		init();
 	}
 }

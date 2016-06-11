@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.entity.Application;
+import cn.aki.response.SimpleResponse;
 import cn.aki.service.ApplicationService;
+import cn.aki.utils.UserUtils;
 /**
  * 应聘
  * @author Aki
@@ -29,6 +32,28 @@ public class ApplicationController {
 		List<Application> list=applicationService.getList(application);
 		model.addAttribute("list", list);
 		return "application/list";
+	}
+	
+	/**
+	 * 投递简历
+	 * @param application
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path="/apply",method=RequestMethod.POST)
+	public SimpleResponse handleApply(Application application,Model model){
+		SimpleResponse response=new SimpleResponse();
+		Integer resumeId=UserUtils.getResumeId();
+		application.setResumeId(resumeId);
+		String error=applicationService.apply(application);
+		if(error==null){
+			response.setSuccess(true);
+		}else{
+			response.setSuccess(false);
+			response.setMessage(error);
+		}
+		return response;
 	}
 	
 }

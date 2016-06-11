@@ -28,4 +28,8 @@ public interface TranslateService {
 	 * @return
 	 */
 	Map<String,Map<String,String>> findDicts(String[] types);
+	/**
+	 * 全部刷新
+	 */
+	void refresh();
 }

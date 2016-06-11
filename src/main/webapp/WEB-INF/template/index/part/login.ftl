@@ -44,7 +44,7 @@
                         	<a href="javascript:changeCaptcha();">换一张</a>
                         	<div class="col_cv_alt" data-error="captcha"></div>
                         </li>
-                        <p> <a href="#">忘记密码?</a></p>
+                        <p> <a href="<@spring.url "/user/forgetPassword"/>">忘记密码?</a></p>
                         <li style="margin-left: 5px;">
                             <input type="button" onclick="window.location.href='<@spring.url "/user/register"/>';" class="button btnbg1" value="注册">
                             <input type="submit" class="button btnbg2" value="登陆">

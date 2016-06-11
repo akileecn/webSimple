@@ -15,4 +15,10 @@ public interface ApplicationService {
 	void update(Application application);
 	Application get(Application application);
 	List<Application> getList(Application application);
+	/**
+	 * 投递简历
+	 * @param application
+	 * @return
+	 */
+	String apply(Application application);
 }

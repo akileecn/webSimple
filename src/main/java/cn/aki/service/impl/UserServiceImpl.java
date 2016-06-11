@@ -43,4 +43,8 @@ public class UserServiceImpl implements UserService{
 		userMapper.update(user);
 	}
 
+	public User getByUsername(String username) {
+		return userMapper.getByUsername(username);
+	}
+
 }

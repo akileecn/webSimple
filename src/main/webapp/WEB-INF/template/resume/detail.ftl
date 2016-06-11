@@ -87,7 +87,7 @@
 				if(message){
 					alert(message);
 				}
-				if(data.result.message){
+				if(data.result.success){
 					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
 				}
 			}

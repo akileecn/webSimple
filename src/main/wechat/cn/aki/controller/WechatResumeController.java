@@ -1,7 +1,6 @@
 package cn.aki.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,6 @@ import cn.aki.entity.ResumeForeignLanguage;
 import cn.aki.entity.ResumeStudentCadre;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
-import cn.aki.form.ResumeAwardForm;
-import cn.aki.form.ResumeComputerForm;
-import cn.aki.form.ResumeEducationForm;
-import cn.aki.form.ResumeFamilyForm;
-import cn.aki.form.ResumeForeignLanguageForm;
-import cn.aki.form.ResumeForm;
-import cn.aki.form.ResumeStudentCadreForm;
-import cn.aki.form.ResumeWorkForm;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
@@ -97,7 +88,7 @@ public class WechatResumeController  extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(path="updateResumeBase",method=RequestMethod.POST)
-	public FormResponse<Void> saveResumeBase(ResumeForm form,BindingResult result){
+	public FormResponse<Void> saveResumeBase(Resume form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		FormResponse<Void> response=handleFormError(result);
 		form.setUserId(0);
@@ -124,7 +115,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveEducation",method=RequestMethod.POST)
-	public FormResponse<Integer> saveEducation(ResumeEducationForm form,BindingResult result){
+	public FormResponse<Integer> saveEducation(ResumeEducation form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -147,7 +138,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveWork",method=RequestMethod.POST)
-	public FormResponse<Integer> saveWork(ResumeWorkForm form,BindingResult result){
+	public FormResponse<Integer> saveWork(ResumeWork form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -169,7 +160,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveStudentCadre",method=RequestMethod.POST)
-	public FormResponse<Integer> saveStudentCadre(ResumeStudentCadreForm form,BindingResult result){
+	public FormResponse<Integer> saveStudentCadre(ResumeStudentCadre form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -190,7 +181,7 @@ public class WechatResumeController  extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(path="saveAward",method=RequestMethod.POST)	
-	public FormResponse<Integer> saveAward(ResumeAwardForm form,BindingResult result){
+	public FormResponse<Integer> saveAward(ResumeAward form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -214,7 +205,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveForeignLanguage",method=RequestMethod.POST)
-	public FormResponse<Integer> saveForeignLanguage(ResumeForeignLanguageForm form,BindingResult result){
+	public FormResponse<Integer> saveForeignLanguage(ResumeForeignLanguage form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -237,7 +228,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveComputer",method=RequestMethod.POST)
-	public FormResponse<Integer> saveComputer(ResumeComputerForm form,BindingResult result){
+	public FormResponse<Integer> saveComputer(ResumeComputer form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);
@@ -261,7 +252,7 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveFamily",method=RequestMethod.POST)
-	public FormResponse<Integer> saveFamily(ResumeFamilyForm form,BindingResult result){
+	public FormResponse<Integer> saveFamily(ResumeFamily form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		form.setResumeId(1);
 		return saveSub(form,result);

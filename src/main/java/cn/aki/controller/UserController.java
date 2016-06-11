@@ -15,13 +15,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.util.StringUtils;
+
 import cn.aki.entity.User;
+import cn.aki.form.UserForgetPassworForm;
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
 import cn.aki.form.UserUpdatePassworForm;
@@ -129,6 +133,56 @@ public class UserController extends BaseController{
 		return response;
 	}
 	
+	//跳转至忘记密码
+	@RequestMapping(value="/forgetPassword",method=RequestMethod.GET)
+	public String toForgetPassword(){
+		return "user/forgetPassword";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/forgetPassword/userInfo")
+	public FormResponse<User> getUserQuestion(String username,Model model){
+		FormResponse<User> response=new FormResponse<User>();
+		if(StringUtils.isEmpty(username)){
+			response.putError("username", "用户名不能为空");
+		}else{
+			//user对象含密码，不能直接丢前台
+			User user=userService.getByUsername(username);
+			if(user!=null){
+				User data=new User();
+				data.setUsername(username);
+				data.setQuestion(user.getQuestion());
+				response.setData(data);
+			}else{
+				response.putError("username", "用户不存在");
+			}
+		}
+		return response;
+		
+	}
+	//忘记密码
+	@ResponseBody
+	@RequestMapping(value="/forgetPassword/byQuestion",method=RequestMethod.POST)
+	public FormResponse<Void> handleForgetPassword(@Valid UserForgetPassworForm form,BindingResult result){
+		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
+		if(response.isSuccess()){
+			User user=userService.getByUsername(form.getUsername());
+			if(user==null){
+				response.putError("username", "用户不存在");
+			}else if(user.getAnswer()==null){
+				response.putError("answer", "用户未设置答案");
+			}else if(user.getAnswer().equals(form.getAnswer())){
+				user.setModifyTime(new Date());
+				//密码加密
+				user.setPassword(Md5Utils.encrypt(form.getPassword()));
+				userService.update(user);
+			}else{
+				response.putError("answer", "问题答案不正确");
+			}
+		}
+		return response;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/logout")
 	public SimpleResponse handleLogout(){
@@ -144,9 +198,9 @@ public class UserController extends BaseController{
 	 */
 	private <T> FormResponse<T> handleFormError(BindingResult result,String captcha) {
 		FormResponse<T> response=super.handleFormError(result);
-//		if(!UserUtils.isValidCaptcha(captcha)){
-//			response.putError("captcha", "验证码错误");
-//		}
+		if(!UserUtils.isValidCaptcha(captcha)){
+			response.putError("captcha", "验证码错误");
+		}
 		return response;
 	}
 	

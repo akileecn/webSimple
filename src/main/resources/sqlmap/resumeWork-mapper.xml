@@ -34,6 +34,11 @@
 		<include refid="whereSql"/>
 	</select>
 	
+	<!-- 获得数量 -->
+	<select id="getCount" parameterType="int" resultType="int">
+		select count(*) from zp_resume_work where resume_id=#{resumeId}
+	</select>
+	
 	<!-- 查询 -->
 	<select id="getList" parameterType="int" resultType="resumeWork">
 		<include refid="selectSql"/>

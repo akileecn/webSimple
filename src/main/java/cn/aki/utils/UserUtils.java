@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.patchca.color.SingleColorFactory;
 import org.patchca.filter.predefined.CurvesRippleFilterFactory;
 import org.patchca.service.Captcha;
@@ -42,7 +43,8 @@ public class UserUtils {
 		if(user!=null){
 			return user.getId();
 		}
-		return 0;
+//		return 0;
+		return null;
 	}
 	/**
 	 * 是否拥有简历操作权限
@@ -70,7 +72,8 @@ public class UserUtils {
 		if(ids!=null&&ids.size()>0){
 			return ids.get(0);
 		}
-		return 1;
+//		return 1;
+		return null;
 	}
 	/**
 	 * 创建验证码
@@ -98,9 +101,13 @@ public class UserUtils {
 	 * @return
 	 */
 	public static boolean isValidCaptcha(String captcha){
-		String validCaptcha=(String) SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_CAPTCHA);
+		Session session=SecurityUtils.getSubject().getSession();
+		String validCaptcha=(String) session.getAttribute(SHIRO_SESSION_KEY_CAPTCHA);
 		System.err.println(validCaptcha);
-		return (captcha!=null&&captcha.equals(validCaptcha));
+		boolean isValid=(captcha!=null&&captcha.equals(validCaptcha));
+		//原验证码失效
+		session.removeAttribute(SHIRO_SESSION_KEY_CAPTCHA);
+		return isValid;
 	}
 	
 	/**

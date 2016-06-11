@@ -21,6 +21,9 @@
 	</sql>
 	<sql id="whereSql">
 		<where>
+			<if test="recruitType!=null and recruitType!=''">
+				recruit_type=#{recruitType}
+			</if>
 			<if test="workCity!=null and workCity!=''">
 				work_city=#{workCity}
 			</if>

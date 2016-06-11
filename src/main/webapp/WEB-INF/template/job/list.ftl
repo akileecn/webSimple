@@ -45,6 +45,8 @@
     	<#-- 分页参数 -->
     	<input type="hidden" name="pageNum"/>
     	<input type="hidden" name="pageSize"/>
+    	<#-- 招聘类型 -->
+    	<input type="hidden" name="recruitType" value="${job.recruitType}"/>
 		<@c.select label="工作地点" name="workCity" value=job.workCity selectAttr="class=\"col_search_add\""/>
 		<@c.select label="学历要求" name="education" value=job.education selectAttr="class=\"col_search_add\""/>
 		<br>
@@ -75,115 +77,114 @@
 	</@c.right>
 </div>
 <script type="text/javascript" id="templete_div">
-	$(document).ready(function() {
-/************模版************/
-		var T={};
-		//列表
-		T.item='<@compress single_line=true>
-			<tr class="col_tab_t" data-id="%{id}" data-name="%{name}">
-	            <td width="30%"><a href="javascript:void(0)" class="_detail">%{name}</a></td>
-	            <td><a href="javascript:void(0)" class="_detail"><img src="<@c.resource "images/add.png"/>" class="add _more" data-pid="1">%{t.workCity}</a></td>
-	            <td>%{endDate}</td>
-	            <td>%{peopleNumber}</td>
-	            <td><a href="javascript:void(0)" class="col_tab_join _confirm">我要应聘</a></td>
-	        </tr>
-		</@compress>';
-		//更多信息
-		T.more='<@compress single_line=true>
-			<div>
-				岗位职责:
-				<div style = "width: 400px;height:auto;">
-				    申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。
-				</div>
-				招聘要求：
-				<div style="width: 400px;height:auto;">
-				1、2017届全日制本科及以上毕业生，专业不限。
-				2、 具有较强的学习能力和社会实践能力, 如学习成绩班级排名前30 % 、担任学生会干部、 参加各类社会实践活动。
-				3、 抗压力强， 具有优秀的团队合作精神、 沟通能力、 创新意识和强烈的责任感。
-				4、 申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。 
-				</div>
+	var T={};
+	//列表
+	T.item='<@compress single_line=true>
+		<tr class="col_tab_t" data-id="%{id}" data-name="%{name}">
+            <td width="30%"><a href="javascript:void(0)" class="_detail">%{name}</a></td>
+            <td><a href="javascript:void(0)" class="_detail"><img src="<@c.resource "images/add.png"/>" class="add _more" data-pid="1">%{t.workCity}</a></td>
+            <td>%{endDate}</td>
+            <td>%{peopleNumber}</td>
+            <td><a href="javascript:void(0)" class="col_tab_join _confirm">我要应聘</a></td>
+        </tr>
+	</@compress>';
+	//更多信息
+	T.more='<@compress single_line=true>
+		<div>
+			岗位职责:
+			<div style = "width: 400px;height:auto;">
+			    申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。
 			</div>
-		</@compress>';
-		//详情页
-		T.detail='<@compress single_line=true>
-			<div class="pop_job pop_w">
-			    <span class="close " onclick="art.dialog.list[\'abc\'].close();"> </span>
-			    <h2> 招聘岗位说明 </h2>
-			    <div class="pop_job_col">
-			        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-			            <tr>
-							<@detailTr label="岗位名称" name="name"/>
-							<@detailTr label="所属部门" name="department"/>
-						</tr>
-			            <tr>
-							<@detailTr label="工作地点" name="t.workCity"/>
-							<@detailTr label="工作年限要求" name="t.workYear"/>
-						</tr>
-			            <tr>
-							<@detailTr label="学历要求" name="t.education"/>
-							<@detailTr label="招聘人数" name="peopleNumber"/>
-						</tr>
-			            <tr>
-							<@detailTr label="发布时间" name="publishDate"/>
-							<@detailTr label="截止时间" name="endDate"/>
-						</tr>
-			            <tr>
-							<@detailTr label="任职要求" name="requirement" wide=true/>
-						</tr>
-			            <tr>
-							<@detailTr label="招聘机构简介" name="description" wide=true/>
-			            <tr data-id="%{id}" data-name="%{name}">
-			                <td colspan="3">
-			                    <div class="pop_job_p"> <a class="pop_job_in _confirm"> 我要应聘 </a></div>
-			                </td>
-			            </tr>
-			        </table>
-			    </div>
+			招聘要求：
+			<div style="width: 400px;height:auto;">
+			1、2017届全日制本科及以上毕业生，专业不限。
+			2、 具有较强的学习能力和社会实践能力, 如学习成绩班级排名前30 % 、担任学生会干部、 参加各类社会实践活动。
+			3、 抗压力强， 具有优秀的团队合作精神、 沟通能力、 创新意识和强烈的责任感。
+			4、 申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。 
 			</div>
-		</@compress>';
-		//确认
-		T.confirm='<@compress single_line=true>
-			<div class="pop_job pop_w2">
-		        <span class="close" onclick="art.dialog.list[\'abc\'].close();"></span>
-		        <h2>提示</h2>
-		        <div class="pop_job_col">
-		            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-		                <tr><td><div class="pop_job_p"><div class="pop_job_yix">
-                            <div class="tt">意向岗位</div>
-                            <div class="cop">%{name}</div>
-                            <div class="cen">您一季度只有一次申请机会，申请提交后无法修改</div>
-                            <div class="btn">
-                                <input name="" type="reset" value="取消" onclick="art.dialog.list[\'abc\'].close();">
-                                <input name="" type="submit" value="确认提交" class="_complete">
-                            </div>
-                        </div></div></td></tr>
-		            </table>
-		        </div>
+		</div>
+	</@compress>';
+	//详情页
+	T.detail='<@compress single_line=true>
+		<div class="pop_job pop_w">
+		    <span class="close " onclick="art.dialog.list[\'abc\'].close();"> </span>
+		    <h2> 招聘岗位说明 </h2>
+		    <div class="pop_job_col">
+		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		            <tr>
+						<@detailTr label="岗位名称" name="name"/>
+						<@detailTr label="所属部门" name="department"/>
+					</tr>
+		            <tr>
+						<@detailTr label="工作地点" name="t.workCity"/>
+						<@detailTr label="工作年限要求" name="t.workYear"/>
+					</tr>
+		            <tr>
+						<@detailTr label="学历要求" name="t.education"/>
+						<@detailTr label="招聘人数" name="peopleNumber"/>
+					</tr>
+		            <tr>
+						<@detailTr label="发布时间" name="publishDate"/>
+						<@detailTr label="截止时间" name="endDate"/>
+					</tr>
+		            <tr>
+						<@detailTr label="任职要求" name="requirement" wide=true/>
+					</tr>
+		            <tr>
+						<@detailTr label="招聘机构简介" name="description" wide=true/>
+		            <tr data-id="%{id}" data-name="%{name}">
+		                <td colspan="3">
+		                    <div class="pop_job_p"> <a class="pop_job_in _confirm"> 我要应聘 </a></div>
+		                </td>
+		            </tr>
+		        </table>
 		    </div>
-		</@compress>';
-		//完成
-		T.complete='<@compress single_line=true>
-			<div class="pop_job pop_w2">
-			    <span class="close" onclick="art.dialog.list[\'abc\'].close();"></span>
-			    <h2> 提示 </h2>
-			    <div class="pop_job_col">
-			        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-			            <tr><td><div class="pop_job_p"><div class="pop_job_yix">
-                            <div style="margin-right:50px;">
-                                <div class="tt"><img src="<@c.resource "images/good.png"/>" width="52" height="52" style="margin:15px 0 0 0;"></div>
-                                <div class="cop">感谢您应聘我行职位<div class=" clearfix"></div>
-                                <p>我们会尽快和您联系， 请您耐心等待！ </p>
-                                </div>
+		</div>
+	</@compress>';
+	//确认
+	T.confirm='<@compress single_line=true>
+		<div class="pop_job pop_w2">
+	        <span class="close" onclick="art.dialog.list[\'abc\'].close();"></span>
+	        <h2>提示</h2>
+	        <div class="pop_job_col">
+	            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                <tr><td><div class="pop_job_p"><div class="pop_job_yix">
+                        <div class="tt">意向岗位</div>
+                        <div class="cop">%{name}</div>
+                        <div class="cen">您一季度只有一次申请机会，申请提交后无法修改</div>
+                        <div class="btn">
+                            <input name="" type="reset" value="取消" onclick="art.dialog.list[\'abc\'].close();">
+                            <input name="" type="submit" value="确认提交" class="_complete" onclick="apply(\'%{id}\')">
+                        </div>
+                    </div></div></td></tr>
+	            </table>
+	        </div>
+	    </div>
+	</@compress>';
+	//完成
+	T.complete='<@compress single_line=true>
+		<div class="pop_job pop_w2">
+		    <span class="close" onclick="art.dialog.list[\'abc\'].close();"></span>
+		    <h2> 提示 </h2>
+		    <div class="pop_job_col">
+		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		            <tr><td><div class="pop_job_p"><div class="pop_job_yix">
+                        <div style="margin-right:50px;">
+                            <div class="tt"><img src="<@c.resource "images/good.png"/>" width="52" height="52" style="margin:15px 0 0 0;"></div>
+                            <div class="cop">感谢您应聘我行职位<div class=" clearfix"></div>
+                            <p>我们会尽快和您联系， 请您耐心等待！ </p>
                             </div>
-                            <div class="btn">
-                                <input name="" type="submit" value="关闭" onclick="art.dialog.list[\'abc\'].close();">
-                            </div>
-						</div></div></td></tr>
-			        </table>
-			    </div>
-			</div>
-		</@compress>';
-/************脚本************/
+                        </div>
+                        <div class="btn">
+                            <input name="" type="submit" value="关闭" onclick="art.dialog.list[\'abc\'].close();">
+                        </div>
+					</div></div></td></tr>
+		        </table>
+		    </div>
+		</div>
+	</@compress>';
+	
+	$(document).ready(function() {
 		//岗位查询
 		var listTrTemplate=$("#myTbody").html();//保存原有模版
 		$('#listForm').ajaxForm(function(text){
@@ -241,6 +242,7 @@
 		}).on("mouseleave","._more",function(){
 		    $("#showjobb").hide();
 		});
+		
 		//详情
 		$("body").on("click","._detail",function(){
 			var $tr=$(this).parents("tr");
@@ -274,17 +276,24 @@
 		        content: $.template(T.confirm,{"id":id,"name":name})
 		    });
 		})
-		//完成
-		$("body").on("click","._complete",function(){
-		    if (typeof art.dialog.list['abc'] != 'undefined')
-		        art.dialog.list['abc'].close();
-		    art.dialog({
-		        id: 'abc',
-		        lock: true,
-		        content: T.complete
-		    });
-		})
 		
 	});	
+	
+	//正式申请
+	function apply(jobId){
+		$.post("<@spring.url "/application/apply"/>",{"jobId":jobId},function(text){
+			if(text.success){
+				if (typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+			    art.dialog({
+			        id: 'abc',
+			        lock: true,
+			        content: T.complete
+			    });
+			}else{
+				alert(text.message);
+			}
+		});	
+	
+	}
 </script>
 </@bootstrap.body>

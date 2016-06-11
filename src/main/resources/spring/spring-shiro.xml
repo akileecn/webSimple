@@ -33,10 +33,11 @@
 	            /user/login=anon
 	            /user/register=anon
 	            /user/captchaImage.png=anon
+	            /user/forgetPassword/**=anon
 	            /user/**=authc
-	            #/resume/**=authc
-	            #/notice/**=authc
-	            #/application/**=authc
+	            /resume/**=authc
+	            /notice/**=authc
+	            /application/**=authc
 	        </value>
 	    </property>
 	</bean>

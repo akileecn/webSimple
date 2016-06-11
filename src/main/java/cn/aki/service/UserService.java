@@ -16,4 +16,10 @@ public interface UserService {
 	 */
 	boolean exists(User user);
 	void update(User user);
+	/**
+	 * 获得用户账户基本信息(用户名,密码)
+	 * @param username
+	 * @return
+	 */
+	User getByUsername(String username);
 }

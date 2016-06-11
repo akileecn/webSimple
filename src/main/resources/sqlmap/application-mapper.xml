@@ -64,6 +64,9 @@
 			<if test="status!=null">
 			,status
 			</if>
+			<if test="userId!=null">
+			,user_id
+			</if>
 		</trim>
 		)values(
 		<trim prefix="" prefixOverrides=",">
@@ -78,6 +81,9 @@
 			</if>
 			<if test="status!=null">
 			,#{status}
+			</if>
+			<if test="userId!=null">
+			,#{userId}
 			</if>
 		</trim>
 		)

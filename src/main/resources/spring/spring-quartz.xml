@@ -12,24 +12,24 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
 		<property name="triggers">
 			<list>
-				<ref bean="myJobTrigger"/>
+				<ref bean="refreshDictJobTrigger"/>
 			</list>
 		</property>
 	</bean>
 	
 	<!-- trigger -->
-	<bean id="myJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="myJobDetail"/>
+	<bean id="refreshDictJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="refreshDictJobDetail"/>
         <property name="cronExpression">
             <!-- [秒0-59] [分0-59] [小时0-23] [日1-31] [月1-12] [周1-7星期天为1] [年(可选)](A-B A至B,A/B A开始每隔B重复,*全部,?某个) -->
-            <value>0/30 0 * * * ?</value>
+            <value>0 0 7/1 * * ?</value><!-- 7点之后每小时执行一次 -->
         </property>
     </bean>
     
     <!-- jobDetail -->
-    <bean id="myJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <bean id="refreshDictJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
     	<!-- 目标对象 -->
-    	<property name="targetObject" ref="myTestJob"/>
+    	<property name="targetObject" ref="refreshDictJob"/>
     	<!-- 目标方法 -->
     	<property name="targetMethod" value="execute"/>
     </bean>
