@@ -25,7 +25,7 @@
 				recruit_type=#{recruitType}
 			</if>
 			<if test="workCity!=null and workCity!=''">
-				work_city=#{workCity}
+				and work_city=#{workCity}
 			</if>
 			<if test="education!=null and education!=''">
 				and education=#{education}

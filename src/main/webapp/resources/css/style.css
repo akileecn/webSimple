@@ -1348,7 +1348,12 @@ span.more:hover{
 }
 .col_cv_tab .user_pic label{
 	width:100px;
-} 
+}
+.user_pic .tip_note {
+    text-align: center;
+    font-size: 12px;
+    padding-left: 80px;
+}
 
 /*新增*/
 .userForm .col_cv_alt{

@@ -12,7 +12,7 @@
                 <h3>欢迎回来！</h3>
                 <form class="login in">
                     <ul>
-                        <li>您好！<b>${user.name}</b><a href="#" class="fr">您有<b class="red">${user.noticeCount}</b>个通知</a></li>
+                        <li>您好！<b>${user.name}</b><a href="<@spring.url "/notice/list"/>" class="fr">您有<b class="red">${user.noticeCount}</b>个通知</a></li>
                         <li style="margin-bottom:0;">
                             <input type="button" class="button btnbg3" value="我的简历" onclick="window.location.href='<@spring.url "/resume/list"/>';"/>
                             <input type="button" class="button btnbg4" value="我的通知" onclick="window.location.href='<@spring.url "/notice/list"/>';"/>

@@ -90,7 +90,7 @@
 						html+='<a href="javascript:void(0);" data-index="'+(end+1)+'"><img src="<@c.resource "images/arrow_right1.png"/>"></a>';
 					}
 				}
-				html+='<a href="javascript:void(0);">共<b class="green">'+p.pages+'</b>条</a>';
+				html+='<a href="javascript:void(0);">共<b class="green">'+p.total+'</b>条</a>';
 				var $self=$(this);
 				$self.html(html);
 				$self.on("click","a",function(text){

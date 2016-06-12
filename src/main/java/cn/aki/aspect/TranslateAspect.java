@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.pagehelper.PageInfo;
+
 import cn.aki.entity.translate.Translatable;
 import cn.aki.service.TranslateService;
 
@@ -39,6 +41,13 @@ public class TranslateAspect{
 					if(result!=null&&((List<?>)result).size()>0){
 						if(((List<?>)result).get(0) instanceof Translatable){
 							translateService.translate((List<? extends Translatable>)result);
+						}
+					}
+				}else if(result instanceof PageInfo){
+					List<?> list=((PageInfo<?>) result).getList();
+					if(list!=null&&list.size()>0){
+						if(list.get(0) instanceof Translatable){
+							translateService.translate((List<? extends Translatable>)list);
 						}
 					}
 				}

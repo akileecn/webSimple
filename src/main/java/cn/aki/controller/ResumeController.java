@@ -69,7 +69,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 			MultipartFile mpf = request.getFile(itr.next());
 			//上传校验
 			if(mpf.getSize()>200*1024){
-				response.setMessage("上传文件必须小于200Kb");
+				response.setMessage("上传文件必须小于200kb");
 				return response;
 			}
 			if(!mpf.getContentType().startsWith("image/")){

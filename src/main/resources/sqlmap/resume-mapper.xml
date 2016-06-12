@@ -61,11 +61,11 @@
 	</select>
 	
 	<!-- 更新头像 -->
-	<select id="updatePhoto" parameterType="resume" resultType="resume">
+	<update id="updatePhoto" parameterType="resume">
 		update zp_resume
 		set photo=#{photo}
 		<include refid="whereSql"/>
-	</select>
+	</update>
 	
 	<!-- 获得头像 -->
 	<select id="getPhoto" parameterType="resume" resultType="resume">

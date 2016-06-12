@@ -13,7 +13,7 @@
             	<span data-name="id" data-value="${id}" style="display:none;"/>
             	<@span label="姓名" name="name"/>
 				<td rowspan="4">
-                    <div class="user_pic fr">
+                    <div class="user_pic mr fr">
                         <label>个人照片：</label>
                         <img src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
                     </div>
@@ -89,6 +89,7 @@
                         <label>个人照片：</label>
                         <img id="photoImg" src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
                         <span class="red">*</span>
+                        <div class="tip_note">点击上传图片 小于200kb</div>
                     </div>
                 </td>
             </tr>
