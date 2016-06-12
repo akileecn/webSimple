@@ -75,12 +75,12 @@
 <script type="text/javascript">
 	T.${name}={};
 	T.${name}.text='<@compress single_line=true>
-		<form action="" method="post" data-type="text">
+		<form action="" method="post" data-type="text" class="duoge">
 			<div class="col_cv_tab">
-			    <div class="edit fr">
+			    <div class="edit2 fr">
 			        <a href="javascript:void(0);" onclick="switchSub(\'${name}\',this);"><img src="<@c.resource "images/icon-1.png"/>" width="18"></a>
 			    </div>
-			    <div class="del fr">
+			    <div class="del2 fr">
 			        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
 			    </div>
 		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -92,9 +92,9 @@
 </#macro>
 <#macro subpage2 name>
 	T.${name}.input='<@compress single_line=true>
-		<form action="" method="post" data-type="input">
+		<form action="" method="post" data-type="input" class="duoge">
 			<div class="col_cv_tab">
-				<div class="del fr">
+				<div class="del2 fr">
 			        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
 			    </div>
 			    <table width="100%" border="0" cellspacing="0" cellpadding="0">

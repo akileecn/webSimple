@@ -17,12 +17,12 @@ import cn.aki.utils.UserUtils;
  * 2016年5月27日 下午11:26:06
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping()
 public class IndexController extends BaseController{
 	@Autowired
 	private JobService jobService;
 	
-	@RequestMapping()
+	@RequestMapping("/index")
 	public String toMain(Model model){
 		//热招岗位
 		List<Job> hotJoblist=jobService.getHotList();
@@ -30,4 +30,10 @@ public class IndexController extends BaseController{
 		model.addAttribute("user",UserUtils.getUser());
 		return "index/main";
 	}
+	
+	@RequestMapping("/error")
+	public String toError(){
+		return "index/error";
+	}
+	
 }

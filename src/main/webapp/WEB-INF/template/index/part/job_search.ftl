@@ -1,6 +1,6 @@
 <div class='col-xs-8 padding-r'>
     <div class="box_3">
-        <div class="box_4">
+        <div class="box_4" style="height:375px;">
             <span class="search_title">职位搜索</span>
             <form action="<@spring.url "/job/list"/>" method="get">
                 <div class="search_con">

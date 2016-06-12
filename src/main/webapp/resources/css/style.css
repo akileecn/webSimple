@@ -504,7 +504,7 @@ i.icon3{
 	color:#333;
 	font-size:0.8em;
 	line-height: 1.8em;
-	margin-top:1.5em;	
+	margin-top:4em;	
 	overflow:hidden;
 }
 
@@ -724,14 +724,14 @@ span.more:hover{
 } 
 /*--footer--*/
 .footer{
-	padding:3em 0;
+	padding:2em 0;
 }
 
 .copy p{
 	font-size:0.85em;
 	color:#545454;
-	height:8em;
-	line-height:8em;
+	height:5em;
+	line-height:5em;
 	background:#D4D4D4;
 	text-align:center;
 }
@@ -1237,6 +1237,12 @@ span.more:hover{
 	padding-bottom:20px;
 	background:#F0F1F3;
 }
+.col_cv_tab .duoge {
+	position:relative;
+	margin: 40px 0 10px 0;
+	border-bottom:1px dashed #999;
+	padding:0 0 10px 0;
+}
 .col_cv_tab .edit{
 	position: absolute;
     right:45px;
@@ -1246,6 +1252,16 @@ span.more:hover{
 	position: absolute;
     right:15px;
     top: 13px;
+}
+.col_cv_tab .edit2{
+	position: absolute;
+    right:45px;
+    top: -35px;
+}
+.col_cv_tab .del2{
+	position: absolute;
+    right:15px;
+    top:-34px;
 }
 .col_cv_tab h4{
 	padding: 20px 20px 10px 50px;
@@ -1340,4 +1356,10 @@ span.more:hover{
 	text-align:left;
 	font-size:0.85em;
 	color:#F00;	
+}
+/****404****/
+.error{
+	text-align:center;
+	position:relative;
+	margin:150px 0 0 0;
 }

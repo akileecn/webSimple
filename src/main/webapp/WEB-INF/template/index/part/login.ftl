@@ -6,7 +6,7 @@
 
 <div class='col-xs-4 padding-l'>
     <div class="box_3">
-        <div class="box_4">
+        <div class="box_4" style="height:375px;">
             <div id="loginDiv">
 	        	<#if user??>
                 <h3>欢迎回来！</h3>
