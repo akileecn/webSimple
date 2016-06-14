@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.ResumeTrainMapper">
+	<cache/>
+	<sql id="whereSql">
+		where id=#{id}
+			and resume_id=#{resumeId}
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,resume_id as resumeId
+			,begin_date as beginDate
+			,end_date as endDate
+			,company
+			,place
+			,course
+			,description
+		from zp_resume_train
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="resumeTrain" resultType="resumeTrain">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="int" resultType="resumeTrain">
+		<include refid="selectSql"/>
+		where resume_id=#{resumeId}
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="resumeTrain" useGeneratedKeys="true" keyProperty="id">
+		insert into zp_resume_train(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="resumeId!=null">
+			,resume_id
+			</if>
+			<if test="beginDate!=null">
+			,begin_date
+			</if>
+			<if test="endDate!=null">
+			,end_date
+			</if>
+			<if test="company!=null">
+			,company
+			</if>
+			<if test="place!=null">
+			,place
+			</if>
+			<if test="course!=null">
+			,course
+			</if>
+			<if test="description!=null">
+			,description
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="resumeId!=null">
+			,#{resumeId}
+			</if>
+			<if test="beginDate!=null">
+			,#{beginDate}
+			</if>
+			<if test="endDate!=null">
+			,#{endDate}
+			</if>
+			<if test="company!=null">
+			,#{company}
+			</if>
+			<if test="place!=null">
+			,#{place}
+			</if>
+			<if test="course!=null">
+			,#{course}
+			</if>
+			<if test="description!=null">
+			,#{description}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="resumeTrain">
+		update zp_resume_train
+		<set>
+			begin_date=#{beginDate},
+			end_date=#{endDate},
+			company=#{company},
+			place=#{place},
+			course=#{course},
+			description=#{description},
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="resumeTrain">
+		delete from zp_resume_train
+		<include refid="whereSql"/>
+	</delete>
+</mapper>
