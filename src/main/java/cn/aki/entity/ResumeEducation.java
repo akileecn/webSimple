@@ -36,27 +36,27 @@ public class ResumeEducation extends ResumeSubEntity{
 	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getSchoolName() {
 		return schoolName;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getMajor() {
 		return major;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getGraduateType() {
 		return graduateType;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getDegree() {
 		return degree;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getEducation() {
 		return education;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getLearnType() {
 		return learnType;
 	}
@@ -68,14 +68,14 @@ public class ResumeEducation extends ResumeSubEntity{
 	public Date getEndDate() {
 		return endDate;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getSchoolType() {
 		return schoolType;
 	}
 	public Boolean getHasBeenCadre() {
 		return hasBeenCadre;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getGradeRank() {
 		return gradeRank;
 	}

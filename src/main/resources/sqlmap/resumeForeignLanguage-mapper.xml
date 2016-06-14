@@ -15,6 +15,7 @@
 			,score
 			,speaking
 			,others
+			,proficiency
 		from zp_resume_foreign_language
 	</sql>
 	
@@ -52,6 +53,9 @@
 			<if test="others!=null">
 			,others
 			</if>
+			<if test="proficiency!=null">
+			,proficiency
+			</if>
 		</trim>
 		)values(
 		<trim prefix="" prefixOverrides=",">
@@ -73,6 +77,9 @@
 			<if test="others!=null">
 			,#{others}
 			</if>
+			<if test="proficiency!=null">
+			,#{proficiency}
+			</if>
 		</trim>
 		)
 	</insert>
@@ -86,6 +93,7 @@
 			score=#{score},
 			speaking=#{speaking},
 			others=#{others},
+			proficiency=#{proficiency},
 		</set>
 		<include refid="whereSql"/>
 	</update>

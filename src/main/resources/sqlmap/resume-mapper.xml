@@ -51,6 +51,11 @@
 			,health
 			,photo
 			,recruit_type as recruitType
+			,begin_work_date as beginWorkDate
+			,begin_school_date as beginSchoolDate
+			,school
+			,school_type as schoolType
+			,major
 		from zp_resume
 	</sql>
 	
@@ -342,9 +347,7 @@
 	<update id="update" parameterType="resume">
 		update zp_resume
 		<set>
-			create_time=#{createTime},
 			modify_time=#{modifyTime},
-			user_id=#{userId},
 			name=#{name},
 			gender=#{gender},
 			birthday=#{birthday},
@@ -382,6 +385,11 @@
 			work_city=#{workCity},
 			health=#{health},
 			recruit_type=#{recruitType},
+			begin_work_date=#{beginWorkDate},
+			begin_school_date=#{beginSchoolDate},
+			school=#{school},
+			school_type=#{schoolType},
+			major=#{major},
 		</set>
 		<include refid="whereSql"/>
 	</update>

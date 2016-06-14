@@ -33,38 +33,39 @@ public class ResumeWork extends ResumeSubEntity{
 	private String duty;			//,duty varchar(500) -- 职责
 	private String performance;		//,performance varchar(500) -- 业绩
 	
-	@Size(max=100)@NotBlank()
+	@Size(max=100)@NotBlank
 	public String getCompany() {
 		return company;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getDepartment() {
 		return department;
 	}
-	@Size(max=32)
+	@Size(max=32)@NotBlank
 	public String getAnnualSalary() {
 		return annualSalary;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getJob() {
 		return job;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getCertifier() {
 		return certifier;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getCertifierMobile() {
 		return certifierMobile;
 	}
-	@Size(max=100)@NotBlank()
+	@Size(max=100)@NotBlank
 	public String getWorkPlace() {
 		return workPlace;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getJobType() {
 		return jobType;
 	}
+	@Size(max=32)@NotBlank
 	public String getIndustry() {
 		return industry;
 	}
@@ -76,15 +77,15 @@ public class ResumeWork extends ResumeSubEntity{
 	public Date getEndDate() {
 		return endDate;
 	}
-	@Size(max=500)
+	@Size(max=500)@NotBlank
 	public String getDimissionReason() {
 		return dimissionReason;
 	}
-	@Size(max=500)@NotBlank()
+	@Size(max=500)@NotBlank
 	public String getDuty() {
 		return duty;
 	}
-	@Size(max=500)@NotBlank()
+	@Size(max=500)@NotBlank
 	public String getPerformance() {
 		return performance;
 	}

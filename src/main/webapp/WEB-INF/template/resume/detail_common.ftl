@@ -48,6 +48,8 @@
     <label style="width:200px;">${label}：</label>
     <input type="radio" name="${name}" value="true">是
     <input type="radio" name="${name}" value="false">否
+    <#if required><span class="red">*</span></#if>
+	<div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>
 

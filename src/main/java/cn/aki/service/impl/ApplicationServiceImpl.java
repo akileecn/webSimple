@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import cn.aki.dao.ApplicationMapper;
 import cn.aki.dao.JobMapper;
 import cn.aki.dao.ResumeEducationMapper;
+import cn.aki.dao.ResumeFamilyMapper;
 import cn.aki.dao.ResumeMapper;
 import cn.aki.dao.ResumeWorkMapper;
 import cn.aki.entity.Application;
 import cn.aki.entity.Job;
 import cn.aki.entity.Resume;
+import cn.aki.entity.ResumeFamily;
 import cn.aki.service.ApplicationService;
+import cn.aki.utils.Constants;
 
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService{
@@ -28,6 +31,8 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private ResumeWorkMapper resumeWorkMapper;
 	@Autowired
 	private ResumeEducationMapper resumeEducationMapper;
+	@Autowired
+	private ResumeFamilyMapper resumeFamilyMapper;
 	
 	public void delete(Application application) {
 		applicationMapper.delete(application);
@@ -51,6 +56,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 
 	public String apply(Application application) {
 		List<Application> oldList=applicationMapper.getList(application);
+		Integer resumeId=application.getResumeId();
 		if(oldList!=null&&oldList.size()>0){
 			return "已申请岗位";
 		}
@@ -64,7 +70,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 		}
 		Resume resume=new Resume();
 		resume.setUserId(application.getUserId());
-		resume.setId(application.getResumeId());
+		resume.setId(resumeId);
 		resume=resumeMapper.get(resume);
 		if(resume==null){
 			return "简历不存在";
@@ -72,17 +78,18 @@ public class ApplicationServiceImpl implements ApplicationService{
 		if(!recruitType.equals(resume.getRecruitType())){
 			return "简历未提交";
 		}
-		if(resume.getPhoto()==null){
-			return "请上传照片";
-		}
-		Integer educationCount=resumeEducationMapper.getCount(application.getResumeId());
+		Integer educationCount=resumeEducationMapper.getCount(resumeId);
 		if(educationCount==0){
-			return "教育经历未提交";
+			return "未填写教育经历";
 		}
-		if("society".equals(recruitType)){
+		List<ResumeFamily> familyList=resumeFamilyMapper.getList(resumeId);
+		if(familyList==null||familyList.size()==0){
+			return "未填写家庭关系";
+		}
+		if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
 			Integer workCount=resumeWorkMapper.getCount(application.getResumeId());
 			if(workCount==0){
-				return "工作经历未提交";
+				return "未填写工作经历";
 			}
 		}
 		application.setStatus("1");

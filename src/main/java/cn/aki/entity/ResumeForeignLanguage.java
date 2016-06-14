@@ -21,12 +21,14 @@ public class ResumeForeignLanguage extends ResumeSubEntity{
 	private String speaking;//,speaking nvarchar(32) -- 口语
 	@TranslateTypeCode("language")
 	private String others;//,others nvarchar(32) -- 其他语言
+	@TranslateTypeCode("languageProficiency")
+	private String proficiency;//proficiency nvarchar(32);-- 熟练程度
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getLevel() {
 		return level;
 	}
-	@NotNull()
+	@NotNull
 	public Integer getScore() {
 		return score;
 	}
@@ -38,6 +40,11 @@ public class ResumeForeignLanguage extends ResumeSubEntity{
 	public String getOthers() {
 		return others;
 	}
+	@Size(max=32)@NotBlank
+	public String getProficiency() {
+		return proficiency;
+	}
+	
 	
 	public void setLevel(String level) {
 		this.level = level;
@@ -50,6 +57,9 @@ public class ResumeForeignLanguage extends ResumeSubEntity{
 	}
 	public void setOthers(String others) {
 		this.others = others;
+	}
+	public void setProficiency(String proficiency) {
+		this.proficiency = proficiency;
 	}
 	
 }

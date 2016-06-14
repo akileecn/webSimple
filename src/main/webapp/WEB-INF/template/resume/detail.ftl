@@ -29,7 +29,7 @@
 				//基本信息
 				$("#baseForm").html($.template(T.base.text,resume));
 				//从属信息
-				var subs=["award","computer","education","family","foreignLanguage"<#if recruitType=="campus">,"studentCadre"</#if>,"work"];
+				var subs=["education","foreignLanguage","computer",<#if recruitType=="society">"work",</#if><#if recruitType=="campus">"practice","studentCadre",</#if>"award","train","family"];
 				for(var i=0;i<subs.length;i++){
 					var dataType=subs[i];
 					var datas=resume[dataType+"List"];
@@ -44,38 +44,15 @@
 		</#if>
 
 		//保存基本信息
-		$("#baseForm").ajaxForm({
-			"beforeSubmit":function(datas){
-				<#-- 校招额外验证 -->
-				<#if recruitType=="campus">
-				$("#baseForm").clearError();
-				var hasError=false;
-				var error={};
-				var fields=["height","weight","highestDegree","ceeProvince","ceeScore","isFirstLine","artsOrScience","admissionOrder"];
-				for(var i=0;i<fields.length;i++){
-					var value=$("#baseForm :input[name='"+fields[i]+"']").val();
-					if(!value){
-						hasError=true;
-						error[fields[i]]="字段不能为空";
-					}
-				}
-				if(hasError){
-					alert("表单信息有误");
-					$("#baseForm").showError(error);
-					return false;
-				}
-				</#if>
-				return true;
-			},"success":function(text) {
-				if(text.success){
-					alert("保存成功");
-					var data=$("#baseForm").getFormData();
-					$("#baseForm").html($.template(T.base.text,data));
-					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
-				}else{
-					alert("表单信息有误");
-					$("#baseForm").showError(text.error);
-				}
+		$("#baseForm").ajaxForm(function(text) {
+			if(text.success){
+				alert("保存成功");
+				var data=$("#baseForm").getFormData();
+				$("#baseForm").html($.template(T.base.text,data));
+				$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
+			}else{
+				alert("表单信息有误");
+				$("#baseForm").showError(text.error);
 			}
 		});
 		
@@ -112,6 +89,9 @@
 	//添加
 	function addSub(dataType,templateType,data){
 		var $div=$("#"+dataType+"Div");
+		if(!T[dataType]){
+			alert(dataType);
+		}
 		var template=T[dataType][templateType];
 		if(templateType=="input"){
 			$div.append(template);

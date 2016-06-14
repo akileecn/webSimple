@@ -33,7 +33,9 @@ import cn.aki.entity.ResumeComputer;
 import cn.aki.entity.ResumeEducation;
 import cn.aki.entity.ResumeFamily;
 import cn.aki.entity.ResumeForeignLanguage;
+import cn.aki.entity.ResumePractice;
 import cn.aki.entity.ResumeStudentCadre;
+import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.response.DataResponse;
@@ -147,6 +149,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	@RequestMapping(path="/save/base",method=POST)
 	public FormResponse<Void> saveBase(@Valid Resume form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result);
+		resumeService.validate(form, response);
 		if(response.isSuccess()){
 			resumeService.update(form);
 		}
@@ -231,6 +234,26 @@ public class ResumeController extends BaseController implements ServletContextAw
 	@ResponseBody
 	@RequestMapping(path="/delete/work",method=POST)
 	public SimpleResponse deleteWork(ResumeWork bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/practice",method=POST)
+	public FormResponse<Integer> savePractice(@Valid ResumePractice form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/practice",method=POST)
+	public SimpleResponse deletePractice(ResumePractice bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/train",method=POST)
+	public FormResponse<Integer> saveTrain(@Valid ResumeTrain form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/train",method=POST)
+	public SimpleResponse deleteTrain(ResumeTrain bean,BindingResult result){
 		return deleteSub(bean);
 	}
 	/**

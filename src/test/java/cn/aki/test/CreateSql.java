@@ -52,7 +52,7 @@ public class CreateSql {
 	 * @param data
 	 * @throws Exception
 	 */
-	public static void create(String templateName,Object data) throws Exception{
+	public static void simpelCreate(String templateName,Object data) throws Exception{
 		Template template = CONFIGURATION.getTemplate(templateName);
 		template.process(data, new OutputStreamWriter(System.err));
 	}

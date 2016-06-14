@@ -4,9 +4,7 @@
 	<cache/>
 	<sql id="whereSql">
 		where id=${r'#'}{id}
-		<#--
 			and resume_id=${r'#'}{resumeId}
-		-->
 	</sql>
 	
 	<sql id="selectSql">
@@ -24,16 +22,16 @@
 	</select>
 	
 	<!-- 查询 -->
+	<#--
 	<select id="getList" parameterType="${bean}" resultType="${bean}">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
 	</select>
-	<#--
+	-->
 	<select id="getList" parameterType="int" resultType="${bean}">
 		<include refid="selectSql"/>
 		where resume_id=${r'#'}{resumeId}
 	</select>
-	-->
 	
 	<!-- 保存 -->
 	<insert id="save" parameterType="${bean}" useGeneratedKeys="true" keyProperty="id">
@@ -64,7 +62,7 @@
 		<#list columns?keys as key>
 			<#if key!="id"&&key!="create_time">
 			<if test="${columns[key]}!=null">
-			,${key}=${r'#'}{${columns[key]}}
+			${key}=${r'#'}{${columns[key]}},
 			</if>
 			</#if>
 		</#list>

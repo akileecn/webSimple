@@ -21,11 +21,11 @@ public class ResumeFamily extends ResumeSubEntity{
 	private String workJob;		//,work_job varchar(32) -- 职位
 	private String description;	//,description varchar(500) -- 说明
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getName() {
 		return name;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getRelationship() {
 		return relationship;
 	}

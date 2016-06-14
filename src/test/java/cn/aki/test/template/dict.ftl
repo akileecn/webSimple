@@ -22,6 +22,8 @@
 ,"admissionOrder":"第一批,第二批,第三批,其他"
 ,"cadreLevel":"校级,院级,班级"
 ,"recruitType":"campus:校园,society:社会,trainee:实习生"
+,"computerCertificate":"全国计算机一级,全国计算机二级,全国计算机三级,软件工程师,其他"
+,"computerProficiency":"开发程序,开发应用,OA办公,基本操作"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');
