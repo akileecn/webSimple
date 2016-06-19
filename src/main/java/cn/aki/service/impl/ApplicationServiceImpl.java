@@ -46,7 +46,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public String apply(Application application) {
 		List<Application> oldList=applicationMapper.getList(application);
 		if(oldList!=null&&oldList.size()>0){
-			return "已申请岗位";
+			return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
 		}
 		Job job=jobMapper.get(application.getJobId());
 		if(job==null){

@@ -109,6 +109,13 @@
 			if(value){
 				var name=$(this).parent("select").attr("name");
 				var text=$(this).text();
+				//兼容other
+				if(!name){
+					name=$(this).parent("select").siblings("input").attr("name");
+					if(value=="other"){
+						text=$(this).parent("select").siblings("input").val();
+					}
+				}
 				obj.t[name]=text;
 			}
 		});

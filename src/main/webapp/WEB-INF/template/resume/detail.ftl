@@ -10,6 +10,29 @@
 <script type="text/javascript">
 	//全局模版保存对象
 	var T={};
+	//带其他项的select
+	$("body").on("change",".selectWithOther select",function(){
+		var value=$(this).find("option:selected").val();
+		var $input=$(this).siblings("input");
+		if(value=="other"){
+			$input.val("其他");
+			$input.show();
+		}else{
+			$input.val(value);
+			$input.hide();
+		}
+	});
+	
+	$("body").on("change",".selectWithOther input",function(){
+		var value=$(this).val();
+		var $select=$(this).siblings("select");
+		if(value){
+			var $option=$select.find("option[value='"+value+"']");
+			if($option.length>0){
+				$option.attr("selected",true);
+			}
+		}
+	});
 </script>
 <div class="container">
 	<#include "/user/left.ftl"/>
@@ -99,6 +122,7 @@
 		$("#baseForm").autofill(data);
 		//初始化时间插件
 		$("#baseForm").find(".form_datetime").datetimepicker();
+		$("select[name='nation']").editableSelect();
 	}
 	
 	//添加
@@ -130,6 +154,8 @@
 			//初始化时间插件
 			$form.find(".form_datetime").datetimepicker();
 			$form.attr("data-type","input");
+			//初始化SelectWithOther
+			initSelectWithOther();
 		}else if(oldType=="input"){
 			var template=T[dataType]["text"];
 			//不是form无法取到数据
@@ -141,6 +167,23 @@
 			$form.find(".form_datetime").datetimepicker("remove");
 			$form.html($.template(template,data));
 			$form.attr("data-type","text");
+		}
+		
+		//初始化SelectWithOther
+		function initSelectWithOther(){
+			$form.find(".selectWithOther input").each(function(){
+				var value=$(this).val();
+				var $select=$(this).siblings("select");
+				if(value){
+					var $option=$select.find("option[value='"+value+"']");
+					if($option.length>0){
+						$select.val(value);
+					}else{
+						$select.val("other");
+						$(this).show();
+					}
+				}
+			});
 		}
 	}
 	
@@ -177,12 +220,14 @@
 	
 	//保存
 	function saveSub(dataType,self){
+		$(self).attr("disabled","disabled");
 		$form=$(self).parents("form");
 		$form.ajaxSubmit({
 			url:"<@spring.url "/resume/save/"/>"+dataType
 			,data:{"resumeId":"${id}"}
 			,type:"post"
 			,success:function(text){
+				$(self).removeAttr("disabled");
 				if(text.success){
 					switchSub(dataType,self,{id:text.data});
 				}else{

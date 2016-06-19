@@ -91,6 +91,8 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 							String translateName=getCodeName(typeCode, (String)value);
 							if(translateName!=null){
 								translation.put(fieldName,translateName);
+							}else{
+								translation.put(fieldName,(String)value);
 							}
 						}else if(value instanceof Boolean){
 							translation.put(fieldName,(Boolean)value?"是":"否");

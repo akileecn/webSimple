@@ -27,19 +27,35 @@
 </#macro>
 
 <#-- select标签 -->
-<#macro select label name dict=name required=false>
-<td>
-    <label>${label}：</label>
-    <select name="${name}" <#if long>class="w537"<#else>class="w185"</#if>>
-		<option value="">请选择</option>
-	<#if dictMap[dict]?exists >
-		<#list dictMap[dict]?keys as key>
-		<option value="${key}" <#if key==value>selected="selected"</#if>>${dictMap[dict][key]}</option>
-		</#list>
+<#macro select label name dict=name required=false other=false>
+	<#if other>
+	<td colspan="2" class="selectWithOther">
+	    <label>${label}：</label>
+	    <select <#if long>class="w537"<#else>class="w185"</#if>>
+			<option value="">请选择</option>
+		<#if dictMap[dict]?exists >
+			<#list dictMap[dict]?keys as key>
+			<option value="${key}">${dictMap[dict][key]}</option>
+			</#list>
+		</#if>
+		</select><#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>
+	<#else>
+	<td>
+	    <label>${label}：</label>
+	    <select name="${name}" <#if long>class="w537"<#else>class="w185"</#if>>
+			<option value="">请选择</option>
+		<#if dictMap[dict]?exists >
+			<#list dictMap[dict]?keys as key>
+			<option value="${key}" <#if key==value>selected="selected"</#if>>${dictMap[dict][key]}</option>
+			</#list>
+		</#if>
+		</select><#if required><span class="red">*</span></#if>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>
 	</#if>
-	</select><#if required><span class="red">*</span></#if>
-    <div class="col_cv_alt" data-error="${name}"></div>
-</td>
 </#macro>
 
 <#-- radio标签 -->

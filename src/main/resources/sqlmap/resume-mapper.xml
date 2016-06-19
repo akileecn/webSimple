@@ -135,9 +135,6 @@
 	<insert id="save" parameterType="resume" useGeneratedKeys="true" keyProperty="id">
 		insert into zp_resume(
 		<trim prefix="" prefixOverrides=",">
-			<if test="id!=null">
-			id
-			</if>
 			<if test="createTime!=null">
 			,create_time
 			</if>
@@ -261,9 +258,6 @@
 		</trim>
 		)values(
 		<trim prefix="" prefixOverrides=",">
-			<if test="id!=null">
-			#{id}
-			</if>
 			<if test="createTime!=null">
 			,#{createTime}
 			</if>

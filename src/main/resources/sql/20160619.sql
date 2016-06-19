@@ -3,6 +3,7 @@ create table zp_static_page(
 	id int primary key identity(1,1)
 	,code nvarchar(32) -- 代码
 	,attr nvarchar(32) -- 其他属性
+	,template nvarchar(100) -- 模版路径
 	,title nvarchar(100) -- 标题
 	,content ntext -- 内容
 );
@@ -23,3 +24,6 @@ insert into zp_dict_data(type_code,code,name)values('schoolLocation','2',N'农�
 -- 简历状态
 alter table zp_resume add is_submit bit not null default 0; -- 是否提交
 alter table zp_resume add is_lock bit not null default 0; -- 是否锁定
+-- 统一other的code
+update zp_dict_data set code='other' where name=N'其他';
+alter table zp_resume_foreign_language add _others nvarchar(32);

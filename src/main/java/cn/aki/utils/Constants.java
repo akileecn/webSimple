@@ -21,4 +21,6 @@ public interface Constants {
 	String SHIRO_SESSION_KEY_RESUME_IDS="resumeIds";
 	/**shiro会话key 图片验证码*/
 	String SHIRO_SESSION_KEY_CAPTCHA="captcha";
+	/**字典code other*/
+	String DICT_CODE_OTHER="other";
 }

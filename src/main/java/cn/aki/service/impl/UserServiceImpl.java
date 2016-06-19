@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
 		Resume campusResume=form.createResume();
 		campusResume.setUserId(form.getId());
 		campusResume.setRecruitType(Constants.RECRUIT_TYPE_CAMPUS);
-		resumeMapper.save(societyResume);
+		resumeMapper.save(campusResume);
 	}
 
 	public boolean exists(User user) {
