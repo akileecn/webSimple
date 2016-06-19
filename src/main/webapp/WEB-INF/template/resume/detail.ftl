@@ -122,7 +122,6 @@
 		$("#baseForm").autofill(data);
 		//初始化时间插件
 		$("#baseForm").find(".form_datetime").datetimepicker();
-		$("select[name='nation']").editableSelect();
 	}
 	
 	//添加

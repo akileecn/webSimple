@@ -178,7 +178,6 @@
 	</@compress>';
 	$(document).ready(function() {
 		$("#listForm").css({"position":"relative"});
-		$("select[name='workCity']").editableSelect({appendTo:'#listForm'});
 		//岗位查询
 		var listTrTemplate=$("#myTbody").html();//保存原有模版
 		$('#listForm').ajaxForm(function(text){

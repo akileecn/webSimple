@@ -26,4 +26,3 @@ alter table zp_resume add is_submit bit not null default 0; -- 是否提交
 alter table zp_resume add is_lock bit not null default 0; -- 是否锁定
 -- 统一other的code
 update zp_dict_data set code='other' where name=N'其他';
-alter table zp_resume_foreign_language add _others nvarchar(32);
