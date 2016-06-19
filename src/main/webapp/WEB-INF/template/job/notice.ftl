@@ -18,13 +18,8 @@
 </div>
 <div class="container">
     <#include "/job/left.ftl"/>
-    <@c.right title="公告标题" subTitle="招聘公告">
-	正文
+    <@c.right title=staticPage.title subTitle="招聘公告">
+	${staticPage.content}
 	</@c.right>
 </div>
-<script>
-	function loadContent(index){
-		$("#contentDiv").load("<@spring.url "/about/"/>"+index);
-	}
-</script>
 </@bootstrap.body>

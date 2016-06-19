@@ -2,7 +2,6 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,19 +24,17 @@ public class ResumePractice extends ResumeSubEntity{
 	public String getName() {
 		return name;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getJob() {
 		return job;
 	}
-	@NotNull
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	@NotNull
 	public Date getEndDate() {
 		return endDate;
 	}
-	@Size(max=500)@NotBlank
+	@Size(max=500)
 	public String getDuty() {
 		return duty;
 	}

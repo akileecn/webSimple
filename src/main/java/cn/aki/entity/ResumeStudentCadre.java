@@ -2,7 +2,6 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,11 +23,9 @@ public class ResumeStudentCadre extends ResumeSubEntity{
 	private String level;			//,level varchar(32) -- 级别
 	private String description;//description nvarchar(500); -- 职责描述
 	
-	@NotNull
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	@NotNull
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -36,11 +33,11 @@ public class ResumeStudentCadre extends ResumeSubEntity{
 	public String getName() {
 		return name;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getLevel() {
 		return level;
 	}
-	@Size(max=500)@NotBlank
+	@Size(max=500)
 	public String getDescription() {
 		return description;
 	}

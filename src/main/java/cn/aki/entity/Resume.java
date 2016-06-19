@@ -80,7 +80,9 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private String school;//school nvarchar(100);-- 毕业院校
 	private String schoolType;//school_type nvarchar(32);-- 院校类别
 	private String major;//nvarchar(32);-- 专业
-	
+	/*20160619*/
+	private Boolean isSubmit;//is_submit bit not null default 0; -- 是否提交
+	private Boolean isLocked;//is_lock bit not null default 0; -- 是否锁定
 	
 	/*关联*/
 	@TranslateTypeCode
@@ -405,6 +407,18 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	}
 	
 	
+	public Boolean getIsSubmit() {
+		return isSubmit;
+	}
+	public void setIsSubmit(Boolean isSubmit) {
+		this.isSubmit = isSubmit;
+	}
+	public Boolean getIsLocked() {
+		return isLocked;
+	}
+	public void setIsLocked(Boolean isLocked) {
+		this.isLocked = isLocked;
+	}
 	public List<ResumeAward> getAwardList() {
 		return awardList;
 	}

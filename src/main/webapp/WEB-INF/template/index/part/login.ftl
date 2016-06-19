@@ -34,7 +34,7 @@
                         </li>
                         <li>
                             <label>密码：</label>
-                            <input type="password" name="password" placeholder="请输入密码">
+                            <input type="password" name="password">
                             <div class="col_cv_alt" data-error="password"></div>
                         </li>
                         <li>

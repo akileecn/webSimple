@@ -1,7 +1,7 @@
 <@bootstrap.head>
 <title>我的应聘</title>
 </@bootstrap.head>
-<@bootstrap.body>
+<@bootstrap.body attr="id='user_center'">
 <div class="container">
 	<#include "user/left.ftl"/>
 	<@c.right title="我的应聘">
@@ -16,7 +16,7 @@
             <td>工作地点</td>
             <td width="160" align="center">操作</td>
         </tr>
-        <#if list??>
+        <#if list??&&list?has_content>
         	<#list list as item>
         <tr class="col_tab_t">
             <td>${item.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>

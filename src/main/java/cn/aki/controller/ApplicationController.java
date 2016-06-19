@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.aki.entity.Application;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ApplicationService;
-import cn.aki.utils.UserUtils;
 /**
  * 应聘
  * @author Aki
@@ -44,8 +43,6 @@ public class ApplicationController {
 	@RequestMapping(path="/apply",method=RequestMethod.POST)
 	public SimpleResponse handleApply(Application application,Model model){
 		SimpleResponse response=new SimpleResponse();
-		Integer resumeId=UserUtils.getResumeId();
-		application.setResumeId(resumeId);
 		String error=applicationService.apply(application);
 		if(error==null){
 			response.setSuccess(true);

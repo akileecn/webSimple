@@ -198,9 +198,9 @@ public class UserController extends BaseController{
 	 */
 	private <T> FormResponse<T> handleFormError(BindingResult result,String captcha) {
 		FormResponse<T> response=super.handleFormError(result);
-		if(!UserUtils.isValidCaptcha(captcha)){
-			response.putError("captcha", "验证码错误");
-		}
+//		if(!UserUtils.isValidCaptcha(captcha)){
+//			response.putError("captcha", "验证码错误");
+//		}
 		return response;
 	}
 	

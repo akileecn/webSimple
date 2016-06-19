@@ -57,7 +57,7 @@
             	<img id="captcha" src="<@spring.url "/user/captchaImage.png"/>" width="auto" height="34px" alt="" />
             	<a href="javascript:changeCaptcha();">换一张</a>
             	<div class="col_cv_alt" data-error="captcha"></div>
-                <p class="tl"><input name="isAgree" type="checkbox" value=""/><a href="#" style=" text-decoration:underline;">阅读并接受《用户协议》</a></p>
+                <p class="tl"><input name="isAgree" type="checkbox" value=""/><a href="javascript:showUserAgreement();" style=" text-decoration:underline;">阅读并接受《用户协议》</a></p>
             </li>
             <div class="btn_m">
                 <input type="button" class="button btnbg2" value="取消">
@@ -67,4 +67,16 @@
     </form>
 	</@c.right>
 </div>
+<script>
+	//显示用户协议
+	function showUserAgreement(){
+		$.get("<@spring.url "/staticPage/userAgreement"/>",function(text){
+			art.dialog({
+		        lock: true,
+		        id: "abc",
+		        content: text
+		    });
+		});
+	}
+</script>
 </@bootstrap.body>

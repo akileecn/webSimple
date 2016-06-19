@@ -9,10 +9,6 @@ import java.util.Date;
  */
 public class DictData implements Serializable{
 	private static final long serialVersionUID = -5581421912677787537L;
-	/**
-	 * 字典数据在servletContext中的属性key值
-	 */
-	public static final String CONTEXT_ATTR_KEY="dictMap";
 	
 	private Integer id;
 	private String typeCode;
@@ -22,6 +18,7 @@ public class DictData implements Serializable{
 	private Boolean disabled;
 	private Date create_time;
 	private Date modify_time;
+	private Integer orderby;//orderby int default 0;
 	public Integer getId() {
 		return id;
 	}
@@ -69,6 +66,12 @@ public class DictData implements Serializable{
 	}
 	public void setModify_time(Date modify_time) {
 		this.modify_time = modify_time;
+	}
+	public Integer getOrderby() {
+		return orderby;
+	}
+	public void setOrderby(Integer orderby) {
+		this.orderby = orderby;
 	}
 	@Override
 	public String toString() {

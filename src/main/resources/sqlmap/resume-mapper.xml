@@ -3,8 +3,24 @@
 <mapper namespace="cn.aki.dao.ResumeMapper">
 	<cache/>
 	<sql id="whereSql">
-		where id=#{id}
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="userId!=null">
 			and user_id=#{userId}
+			</if>
+			<if test="recruitType!=null">
+			<choose>
+				<when test="recruitType=='society'">
+				and recruit_type='society'
+				</when>
+				<otherwise>
+				and recruit_type in('campus','trainee')
+				</otherwise>
+			</choose>
+			</if>
+		</where>
 	</sql>
 	
 	<sql id="selectSql">
@@ -56,12 +72,42 @@
 			,school
 			,school_type as schoolType
 			,major
+			,is_submit as isSubmit
+			,is_lock as isLocked
+		from zp_resume
+	</sql>
+	
+	<sql id="simpleSelectSql">
+		select id
+			,recruit_type as recruitType
+			,is_submit as isSubmit
+			,is_lock as isLocked
 		from zp_resume
 	</sql>
 	
 	<!-- 获得 -->
 	<select id="get" parameterType="resume" resultType="resume">
 		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 更新状态 -->
+	<update id="updateStatus" parameterType="resume">
+		update zp_resume
+		<set>
+			<if test="isSubmit!=null">
+				is_submit=#{isSubmit},
+			</if>
+			<if test="isLocked!=null">
+				is_lock=#{isLocked},
+			</if>
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 获得状态 -->
+	<select id="getStatus" parameterType="resume" resultType="resume" useCache="false">
+		<include refid="simpleSelectSql"/>
 		<include refid="whereSql"/>
 	</select>
 	
@@ -80,10 +126,9 @@
 	</select>
 	
 	<!-- 获得用户的简历ID -->
-	<select id="getIdByUserId" parameterType="int" resultType="int">
-		select id
-		from zp_resume
-		where user_id=#{userId}
+	<select id="getList" parameterType="resume" resultType="resume">
+		<include refid="simpleSelectSql"/>
+		<include refid="whereSql"/>
 	</select>
 	
 	<!-- 保存 -->

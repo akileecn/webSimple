@@ -35,6 +35,8 @@ public class ResumeEducation extends ResumeSubEntity{
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
 	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
+	@TranslateTypeCode
+	private String schoolLocation;//school_location nvarchar(32); -- 学校位于城市或农村
 	
 	@Size(max=32)@NotBlank
 	public String getSchoolName() {
@@ -79,6 +81,11 @@ public class ResumeEducation extends ResumeSubEntity{
 	public String getGradeRank() {
 		return gradeRank;
 	}
+	@Size(max=32)@NotBlank
+	public String getSchoolLocation() {
+		return schoolLocation;
+	}
+	
 	
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
@@ -112,6 +119,9 @@ public class ResumeEducation extends ResumeSubEntity{
 	}
 	public void setGradeRank(String gradeRank) {
 		this.gradeRank = gradeRank;
+	}
+	public void setSchoolLocation(String schoolLocation) {
+		this.schoolLocation = schoolLocation;
 	}
 	
 }

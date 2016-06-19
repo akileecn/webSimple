@@ -39,10 +39,12 @@
 			</tr>
 			<tr>
 				<@span label="移动电话" name="mobile"/>
+			<#if recruitType=="society">
 				<@span label="参加工作时间" name="beginWorkDate"/>
 			</tr>
             <tr>
 				<@span label="参加工作年限" name="workYear" translate=true/>
+			</#if>
 				<@span label="电子邮箱" name="email"/>
             </tr>
             <tr>
@@ -59,6 +61,7 @@
 			</tr>
             <tr>
             	<@span label="专业" name="major"/>
+			<#if recruitType!="society">
 				<@span label="高考省份" name="ceeProvince"/>
 			</tr>
             <tr>
@@ -69,6 +72,7 @@
 				<@span label="文理科" name="artsOrScience" translate=true/>
             	<@span label="录取批次" name="admissionOrder" translate=true/>
 			</tr>
+			</#if>
             <tr>
 				<@span label="紧急联系人" name="emergencyContact"/>
             	<@span label="紧急联系人电话" name="emergencyMobile"/>
@@ -99,7 +103,7 @@
                     <div class="user_pic fr">
                         <label>个人照片：</label>
                         <img id="photoImg" src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
-                        <div class="tip_note">点击上传图片 小于200kb</div>
+                        <div class="tip_note">点击照片上传，要求JPG格式，不超过50KB</div>
                     </div>
                 </td>
             </tr>
@@ -123,10 +127,12 @@
 			</tr>
             <tr>
 				<@input label="移动电话" name="mobile" required=true/>
-				<@date label="参加工作时间" name="beginWorkDate" required=(recruitType=="society")/>
+			<#if recruitType=="society">
+				<@date label="参加工作时间" name="beginWorkDate" required=true/>
 			</tr>
             <tr>
-				<@select label="参加工作年限" name="workYear" required=(recruitType=="society")/>
+				<@select label="参加工作年限" name="workYear" required=true/>
+			</#if>
 				<@input label="电子邮箱" name="email" required=true/>
 			</tr>
             <tr>
@@ -143,16 +149,18 @@
 			</tr>
             <tr>
 				<@input label="专业" name="major" required=true/>
-				<@input label="高考省份" name="ceeProvince" required=(recruitType=="campus")/>
+			<#if recruitType!="society">
+				<@input label="高考省份" name="ceeProvince" required=true/>
 			</tr>
             <tr>
-				<@input label="高考分数" name="ceeScore" required=(recruitType=="campus")/>
-            	<@radio label="是否一本分数线以上" name="isFirstLine" required=(recruitType=="campus")/>
+				<@input label="高考分数" name="ceeScore" required=true/>
+            	<@radio label="是否一本分数线以上" name="isFirstLine" required=true/>
 			</tr>
             <tr>
-				<@select label="文理科" name="artsOrScience" required=(recruitType=="campus")/>
-            	<@select label="录取批次" name="admissionOrder" required=(recruitType=="campus")/>
+				<@select label="文理科" name="artsOrScience" required=true/>
+            	<@select label="录取批次" name="admissionOrder" required=true/>
 			</tr>
+			</#if>
             <tr>
 				<@input label="紧急联系人" name="emergencyContact" required=true/>
             	<@input label="紧急联系人电话" name="emergencyMobile" required=true/>
@@ -169,7 +177,7 @@
             <tr><@input label="家庭住址" name="familyResidence" required=true wide=true/></tr>
             <tr><@textarea label="持证情况" name="certificate" required=true/></tr>
             <tr><@textarea label="爱好特长" name="hobby" required=true/></tr>
-            <tr><@textarea label="性格特点" name="personality" required=true/></tr>
+            <tr><@textarea label="性格特点" name="personality"/></tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
                     <input type="reset" value="重置" class="reset">

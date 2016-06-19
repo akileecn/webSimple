@@ -17,6 +17,12 @@
 	<div class="col_cv_main">
 		<#include "/resume/detail_base.ftl"/>
 		<#include "/resume/detail_sub.ftl"/>
+		<div class="col_cv_tab" style="background:none;">
+		 	<form id="submitForm" action="<@spring.url "/resume/submit"/>" method="post" style="text-align: center;">
+                <input type="hidden" name="id" value="${id}"/>
+                <input type="submit" value="提交" class="submit"/>
+		    </form>
+	    </div>
     </div>
 	</@c.right>
 </div>
@@ -29,7 +35,7 @@
 				//基本信息
 				$("#baseForm").html($.template(T.base.text,resume));
 				//从属信息
-				var subs=["education","foreignLanguage","computer",<#if recruitType=="society">"work",</#if><#if recruitType=="campus">"practice","studentCadre",</#if>"award","train","family"];
+				var subs=["education","foreignLanguage","computer",<#if recruitType=="society">"work",<#else>"practice","studentCadre",</#if>"award","train","family"];
 				for(var i=0;i<subs.length;i++){
 					var dataType=subs[i];
 					var datas=resume[dataType+"List"];
@@ -42,6 +48,15 @@
 			}
 		});
 		</#if>
+
+		//提交
+		$("#submitForm").ajaxForm(function(text) {
+			if(text.success){
+				alert("提交成功");
+			}else if(text.message){
+				alert(text.message);
+			}
+		});
 
 		//保存基本信息
 		$("#baseForm").ajaxForm(function(text) {

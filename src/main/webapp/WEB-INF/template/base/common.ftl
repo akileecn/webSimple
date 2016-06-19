@@ -33,3 +33,30 @@
 </div>
 <div class="clearfix"></div>
 </#macro>
+
+<#-- 滚动图片 -->
+<#macro banner images="index-banner.jpg">
+<div class="banner">
+    <div class="banner_container">
+    	<#if images?is_sequence>
+        <div class="wmuSlider example1">
+            <div class="wmuSliderWrapper">
+			<#list images as image>
+            	<article style="position: absolute; width: 100%; opacity: ${image?index};">
+                    <img src="<@c.resource "images/"+image/>" width="100%" height="auto">
+                    <div class="clearfix"></div>
+                </article>		
+    		</#list>
+            </div>
+            <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
+            <script src="<@c.resource "js/jquery.wmuSlider.js"/>"></script>
+            <script>
+            $('.example1').wmuSlider();
+            </script>
+        </div>
+        <#else>
+        <img src="<@c.resource "images/"+images/>" width="1000">
+    	</#if>
+    </div>
+</div>
+</#macro>

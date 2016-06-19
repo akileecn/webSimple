@@ -1,5 +1,6 @@
 package cn.aki.other;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -22,10 +23,11 @@ import cn.aki.dao.NoticeMapper;
 import cn.aki.dao.ResumeMapper;
 import cn.aki.dao.UserMapper;
 import cn.aki.entity.Permission;
+import cn.aki.entity.Resume;
 import cn.aki.entity.Role;
 import cn.aki.entity.User;
+import cn.aki.utils.Constants;
 import cn.aki.utils.Md5Utils;
-import cn.aki.utils.UserUtils;
 
 public class MyShiroRealm extends AuthorizingRealm{
 	@Autowired
@@ -75,10 +77,20 @@ public class MyShiroRealm extends AuthorizingRealm{
 					//添加额外用户信息
 					Subject subject=SecurityUtils.getSubject();
 					Session session=subject.getSession();
-					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_USER, user);
-					//简历信息
-					List<Integer> resumeIds=resumeMapper.getIdByUserId(user.getId());
-					session.setAttribute(UserUtils.SHIRO_SESSION_KEY_RESUME_IDS, resumeIds);
+					session.setAttribute(Constants.SHIRO_SESSION_KEY_USER, user);
+					//拥有简历ID
+					Resume condition=new Resume();
+					condition.setUserId(user.getId());
+					List<Resume> resumeList=resumeMapper.getList(condition);
+					List<Integer > resumeIds=new ArrayList<Integer>();
+					if(resumeList!=null){
+						for(Resume resume:resumeList){
+							if(resume!=null){
+								resumeIds.add(resume.getId());
+							}
+						}
+					}
+					session.setAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS, resumeIds);
 					//通知信息
 					Integer count=noticeMapper.getCountByUserId(user.getId());
 					user.setNoticeCount(count);

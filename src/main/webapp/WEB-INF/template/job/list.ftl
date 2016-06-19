@@ -143,7 +143,7 @@
 	            <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	                <tr><td><div class="pop_job_p"><div class="pop_job_yix">
                         <div class="tt">意向岗位</div>
-                        <div class="cop">%{name}</div>
+                        <div class="cop"><a href="javascript:showDetail(\'%{id}\')">%{name}</a></div>
                         <div class="cen">您一季度只有一次申请机会，申请提交后无法修改</div>
                         <div class="btn">
                             <input name="" type="reset" value="取消" onclick="art.dialog.list[\'abc\'].close();">
@@ -245,17 +245,6 @@
 				showDetail(id);
 			}
 		});
-		function showDetail(id){
-			$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
-				if(text.success){
-					art.dialog({
-				        lock: true,
-				        id: "abc",
-				        content: $.template(T.detail,text.data)
-				    });
-				}
-			});
-		}
 		
 		//确认
 		$("body").on("click","._confirm",function(){
@@ -273,11 +262,25 @@
 		
 	});	
 	
+	//显示详情
+	function showDetail(id){
+		$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
+			if(text.success){
+				if(typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+				art.dialog({
+			        lock: true,
+			        id: "abc",
+			        content: $.template(T.detail,text.data)
+			    });
+			}
+		});
+	}
+		
 	//正式申请
 	function apply(jobId){
 		$.post("<@spring.url "/application/apply"/>",{"jobId":jobId},function(text){
 			if(text.success){
-				if (typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+				if(typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
 			    art.dialog({
 			        id: 'abc',
 			        lock: true,

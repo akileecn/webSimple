@@ -36,6 +36,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="<@c.resource "js/jquery.artDialog.js"/>"></script><!-- Custom Theme files -->
 	<link href="<@c.resource "css/style.css"/>" rel='stylesheet' type='text/css' />
+	<link href="<@c.resource "css/min-pg.css"/>" rel='stylesheet' type='text/css' />
 	<!----start-top-nav-script---->
 	<script>
 		$(function() {
@@ -52,6 +53,28 @@
         			menu.removeAttr('style');
         		}
     		});
+    		
+    		/*登录框兼容 ie8 提示语*/
+			jQuery('[placeholder]').focus(function() {
+			    var input = jQuery(this);
+			    if (input.val() == input.attr('placeholder')) {
+			        input.val('');
+			        input.removeClass('placeholder');
+			    }
+			}).blur(function() {
+			    var input = jQuery(this);
+			    if (input.val() == '' || input.val() == input.attr('placeholder')) {
+			        input.addClass('placeholder');
+			        input.val(input.attr('placeholder'));
+			    }
+			}).blur().parents('form').submit(function() {
+			    jQuery(this).find('[placeholder]').each(function() {
+			        var input = jQuery(this);
+			        if (input.val() == input.attr('placeholder')) {
+			            input.val('');
+			        }
+			    })
+			});
 		});
 	</script>
 	<!----//End-top-nav-script---->
@@ -107,8 +130,8 @@
 </#macro>
 
 <#-- html体 -->
-<#macro body menu>
-<body>
+<#macro body menu attr>
+<body <#if attr??>${attr}</#if>>
 	<!----start-header---->
 	<div class="header">
 		<div class="container"  >

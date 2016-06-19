@@ -21,7 +21,7 @@
 <#macro date label name required=false>
 <td>
     <label>${label}：</label>
-    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime"><#if required><span class="red">*</span></#if>
+    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime w185"><#if required><span class="red">*</span></#if>
     <div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>

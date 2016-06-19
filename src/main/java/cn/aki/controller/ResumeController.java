@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +44,6 @@ import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
-import cn.aki.utils.UserUtils;
 
 /**
  * 简历
@@ -71,7 +71,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 			MultipartFile mpf = request.getFile(itr.next());
 			//上传校验
 			if(mpf.getSize()>200*1024){
-				response.setMessage("上传文件必须小于200kb");
+				response.setMessage("上传文件必须小于50kb");
 				return response;
 			}
 			if(!mpf.getContentType().startsWith("image/")){
@@ -131,10 +131,9 @@ public class ResumeController extends BaseController implements ServletContextAw
 	
 	@RequestMapping(path="/list",method=GET)
 	public String toList(Resume resume,Model model){
-		Integer id=UserUtils.getResumeId();
-		resume.setId(id);
-		resume=resumeService.get(resume, false);
+		List<Resume> list=resumeService.getList(resume);
 		model.addAttribute("resume", resume);
+		model.addAttribute("list", list);
 		return "resume/list";
 	}
 	
@@ -162,6 +161,16 @@ public class ResumeController extends BaseController implements ServletContextAw
 		DataResponse<Resume> response=new DataResponse<Resume>();
 		resume=resumeService.get(resume,true);
 		response.setData(resume);
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/submit",method=POST)
+	public SimpleResponse handleSubmit(Resume resume){
+		String message=resumeService.submit(resume);
+		SimpleResponse response=new SimpleResponse();
+		response.setMessage(message);
+		response.setSuccess(message==null);
 		return response;
 	}
 	

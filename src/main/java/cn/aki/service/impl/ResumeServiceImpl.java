@@ -1,5 +1,6 @@
 package cn.aki.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import cn.aki.dao.ResumeAwardMapper;
@@ -83,6 +85,7 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	public void update(Resume resume) {
+		resume.setModifyTime(new Date());
 		resumeMapper.update(resume);
 	}
 
@@ -127,6 +130,46 @@ public class ResumeServiceImpl implements ResumeService{
 				response.putError(field, errInfo);
 			}
 		}
+	}
+
+	@Transactional
+	public String submit(Resume resume) {
+		/*校验*/
+		resume=resumeMapper.get(resume);
+		if(resume==null){
+			return "简历不存在";
+		}
+		if(resume.getModifyTime()==null){
+			return "简历基本信息未保存";
+		}
+		String recruitType=resume.getRecruitType();
+		if(recruitType==null){
+			return "简历招聘类型未知";
+		}else{
+			Integer resumeId=resume.getId();
+			Integer educationCount=educationMapper.getCount(resumeId);
+			Integer workCount=workMapper.getCount(resumeId);
+			List<ResumeFamily> familyList=familyMapper.getList(resumeId);
+			if(familyList==null||familyList.size()==0){
+				return "未填写家庭关系";
+			}
+			if(educationCount==0){
+				return "未填写教育经历";
+			}
+			if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
+				if(workCount==0){
+					return "未填写工作经历";
+				}
+			}
+		}
+		resume.setIsSubmit(true);
+		/*更新状态*/
+		resumeMapper.updateStatus(resume);
+		return null;
+	}
+
+	public List<Resume> getList(Resume resume) {
+		return resumeMapper.getList(resume);
 	}
 
 }

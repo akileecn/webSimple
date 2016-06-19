@@ -2,10 +2,7 @@ package cn.aki.entity;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
 /**
@@ -22,27 +19,25 @@ public class ResumeTrain extends ResumeSubEntity{
 	private String course;//,course nvarchar(32) --  培训课程
 	private String description;//,description nvarchar(500) -- 详细描述
 	
-	@NotNull
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	@NotNull
 	public Date getEndDate() {
 		return endDate;
 	}
-	@Size(max=100)@NotBlank
+	@Size(max=100)
 	public String getCompany() {
 		return company;
 	}
-	@Size(max=100)@NotBlank
+	@Size(max=100)
 	public String getPlace() {
 		return place;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getCourse() {
 		return course;
 	}
-	@Size(max=500)@NotBlank
+	@Size(max=500)
 	public String getDescription() {
 		return description;
 	}

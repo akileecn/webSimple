@@ -109,7 +109,7 @@ public class CreateSql {
 			Writer out=new OutputStreamWriter(new FileOutputStream("D:/"+result.bean+"-mapper.xml"));
 			template.process(result, out);
 			out.close();
-			Template template2=CONFIGURATION.getTemplate("dao.ftl");
+			Template template2=CONFIGURATION.getTemplate("_dao.ftl");
 			Writer out2=new OutputStreamWriter(new FileOutputStream("D:/"+result.type+"Mapper.java"));
 			template2.process(result, out2);
 			out2.close();
