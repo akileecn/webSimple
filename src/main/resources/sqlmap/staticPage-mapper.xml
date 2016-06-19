@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.aki.dao.StaticPageMapper">
+	<sql id="whereSql">
+		<where>
+			<if test="id!=null">
+			id=#{id}
+			</if>
+			<if test="code!=null">
+			and code=#{code}
+			</if>
+			<if test="attr!=null">
+			and attr=#{attr}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectSql">
+		select
+			id
+			,code
+			,attr
+			,template
+			,title
+			,content
+		from zp_static_page
+	</sql>
+	
+	<!-- 获得 -->
+	<select id="get" parameterType="staticPage" resultType="staticPage">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="getList" parameterType="staticPage" resultType="staticPage">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="staticPage" useGeneratedKeys="true" keyProperty="id">
+		insert into zp_static_page(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			id
+			</if>
+			<if test="code!=null">
+			,code
+			</if>
+			<if test="attr!=null">
+			,attr
+			</if>
+			<if test="template!=null">
+			,template
+			</if>
+			<if test="title!=null">
+			,title
+			</if>
+			<if test="content!=null">
+			,content
+			</if>
+		</trim>
+		)values(
+		<trim prefix="" prefixOverrides=",">
+			<if test="id!=null">
+			#{id}
+			</if>
+			<if test="code!=null">
+			,#{code}
+			</if>
+			<if test="attr!=null">
+			,#{attr}
+			</if>
+			<if test="template!=null">
+			,#{template}
+			</if>
+			<if test="title!=null">
+			,#{title}
+			</if>
+			<if test="content!=null">
+			,#{content}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="staticPage">
+		update zp_static_page
+		<set>
+		<trim prefix="" prefixOverrides=",">
+			<if test="code!=null">
+			code=#{code},
+			</if>
+			<if test="attr!=null">
+			attr=#{attr},
+			</if>
+			<if test="template!=null">
+			template=#{template},
+			</if>
+			<if test="title!=null">
+			title=#{title},
+			</if>
+			<if test="content!=null">
+			content=#{content},
+			</if>
+		</trim>
+		</set>
+		<include refid="whereSql"/>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="staticPage">
+		delete from zp_static_page
+		<include refid="whereSql"/>
+	</delete>
+</mapper>
