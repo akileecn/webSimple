@@ -71,7 +71,7 @@
             <li>
             	<label>验证码：</label>
                 <input type="text" name="captcha" style="width:70px;"/>
-            	<img id="captcha" src="<@spring.url "/user/captchaImage.png"/>" width="auto" height="34px" alt="" />
+            	<img id="captcha" src="<@spring.url "/user/captchaImage.png"/>" width="78px" height="34px" alt="" />
             	<a href="javascript:changeCaptcha();">换一张</a>
             	<div class="col_cv_alt" data-error="captcha"></div>
                 <p class="tl"><input name="isAgree" type="checkbox" value=""/><a href="javascript:showUserAgreement();" style=" text-decoration:underline;">阅读并接受《用户协议》</a></p>

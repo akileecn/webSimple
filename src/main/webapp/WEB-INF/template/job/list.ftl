@@ -48,7 +48,7 @@
     	<#-- 招聘类型 -->
     	<input type="hidden" name="recruitType" value="${job.recruitType}"/>
 		<@c.select label="工作地点" name="workCity" value=job.workCity selectAttr="class=\"col_search_add\""/>
-		<@c.select label="学历要求" name="education" value=job.education selectAttr="class=\"col_search_add\""/>
+		<@c.select label="学历要求" name="education" dict="searchEducation" value=job.education selectAttr="class=\"col_search_add\""/>
 		<br>
         <label>岗位名称关键字</label>
         <input name="name" type="text" value="${job.name}" class="col_search_text" placeholder="请输入关键字">

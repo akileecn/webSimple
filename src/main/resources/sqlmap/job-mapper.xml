@@ -28,7 +28,7 @@
 				and work_city=#{workCity}
 			</if>
 			<if test="education!=null and education!=''">
-				and education=#{education}
+				and education ${education}
 			</if>
 			<if test="publishDate!=null and publishDate!=''">
 				and publish_date=#{publishDate}

@@ -100,18 +100,19 @@ public class ResumeServiceImpl implements ResumeService{
 	public void validate(Resume resume, FormResponse<?> response) {
 		String recruitType=resume.getRecruitType();
 		Map<String,Object> map=new HashMap<String, Object>();
-		//校招必填
-		if(Constants.RECRUIT_TYPE_CAMPUS.equals(recruitType)){
+		//社招必填
+		if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
+			map.put("beginWorkDate", resume.getBeginWorkDate());
+			map.put("workYear", resume.getWorkYear());
+			validateNotEmpty(map, response);
+		//校招,实习必填
+		}else{
+			map.put("studentOrigin", resume.getStudentOrigin());
 			map.put("ceeProvince", resume.getCeeProvince());
 			map.put("ceeScore", resume.getCeeScore());
 			map.put("isFirstLine", resume.getIsFirstLine());
 			map.put("artsOrScience", resume.getArtsOrScience());
 			map.put("admissionOrder", resume.getAdmissionOrder());
-			validateNotEmpty(map, response);
-		//社招必填
-		}else if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
-			map.put("beginWorkDate", resume.getBeginWorkDate());
-			map.put("workYear", resume.getWorkYear());
 			validateNotEmpty(map, response);
 		}
 		

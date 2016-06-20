@@ -23,4 +23,6 @@ public interface Constants {
 	String SHIRO_SESSION_KEY_CAPTCHA="captcha";
 	/**字典code other*/
 	String DICT_CODE_OTHER="other";
+	/**字典类型 查询学历要求*/
+	String DICT_TYPE_CODE_SEARCH_EDUCATION="searchEducation";
 }

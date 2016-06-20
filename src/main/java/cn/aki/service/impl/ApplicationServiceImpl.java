@@ -44,10 +44,6 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 
 	public String apply(Application application) {
-		List<Application> oldList=applicationMapper.getList(application);
-		if(oldList!=null&&oldList.size()>0){
-			return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
-		}
 		Job job=jobMapper.get(application.getJobId());
 		if(job==null){
 			return "岗位不存在";
@@ -55,6 +51,14 @@ public class ApplicationServiceImpl implements ApplicationService{
 		String recruitType=job.getrecruitType();
 		if(recruitType==null){
 			return "岗位招聘类型未知";
+		}
+		List<Application> oldList=applicationMapper.getList(application);
+		if(oldList!=null&&oldList.size()>0){
+			for(Application old:oldList){
+				if(old.getJob()!=null&&recruitType.equals(old.getJob().getrecruitType())){
+					return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
+				}
+			}
 		}
 		Resume resume=new Resume();
 		resume.setUserId(application.getUserId());

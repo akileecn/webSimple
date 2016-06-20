@@ -73,6 +73,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	@TranslateTypeCode
 	private String health;//,health varchar(32) -- 健康
 	private String photo;	//头像
+	@TranslateTypeCode
 	private String recruitType;	//招聘类型
 	/*20160614*/
 	private Date beginWorkDate;//begin_work_date datetime;-- 参加工作时间
@@ -214,7 +215,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getNativePlace() {
 		return nativePlace;
 	}
-	@NotBlank@Size(max=100)
+	@Size(max=100)
 	public String getStudentOrigin() {
 		return studentOrigin;
 	}

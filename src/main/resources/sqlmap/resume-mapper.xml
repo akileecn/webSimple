@@ -11,14 +11,7 @@
 			and user_id=#{userId}
 			</if>
 			<if test="recruitType!=null">
-			<choose>
-				<when test="recruitType=='society'">
-				and recruit_type='society'
-				</when>
-				<otherwise>
-				and recruit_type in('campus','trainee')
-				</otherwise>
-			</choose>
+			and recruit_type=#{recruitType}
 			</if>
 		</where>
 	</sql>

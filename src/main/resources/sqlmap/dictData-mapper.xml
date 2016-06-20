@@ -6,6 +6,7 @@
 		<result column="type_code" property="typeCode" jdbcType="VARCHAR"/>
 		<result column="code" property="code" jdbcType="VARCHAR"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<sql id="baseSql">
@@ -14,6 +15,7 @@
 			,type_code
 			,code
 			,name
+			,remark
 		from zp_dict_data
 	</sql>
 	
@@ -30,5 +32,11 @@
 	<select id="getAllList" resultMap="dictDataResultMap" parameterType="list">
 		<include refid="baseSql"/>
 		order by type_code,orderby desc
+	</select>
+	
+	<select id="get" resultType="dictData" parameterType="dictData">
+		<include refid="baseSql"/>
+		where type_code=#{typeCode}
+			and code=#{code}
 	</select>
 </mapper>

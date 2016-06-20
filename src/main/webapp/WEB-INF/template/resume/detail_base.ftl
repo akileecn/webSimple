@@ -30,7 +30,9 @@
             <tr><@span label="籍贯" name="nativePlace" wide=true/></tr>
             <tr><@span label="户口所在地" name="registeredResidence" wide=true/></tr>
             <tr>
+            <#if recruitType!="society">
             	<@span label="生源地" name="studentOrigin"/>
+			</#if>
 				<@span label="婚姻状况" name="marriage" translate=true/>
 			</tr>
             <tr>
@@ -118,7 +120,9 @@
             <tr><@input label="籍贯" name="nativePlace" required=true wide=true/></tr>
             <tr><@input label="户口所在地" name="registeredResidence" required=true wide=true/></tr>
             <tr>
+            <#if recruitType!="society">
             	<@input label="生源地" name="studentOrigin" required=true/>
+			</#if>
 				<@select label="婚姻状况" name="marriage" required=true/>
 			</tr>
             <tr>
