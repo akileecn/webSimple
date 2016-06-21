@@ -48,3 +48,7 @@ set content=N'
 <p>多层次的培训体系 我行目前已逐步构建完成新员工培训体系、干部培训体系、后备人才培养体系、专业岗位人才培养体系等</p>
 '
 where code='about' and attr='4';
+
+-- 直接保存图片文件
+alter table zp_resume drop column photo;
+alter table zp_resume add photo image;

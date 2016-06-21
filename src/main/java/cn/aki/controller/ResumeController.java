@@ -3,17 +3,12 @@ package cn.aki.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -24,7 +19,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -52,12 +46,11 @@ import cn.aki.service.ResumeSubService;
  */
 @Controller
 @RequestMapping("/resume")
-public class ResumeController extends BaseController implements ServletContextAware{
+public class ResumeController extends BaseController{
 	@Autowired
 	private ResumeService resumeService;
 	@Autowired
 	private ResumeSubService resumeSubService;
-	private ServletContext servletContext;
 	
 	/**
 	 * 上传头像
@@ -70,7 +63,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 		if (itr.hasNext()) {
 			MultipartFile mpf = request.getFile(itr.next());
 			//上传校验
-			if(mpf.getSize()>200*1024){
+			if(mpf.getSize()>50*1024){
 				response.setMessage("上传文件必须小于50kb");
 				return response;
 			}
@@ -79,18 +72,18 @@ public class ResumeController extends BaseController implements ServletContextAw
 				return response;
 			}
 			//文件命名
-			String originalFileName=mpf.getOriginalFilename();
-			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM/dd/");
-			String parentName="/upload/"+sdf.format(new Date());
-			File parentDir=new File(servletContext.getRealPath(parentName));
-			if(!parentDir.exists()){
-				parentDir.mkdirs();
-			}
+//			String originalFileName=mpf.getOriginalFilename();
+//			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
+//			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM/dd/");
+//			String parentName="/upload/"+sdf.format(new Date());
+//			File parentDir=new File(servletContext.getRealPath(parentName));
+//			if(!parentDir.exists()){
+//				parentDir.mkdirs();
+//			}
 			try {
-				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
-				String webPath=parentName+newFileName;
-				resume.setPhoto(webPath);
+//				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
+//				String webPath=parentName+newFileName;
+				resume.setPhoto(mpf.getBytes());
 				resumeService.updatePhoto(resume);
 				response.setSuccess(true);
 				response.setMessage("上传成功");
@@ -105,16 +98,17 @@ public class ResumeController extends BaseController implements ServletContextAw
 	@RequestMapping(path="/phote/show")
 	public void getPhote(Resume resume,HttpServletResponse response){
 		resume=resumeService.getPhoto(resume);
-		File photo=null;
+//		File photo=null;
 		if(resume!=null&&resume.getPhoto()!=null){
-			photo=new File(servletContext.getRealPath(resume.getPhoto()));
-			if(photo.exists()){
-				FileInputStream is=null;
+//			photo=new File(servletContext.getRealPath(resume.getPhoto()));
+//			if(photo.exists()){
+				InputStream is=null;
 				try {
-					is = new FileInputStream(photo);
+//					is = new FileInputStream(photo);
+					is=new ByteArrayInputStream(resume.getPhoto());
 					FileCopyUtils.copy(is , response.getOutputStream());
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
@@ -125,7 +119,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 						}
 					}
 				}
-			}
+//			}
 		}
 	}
 	
@@ -291,9 +285,4 @@ public class ResumeController extends BaseController implements ServletContextAw
 		return response;
 	}
 	/* end从属信息 */
-
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext=servletContext;
-	}
-	
 }

@@ -23,6 +23,7 @@
 		}
 	});
 	
+	//其他联动
 	$("body").on("change",".selectWithOther input",function(){
 		var value=$(this).val();
 		var $select=$(this).siblings("select");
@@ -31,6 +32,39 @@
 			if($option.length>0){
 				$option.attr("selected",true);
 			}
+		}
+	});
+	
+	//省市区联动
+	$("body").on("change",".selectCity select",function(){
+		var $selectCity=$(this).parent(".selectCity");
+		var prov=$selectCity.find(".prov").val();
+		var city=$selectCity.find(".city").val();
+		var dist=$selectCity.find(".dist").val();
+		var value="";
+		if(prov){
+			value+=prov;
+			$selectCity.find(".more").show();
+		}
+		if(city){
+			value+=","+city;
+		}
+		if(dist){
+			value+=","+dist;
+		}else{
+			value+=",";
+		}
+		$selectCity.find("input[name]").val(value);
+	});
+	
+	//省市区更多联动
+	$("body").on("change",".selectCity .more",function(){
+		//重新赋值
+		$(this).siblings(".dist").change();
+		var $input=$(this).siblings("input[name]");
+		var value=$input.val();
+		if(value){
+			$input.val(value+","+$(this).val());
 		}
 	});
 </script>
@@ -108,7 +142,6 @@
 			}
 		});
 		
-		
 		$("body").on("click","#photoImg",function(){
 			$('#fileupload').click();
 		});
@@ -117,11 +150,32 @@
 	
 	//基本信息切换为编辑
 	function toEditBase(){
-		var data=$("#baseForm").getFormTextData();
-		$("#baseForm").html(T.base.input);
-		$("#baseForm").autofill(data);
+		var $form=$("#baseForm");
+		var data=$form.getFormTextData();
+		$form.html(T.base.input);
+		$form.autofill(data);
 		//初始化时间插件
-		$("#baseForm").find(".form_datetime").datetimepicker();
+		$form.find(".form_datetime").datetimepicker();
+		//初始化省市区联动
+		$form.find(".selectCity").each(function(){
+			var value=$(this).find("input[name]").val();
+			var parts=value.split(",");
+			var settings={url:"<@c.resource "cityselect/js/city.min.js"/>",nodata:"none"};
+			for(var i=0;i<parts.length;i++){
+				if(i==0){
+					settings.prov=parts[i];
+				}else if(i==1){
+					settings.city=parts[i];
+				}else if(i==2){
+					settings.dist=parts[i];
+				}else if(i==3){
+					var $more=$(this).find(".more");
+					$more.val(parts[i]);
+					$more.show();
+				}
+			}
+			$(this).citySelect(settings);
+		});
 	}
 	
 	//添加
@@ -153,8 +207,8 @@
 			//初始化时间插件
 			$form.find(".form_datetime").datetimepicker();
 			$form.attr("data-type","input");
-			//初始化SelectWithOther
-			initSelectWithOther();
+			//初始化奇怪的select
+			initSelect();
 		}else if(oldType=="input"){
 			var template=T[dataType]["text"];
 			//不是form无法取到数据
@@ -168,8 +222,8 @@
 			$form.attr("data-type","text");
 		}
 		
-		//初始化SelectWithOther
-		function initSelectWithOther(){
+		//初始化奇怪的select
+		function initSelect(){
 			$form.find(".selectWithOther input").each(function(){
 				var value=$(this).val();
 				var $select=$(this).siblings("select");

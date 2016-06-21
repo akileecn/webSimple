@@ -1362,6 +1362,9 @@ span.more:hover{
 	font-size:0.85em;
 	color:#F00;	
 }
+.selectCity .prov,.selectCity .city,.selectCity .dist{
+	width:90px;
+}
 /****404****/
 .error{
 	text-align:center;

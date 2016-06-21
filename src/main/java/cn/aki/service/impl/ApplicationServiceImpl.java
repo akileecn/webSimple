@@ -13,6 +13,7 @@ import cn.aki.entity.Application;
 import cn.aki.entity.Job;
 import cn.aki.entity.Resume;
 import cn.aki.service.ApplicationService;
+import cn.aki.utils.Constants;
 
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService{
@@ -67,10 +68,11 @@ public class ApplicationServiceImpl implements ApplicationService{
 		if(resume==null){
 			return "简历不存在";
 		}
-		if(resume.getIsSubmit()==false){
-			return "简历未提交";
-		}
+		//保存简历ID
 		application.setResumeId(resume.getId());
+		if(resume.getIsSubmit()==false){
+			return Constants.APPLY_ERROR_NOT_SUBMIT+","+resume.getId();
+		}
 		application.setStatus("1");
 		application.setCreateTime(new Date());
 		applicationMapper.save(application);

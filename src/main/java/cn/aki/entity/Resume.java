@@ -72,7 +72,9 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private String workCity;//,work_city varchar(32) -- 期望工作城市
 	@TranslateTypeCode
 	private String health;//,health varchar(32) -- 健康
-	private String photo;	//头像
+//	private String photo;	//头像
+	private byte[] photo;
+	
 	@TranslateTypeCode
 	private String recruitType;	//招聘类型
 	/*20160614*/
@@ -247,9 +249,6 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getHealth() {
 		return health;
 	}
-	public String getPhoto() {
-		return photo;
-	}
 	public String getRecruitType() {
 		return recruitType;
 	}
@@ -385,9 +384,6 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public void setHealth(String health) {
 		this.health = health;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 	public void setRecruitType(String recruitType) {
 		this.recruitType = recruitType;
 	}
@@ -408,6 +404,12 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	}
 	
 	
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 	public Boolean getIsSubmit() {
 		return isSubmit;
 	}

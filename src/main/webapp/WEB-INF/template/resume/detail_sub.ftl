@@ -106,7 +106,7 @@
 	<@select label="英语口语" name="speaking" dict="languageProficiency"/>
 	<@select label="熟练程度" name="proficiency" dict="languageProficiency"/>
 	</tr><tr>
-	<@select label="其他语言" name="others" dict="language" other=true/>
+	<@select label="其他语言" name="others" dict="language" type="other"/>
 </@subpage2>
 <#-- 计算机技能 -->
 <@subpage1 name="computer" title="计算机技能">

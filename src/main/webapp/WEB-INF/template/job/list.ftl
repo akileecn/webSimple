@@ -288,7 +288,17 @@
 			        content: T.complete
 			    });
 			}else{
-				alert(text.message);
+				if(text.message){
+					if(text.message.indexOf(",")>-1){
+						var parts=text.message.split(",");
+						if("notSubmit"==parts[0]){
+							alert("简历未提交");
+							window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+parts[1];
+						}
+					}else{
+						alert(text.message);
+					}
+				}
 			}
 		});	
 	

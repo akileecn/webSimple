@@ -22,6 +22,8 @@
 	<#-- bootstrap日期插件 -->
 	<link href="<@c.resource "bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
 	<script src="<@c.resource "bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"/>"></script>
+	<#-- 城市联动插件 -->
+	<script src="<@c.resource "cityselect/js/jquery.cityselect.js"/>"></script>
 	<#-- 日期国际化 -->
 	<script src="<@c.resource "bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"/>"></script>
 	<#-- 异步提交表单 -->

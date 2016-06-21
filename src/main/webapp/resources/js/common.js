@@ -73,10 +73,12 @@
 	}
 	
 	//设置时间插件的默认格式
-	$.fn.datetimepicker.defaults={
-		format:"yyyy-mm-dd"
-		,minView:"month"
-		,language:"zh-CN"
+	if($.fn.datetimepicker){
+		$.fn.datetimepicker.defaults={
+				format:"yyyy-mm-dd"
+					,minView:"month"
+						,language:"zh-CN"
+		}
 	}
 	
 	//获得表单数据

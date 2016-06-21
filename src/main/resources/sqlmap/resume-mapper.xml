@@ -58,7 +58,6 @@
 			,work_year as workYear
 			,work_city as workCity
 			,health
-			,photo
 			,recruit_type as recruitType
 			,begin_work_date as beginWorkDate
 			,begin_school_date as beginSchoolDate

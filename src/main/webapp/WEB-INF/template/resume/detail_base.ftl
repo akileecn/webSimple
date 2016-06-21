@@ -27,8 +27,10 @@
             	<@span label="体重(kg)" name="weight"/>
 			</tr>
             <tr><@span label="身份证号码" name="idNumber" wide=true/></tr>
-            <tr><@span label="籍贯" name="nativePlace" wide=true/></tr>
-            <tr><@span label="户口所在地" name="registeredResidence" wide=true/></tr>
+            <tr>
+				<@span label="籍贯" name="nativePlace"/>
+            	<@span label="户口所在地" name="registeredResidence"/>
+			</tr>
             <tr>
             <#if recruitType!="society">
             	<@span label="生源地" name="studentOrigin"/>
@@ -117,11 +119,13 @@
             	<@input label="体重(kg)" name="weight" required=true/>
 			</tr>
             <tr><@input label="身份证号码" name="idNumber" required=true wide=true/></tr>
-            <tr><@input label="籍贯" name="nativePlace" required=true wide=true/></tr>
-            <tr><@input label="户口所在地" name="registeredResidence" required=true wide=true/></tr>
+            <tr>
+				<@select label="籍贯" name="nativePlace" required=true type="city"/>
+            	<@select label="户口所在地" name="registeredResidence" required=true type="city"/>
+			</tr>
             <tr>
             <#if recruitType!="society">
-            	<@input label="生源地" name="studentOrigin" required=true/>
+            	<@select label="生源地" name="studentOrigin" required=true type="city"/>
 			</#if>
 				<@select label="婚姻状况" name="marriage" required=true/>
 			</tr>
@@ -177,8 +181,8 @@
             	<@select label="期望工作地点" name="workCity" required=true/>
             	<#--<@select label="健康状况" name="health" required=true/>-->
 			</tr>
-            <tr><@input label="现居住地址" name="currentResidence" required=true wide=true/></tr>
-            <tr><@input label="家庭住址" name="familyResidence" required=true wide=true/></tr>
+            <tr><@select label="现居住地址" name="currentResidence" required=true type="dist"/></tr>
+            <tr><@select label="家庭住址" name="familyResidence" required=true type="dist"/></tr>
             <tr><@textarea label="持证情况" name="certificate" required=true/></tr>
             <tr><@textarea label="爱好特长" name="hobby" required=true/></tr>
             <tr><@textarea label="性格特点" name="personality"/></tr>
