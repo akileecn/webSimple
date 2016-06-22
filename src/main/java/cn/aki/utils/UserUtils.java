@@ -23,16 +23,12 @@ import cn.aki.entity.User;
  * 2016年5月5日 上午11:36:16
  */
 public class UserUtils {
-	//shiro session中的属性
-	public static final String SHIRO_SESSION_KEY_USER="user";//用户对象
-	public static final String SHIRO_SESSION_KEY_RESUME_IDS="resumeIds";//简历ID
-	public static final String SHIRO_SESSION_KEY_CAPTCHA="captcha";//图片验证码
 	/**
 	 * 获得用户
 	 * @return
 	 */
 	public static User getUser(){
-		return (User)SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_USER);
+		return (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_USER);
 	}
 	/**
 	 * 获得用户ID
@@ -52,7 +48,7 @@ public class UserUtils {
 	 */
 	public static boolean hasResume(Integer resumeId){
 		@SuppressWarnings("unchecked")
-		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_RESUME_IDS);
+		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS);
 		if(ids!=null&&resumeId!=null){
 			for(Integer id:ids){
 				if(id.equals(resumeId)){
@@ -68,7 +64,7 @@ public class UserUtils {
 	 */
 	public static Integer getResumeId(){
 		@SuppressWarnings("unchecked")
-		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(SHIRO_SESSION_KEY_RESUME_IDS);
+		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS);
 		if(ids!=null&&ids.size()>0){
 			return ids.get(0);
 		}
@@ -88,7 +84,7 @@ public class UserUtils {
         wordFactory.setMaxLength(4);
         cs.setWordFactory(wordFactory);
         Captcha captcha=cs.getCaptcha();
-        SecurityUtils.getSubject().getSession().setAttribute(SHIRO_SESSION_KEY_CAPTCHA, captcha.getChallenge());
+        SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA, captcha.getChallenge());
         try {
 			ImageIO.write(captcha.getImage(), "png", response.getOutputStream());
 		} catch (IOException e) {
@@ -102,11 +98,11 @@ public class UserUtils {
 	 */
 	public static boolean isValidCaptcha(String captcha){
 		Session session=SecurityUtils.getSubject().getSession();
-		String validCaptcha=(String) session.getAttribute(SHIRO_SESSION_KEY_CAPTCHA);
+		String validCaptcha=(String) session.getAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA);
 		System.err.println(validCaptcha);
 		boolean isValid=(captcha!=null&&captcha.equals(validCaptcha));
 		//原验证码失效
-		session.removeAttribute(SHIRO_SESSION_KEY_CAPTCHA);
+		session.removeAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA);
 		return isValid;
 	}
 	
@@ -115,6 +111,7 @@ public class UserUtils {
 	 * @param user
 	 */
 	public static void refreshUser(User user){
-		SecurityUtils.getSubject().getSession().setAttribute(SHIRO_SESSION_KEY_USER,user);
+		SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_USER,user);
 	}
+
 }

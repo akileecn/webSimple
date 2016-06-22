@@ -11,7 +11,7 @@
 </script>
 </@bootstrap.head>
 <@bootstrap.body>
-<#include "/index/part/banner.ftl"/>
+<@c.banner images=["index-banner.jpg","campus-banner.jpg"]/>
 <div class="grid_1">
     <div class="container">
     <#include "/index/part/job_search.ftl"/>

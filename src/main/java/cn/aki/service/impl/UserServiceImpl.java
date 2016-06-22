@@ -12,6 +12,7 @@ import cn.aki.entity.Resume;
 import cn.aki.entity.User;
 import cn.aki.form.UserRegisterForm;
 import cn.aki.service.UserService;
+import cn.aki.utils.Constants;
 import cn.aki.utils.Md5Utils;
 
 @Service("userService")
@@ -28,10 +29,22 @@ public class UserServiceImpl implements UserService{
 		form.setCreateTime(new Date());
 		form.setModifyTime(new Date());
 		userMapper.save(form);
-		Resume resume=form.createResume();
+		/*创建社招简历*/
+		Resume societyResume=form.createResume();
 		//id由mybatis保存的赋值
-		resume.setUserId(form.getId());
-		resumeMapper.save(resume);
+		societyResume.setUserId(form.getId());
+		societyResume.setRecruitType(Constants.RECRUIT_TYPE_SOCIETY);
+		/*创建校招简历*/
+		Resume campusResume=form.createResume();
+		campusResume.setUserId(form.getId());
+		campusResume.setRecruitType(Constants.RECRUIT_TYPE_CAMPUS);
+		/*创建实习生简历*/
+		Resume traineeResume=form.createResume();
+		traineeResume.setUserId(form.getId());
+		traineeResume.setRecruitType(Constants.RECRUIT_TYPE_TRAINEE);
+		resumeMapper.save(societyResume);
+		resumeMapper.save(campusResume);
+		resumeMapper.save(traineeResume);
 	}
 
 	public boolean exists(User user) {

@@ -72,8 +72,20 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private String workCity;//,work_city varchar(32) -- 期望工作城市
 	@TranslateTypeCode
 	private String health;//,health varchar(32) -- 健康
-	private String photo;	//头像
+//	private String photo;	//头像
+	private byte[] photo;
+	
+	@TranslateTypeCode
 	private String recruitType;	//招聘类型
+	/*20160614*/
+	private Date beginWorkDate;//begin_work_date datetime;-- 参加工作时间
+	private Date beginSchoolDate;//begin_school_date datetime;-- 开始时间
+	private String school;//school nvarchar(100);-- 毕业院校
+	private String schoolType;//school_type nvarchar(32);-- 院校类别
+	private String major;//nvarchar(32);-- 专业
+	/*20160619*/
+	private Boolean isSubmit;//is_submit bit not null default 0; -- 是否提交
+	private Boolean isLocked;//is_lock bit not null default 0; -- 是否锁定
 	
 	/*关联*/
 	@TranslateTypeCode
@@ -90,6 +102,8 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private List<ResumeComputer> computerList;
 	@TranslateTypeCode
 	private List<ResumeForeignLanguage> foreignLanguageList;
+	private List<ResumePractice> practiceList;
+	private List<ResumeTrain> trainList;
 	
 	public Integer getUserId() {
 		return userId;
@@ -110,9 +124,11 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getNation() {
 		return nation;
 	}
+	@NotNull
 	public Integer getHeight() {
 		return height;
 	}
+	@NotNull
 	public Integer getWeight() {
 		return weight;
 	}
@@ -128,10 +144,11 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getMarriage() {
 		return marriage;
 	}
-	@Size(max=32)
+	@NotBlank@Size(max=32)
 	public String getPoliticsStatus() {
 		return politicsStatus;
 	}
+	@NotNull
 	public Date getJoinPartyDate() {
 		return joinPartyDate;
 	}
@@ -139,7 +156,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getMobile() {
 		return mobile;
 	}
-	@Size(max=50)
+	@NotBlank@Size(max=50)
 	public String getEmail() {
 		return email;
 	}
@@ -147,7 +164,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getHighestEducation() {
 		return highestEducation;
 	}
-	@Size(max=32)
+	@NotBlank@Size(max=32)
 	public String getHighestDegree() {
 		return highestDegree;
 	}
@@ -184,6 +201,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public Integer getChildrenCount() {
 		return childrenCount;
 	}
+	@NotNull
 	public Boolean getIsRelativeHere() {
 		return isRelativeHere;
 	}
@@ -191,7 +209,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getCurrentResidence() {
 		return currentResidence;
 	}
-	@Size(max=100)
+	@NotBlank@Size(max=100)
 	public String getFamilyResidence() {
 		return familyResidence;
 	}
@@ -207,37 +225,54 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getRegisteredResidence() {
 		return registeredResidence;
 	}
-	@Size(max=500)
+	@NotBlank@Size(max=500)
 	public String getCertificate() {
 		return certificate;
 	}
-	@NotBlank@Size(max=500)
+	@Size(max=500)@NotBlank
 	public String getHobby() {
 		return hobby;
 	}
-	@NotBlank@Size(max=500)
+	@Size(max=500)
 	public String getPersonality() {
 		return personality;
 	}
-	@NotBlank@Size(max=32)
+	@Size(max=32)
 	public String getWorkYear() {
 		return workYear;
 	}
-	@NotBlank@Size(max=32)
+	@Size(max=32)@NotBlank
 	public String getWorkCity() {
 		return workCity;
 	}
-	@NotBlank@Size(max=32)
+	@Size(max=32)
 	public String getHealth() {
 		return health;
-	}
-	public String getPhoto() {
-		return photo;
 	}
 	public String getRecruitType() {
 		return recruitType;
 	}
-
+	public Date getBeginWorkDate() {
+		return beginWorkDate;
+	}
+	@NotNull
+	public Date getBeginSchoolDate() {
+		return beginSchoolDate;
+	}
+	@Size(max=100)@NotBlank
+	public String getSchool() {
+		return school;
+	}
+	@Size(max=32)@NotBlank
+	public String getSchoolType() {
+		return schoolType;
+	}
+	@Size(max=32)@NotBlank
+	public String getMajor() {
+		return major;
+	}
+	
+	
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
@@ -349,11 +384,43 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public void setHealth(String health) {
 		this.health = health;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 	public void setRecruitType(String recruitType) {
 		this.recruitType = recruitType;
+	}
+	public void setBeginWorkDate(Date beginWorkDate) {
+		this.beginWorkDate = beginWorkDate;
+	}
+	public void setBeginSchoolDate(Date beginSchoolDate) {
+		this.beginSchoolDate = beginSchoolDate;
+	}
+	public void setSchool(String school) {
+		this.school = school;
+	}
+	public void setSchoolType(String schoolType) {
+		this.schoolType = schoolType;
+	}
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	
+	
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	public Boolean getIsSubmit() {
+		return isSubmit;
+	}
+	public void setIsSubmit(Boolean isSubmit) {
+		this.isSubmit = isSubmit;
+	}
+	public Boolean getIsLocked() {
+		return isLocked;
+	}
+	public void setIsLocked(Boolean isLocked) {
+		this.isLocked = isLocked;
 	}
 	public List<ResumeAward> getAwardList() {
 		return awardList;
@@ -396,6 +463,18 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	}
 	public void setForeignLanguageList(List<ResumeForeignLanguage> foreignLanguageList) {
 		this.foreignLanguageList = foreignLanguageList;
+	}
+	public List<ResumePractice> getPracticeList() {
+		return practiceList;
+	}
+	public void setPracticeList(List<ResumePractice> practiceList) {
+		this.practiceList = practiceList;
+	}
+	public List<ResumeTrain> getTrainList() {
+		return trainList;
+	}
+	public void setTrainList(List<ResumeTrain> trainList) {
+		this.trainList = trainList;
 	}
 	
 }

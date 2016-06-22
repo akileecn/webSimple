@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 
 import cn.aki.dao.ApplicationMapper;
 import cn.aki.dao.JobMapper;
-import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeMapper;
-import cn.aki.dao.ResumeWorkMapper;
 import cn.aki.entity.Application;
 import cn.aki.entity.Job;
 import cn.aki.entity.Resume;
 import cn.aki.service.ApplicationService;
+import cn.aki.utils.Constants;
 
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService{
@@ -24,10 +23,6 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private JobMapper jobMapper;
 	@Autowired
 	private ResumeMapper resumeMapper;
-	@Autowired
-	private ResumeWorkMapper resumeWorkMapper;
-	@Autowired
-	private ResumeEducationMapper resumeEducationMapper;
 	
 	public void delete(Application application) {
 		applicationMapper.delete(application);
@@ -50,10 +45,6 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 
 	public String apply(Application application) {
-		List<Application> oldList=applicationMapper.getList(application);
-		if(oldList!=null&&oldList.size()>0){
-			return "已申请岗位";
-		}
 		Job job=jobMapper.get(application.getJobId());
 		if(job==null){
 			return "岗位不存在";
@@ -62,28 +53,25 @@ public class ApplicationServiceImpl implements ApplicationService{
 		if(recruitType==null){
 			return "岗位招聘类型未知";
 		}
+		List<Application> oldList=applicationMapper.getList(application);
+		if(oldList!=null&&oldList.size()>0){
+			for(Application old:oldList){
+				if(old.getJob()!=null&&recruitType.equals(old.getJob().getrecruitType())){
+					return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
+				}
+			}
+		}
 		Resume resume=new Resume();
 		resume.setUserId(application.getUserId());
-		resume.setId(application.getResumeId());
-		resume=resumeMapper.get(resume);
+		resume.setRecruitType(recruitType);
+		resume=resumeMapper.getStatus(resume);
 		if(resume==null){
 			return "简历不存在";
 		}
-		if(!recruitType.equals(resume.getRecruitType())){
-			return "简历未提交";
-		}
-		if(resume.getPhoto()==null){
-			return "请上传照片";
-		}
-		Integer educationCount=resumeEducationMapper.getCount(application.getResumeId());
-		if(educationCount==0){
-			return "教育经历未提交";
-		}
-		if("society".equals(recruitType)){
-			Integer workCount=resumeWorkMapper.getCount(application.getResumeId());
-			if(workCount==0){
-				return "工作经历未提交";
-			}
+		//保存简历ID
+		application.setResumeId(resume.getId());
+		if(resume.getIsSubmit()==false){
+			return Constants.APPLY_ERROR_NOT_SUBMIT+","+resume.getId();
 		}
 		application.setStatus("1");
 		application.setCreateTime(new Date());

@@ -7,8 +7,8 @@
                 <li><a href="<@spring.url "/job/notice?recruitType="+job.recruitType/>">招聘公告</a></li>
                 </#if>
                 <li><a href="<@spring.url "/job/list?recruitType="+job.recruitType/>">招聘岗位</a></li>
-                <li><a href="<@spring.url "/resume/list"/>">个人中心</a></li>
-                <li><a href="<@spring.url "/notice/list"/>">通知信</a></li>
+                <li><a href="<@spring.url "/resume/list?recruitType="+job.recruitType/>">个人中心</a></li>
+                <li><a href="<@spring.url "/notice/list?recruitType="+job.recruitType/>">通知信</a></li>
             </ul>
         </div>
     </div>

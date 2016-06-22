@@ -3,16 +3,12 @@ package cn.aki.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -23,7 +19,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -33,7 +28,9 @@ import cn.aki.entity.ResumeComputer;
 import cn.aki.entity.ResumeEducation;
 import cn.aki.entity.ResumeFamily;
 import cn.aki.entity.ResumeForeignLanguage;
+import cn.aki.entity.ResumePractice;
 import cn.aki.entity.ResumeStudentCadre;
+import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.response.DataResponse;
@@ -41,7 +38,6 @@ import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
-import cn.aki.utils.UserUtils;
 
 /**
  * 简历
@@ -50,12 +46,11 @@ import cn.aki.utils.UserUtils;
  */
 @Controller
 @RequestMapping("/resume")
-public class ResumeController extends BaseController implements ServletContextAware{
+public class ResumeController extends BaseController{
 	@Autowired
 	private ResumeService resumeService;
 	@Autowired
 	private ResumeSubService resumeSubService;
-	private ServletContext servletContext;
 	
 	/**
 	 * 上传头像
@@ -68,8 +63,8 @@ public class ResumeController extends BaseController implements ServletContextAw
 		if (itr.hasNext()) {
 			MultipartFile mpf = request.getFile(itr.next());
 			//上传校验
-			if(mpf.getSize()>200*1024){
-				response.setMessage("上传文件必须小于200kb");
+			if(mpf.getSize()>50*1024){
+				response.setMessage("上传文件必须小于50kb");
 				return response;
 			}
 			if(!mpf.getContentType().startsWith("image/")){
@@ -77,18 +72,18 @@ public class ResumeController extends BaseController implements ServletContextAw
 				return response;
 			}
 			//文件命名
-			String originalFileName=mpf.getOriginalFilename();
-			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM/dd/");
-			String parentName="/upload/"+sdf.format(new Date());
-			File parentDir=new File(servletContext.getRealPath(parentName));
-			if(!parentDir.exists()){
-				parentDir.mkdirs();
-			}
+//			String originalFileName=mpf.getOriginalFilename();
+//			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
+//			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM/dd/");
+//			String parentName="/upload/"+sdf.format(new Date());
+//			File parentDir=new File(servletContext.getRealPath(parentName));
+//			if(!parentDir.exists()){
+//				parentDir.mkdirs();
+//			}
 			try {
-				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
-				String webPath=parentName+newFileName;
-				resume.setPhoto(webPath);
+//				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
+//				String webPath=parentName+newFileName;
+				resume.setPhoto(mpf.getBytes());
 				resumeService.updatePhoto(resume);
 				response.setSuccess(true);
 				response.setMessage("上传成功");
@@ -103,16 +98,17 @@ public class ResumeController extends BaseController implements ServletContextAw
 	@RequestMapping(path="/phote/show")
 	public void getPhote(Resume resume,HttpServletResponse response){
 		resume=resumeService.getPhoto(resume);
-		File photo=null;
+//		File photo=null;
 		if(resume!=null&&resume.getPhoto()!=null){
-			photo=new File(servletContext.getRealPath(resume.getPhoto()));
-			if(photo.exists()){
-				FileInputStream is=null;
+//			photo=new File(servletContext.getRealPath(resume.getPhoto()));
+//			if(photo.exists()){
+				InputStream is=null;
 				try {
-					is = new FileInputStream(photo);
+//					is = new FileInputStream(photo);
+					is=new ByteArrayInputStream(resume.getPhoto());
 					FileCopyUtils.copy(is , response.getOutputStream());
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
@@ -123,16 +119,15 @@ public class ResumeController extends BaseController implements ServletContextAw
 						}
 					}
 				}
-			}
+//			}
 		}
 	}
 	
 	@RequestMapping(path="/list",method=GET)
 	public String toList(Resume resume,Model model){
-		Integer id=UserUtils.getResumeId();
-		resume.setId(id);
-		resume=resumeService.get(resume, false);
+		List<Resume> list=resumeService.getList(resume);
 		model.addAttribute("resume", resume);
+		model.addAttribute("list", list);
 		return "resume/list";
 	}
 	
@@ -147,6 +142,7 @@ public class ResumeController extends BaseController implements ServletContextAw
 	@RequestMapping(path="/save/base",method=POST)
 	public FormResponse<Void> saveBase(@Valid Resume form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result);
+		resumeService.validate(form, response);
 		if(response.isSuccess()){
 			resumeService.update(form);
 		}
@@ -159,6 +155,16 @@ public class ResumeController extends BaseController implements ServletContextAw
 		DataResponse<Resume> response=new DataResponse<Resume>();
 		resume=resumeService.get(resume,true);
 		response.setData(resume);
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/submit",method=POST)
+	public SimpleResponse handleSubmit(Resume resume){
+		String message=resumeService.submit(resume);
+		SimpleResponse response=new SimpleResponse();
+		response.setMessage(message);
+		response.setSuccess(message==null);
 		return response;
 	}
 	
@@ -233,6 +239,26 @@ public class ResumeController extends BaseController implements ServletContextAw
 	public SimpleResponse deleteWork(ResumeWork bean,BindingResult result){
 		return deleteSub(bean);
 	}
+	@ResponseBody
+	@RequestMapping(path="/save/practice",method=POST)
+	public FormResponse<Integer> savePractice(@Valid ResumePractice form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/practice",method=POST)
+	public SimpleResponse deletePractice(ResumePractice bean,BindingResult result){
+		return deleteSub(bean);
+	}
+	@ResponseBody
+	@RequestMapping(path="/save/train",method=POST)
+	public FormResponse<Integer> saveTrain(@Valid ResumeTrain form,BindingResult result){
+		return saveSub(form,result);
+	}
+	@ResponseBody
+	@RequestMapping(path="/delete/train",method=POST)
+	public SimpleResponse deleteTrain(ResumeTrain bean,BindingResult result){
+		return deleteSub(bean);
+	}
 	/**
 	 * 公共修改方法
 	 * @param sub
@@ -259,9 +285,4 @@ public class ResumeController extends BaseController implements ServletContextAw
 		return response;
 	}
 	/* end从属信息 */
-
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext=servletContext;
-	}
-	
 }

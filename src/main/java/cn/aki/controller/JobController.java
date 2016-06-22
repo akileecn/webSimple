@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 
 import cn.aki.entity.Job;
+import cn.aki.entity.StaticPage;
 import cn.aki.form.JobQueryForm;
 import cn.aki.response.DataResponse;
 import cn.aki.response.PageResponse;
 import cn.aki.service.JobService;
+import cn.aki.service.StaticPageService;
+import cn.aki.utils.Constants;
 /**
  * 岗位
  * @author aki
@@ -25,6 +28,8 @@ import cn.aki.service.JobService;
 public class JobController {
 	@Autowired
 	private JobService jobService;
+	@Autowired
+	private StaticPageService staticPageService;
 	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
 	public String toList(JobQueryForm form,Model model){
@@ -64,7 +69,10 @@ public class JobController {
 	//公告
 	@RequestMapping(path="/notice",method=RequestMethod.GET)
 	public String toNotice(Job job,Model model){
-		model.addAttribute("job", job);
+		StaticPage staticPage=new StaticPage();
+		staticPage.setCode(Constants.STATIC_PAGE_CODE_RECRUIT_NOTICE);
+		staticPage=staticPageService.get(staticPage); 
+		model.addAttribute("staticPage", staticPage);
 		return "job/notice";
 	}
 	

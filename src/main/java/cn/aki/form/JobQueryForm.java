@@ -61,7 +61,6 @@ public class JobQueryForm extends BasePageForm{
 	}
 	public void setPublishDateType(String publishDateType) {
 		this.publishDateType = publishDateType;
-		//TODO 转化为publishDate
 	}
 	
 }

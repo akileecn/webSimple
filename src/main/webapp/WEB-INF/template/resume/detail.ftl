@@ -10,6 +10,63 @@
 <script type="text/javascript">
 	//全局模版保存对象
 	var T={};
+	//带其他项的select
+	$("body").on("change",".selectWithOther select",function(){
+		var value=$(this).find("option:selected").val();
+		var $input=$(this).siblings("input");
+		if(value=="other"){
+			$input.val("其他");
+			$input.show();
+		}else{
+			$input.val(value);
+			$input.hide();
+		}
+	});
+	
+	//其他联动
+	$("body").on("change",".selectWithOther input",function(){
+		var value=$(this).val();
+		var $select=$(this).siblings("select");
+		if(value){
+			var $option=$select.find("option[value='"+value+"']");
+			if($option.length>0){
+				$option.attr("selected",true);
+			}
+		}
+	});
+	
+	//省市区联动
+	$("body").on("change",".selectCity select",function(){
+		var $selectCity=$(this).parent(".selectCity");
+		var prov=$selectCity.find(".prov").val();
+		var city=$selectCity.find(".city").val();
+		var dist=$selectCity.find(".dist").val();
+		var value="";
+		if(prov){
+			value+=prov;
+			$selectCity.find(".more").show();
+		}
+		if(city){
+			value+=","+city;
+		}
+		if(dist){
+			value+=","+dist;
+		}else{
+			value+=",";
+		}
+		$selectCity.find("input[name]").val(value);
+	});
+	
+	//省市区更多联动
+	$("body").on("change",".selectCity .more",function(){
+		//重新赋值
+		$(this).siblings(".dist").change();
+		var $input=$(this).siblings("input[name]");
+		var value=$input.val();
+		if(value){
+			$input.val(value+","+$(this).val());
+		}
+	});
 </script>
 <div class="container">
 	<#include "/user/left.ftl"/>
@@ -17,6 +74,12 @@
 	<div class="col_cv_main">
 		<#include "/resume/detail_base.ftl"/>
 		<#include "/resume/detail_sub.ftl"/>
+		<div class="col_cv_tab" style="background:none;">
+		 	<form id="submitForm" action="<@spring.url "/resume/submit"/>" method="post" style="text-align: center;">
+                <input type="hidden" name="id" value="${id}"/>
+                <input type="submit" value="提交" class="submit"/>
+		    </form>
+	    </div>
     </div>
 	</@c.right>
 </div>
@@ -29,7 +92,7 @@
 				//基本信息
 				$("#baseForm").html($.template(T.base.text,resume));
 				//从属信息
-				var subs=["award","computer","education","family","foreignLanguage"<#if recruitType=="campus">,"studentCadre"</#if>,"work"];
+				var subs=["education","foreignLanguage","computer",<#if recruitType=="society">"work",<#else>"practice","studentCadre",</#if>"award","train","family"];
 				for(var i=0;i<subs.length;i++){
 					var dataType=subs[i];
 					var datas=resume[dataType+"List"];
@@ -43,39 +106,25 @@
 		});
 		</#if>
 
+		//提交
+		$("#submitForm").ajaxForm(function(text) {
+			if(text.success){
+				alert("提交成功");
+			}else if(text.message){
+				alert(text.message);
+			}
+		});
+
 		//保存基本信息
-		$("#baseForm").ajaxForm({
-			"beforeSubmit":function(datas){
-				<#-- 校招额外验证 -->
-				<#if recruitType=="campus">
-				$("#baseForm").clearError();
-				var hasError=false;
-				var error={};
-				var fields=["height","weight","highestDegree","ceeProvince","ceeScore","isFirstLine","artsOrScience","admissionOrder"];
-				for(var i=0;i<fields.length;i++){
-					var value=$("#baseForm :input[name='"+fields[i]+"']").val();
-					if(!value){
-						hasError=true;
-						error[fields[i]]="字段不能为空";
-					}
-				}
-				if(hasError){
-					alert("表单信息有误");
-					$("#baseForm").showError(error);
-					return false;
-				}
-				</#if>
-				return true;
-			},"success":function(text) {
-				if(text.success){
-					alert("保存成功");
-					var data=$("#baseForm").getFormData();
-					$("#baseForm").html($.template(T.base.text,data));
-					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
-				}else{
-					alert("表单信息有误");
-					$("#baseForm").showError(text.error);
-				}
+		$("#baseForm").ajaxForm(function(text) {
+			if(text.success){
+				alert("保存成功");
+				var data=$("#baseForm").getFormData();
+				$("#baseForm").html($.template(T.base.text,data));
+				$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
+			}else{
+				alert("表单信息有误");
+				$("#baseForm").showError(text.error);
 			}
 		});
 		
@@ -93,7 +142,6 @@
 			}
 		});
 		
-		
 		$("body").on("click","#photoImg",function(){
 			$('#fileupload').click();
 		});
@@ -102,16 +150,40 @@
 	
 	//基本信息切换为编辑
 	function toEditBase(){
-		var data=$("#baseForm").getFormTextData();
-		$("#baseForm").html(T.base.input);
-		$("#baseForm").autofill(data);
+		var $form=$("#baseForm");
+		var data=$form.getFormTextData();
+		$form.html(T.base.input);
+		$form.autofill(data);
 		//初始化时间插件
-		$("#baseForm").find(".form_datetime").datetimepicker();
+		$form.find(".form_datetime").datetimepicker();
+		//初始化省市区联动
+		$form.find(".selectCity").each(function(){
+			var value=$(this).find("input[name]").val();
+			var parts=value.split(",");
+			var settings={url:"<@c.resource "cityselect/js/city.min.js"/>",nodata:"none"};
+			for(var i=0;i<parts.length;i++){
+				if(i==0){
+					settings.prov=parts[i];
+				}else if(i==1){
+					settings.city=parts[i];
+				}else if(i==2){
+					settings.dist=parts[i];
+				}else if(i==3){
+					var $more=$(this).find(".more");
+					$more.val(parts[i]);
+					$more.show();
+				}
+			}
+			$(this).citySelect(settings);
+		});
 	}
 	
 	//添加
 	function addSub(dataType,templateType,data){
 		var $div=$("#"+dataType+"Div");
+		if(!T[dataType]){
+			alert(dataType);
+		}
 		var template=T[dataType][templateType];
 		if(templateType=="input"){
 			$div.append(template);
@@ -135,6 +207,8 @@
 			//初始化时间插件
 			$form.find(".form_datetime").datetimepicker();
 			$form.attr("data-type","input");
+			//初始化奇怪的select
+			initSelect();
 		}else if(oldType=="input"){
 			var template=T[dataType]["text"];
 			//不是form无法取到数据
@@ -146,6 +220,23 @@
 			$form.find(".form_datetime").datetimepicker("remove");
 			$form.html($.template(template,data));
 			$form.attr("data-type","text");
+		}
+		
+		//初始化奇怪的select
+		function initSelect(){
+			$form.find(".selectWithOther input").each(function(){
+				var value=$(this).val();
+				var $select=$(this).siblings("select");
+				if(value){
+					var $option=$select.find("option[value='"+value+"']");
+					if($option.length>0){
+						$select.val(value);
+					}else{
+						$select.val("other");
+						$(this).show();
+					}
+				}
+			});
 		}
 	}
 	
@@ -182,12 +273,14 @@
 	
 	//保存
 	function saveSub(dataType,self){
+		$(self).attr("disabled","disabled");
 		$form=$(self).parents("form");
 		$form.ajaxSubmit({
 			url:"<@spring.url "/resume/save/"/>"+dataType
 			,data:{"resumeId":"${id}"}
 			,type:"post"
 			,success:function(text){
+				$(self).removeAttr("disabled");
 				if(text.success){
 					switchSub(dataType,self,{id:text.data});
 				}else{

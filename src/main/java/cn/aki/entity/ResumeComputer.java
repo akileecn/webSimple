@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.entity.translate.TranslateTypeCode;
 /**
  * 计算机
  * @author Aki
@@ -15,12 +16,14 @@ import cn.aki.entity.base.ResumeSubEntity;
  */
 public class ResumeComputer extends ResumeSubEntity{
 	private static final long serialVersionUID = -674855584330825786L;
+	@TranslateTypeCode("computerCertificate")
 	private String certificate;//,certificate nvarchar(32)
 	private Date obtainDate;//,obtain_date datetime
+	@TranslateTypeCode("computerProficiency")
 	private String level;//,level nvarchar(32)
 	private String detail;//,detail nvarchar(500)
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getCertificate() {
 		return certificate;
 	}
@@ -28,7 +31,7 @@ public class ResumeComputer extends ResumeSubEntity{
 	public Date getObtainDate() {
 		return obtainDate;
 	}
-	@Size(max=32)
+	@Size(max=32)@NotBlank
 	public String getLevel() {
 		return level;
 	}

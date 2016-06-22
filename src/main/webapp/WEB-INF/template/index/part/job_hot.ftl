@@ -1,6 +1,6 @@
 <div class='col-xs-8 padding-r padding-t'>
     <div class="box_3">
-        <div class="box_4">
+        <div class="box_4" style="height:375px;">
             <h3>热招职位</h3>
             <a href="<@spring.url "/job/list"/>"><span class="more fr" >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a>
             <ul class="hotjob">

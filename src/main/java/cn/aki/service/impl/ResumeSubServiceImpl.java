@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.aki.dao.BaseResumeSubMapper;
 import cn.aki.dao.ResumeAwardMapper;
@@ -15,8 +16,12 @@ import cn.aki.dao.ResumeComputerMapper;
 import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeFamilyMapper;
 import cn.aki.dao.ResumeForeignLanguageMapper;
+import cn.aki.dao.ResumeMapper;
+import cn.aki.dao.ResumePracticeMapper;
 import cn.aki.dao.ResumeStudentCadreMapper;
+import cn.aki.dao.ResumeTrainMapper;
 import cn.aki.dao.ResumeWorkMapper;
+import cn.aki.entity.Resume;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.service.ResumeSubService;
 
@@ -43,15 +48,34 @@ public class ResumeSubServiceImpl implements ResumeSubService,InitializingBean{
 	@SuppressWarnings("unused")
 	@Autowired
 	private ResumeStudentCadreMapper studentCadreMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumePracticeMapper practiceMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumeTrainMapper trainMapper;
+	
+	@Autowired
+	private ResumeMapper resumeMapper;
 	
 	private HashMap<Class<? extends ResumeSubEntity>, BaseResumeSubMapper<? extends ResumeSubEntity>> mapperMap;
 
+	@Transactional
 	public <T extends ResumeSubEntity> void saveOrUpdate(T t) {
-		BaseResumeSubMapper<T> mapper=getMapper(t);
-		if(t.getId()!=null){
-			mapper.update(t);
-		}else{
-			mapper.save(t);
+		Resume resume=new Resume();
+		resume.setId(t.getResumeId());
+		resume=resumeMapper.getStatus(resume);
+		//简历未锁定
+		if(resume!=null&&resume.getIsLocked()==false){
+			BaseResumeSubMapper<T> mapper=getMapper(t);
+			if(t.getId()!=null){
+				mapper.update(t);
+			}else{
+				mapper.save(t);
+			}
+			//更新简历提交状态
+			resume.setIsSubmit(false);
+			resumeMapper.updateStatus(resume);
 		}
 	}
 	
@@ -63,8 +87,18 @@ public class ResumeSubServiceImpl implements ResumeSubService,InitializingBean{
 		return getMapper(t).getList(t.getResumeId());
 	}
 
+	@Transactional
 	public <T extends ResumeSubEntity> void delete(T t) {
-		getMapper(t).delete(t);
+		Resume resume=new Resume();
+		resume.setId(t.getResumeId());
+		resume=resumeMapper.getStatus(resume);
+		//简历未锁定
+		if(resume!=null&&resume.getIsLocked()==false){
+			getMapper(t).delete(t);
+			//更新简历提交状态
+			resume.setIsSubmit(false);
+			resumeMapper.updateStatus(resume);
+		}
 	}
 	
 	/**
@@ -94,5 +128,5 @@ public class ResumeSubServiceImpl implements ResumeSubService,InitializingBean{
 			}
 		}
 	}
-
+	
 }

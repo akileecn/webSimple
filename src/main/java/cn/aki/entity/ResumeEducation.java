@@ -35,28 +35,30 @@ public class ResumeEducation extends ResumeSubEntity{
 	private Boolean hasBeenCadre;	//,has_been_cadre tinyint -- 是否担任过学生干部
 	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
+	@TranslateTypeCode
+	private String schoolLocation;//school_location nvarchar(32); -- 学校位于城市或农村
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getSchoolName() {
 		return schoolName;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getMajor() {
 		return major;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getGraduateType() {
 		return graduateType;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getDegree() {
 		return degree;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getEducation() {
 		return education;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getLearnType() {
 		return learnType;
 	}
@@ -68,17 +70,22 @@ public class ResumeEducation extends ResumeSubEntity{
 	public Date getEndDate() {
 		return endDate;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getSchoolType() {
 		return schoolType;
 	}
 	public Boolean getHasBeenCadre() {
 		return hasBeenCadre;
 	}
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getGradeRank() {
 		return gradeRank;
 	}
+	@Size(max=32)@NotBlank
+	public String getSchoolLocation() {
+		return schoolLocation;
+	}
+	
 	
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
@@ -112,6 +119,9 @@ public class ResumeEducation extends ResumeSubEntity{
 	}
 	public void setGradeRank(String gradeRank) {
 		this.gradeRank = gradeRank;
+	}
+	public void setSchoolLocation(String schoolLocation) {
+		this.schoolLocation = schoolLocation;
 	}
 	
 }

@@ -48,7 +48,7 @@
     	<#-- 招聘类型 -->
     	<input type="hidden" name="recruitType" value="${job.recruitType}"/>
 		<@c.select label="工作地点" name="workCity" value=job.workCity selectAttr="class=\"col_search_add\""/>
-		<@c.select label="学历要求" name="education" value=job.education selectAttr="class=\"col_search_add\""/>
+		<@c.select label="学历要求" name="education" dict="searchEducation" value=job.education selectAttr="class=\"col_search_add\""/>
 		<br>
         <label>岗位名称关键字</label>
         <input name="name" type="text" value="${job.name}" class="col_search_text" placeholder="请输入关键字">
@@ -82,7 +82,7 @@
 	T.item='<@compress single_line=true>
 		<tr class="col_tab_t" data-id="%{id}" data-name="%{name}">
             <td width="30%"><a href="javascript:void(0)" class="_detail">%{name}</a></td>
-            <td><a href="javascript:void(0)" class="_detail"><img src="<@c.resource "images/add.png"/>" class="add _more" data-pid="1">%{t.workCity}</a></td>
+            <td><a href="javascript:void(0)" class="_detail"><img src="<@c.resource "images/add.png"/>" class="add _more" data-requirement="%{requirement}" data-description="%{description}">%{t.workCity}</a></td>
             <td>%{endDate}</td>
             <td>%{peopleNumber}</td>
             <td><a href="javascript:void(0)" class="col_tab_join _confirm">我要应聘</a></td>
@@ -92,16 +92,9 @@
 	T.more='<@compress single_line=true>
 		<div>
 			岗位职责:
-			<div style = "width: 400px;height:auto;">
-			    申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。
-			</div>
+			<div style = "width: 400px;height:auto;">%{requirement}</div>
 			招聘要求：
-			<div style="width: 400px;height:auto;">
-			1、2017届全日制本科及以上毕业生，专业不限。
-			2、 具有较强的学习能力和社会实践能力, 如学习成绩班级排名前30 % 、担任学生会干部、 参加各类社会实践活动。
-			3、 抗压力强， 具有优秀的团队合作精神、 沟通能力、 创新意识和强烈的责任感。
-			4、 申请者需确保有较为稳定和规律的实习时间： 暑期实习期间（ 2016 年7月— 2016 年8月） 要求每周至少保证4天实习， 周末及节假日正常放假。 
-			</div>
+			<div style="width: 400px;height:auto;">%{description}</div>
 		</div>
 	</@compress>';
 	//详情页
@@ -131,7 +124,7 @@
 						<@detailTr label="任职要求" name="requirement" wide=true/>
 					</tr>
 		            <tr>
-						<@detailTr label="招聘机构简介" name="description" wide=true/>
+						<@detailTr label="职责描述" name="description" wide=true/>
 		            <tr data-id="%{id}" data-name="%{name}">
 		                <td colspan="3">
 		                    <div class="pop_job_p"> <a class="pop_job_in _confirm"> 我要应聘 </a></div>
@@ -150,7 +143,7 @@
 	            <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	                <tr><td><div class="pop_job_p"><div class="pop_job_yix">
                         <div class="tt">意向岗位</div>
-                        <div class="cop">%{name}</div>
+                        <div class="cop"><a href="javascript:showDetail(\'%{id}\')">%{name}</a></div>
                         <div class="cen">您一季度只有一次申请机会，申请提交后无法修改</div>
                         <div class="btn">
                             <input name="" type="reset" value="取消" onclick="art.dialog.list[\'abc\'].close();">
@@ -183,8 +176,8 @@
 		    </div>
 		</div>
 	</@compress>';
-	
 	$(document).ready(function() {
+		$("#listForm").css({"position":"relative"});
 		//岗位查询
 		var listTrTemplate=$("#myTbody").html();//保存原有模版
 		$('#listForm').ajaxForm(function(text){
@@ -227,6 +220,8 @@
 		$("body").on("mouseenter","._more",function(){
 		    var top = this.offsetTop + 20;
 		    var left = this.offsetLeft + 50;
+		    var requirement=$(this).attr("data-requirement");
+			var	description=$(this).attr("data-description");
 		    $("#showjobb").css({
 		        opacity: 0.9,
 		        display: "block",
@@ -238,7 +233,7 @@
 		        top: top + "px",
 		        backgroundColor: "rgb(255, 255, 255)",
 		        fontSize: "12px"
-		    }).html(T.more);
+		    }).html($.template(T.more,{"requirement":requirement,"description":description}));
 		}).on("mouseleave","._more",function(){
 		    $("#showjobb").hide();
 		});
@@ -251,17 +246,6 @@
 				showDetail(id);
 			}
 		});
-		function showDetail(id){
-			$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
-				if(text.success){
-					art.dialog({
-				        lock: true,
-				        id: "abc",
-				        content: $.template(T.detail,text.data)
-				    });
-				}
-			});
-		}
 		
 		//确认
 		$("body").on("click","._confirm",function(){
@@ -279,18 +263,42 @@
 		
 	});	
 	
+	//显示详情
+	function showDetail(id){
+		$.post("<@spring.url "/job/detail"/>",{"id":id},function(text){
+			if(text.success){
+				if(typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+				art.dialog({
+			        lock: true,
+			        id: "abc",
+			        content: $.template(T.detail,text.data)
+			    });
+			}
+		});
+	}
+		
 	//正式申请
 	function apply(jobId){
 		$.post("<@spring.url "/application/apply"/>",{"jobId":jobId},function(text){
 			if(text.success){
-				if (typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+				if(typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
 			    art.dialog({
 			        id: 'abc',
 			        lock: true,
 			        content: T.complete
 			    });
 			}else{
-				alert(text.message);
+				if(text.message){
+					if(text.message.indexOf(",")>-1){
+						var parts=text.message.split(",");
+						if("notSubmit"==parts[0]){
+							alert("简历未提交");
+							window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+parts[1];
+						}
+					}else{
+						alert(text.message);
+					}
+				}
 			}
 		});	
 	

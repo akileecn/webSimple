@@ -21,25 +21,62 @@
 <#macro date label name required=false>
 <td>
     <label>${label}：</label>
-    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime"><#if required><span class="red">*</span></#if>
+    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime w185"><#if required><span class="red">*</span></#if>
     <div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>
 
 <#-- select标签 -->
-<#macro select label name dict=name required=false>
-<td>
-    <label>${label}：</label>
-    <select name="${name}" <#if long>class="w537"<#else>class="w185"</#if>>
-		<option value="">请选择</option>
-	<#if dictMap[dict]?exists >
-		<#list dictMap[dict]?keys as key>
-		<option value="${key}" <#if key==value>selected="selected"</#if>>${dictMap[dict][key]}</option>
-		</#list>
+<#macro select label name type dict=name required=false>
+	<#if type??>
+		<#if type=="other">
+	<td colspan="2" class="selectWithOther">
+	    <label>${label}：</label>
+	    <select <#if long>class="w537"<#else>class="w185"</#if>>
+			<option value="">请选择</option>
+			<#if dictMap[dict]?exists >
+				<#list dictMap[dict]?keys as key>
+			<option value="${key}">${dictMap[dict][key]}</option>
+				</#list>
+			</#if>
+		</select><#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>
+		<#elseif type=="city">
+	<td class="selectCity">
+	    <label>${label}：</label>
+	    <select class="prov"></select> 
+		<select class="city" disabled="disabled"></select><#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>	
+		<#elseif type=="dist">
+	<td colspan="2" class="selectCity">
+	    <label>${label}：</label>
+	    <select class="prov"></select> 
+		<select class="city" disabled="disabled"></select>
+		<select class="dist" disabled="disabled"></select>
+		<input type="text" class="more" placeholder="____街道____号" style="display:none;"/>
+		<#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>
+		</#if>
+	<#else>
+	<td>
+	    <label>${label}：</label>
+	    <select name="${name}" <#if long>class="w537"<#else>class="w185"</#if>>
+			<option value="">请选择</option>
+		<#if dictMap[dict]?exists >
+			<#list dictMap[dict]?keys as key>
+			<option value="${key}" <#if key==value>selected="selected"</#if>>${dictMap[dict][key]}</option>
+			</#list>
+		</#if>
+		</select><#if required><span class="red">*</span></#if>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>
 	</#if>
-	</select><#if required><span class="red">*</span></#if>
-    <div class="col_cv_alt" data-error="${name}"></div>
-</td>
 </#macro>
 
 <#-- radio标签 -->
@@ -48,6 +85,8 @@
     <label style="width:200px;">${label}：</label>
     <input type="radio" name="${name}" value="true">是
     <input type="radio" name="${name}" value="false">否
+    <#if required><span class="red">*</span></#if>
+	<div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>
 

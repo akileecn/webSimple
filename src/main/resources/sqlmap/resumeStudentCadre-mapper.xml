@@ -13,11 +13,8 @@
 			,resume_id as resumeId
 			,begin_date as beginDate
 			,end_date as endDate
-			,school
 			,name
 			,level
-			,certifier
-			,certifier_mobile as certifierMobile
 		from zp_resume_student_cadre
 	</sql>
 	
@@ -49,20 +46,11 @@
 			<if test="endDate!=null">
 			,end_date
 			</if>
-			<if test="school!=null">
-			,school
-			</if>
 			<if test="name!=null">
 			,name
 			</if>
 			<if test="level!=null">
 			,level
-			</if>
-			<if test="certifier!=null">
-			,certifier
-			</if>
-			<if test="certifierMobile!=null">
-			,certifier_mobile
 			</if>
 		</trim>
 		)values(
@@ -79,20 +67,11 @@
 			<if test="endDate!=null">
 			,#{endDate}
 			</if>
-			<if test="school!=null">
-			,#{school}
-			</if>
 			<if test="name!=null">
 			,#{name}
 			</if>
 			<if test="level!=null">
 			,#{level}
-			</if>
-			<if test="certifier!=null">
-			,#{certifier}
-			</if>
-			<if test="certifierMobile!=null">
-			,#{certifierMobile}
 			</if>
 		</trim>
 		)
@@ -105,11 +84,8 @@
 			resume_id=#{resumeId},
 			begin_date=#{beginDate},
 			end_date=#{endDate},
-			school=#{school},
 			name=#{name},
 			level=#{level},
-			certifier=#{certifier},
-			certifier_mobile=#{certifierMobile},
 		</set>
 		<include refid="whereSql"/>
 	</update>

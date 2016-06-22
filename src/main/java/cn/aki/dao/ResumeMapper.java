@@ -9,13 +9,6 @@ public interface ResumeMapper {
 	Resume get(Resume resume);
 	void update(Resume resume);
 	/**
-	 * 获得用户的简历ID,判断简历操作权限用
-	 * @param userId
-	 * @return
-	 * 
-	 */
-	List<Integer> getIdByUserId(Integer userId);
-	/**
 	 * 更新照片
 	 */
 	void updatePhoto(Resume resume);
@@ -23,4 +16,22 @@ public interface ResumeMapper {
 	 * 获得照片
 	 */
 	Resume getPhoto(Resume resume);
+	/**
+	 * 更新状态
+	 * @param resume
+	 */
+	void updateStatus(Resume resume);
+	/**
+	 * 获得状态
+	 * @param resume
+	 * @return
+	 */
+	Resume getStatus(Resume resume);
+	/**
+	 * 获得轻量级的简历集合
+	 * @param resume
+	 * @return
+	 */
+	List<Resume> getList(Resume resume);
+	
 }

@@ -4,9 +4,9 @@
 	<cache/>
 	<sql id="whereSql">
 		where id=${r'#'}{id}
-		<#--
+			<#--
 			and resume_id=${r'#'}{resumeId}
-		-->
+			-->
 	</sql>
 	
 	<sql id="selectSql">
@@ -64,7 +64,7 @@
 		<#list columns?keys as key>
 			<#if key!="id"&&key!="create_time">
 			<if test="${columns[key]}!=null">
-			,${key}=${r'#'}{${columns[key]}}
+			${key}=${r'#'}{${columns[key]}},
 			</if>
 			</#if>
 		</#list>

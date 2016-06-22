@@ -32,50 +32,42 @@ public class UserRegisterForm extends User{
 	}
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return super.getUsername();
 	}
 	@Override
 	@NotBlank()@Pattern(regexp="^(?![^a-zA-Z]+$)(?!\\D+$)[a-zA-Z\\d]{6,16}$",message="{v.password}")
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return super.getPassword();
 	}
 	@Override
 	@NotBlank()@Size(max=32)@IdNumber()@UserUnique(field="idNumber")
 	public String getIdNumber() {
-		// TODO Auto-generated method stub
 		return super.getIdNumber();
 	}
 	@Override
 	@NotBlank()@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")@UserUnique(field="mobile")
 	public String getMobile() {
-		// TODO Auto-generated method stub
 		return super.getMobile();
 	}
 	@Override
 	@NotBlank()@Size(max=50)@Email()@UserUnique(field="email")
 	public String getEmail() {
-		// TODO Auto-generated method stub
 		return super.getEmail();
 	}
 	@Override
 	@NotBlank()@Size(max=100)
 	public String getQuestion() {
-		// TODO Auto-generated method stub
 		return super.getQuestion();
 	}
 	@Override
 	@NotBlank()@Size(max=100)
 	public String getAnswer() {
-		// TODO Auto-generated method stub
 		return super.getAnswer();
 	}
 
 	@Override
 	@NotBlank()@Size(max=32)
 	public String getName() {
-		// TODO Auto-generated method stub
 		return super.getName();
 	}
 	

@@ -21,6 +21,7 @@
 			,school_type as schoolType
 			,has_been_cadre as hasBeenCadre
 			,grade_rank as gradeRank
+			,school_location as schoolLocation
 		from zp_resume_education
 	</sql>
 	
@@ -84,6 +85,9 @@
 			<if test="gradeRank!=null">
 			,grade_rank
 			</if>
+			<if test="schoolLocation!=null">
+			,school_location
+			</if>
 		</trim>
 		)values(
 		<trim prefix="" prefixOverrides=",">
@@ -126,6 +130,9 @@
 			<if test="gradeRank!=null">
 			,#{gradeRank}
 			</if>
+			<if test="schoolLocation!=null">
+			,#{schoolLocation}
+			</if>
 		</trim>
 		)
 	</insert>
@@ -146,6 +153,7 @@
 			school_type=#{schoolType},
 			has_been_cadre=#{hasBeenCadre},
 			grade_rank=#{gradeRank},
+			school_location=#{schoolLocation},
 		</set>
 		<include refid="whereSql"/>
 	</update>

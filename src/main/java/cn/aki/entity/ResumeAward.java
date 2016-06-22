@@ -23,7 +23,7 @@ public class ResumeAward extends ResumeSubEntity{
 	private String level;		//,level varchar(32) -- 级别
 	private String description;	//,description varchar(500) -- 奖励描述
 	
-	@Size(max=32)@NotBlank()
+	@Size(max=32)@NotBlank
 	public String getName() {
 		return name;
 	}
@@ -31,11 +31,11 @@ public class ResumeAward extends ResumeSubEntity{
 	public Date getTime() {
 		return time;
 	}
-	@Size(max=32)
+	@Size(max=32)@NotBlank
 	public String getLevel() {
 		return level;
 	}
-	@Size(max=500)
+	@Size(max=500)@NotBlank
 	public String getDescription() {
 		return description;
 	}

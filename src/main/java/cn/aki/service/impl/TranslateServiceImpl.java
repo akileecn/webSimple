@@ -20,6 +20,7 @@ import cn.aki.entity.DictData;
 import cn.aki.entity.translate.Translatable;
 import cn.aki.entity.translate.TranslateTypeCode;
 import cn.aki.service.TranslateService;
+import cn.aki.utils.Constants;
 
 @Service("translateService")
 public class TranslateServiceImpl implements TranslateService,ServletContextAware,InitializingBean{
@@ -52,14 +53,15 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 			for(DictData dict:list){
 				Map<String,String> map=dictMap.get(dict.getTypeCode());
 				if(map==null){
-					map=new HashMap<String, String>();
+					//有序
+					map=new LinkedHashMap<String, String>();
 					dictMap.put(dict.getTypeCode(), map);
 				}
 				map.put(dict.getCode(), dict.getName());
 			}
 		}
 		//保存到context中
-		servletContext.setAttribute(DictData.CONTEXT_ATTR_KEY, dictMap);
+		servletContext.setAttribute(Constants.CONTEXT_ATTR_KEY_DICT_MAP, dictMap);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -69,8 +71,7 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 		}
 		Map<String,String> translation=obj.getT();
 		if(translation==null){
-			//有序
-			translation=new LinkedHashMap<String, String>();
+			translation=new HashMap<String, String>();
 			obj.setT(translation);
 		}
 		Field[] fields=obj.getClass().getDeclaredFields();
@@ -90,6 +91,8 @@ public class TranslateServiceImpl implements TranslateService,ServletContextAwar
 							String translateName=getCodeName(typeCode, (String)value);
 							if(translateName!=null){
 								translation.put(fieldName,translateName);
+							}else{
+								translation.put(fieldName,(String)value);
 							}
 						}else if(value instanceof Boolean){
 							translation.put(fieldName,(Boolean)value?"是":"否");
