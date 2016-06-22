@@ -11,12 +11,16 @@
      .clone{
      	display:none;
      }
+     .bgc{
+     	backgroud-color:red;
+     }
   </style>
   </head>
   <body>
    <div data-role="page" id="pageone">
        <div data-role="header" data-position="fixed" data-theme="a">
           <h1>我的简历</h1>
+          <a href="#" data-icon="home" onclick="goHome($(this))"  data-iconpos="notext" data-direction="reverse">Home</a>
        </div>     
        <div data-role="content" style="margin-top:-10px" >
             <div id="Base" data-role="collapsible">
@@ -25,90 +29,92 @@
  	    	        <form id="baseForm" method="post">
                     <div data-role="fieldcontain">
                       <input type="hidden" name="id">
-                      <label for="name">姓名*：</label>
+                      <label for="name">姓名<font color="red">*</font>：</label>
                       		<input type="text" name="name" id="name">
-                      <label for="gender">性别*：</label>
+                      <label for="gender">性别<font color="red">*</font>:</label>
                       		<select name="gender" id="gender" data-native-menu="false">
 							</select>
-                      <label for="idNumber">身份证号码*：</label>
+                      <label for="idNumber">身份证号码<font color="red">*</font>:</label>
                       		<input type="text" name="idNumber" id="idNumber">
-                      <label for="birthday">出生日期*：</label>
+                      <label for="birthday">出生日期<font color="red">*</font>:</label>
                       		<input type="date" name="birthday" id="birthday">
-                      <label for="nation">民族*：</label>
-                      		<select name="nation" id="nation" data-native-menu="true">
+                      <label for="nation">民族<font color="red">*</font>:</label>
+                      		<select name="nation" id="nation" data-native-menu="false">
 							</select>
                       <label for="height">身高：</label>
                       		<input type="text" name="height" id="height">
                       <label for="weight">体重：</label>
                       		<input type="text" name="weight" id="weight">
-                      <label for="marriage">婚姻状况*：</label>
-                      		<select name="marriage" id="marriage" data-native-menu="true">
+                      <label for="marriage">婚姻状况<font color="red">*</font>:</label>
+                      		<select name="marriage" id="marriage" data-native-menu="false">
 							</select>
-                      <label for="nativePlace">籍贯*：</label>
+                      <label for="nativePlace">籍贯<font color="red">*</font>:</label>
                       		<input type="text" name="nativePlace" id="nativePlace">
-                      <label for="registeredResidence">户口所在地*：</label>
+                      <label for="registeredResidence">户口所在地<font color="red">*</font>:</label>
                       		<input type="text" name="registeredResidence" id="registeredResidence">
                       <label for="lname">政治面貌：</label>
-                      		<select name="politicsStatus" id="politicsStatus" data-native-menu="true">
+                      		<select name="politicsStatus" id="politicsStatus" data-native-menu="false">
 							</select>
-                      <label for="mobile">联系电话*：</label>
+                      <label for="mobile">联系电话<font color="red">*</font>:</label>
                       		<input type="text" name="mobile" id="mobile">
                       <label for="email">电子邮箱：</label>
                       		<input type="email" name="email" id="email">
-                      <label for="workYear">工作年限*：</label>
-                      		<select name="workYear" id="workYear" data-native-menu="true">
+                      <label for="workYear">工作年限<font color="red">*</font>:</label>
+                      		<select name="workYear" id="workYear" data-native-menu="false">
 							</select>
-                      <label for="workCity">期望工作地点*：</label>
-                      		<select name="workCity" id="workCity" data-native-menu="true">
+                      <label for="workCity">期望工作地点<font color="red">*</font>:</label>
+                      		<select name="workCity" id="workCity" data-native-menu="false">
 							</select>
-                      <label for="highestEducation">最高全日制学历*：</label>
-                      		<select name="highestEducation" id="education" data-native-menu="true">
+                      <label for="highestEducation">最高全日制学历<font color="red">*</font>:</label>
+                      		<select name="highestEducation" id="education" data-native-menu="false">
 							</select>
                       <label for="highestDegree">最高学位（校招必填）：</label>
-                      		<select name="highestDegree" id="degree" data-native-menu="true">
+                      		<select name="highestDegree" id="degree" data-native-menu="false">
 							</select>
-                      <label for="graduateDate">毕业时间*：</label>
+                      <label for="graduateDate">毕业时间<font color="red">*</font>:</label>
                       		<input type="text" name="graduateDate" id="graduateDate">
                       <label for="ceeProvince">高考省份：</label>
                       		<input type="text" name="ceeProvince" id="ceeProvince">
                       <label for="ceeScore">高考分数：</label>
                       		<input type="text" name="ceeScore" id="ceeScore">
                       <label for="isFirstLine">是否一本分数线以上（校园招聘必填）：</label>
-                      		<select name="isFirstLine" id="isFirstLine" data-role="slider">
+                      		<select name="isFirstLine" id="isFirstLine"  data-native-menu="false">
 							          <option value="1">是</option>
 							          <option value="0">否</option>
 							</select>
                       <label for="artsOrScience">文理科（校园招聘必填）：</label>
-                      		<select name="artsOrScience" id="artsOrScience" data-native-menu="true">
+                      		<select name="artsOrScience" id="artsOrScience" data-native-menu="false">
 							</select>
                       <label for="admissionOrder">录取批次（校园招聘必填）：</label>
-                      		<select name="admissionOrder" id="admissionOrder" data-native-menu="true">
+                      		<select name="admissionOrder" id="admissionOrder" data-native-menu="false">
 							</select>
-                      <label for="emergencyContact">紧急联系人*：</label>
+                      <label for="emergencyContact">紧急联系人<font color="red">*</font>:</label>
                       		<input type="text" name="emergencyContact" id="emergencyContact">
-                      <label for="emergencyMobile">紧急联系人电话*：</label>
+                      <label for="emergencyMobile">紧急联系人电话<font color="red">*</font>:</label>
                       		<input type="text" name="emergencyMobile" id="emergencyMobile">
                       <label for="childrenCount">子女（个）：</label>
                       		<input type="text" name="childrenCount" id="childrenCount">
-                      <label for="isEelativeHere">是否有亲友受雇与本公司：</label>
-                      		<select name="isEelativeHere" id="isEelativeHere" data-role="slider">
+                      <label for="isRelativeHere">是否有亲友受雇与本公司：</label>
+                      		<select name="isRelativeHere" id="isRelativeHere" data-native-menu="false">
 							          <option value="1">是</option>
 							          <option value="0">否</option>
 							</select>
-                      <label for="currentResidence">现居住地址*：</label>
+                      <label for="currentResidence">现居住地址<font color="red">*</font>:</label>
                       		<input type="text" name="currentResidence" id="currentResidence">
                       <label for="lname">家庭住址生源地持证情况：</label>
                       		<input type="text" name="familyResidence" id="familyResidence">
-                      <label for="health">健康状况*：</label>
-                      		<select name="health" id="health" data-native-menu="true">
+                      <label for="health">健康状况<font color="red">*</font>:</label>
+                      		<select name="health" id="health" data-native-menu="false">
 							</select>
-                      <label for="hobby">爱好特长*：</label>
+                      <label for="hobby">爱好特长<font color="red">*</font>:</label>
 	                      	<textarea name="hobby" id="hobby" placeholder="不超过300字"></textarea>
                       <label for="personality">性格特点：</label>
 	                      	<textarea name="personality" id="info" placeholder="不超过300字"></textarea>
                     </div> 
                     <div align="center">
-                    	<a data-role="button" href="#" onclick="save($(this))" url="wechatResume/updateResumeBase">保存</a>
+	                    <div align="center" class='bgc'>
+	                    	<a data-role="button" class='bgc'  href="#" onclick="save($(this))" url="wechatResume/updateResumeBase">保存</a>
+	                	</div>
                 	</div>  
                 </form>  
             	</fieldset> 
@@ -116,260 +122,60 @@
        
             <div id="Education" data-role="collapsible">
                 <h1>教育经历</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">                
-   	                <form method="post" >
-                    <div data-role="fieldcontain">
-                      <input type="hidden" name="resumeId">
-                      <input type="hidden" name="id">
-                      <label for="schoolName">学校名称：</label>
-                      		<input type="text" name="schoolName" id="schoolName">
-                      <label for="major">所学专业 ：</label>
-                      		<input type="text" name="major" id="major">
-                      <label for="graduateType">毕业方式：</label>
-                      		<select name="graduateType" id="graduateType" data-native-menu="true">
-							</select>
-                      <label for="degree">所得学位：</label>
-                      		<select name="degree" id="degree" data-native-menu="true">
-							</select>
-                      <label for="education">学历等级：</label>
-                      		<select name="education" id="education" data-native-menu="true">
-							</select>
-                      <label for="learnType">学习形式：</label>
-                      		<select name="learnType" id="learnType" data-native-menu="true">
-							</select>
-                      <label for="beginDate">开始时间：</label>
-                      		<input type="date" name="beginDate" id="beginDate">
-                      <label for="endDate">结束时间：</label>
-                      		<input type="date" name="endDate" id="endDate">
-                      <label for="schoolType">学校类别：</label>
-                      		<select name="schoolType" id="schoolType" data-native-menu="true">
-							</select>
-                      <label for="hasBeenCadre">是否担任过学生干部：</label>
-                      		<select name="hasBeenCadre" id="hasBeenCadre" data-role="slider">
-							          <option value="1">是</option>
-							          <option value="0">否</option>
-							</select>
-                      <label for="gradeRank">年级排名：</label>
-                      		<select name="gradeRank" id="gradeRank" data-native-menu="true">
-							</select>
-                    </div>
-	                <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    <a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))" url="wechatResume/saveEducation">保存</a>
-	                    <a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteEducation">删除</a>
-	                </div>
-                </form>  
-  				</fieldset> 
+                <div id="education_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'education')">添加</a>
       			</div> 
             </div>
             
             <div id="Work" data-role="collapsible">
                 <h1>工作实习经历（社会招聘必填）</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">                
- 	                <form method="post" >
-                    <div data-role="fieldcontain">
-                      <input type="hidden" name="resumeId">
-                      <input type="hidden" name="id">
-                      <label for="company">单位名称*：</label>
-                      		<input type="text" name="company" id="company">
-                      <label for="annualSalary">年薪 ：</label>
-                      		<input type="text" name="annualSalary" id="annualSalary">
-                      <label for="department">部门名称*：</label>
-                      		<input type="text" name="department" id="department">
-                      <label for="job">职位*：</label>
-                      		<input type="text" name="job" id="job">
-                      <label for="certifier">证明人*：</label>
-                      		<input type="text" name="certifier" id="certifier">
-                      <label for="certifierMobile">证明人电话*：</label>
-                      		<input type="text" name="certifierMobile" id="certifierMobile">
-                      <label for="workPlace">工作地点*：</label>
-                      		<input type="text" name="workPlace" id="workPlace">
-                      <label for="jobType">职位类型*：</label>
-                      		<select name="jobType" id="jobType" data-native-menu="true">
-							</select>
-                      <label for="beginDate">开始时间*：</label>
-                      		<input type="date" name="beginDate" id="beginDate">
-                      
-                      <label for="endDate">结束时间*：</label>
-                      		<input type="date" name="endDate" id="endDate">
-                      
-                      <label for="dimissionReason">离职原因：</label>
-	                      	<textarea name="dimissionReason" id="dimissionReason" placeholder="不超过300字"></textarea>
-                      
-                      <label for="duty">职责描述*：</label>
-	                      	<textarea name="duty" id="duty" placeholder="不超过300字"></textarea>
-                      
-                      <label for="performance">工作业绩*：</label>
-	                      	<textarea name="performance" id="performance" placeholder="不超过300字"></textarea>
-                    </div>
-	                <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    <a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))" url="wechatResume/saveWork">保存</a>
-	                    <a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteWork">删除</a>
-	                </div>
-                </form>  
-            	</fieldset> 
+                <div id="work_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'work')">添加</a>
       			</div> 
             </div>
             
             <div id="StudentCadre" data-role="collapsible">
                 <h1>学生干部情况（从初中开始）（仅限校园招聘）</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">                
-	                <form method="post">
-                        <input type="hidden" name="resumeId">
-	                    <input type="hidden" name="id">
-	                    <div data-role="fieldcontain">
-	                      <label for="beginDate">开始时间：</label>
-	                      		<input type="date" name="beginDate" id="beginDate">
-	                      <label for="endDate">结束时间：</label>
-	                      		<input type="date" name="endDate" id="endDate">
-	                      <label for="lname">所在院校：</label>
-	                      		<input type="text" name="school" id="school">
-	                      <label for="name">学生干部名称：</label>
-	                      		<input type="text" name="name" id="name">
-	                      <label for="level">学生干部级别：</label>
-	                      		<select name="level" id="level" data-native-menu="true">
-								</select>
-	                      <label for="certifier">证明人：</label>
-	                      		<input type="text" name="certifier" id="certifier">
-	                      <label for="certifierMobile">证明人联系方式：</label>
-	                      		<input type="text" name="certifierMobile" id="certifierMobile">
-	                    </div>
-	                    <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    	<a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))" url="wechatResume/saveStudentCadre">保存</a>
-	                    	<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteStudentCadre">删除</a>
-	                	</div>
-	                </form>  
-            	</fieldset> 
+                <div id="studentCadre_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'studentCadre')">添加</a>
       			</div> 
             </div>
             
             <div id="Award" data-role="collapsible">
                 <h1>奖励记录</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">
-	                <form method="post" >
-                        <input type="hidden" name="resumeId">
-	                    <input type="hidden" name="id"/>
-	                    <div data-role="fieldcontain">
-	                      <label for="name">奖励名称：</label>
-	                      		<input type="text" name="name" id="name">
-	                      <label for="time">获得时间：</label>
-	                      		<input type="date" name="time" id="time">
-	                      <label for="level">级别：</label>
-	                      		<select name="level" id="level" data-native-menu="true">
-								</select>
-	                      <label for="description">奖励描述：</label>
-		                      	<textarea name="description" id="description" placeholder="不超过300字"></textarea>
-	                    </div>
-	                    <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    	<a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))" url="wechatResume/saveAward">保存</a>
-	                    	<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteAward">删除</a>
-	                	</div>
-                	</form> 
-               </fieldset> 
+                <div id="award_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'award')">添加</a>
       			</div>   
             </div>
             
             <div id="ForeignLanguage" data-role="collapsible">
                 <h1>外语情况</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">
-	                <form method="post">
-                        <input type="hidden" name="resumeId">
-	                    <input type="hidden" name="id">
-	                    <div data-role="fieldcontain">
-	                      <label for="level">英语等级：</label>
-	                      		<select name="level" id="level" data-native-menu="true">
-								</select>
-	                      <label for="score">英语分数：</label>
-	                      		<input type="text" name="score" id="score">
-	                      <label for="speaking">英语口语：</label>
-	                      		<select name="speaking" id="speaking" data-native-menu="true">
-								</select>
-	                      <label for="others">其他语言：</label>
-	                      		<select name="others" id="others" data-native-menu="true">
-								</select>
-						  <label for="fname">熟练程度：</label>
-	                      		<select name="day" id="day" data-native-menu="true">
-								</select>
-	                    </div>
-	                    <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    	<a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))" url="wechatResume/saveForeignLanguage">保存</a>
-	                    	<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteForeignLanguage">删除</a>
-	                	</div>                     
-	                </form> 
-	            </fieldset> 
+                <div id="foreignLanguage_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'foreignLanguage')">添加</a>
       			</div>     
             </div>
             
             <div id="Computer" data-role="collapsible">
                 <h1>计算机情况</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">
-	                <form method="post">
-                        <input type="hidden" name="resumeId">
-	                    <input type="hidden" name="id">
-	                    <div data-role="fieldcontain">
-	                      <label for="certificate">证书名称：</label>
-	                      		<input type="text" name="certificate" id="certificate">
-	                      <label for="obtainDate">取得时间：</label>
-	                      		<input type="date" name="obtainDate" id="obtainDate">
-	                      <label for="level">掌握程度：</label>
-	                      		<input type="text" name="level" id="level">
-	                      <label for="detail">详细说明：</label>
-		                        <textarea name="detail" id="detail" placeholder="不超过300字"></textarea>
-	                    </div>
-	                    <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    	<a data-role="button" href="#" data-icon="check" style="margin-left:10px;"  onclick="save($(this))"   url="wechatResume/saveComputer">保存</a>
-	                    	<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteComputer">删除</a>
-	                	</div> 
-	                </form>
-	            </fieldset> 
+                <div id="computer_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'computer')">添加</a>
       			</div>    
             </div>
             
             <div id="Family" data-role="collapsible">
                 <h1>家庭成员</h1>
-                <fieldset class="clone" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;">
-	                <form method="post" >
-	                    <div data-role="fieldcontain">
-                          <input type="hidden" name="resumeId">
-	                      <input type="hidden" name="id">
-	                      <label for="name">姓名：</label>
-	                      		<input type="text" name="name" id="name">
-	                      <label for="relationship">关系：</label>
-                      			<select name="relationship" id="relationship" data-native-menu="true">
-								</select>
-	                      <label for="workCompany">工作单位：</label>
-	                      		<input type="text" name="workCompany" id="workCompany">
-	                      <label for="workJob">职位：</label>
-	                      		<input type="text" name="workJob" id="workJob">
-	                      <label for="description">说明：</label>
-	                      		<textarea name="description" id="description" placeholder="不超过300字"></textarea>
-	                    </div>
-	                    <div data-role="controlgroup" data-type="horizontal" align="center">
-	                    	<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveFamily">保存</a>
-	                    	<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;"  onclick="dele($(this))" url="wechatResume/deleteFamily">删除</a>
-	                	</div>
-	                </form>
-	            </fieldset>
+                <div id="family_forms">
+                </div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this))">添加</a>
+      				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'family')">添加</a>
       			</div>
             </div>
-       <!-- 
-           <div align="center">
-              <a data-role="button" href="#">提交</a>
-           </div>
-         -->   
        </div>
        <div data-role="footer" data-position="fixed">
        </div>
@@ -378,6 +184,7 @@
 </html>
 <script>
 var _dicts ;
+var resumeId = 1;
 $(document).ready(function() {
 
 	LoadBase();
@@ -395,42 +202,42 @@ $(document).ready(function() {
 				var _data = text.data.resume;   //简历信息
 				_dicts = text.data.dicts;   //所有字典
 				console.log(_dicts);
-				//初始化基本信息
+				    //初始化基本信息
 					setData($("#baseForm"),_data);
 				    //教育 
 				    //educationList
-				    if(_data.educationList.length>0){
-				    	setListData($("#Education"),_data.educationList);
+				    if(_data.educationList && _data.educationList.length>0){
+				    	setListData($("#Education"),_data.educationList,"education");
 				    }
 				    //工作 Work
 				    //workList
-				    if(_data.workList.length>0){
-				    	setListData($("#Work"),_data.workList);
+				    if(_data.workList && _data.workList.length>0){
+				    	setListData($("#Work"),_data.workList,'work');
 				    }
 				    //学生干部 StudentCadre
 				    //studentCadreList
-				    if(_data.studentCadreList.length>0){
-				    	setListData($("#StudentCadre"),_data.studentCadreList);
+				    if(_data.studentCadreList && _data.studentCadreList.length>0){
+				    	setListData($("#StudentCadre"),_data.studentCadreList,'studentCadre');
 				    }
 				    //奖励 Award
 				    //awardList
-				    if(_data.awardList.length>0){
-				    	setListData($("#Award"),_data.awardList);
+				    if(_data.awardList && _data.awardList.length>0){
+				    	setListData($("#Award"),_data.awardList,'award');
 				    }
 				    //外语 ForeignLanguage
 				    //foreignLanguageList
-				    if(_data.foreignLanguageList.length>0){
-				    	setListData($("#ForeignLanguage"),_data.foreignLanguageList);
+				    if(_data.foreignLanguageList && _data.foreignLanguageList.length>0){
+				    	setListData($("#ForeignLanguage"),_data.foreignLanguageList,'foreignLanguage');
 				    }
 				    //计算机 Computer
 				    //computerList
-				    if(_data.computerList.length>0){
-				    	setListData($("#Computer"),_data.computerList);
+				    if(_data.computerList && _data.computerList.length>0){
+				    	setListData($("#Computer"),_data.computerList,"computer");
 				    }
 				    //家庭成员 Family
 				    //familyList
-				    if(_data.familyList.length>0){
-				    	setListData($("#Family"),_data.familyList);
+				    if(_data.familyList && _data.familyList.length>0){
+				    	setListData($("#Family"),_data.familyList,"family");
 				    }
 				}
 			}
@@ -442,27 +249,26 @@ $(document).ready(function() {
      */
    function setData($From,Data){
 	   //初始化下拉选框
-	   console.log($From.find("select").length+"+++++++++++++++++++++++++++++++++++");
 	   $From.find("select").each(function(){
 		   var _id = $(this).attr("id");
 		   var _name = $(this).attr("id");
-		   if(_name){
-			   console.log("select ---------------> " + _id+"  ---------->  " +$(this).index());
-			   InitSelect($("#"+_id),_dicts[_name],null);
+		   if(_name && _dicts[_name]){
+			   InitSelect($(this),_dicts[_id],null);
 		   }
-		   
 	   });
 	   //加载数据
 	   $From.find(":input").each(function(){
 		   var _name = $(this).attr("name") ;	  
 		   if(_name){
-			   //console.log(_name+"------------"+Data[_name])
 			   $(this).val(Data[_name]);
 			   if($(this).is("select")){
-				   $(this).find("option[value='"+Data[_name]+"']").attr("checked",true);
+				   //下拉选项内容有变动需要重新加载
+				   $(this).selectmenu(); 
+				   $(this).selectmenu('refresh');
 			   }
 		    };
 	   });
+
    }
    
    /**
@@ -473,14 +279,14 @@ $(document).ready(function() {
     	_s.empty();//清空下拉框 
     	$("<option value=''>请选择</option>").appendTo(_s);
     	for(var key in Data){
-    		if(Value == Data[key]){
-    			$("<option value='"+ key +"' checked>"+ Data[key] +"</option>").appendTo(_s);
-    		}else{
-    			$("<option value='"+ key +"'>"+ Data[key] +"</option>").appendTo(_s);
-    		}
-    		
+    		$("<option value='"+ key +"'>"+ Data[key] +"</option>").appendTo(_s);
     	}
-    	_s.attr("value",Value);//当前选中项 
+    	if(Value && Value!=''){
+    		_s.attr("value",Value);//当前选中项 
+    	}
+    	//下拉选项内容有变动需要重新加载
+		  _s.selectmenu(); 
+		  _s.selectmenu('refresh');
     } 
    
    
@@ -492,23 +298,35 @@ $(document).ready(function() {
    
    
    function save(_this){
-	   var form = _this.parent().parent();
-	   $.ajax({
-		   url:baseUrl+_this.attr("url"),
-		   data:form.serialize(),
-		   type:"post",
-		   success:function(text){
-			   console.log(text);
-			   if(text.success){
-				   alert("保存成功");
-				   LoadBase();
-				   //form.find("input[name='id']").val(text.data);
-			   }else{
-				   alert("保存失败");
-			   }
-			   
+	   var form ;
+	   var fieldset = _this.parent();;
+	   for(var i=0;i<10;i++){
+		   if(fieldset.is("fieldset")){
+			   alert("OK");
+			   form = fieldset.find("form");
+			   break;
+		   }else{
+			   fieldset = fieldset.parent(); 
 		   }
-	   });
+	   }
+	   if(form.is("form")){
+		   $.ajax({
+			   url:baseUrl+_this.attr("url"),
+			   data:form.serialize(),
+			   type:"post",
+			   success:function(text){
+				   console.log(text);
+				   if(text.success){
+					   alert("保存成功");
+					   form.find("input[name='id']").val(text.data);
+				   }else{
+					   alert("保存失败");
+				   }
+			   }
+		   });
+	   }else{
+		   alert("保存异常");
+	   }
 	   
    }
    /***
@@ -518,32 +336,42 @@ $(document).ready(function() {
    */
    function dele(_this){
 	  if(confirm("确认删除？")){ 
-		   var form = _this.parent().parent().parent();
-		   var id   = form.find("input[name='id']").val();
-		  // console.log(form.html());
-		   console.log("del.............       ."+id);
-		   //删除数据
-		   if(id>-1){
-			   console.log("del11111111       ."+id);
-			   $.ajax({
-				   url:baseUrl+_this.attr("url"),
-				   data:form.serialize(),
-				   type:"post",
-				   success:function(text){
-					  // console.log(text);
-					   if(text.success){
-						   //删除页面元素
-						   form.parent().parent().remove();
-						   alert("删除成功");
-					   }else{
-						   alert("删除失败");
+		   var fieldset = _this.parent();;
+		   for(var i=0;i<10;i++){
+			   if(fieldset.is("fieldset")){
+				   alert("OK");
+				   break;
+			   }else{
+				   fieldset = fieldset.parent(); 
+			   }
+		   }
+		   if(fieldset.is("fieldset")){
+			   var form = fieldset.find("form");
+			   var id   = form.find("input[name='id']").val();
+			   console.log("del.............       ."+id);
+			   //删除数据
+			   if(id>-1){
+				   console.log("del11111111       ."+id);
+				   $.ajax({
+					   url:baseUrl+_this.attr("url"),
+					   data:form.serialize(),
+					   type:"post",
+					   success:function(text){
+						   if(text.success){
+							   //删除页面元素
+							   fieldset.remove();
+							   //alert("删除成功");
+						   }else{
+							   alert("删除失败");
+						   }
 					   }
-				   }
-			   });
+				   });
+			   }else{
+				   //删除页面元素
+				   fieldset.remove();
+			   }
 		   }else{
-			   console.log("del22222222222");
-			   //删除页面元素
-			   form.parent().parent().parent().remove();
+			   alert("删除异常");
 		   }
 	  }
    }
@@ -553,34 +381,244 @@ $(document).ready(function() {
 	   * 新增
 	   *
 	   */
-	  function add(_this){
-	   //获取最后filedset
-	   var pare = _this.parent().parent().siblings("fieldset:last");
-	   //拿到form
-	   var form = pare.find("form");
-	   		form.find("select").each(function(){
+	  function add(_this,formName){
+   		var $F = $(H[formName]);
+   		$F.find("select").each(function(){
 			   var _id = $(this).attr("id");
 			   var _name = $(this).attr("id");
-			   if(_name){
-				   console.log("select ---------------> " + _id+"  ---------->  " +$(this).index());
-				   InitSelect($("#"+_id),_dicts[_name],null);
+			   if(_name && _dicts[_name]){
+				   InitSelect($(this),_dicts[_name],null);
 			   }
 		   });
-	       pare.clone(true).removeClass("clone").insertAfter(pare);
-	  }
-   
+
+   		alert($F.html())
+   		$F.appendTo($("#"+formName+"_forms"));
+   	  } 
+  
    /****
      *
      *   初始化简历附属信息（多条）
      *
      */
-   function setListData($obj,list){
-	   	for(var i=0 ;i<list.length;i++){
-	    	var lastEl = $obj.find("fieldset:last");
-			var filedset = lastEl.clone(true);
-	    	setData(filedset.find("form"),list[i]);
-	    	filedset.removeClass("clone").insertAfter(lastEl);
+   function setListData($obj,list,formName){
+	   for(var i=0 ;i<list.length;i++){
+		   var $F = $(H[formName]);
+			setData($F.find("form"),list[i]);
+			$F.appendTo($("#"+formName+"_forms"));
+	    	
 		}
    }
    
+   
+   
+/*   --------简历附属信息模板---------  */
+ var H = {};
+ //家庭信息表单
+ H.family = '<fieldset class="ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+
+ 				'<form method="post">'+
+ 				  '<div data-role="fieldcontain" class="ui-field-contain">'+
+ 				  '<input type="hidden" name="resumeId">'+
+ 				  '<input type="hidden" name="id">'+
+ 				  '<label for="name">姓名：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+
+ 				  '<label for="relationship">关系：</label>'+
+ 							'<div class="ui-select"><select name="relationship" id="relationship" data-native-menu="true" tabindex="-1"></select><div style="display: none;" id="relationship-listbox-placeholder"></div></div>'+
+ 				  '<label for="workCompany">工作单位：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="workCompany" id="workCompany"></div>'+
+ 				  '<label for="workJob">职位：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="workJob" id="workJob"></div>'+
+ 				  '<label for="description">说明：</label>'+
+ 				  		'<textarea name="description" id="description" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
+ 				'</div>'+
+ 				'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
+ 					'<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveFamily" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
+ 					'<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteFamily" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+
+ 				'</div></div>'+
+ 				'</form>'+
+ 				'</div></fieldset>';
+
+
+ H.computer = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+
+ 	                '<form method="post">'+
+                         '<input type="hidden" name="resumeId">'+
+ 	                    '<input type="hidden" name="id">'+
+ 	                    '<div data-role="fieldcontain" class="ui-field-contain">'+
+ 	                      '<label for="certificate">证书名称：</label>'+
+ 	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certificate" id="certificate"></div>'+
+ 	                      '<label for="obtainDate">取得时间：</label>'+
+ 	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="obtainDate" id="obtainDate"></div>'+
+ 	                      '<label for="level">掌握程度：</label>'+
+ 	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="level" id="level"></div>'+
+ 	                      '<label for="detail">详细说明：</label>'+
+ 		                        '<textarea name="detail" id="detail" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
+ 	                    '</div>'+
+ 	                    '<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
+ 	                    	'<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveComputer" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
+ 	                    	'<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteComputer" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+
+ 	                	'</div></div>'+ 
+ 	                '</form>'+
+ 	            '</div></fieldset>';
+
+
+ H.foreignLanguage = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+
+ 					    '<form method="post">'+
+ 					'<input type="hidden" name="resumeId">'+
+ 					'<input type="hidden" name="id">'+
+ 					'<div data-role="fieldcontain" class="ui-field-contain">'+
+ 					  '<label for="level">英语等级：</label>'+
+ 					  		'<div class="ui-select"><select name="level" id="languageLevel" data-native-menu="true" tabindex="-1">'+
+ 							'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
+ 					  '<label for="score">英语分数：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="score" id="score"></div>'+
+ 					  '<label for="speaking">英语口语：</label>'+
+ 					  		'<div class="ui-select"><select name="speaking" id="languageProficiency" data-native-menu="true" tabindex="-1">'+
+ 							'</select><div style="display: none;" id="speaking-listbox-placeholder"><!-- placeholder for speaking-listbox --></div></div>'+
+ 					  '<label for="others">其他语言：</label>'+
+ 					  		'<div class="ui-select"><select name="others" id="language" data-native-menu="true" tabindex="-1">'+
+ 							'</select><div style="display: none;" id="others-listbox-placeholder"><!-- placeholder for others-listbox --></div></div>'+
+ 					'</div>'+
+ 					'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
+ 						'<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveForeignLanguage" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
+ 						'<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteForeignLanguage" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+
+ 					'</div></div>'+                     
+ 					'</form>'+ 
+ 					'</div></fieldset>';
+
+
+ H.award = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+ 
+ 			    '<form method="post">'+ 
+ 			'<input type="hidden" name="resumeId">'+ 
+ 			'<input type="hidden" name="id">'+ 
+ 			'<div data-role="fieldcontain" class="ui-field-contain">'+ 
+ 			  '<label for="name">奖励名称：</label>'+ 
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+ 
+ 			  '<label for="time">获得时间：</label>'+ 
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="time" id="time"></div>'+ 
+ 			  '<label for="level">级别：</label>'+ 
+ 			  		'<div class="ui-select"><select name="level" id="awardLevel" data-native-menu="true" tabindex="-1">'+ 
+ 					'</select><div style="display: none;" id="level-listbox-placeholder"><!-- placeholder for level-listbox --></div></div>'+ 
+ 			  '<label for="description">奖励描述：</label>'+ 
+ 			      	'<textarea name="description" id="description" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+ 
+ 			'</div>'+ 
+ 			'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+ 
+ 				'<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveAward" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+ 
+ 				'<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteAward" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+ 
+ 			'</div></div>'+ 
+ 			'</form>'+ 
+ 			'</div></fieldset>';
+
+ H.studentCadre = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+                
+ 					    '<form method="post">'+
+ 					'<input type="hidden" name="resumeId">'+
+ 					'<input type="hidden" name="id">'+
+ 					'<div data-role="fieldcontain" class="ui-field-contain">'+
+ 					  '<label for="beginDate">开始时间：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+
+ 					  '<label for="endDate">结束时间：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+
+ 					  '<label for="lname">所在院校：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="school" id="school"></div>'+
+ 					  '<label for="name">学生干部名称：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+
+ 					  '<label for="level">学生干部级别：</label>'+
+ 					  		'<div class="ui-select"><select name="level" id="level" data-native-menu="true" tabindex="-1">'+
+ 							'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
+ 					  '<label for="certifier">证明人：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certifier" id="certifier"></div>'+
+ 					  '<label for="certifierMobile">证明人联系方式：</label>'+
+ 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certifierMobile" id="certifierMobile"></div>'+
+ 					'</div>'+
+ 					'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
+ 						'<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveStudentCadre" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
+ 						'<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteStudentCadre" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+
+ 					'</div></div>'+
+ 					'</form>'+  
+ 					'</div></fieldset>';
+
+ H.work = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+                
+ 			     '<form method="post">'+  
+ 			'<div data-role="fieldcontain" class="ui-field-contain">'+  
+ 			  '<input type="hidden" name="resumeId">'+  
+ 			  '<input type="hidden" name="id">'+  
+ 			  '<label for="company">单位名称<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="company" id="company"></div>'+  
+ 			  '<label for="annualSalary">年薪 ：</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="annualSalary" id="annualSalary"></div>'+  
+ 			  '<label for="department">部门名称<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="department" id="department"></div>'+  
+ 			  '<label for="job">职位<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="job" id="job"></div>'+  
+ 			  '<label for="certifier">证明人<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certifier" id="certifier"></div>'+  
+ 			  '<label for="certifierMobile">证明人电话<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certifierMobile" id="certifierMobile"></div>'+  
+ 			  '<label for="workPlace">工作地点<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="workPlace" id="workPlace"></div>'+  
+ 			  '<label for="jobType">职位类型<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-select"><select name="jobType" id="jobType" data-native-menu="true" tabindex="-1">'+  
+ 					'</select><div style="display: none;" id="jobType-listbox-placeholder"><!-- placeholder for jobType-listbox --></div></div>'+  
+ 			  '<label for="beginDate">开始时间<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+  
+ 			  '<label for="endDate">结束时间<font color="red">*</font>:</label>'+  
+ 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+  
+ 			  '<label for="dimissionReason">离职原因：</label>'+  
+ 			      	'<textarea name="dimissionReason" id="dimissionReason" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+  
+ 			  '<label for="duty">职责描述<font color="red">*</font>:</label>'+  
+ 			      	'<textarea name="duty" id="duty" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+  
+ 			  '<label for="performance">工作业绩<font color="red">*</font>:</label>'+  
+ 			      	'<textarea name="performance" id="performance" placeholder="不超过300字" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+  
+ 			'</div>'+  
+ 			'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+  
+ 			    '<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveWork" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+  
+ 			    '<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteWork" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+  
+ 			'</div></div>'+  
+ 			'</form>'+  
+ 			'</div></fieldset>';
+
+ H.education = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:10px 10px;"><div class="ui-controlgroup-controls ">'+                
+ 				       '<form method="post">'+
+ 				'<div data-role="fieldcontain" class="ui-field-contain">'+
+ 				  '<input type="hidden" name="resumeId">'+
+ 				  '<input type="hidden" name="id">'+
+ 				  '<label for="schoolName">学校名称：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="schoolName" id="schoolName"></div>'+
+ 				  '<label for="major">所学专业 ：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="major" id="major"></div>'+
+ 				  '<label for="graduateType">毕业方式：</label>'+
+ 				  		'<div class="ui-select"><select name="graduateType" id="graduateType" data-native-menu="true">'+
+ 						'</select></div></div>'+
+ 				  '<label for="degree">所得学位：</label>'+
+ 				  		'<div class="ui-select"><select name="degree" id="degree" data-native-menu="true" tabindex="-1">'+
+ 						'</select><div style="display: none;" id="degree-listbox-placeholder"><!-- placeholder for degree-listbox --></div></div>'+
+ 				  '<label for="education">学历等级：</label>'+
+ 				  		'<div class="ui-select"><select name="education" id="education" data-native-menu="true" tabindex="-1">'+
+ 						'</select><div style="display: none;" id="education-listbox-placeholder"><!-- placeholder for education-listbox --></div></div>'+
+ 				  '<label for="learnType">学习形式：</label>'+
+ 				  		'<div class="ui-select"><select name="learnType" id="learnType" data-native-menu="true" tabindex="-1">'+
+ 						'</select><div style="display: none;" id="learnType-listbox-placeholder"><!-- placeholder for learnType-listbox --></div></div>'+
+ 				  '<label for="beginDate">开始时间：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+
+ 				  '<label for="endDate">结束时间：</label>'+
+ 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+
+ 				  '<label for="schoolType">学校类别：</label>'+
+ 				  		'<div class="ui-select"><select name="schoolType" id="schoolType" data-native-menu="true" tabindex="-1">'+
+ 						'</select><div style="display: none;" id="schoolType-listbox-placeholder"><!-- placeholder for schoolType-listbox --></div></div>'+
+ 				  '<label for="hasBeenCadre">是否担任过学生干部：</label>'+
+ 				  		'<div class="ui-select"><select name="hasBeenCadre" id="hasBeenCadre" data-native-menu="true" tabindex="-1">'+
+ 						          '<option value="" data-placeholder="true">请选择</option>'+
+ 						          '<option value="1">是</option>'+
+ 						          '<option value="0">否</option>'+
+ 						'</select><div style="display: none;" id="hasBeenCadre-listbox-placeholder"><!-- placeholder for hasBeenCadre-listbox --></div></div>'+
+ 				  '<label for="gradeRank">年级排名：</label>'+
+ 				  		'<div class="ui-select"><select name="gradeRank" id="gradeRank" data-native-menu="true" tabindex="-1">'+
+ 						'</select><div style="display: none;" id="gradeRank-listbox-placeholder"><!-- placeholder for gradeRank-listbox --></div></div>'+
+ 				'</div>'+
+ 				'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
+ 				    '<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveEducation" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
+ 				    '<a data-role="button" href="#" data-icon="minus" style="margin-left:10px;" onclick="dele($(this))" url="wechatResume/deleteEducation" class="ui-link ui-btn ui-icon-minus ui-btn-icon-left ui-shadow ui-corner-all ui-last-child" role="button">删除</a>'+
+ 				'</div></div>'+
+ 				'</form>'+  
+ 				'</div></fieldset>' ;
+
+  
 </script>
