@@ -17,6 +17,7 @@
 			,disabled
 			,create_time as createTime
 			,modify_time as modifyTime
+			,department
 		from zp_job
 	</sql>
 	<sql id="whereSql">
@@ -55,6 +56,6 @@
 			,name
 			,recruit_type as recruitType
 		from zp_job
-		order by id desc
+		order by orderby desc
 	</select>
 </mapper>

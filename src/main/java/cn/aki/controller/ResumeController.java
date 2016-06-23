@@ -38,6 +38,7 @@ import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
+import cn.aki.utils.Constants;
 
 /**
  * 简历
@@ -191,8 +192,8 @@ public class ResumeController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(path="/save/education",method=POST)
-	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form,BindingResult result){
-		return saveSub(form,result);
+	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form ,String recruitType,BindingResult result){
+		return saveSub(form,recruitType,result);
 	}
 	@ResponseBody
 	@RequestMapping(path="/delete/education",method=POST)
@@ -265,13 +266,29 @@ public class ResumeController extends BaseController{
 	 * @param result
 	 * @return
 	 */
-	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,String recruitType,BindingResult result){
 		FormResponse<Integer> response=handleFormError(result);
+		if(recruitType!=null){
+			final String errInfo="字段不能为空";
+			if(sub instanceof ResumeEducation&&!Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
+				Boolean hasBeenCadre=((ResumeEducation)sub).getHasBeenCadre();
+				String gradeRank=((ResumeEducation)sub).getGradeRank();
+				if(hasBeenCadre==null){
+					response.putError("hasBeenCadre", errInfo);
+				}
+				if(gradeRank==null){
+					response.putError("gradeRank", errInfo);
+				}
+			}
+		}
 		if(response.isSuccess()){
 			resumeSubService.saveOrUpdate(sub);
 			response.setData(sub.getId());
 		}
 		return response;
+	}
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
+		return saveSub(sub,null,result);
 	}
 	/**
 	 * 公共删除方法

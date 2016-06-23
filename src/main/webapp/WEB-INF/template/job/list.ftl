@@ -106,7 +106,7 @@
 		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
 		            <tr>
 						<@detailTr label="岗位名称" name="name"/>
-						<@detailTr label="所属部门" name="department"/>
+						<@detailTr label="所属机构" name="department"/>
 					</tr>
 		            <tr>
 						<@detailTr label="工作地点" name="t.workCity"/>

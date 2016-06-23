@@ -6,6 +6,7 @@
 		<id column="resumeId" property="resumeId"/>
 		<result column="createTime" property="createTime"/>
 		<result column="status" property="status"/>
+		<result column="j_recruit_type" property="recruitType"/>
 		<!-- 岗位 -->
 		<association property="job" javaType="job" >
 			<id column="j_id" property="id"/>
@@ -46,6 +47,9 @@
 	<select id="getList" parameterType="application" resultMap="applicationMap">
 		<include refid="selectSql"/>
 		where a.user_id=#{userId}
+			<if test="recruitType!=null">
+			and j.recruit_type=#{recruitType}
+			</if>
 	</select>
 	
 	<!-- 保存 -->

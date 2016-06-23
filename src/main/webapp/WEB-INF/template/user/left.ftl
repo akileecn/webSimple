@@ -4,8 +4,8 @@
         <div class="box_4 minheight">
             <span class="left_title">个人中心</span>
             <ul class="left_col">
-                <li><a href="<@spring.url "/resume/list"/>">我的简历</a></li>
-                <li><a href="<@spring.url "/application/list"/>">我的应聘</a></li>
+                <li><a href="<@spring.url "/resume/list?recruitType="+userCenterType/>">我的简历</a></li>
+                <li><a href="<@spring.url "/application/list?recruitType="+userCenterType/>">我的应聘</a></li>
                 <li><a href="<@spring.url "/notice/list"/>">我的通知</a></li>
                 <li><a href="<@spring.url "/user/updatePassword"/>">密码修改</a></li>
             </ul>

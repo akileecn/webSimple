@@ -20,7 +20,7 @@ public class JobQueryForm extends BasePageForm{
 		Job job=new Job();
 		job.setId(id);//查询时不会用到
 		job.setName(name);
-		job.setrecruitType(recruitType);
+		job.setRecruitType(recruitType);
 		job.setWorkCity(workCity);
 		job.setEducation(education);
 		return job;

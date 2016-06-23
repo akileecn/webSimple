@@ -20,7 +20,7 @@
                 <li class="col_cv_btn"><a href="javascript:void(0);" 
 					<#if resume.isLocked>class="yes">已锁定
 					<#elseif resume.isSubmit>class="yes">已提交
-					<#else>class="no">未提交</#if></li>
+					<#else>class="no">未提交</#if></a></li>
                 <li class="col_cv_btn"><a href="<@spring.url "/resume/detail?id="+resume.id+"&recruitType="+resume.recruitType />">编辑查看</a></li>
             </ul>
             	</#if>

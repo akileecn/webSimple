@@ -21,7 +21,9 @@ public class ResumeWork extends ResumeSubEntity{
 	private String department;		//,department varchar(32)
 	private String annualSalary;	//,annual_salary varchar(32) -- 年薪
 	private String job;				//,job varchar(32)
+	@Deprecated
 	private String certifier;		//,certifier varchar(32) -- 证明人
+	@Deprecated
 	private String certifierMobile;	//,certifier_mobile varchar(32) -- 证明人电话
 	private String workPlace;		//,work_place varchar(100) -- 工作地点
 	@TranslateTypeCode
@@ -49,11 +51,11 @@ public class ResumeWork extends ResumeSubEntity{
 	public String getJob() {
 		return job;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getCertifier() {
 		return certifier;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getCertifierMobile() {
 		return certifierMobile;
 	}

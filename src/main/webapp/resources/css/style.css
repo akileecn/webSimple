@@ -1281,6 +1281,7 @@ span.more:hover{
     text-align: right;
     margin-right:5px;
 	color:#333;
+	float: left;
 }
 .col_cv_tab tr td{
 	padding-top:5px;

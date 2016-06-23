@@ -80,6 +80,7 @@ public class UserRegisterForm extends User{
 		resume.setEmail(getEmail());
 		resume.setIdNumber(getIdNumber());
 		resume.setMobile(getMobile());
+		resume.setName(getName());
 		//提取生日
 		try {
 			Date birthday=new SimpleDateFormat("yyyyMMdd").parse(getIdNumber().substring(6, 14));

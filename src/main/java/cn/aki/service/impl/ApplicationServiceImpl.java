@@ -49,14 +49,14 @@ public class ApplicationServiceImpl implements ApplicationService{
 		if(job==null){
 			return "岗位不存在";
 		}
-		String recruitType=job.getrecruitType();
+		String recruitType=job.getRecruitType();
 		if(recruitType==null){
 			return "岗位招聘类型未知";
 		}
 		List<Application> oldList=applicationMapper.getList(application);
 		if(oldList!=null&&oldList.size()>0){
 			for(Application old:oldList){
-				if(old.getJob()!=null&&recruitType.equals(old.getJob().getrecruitType())){
+				if(old.getJob()!=null&&recruitType.equals(old.getJob().getRecruitType())){
 					return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
 				}
 			}

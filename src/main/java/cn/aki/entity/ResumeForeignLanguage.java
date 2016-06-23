@@ -18,6 +18,7 @@ public class ResumeForeignLanguage extends ResumeSubEntity{
 	private String level;//,level nvarchar(32)
 	private Integer score;//,score int
 	@TranslateTypeCode("languageProficiency")
+	@Deprecated
 	private String speaking;//,speaking nvarchar(32) -- 口语
 	@TranslateTypeCode("language")
 	private String others;//,others nvarchar(32) -- 其他语言

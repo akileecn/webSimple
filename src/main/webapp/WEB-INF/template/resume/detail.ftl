@@ -277,7 +277,7 @@
 		$form=$(self).parents("form");
 		$form.ajaxSubmit({
 			url:"<@spring.url "/resume/save/"/>"+dataType
-			,data:{"resumeId":"${id}"}
+			,data:{"resumeId":"${id}","recruitType":"${recruitType}"}
 			,type:"post"
 			,success:function(text){
 				$(self).removeAttr("disabled");

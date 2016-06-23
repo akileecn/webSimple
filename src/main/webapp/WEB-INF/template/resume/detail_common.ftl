@@ -106,7 +106,7 @@
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	    <tr>
 	        <td colspan="2" style="text-align: center;">
-	            <input name="" type="button" value="+继续添加" class="new fr" onclick="addSub('${name}','input');">
+	            <input name="" type="button" value="+添加" class="new fr" onclick="addSub('${name}','input');">
 	        </td>
 	    </tr>
 	</table>

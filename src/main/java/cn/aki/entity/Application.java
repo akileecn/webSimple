@@ -23,6 +23,7 @@ public class Application implements UserSub,Translatable,Serializable{
 	
 	@TranslateTypeCode
 	private Job job;			//岗位
+	private String recruitType;	//岗位类型
 	//翻译字段
 	protected Map<String,String> translation;
 	public void setT(Map<String, String> translation) {
@@ -66,6 +67,12 @@ public class Application implements UserSub,Translatable,Serializable{
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	public String getRecruitType() {
+		return recruitType;
+	}
+	public void setRecruitType(String recruitType) {
+		this.recruitType = recruitType;
 	}
 	
 }

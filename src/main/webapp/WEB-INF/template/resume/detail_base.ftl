@@ -32,9 +32,7 @@
             	<@span label="户口所在地" name="registeredResidence"/>
 			</tr>
             <tr>
-            <#if recruitType!="society">
-            	<@span label="生源地" name="studentOrigin"/>
-			</#if>
+            <#-- <@span label="生源地" name="studentOrigin"/> -->
 				<@span label="婚姻状况" name="marriage" translate=true/>
 			</tr>
             <tr>
@@ -60,7 +58,7 @@
             	<@span label="毕业时间" name="graduateDate"/>
 			</tr>
 			<tr>
-				<@span label="毕业院校" name="school"/>
+				<@span label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school"/>
             	<@span label="院校类别" name="schoolType"/>
 			</tr>
             <tr>
@@ -82,13 +80,15 @@
             	<@span label="紧急联系人电话" name="emergencyMobile"/>
 			</tr>
             <tr>
-				<@span label="子女(个)" name="childrenCount"/>
+			<#-- <@span label="子女(个)" name="childrenCount"/> -->
             	<@span label="是否有亲友受雇于本公司" name="isRelativeHere" translate=true attr="style=\"width:200px;\""/>
 			</tr>
+			<#-- 
             <tr>
             	<@span label="期望工作地点" name="workCity" translate=true/>
-            	<#--<@span label="健康状况" name="health" translate=true/>-->
+            	<@span label="健康状况" name="health" translate=true/>
 			</tr>
+			-->
             <tr><@span label="现居住地址" name="currentResidence" wide=true/></tr>
             <tr><@span label="家庭住址" name="familyResidence" wide=true/></tr>
             <tr><@span label="持证情况" name="certificate"/></tr>
@@ -124,14 +124,12 @@
             	<@select label="户口所在地" name="registeredResidence" required=true type="city"/>
 			</tr>
             <tr>
-            <#if recruitType!="society">
-            	<@select label="生源地" name="studentOrigin" required=true type="city"/>
-			</#if>
+            <#-- <@select label="生源地" name="studentOrigin" required=true type="city"/> -->
 				<@select label="婚姻状况" name="marriage" required=true/>
 			</tr>
             <tr>
             	<@select label="政治面貌" name="politicsStatus" required=true/>
-				<@date label="入党（团）时间" name="joinPartyDate" required=true/>
+				<@date label="入党（团）时间" name="joinPartyDate"/>
 			</tr>
             <tr>
 				<@input label="移动电话" name="mobile" required=true/>
@@ -152,7 +150,7 @@
             	<@date label="毕业时间" name="graduateDate" required=true/>
 			</tr>
             <tr>				
-				<@input label="毕业院校" name="school" required=true/>
+				<@input label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school" required=true/>
 				<@select label="院校类别" name="schoolType" required=true/>
 			</tr>
             <tr>
@@ -174,17 +172,19 @@
             	<@input label="紧急联系人电话" name="emergencyMobile" required=true/>
 			</tr>
             <tr>
-				<@input label="子女(个)" name="childrenCount"/>
+			<#-- <@input label="子女(个)" name="childrenCount"/> -->
             	<@radio label="是否有亲友受雇于本公司" name="isRelativeHere" required=true/>
 			</tr>
+			<#--
             <tr>
             	<@select label="期望工作地点" name="workCity" required=true/>
-            	<#--<@select label="健康状况" name="health" required=true/>-->
+            	<@select label="健康状况" name="health" required=true/>
 			</tr>
+			-->
             <tr><@select label="现居住地址" name="currentResidence" required=true type="dist"/></tr>
             <tr><@select label="家庭住址" name="familyResidence" required=true type="dist"/></tr>
-            <tr><@textarea label="持证情况" name="certificate" required=true/></tr>
-            <tr><@textarea label="爱好特长" name="hobby" required=true/></tr>
+            <tr><@textarea label="持证情况" name="certificate"/></tr>
+            <tr><@textarea label="爱好特长" name="hobby"/></tr>
             <tr><@textarea label="性格特点" name="personality"/></tr>
             <tr>
                 <td colspan="2" style="text-align: center;">

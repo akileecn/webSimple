@@ -132,7 +132,7 @@
 </#macro>
 
 <#-- html体 -->
-<#macro body menu attr>
+<#macro body attr menu=userCenterType>
 <body <#if attr??>${attr}</#if>>
 	<!----start-header---->
 	<div class="header">

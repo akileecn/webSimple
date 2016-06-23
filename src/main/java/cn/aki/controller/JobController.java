@@ -18,6 +18,7 @@ import cn.aki.response.PageResponse;
 import cn.aki.service.JobService;
 import cn.aki.service.StaticPageService;
 import cn.aki.utils.Constants;
+import cn.aki.utils.UserUtils;
 /**
  * 岗位
  * @author aki
@@ -38,6 +39,8 @@ public class JobController {
 			form.setrecruitType("campus");
 		}
 		model.addAttribute("job", form.createJob());
+		//控制个人中心类型
+		UserUtils.setUserCenterType(form.getrecruitType());
 		return "job/list";
 	}
 	
