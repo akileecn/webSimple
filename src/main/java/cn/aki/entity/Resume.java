@@ -74,6 +74,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	@Deprecated
 	private String workCity;//,work_city varchar(32) -- 期望工作城市
 	@TranslateTypeCode
+	@Deprecated
 	private String health;//,health varchar(32) -- 健康
 //	private String photo;	//头像
 	private byte[] photo;
