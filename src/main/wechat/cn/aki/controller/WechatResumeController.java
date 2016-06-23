@@ -90,6 +90,10 @@ public class WechatResumeController  extends BaseController{
 	@RequestMapping(path="updateResumeBase",method=RequestMethod.POST)
 	public FormResponse<Void> saveResumeBase(Resume form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsFirstLine());
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsRelativeHere());
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestEducation());
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestDegree());
 		FormResponse<Void> response=handleFormError(result);
 		form.setUserId(0);
 		if(response.isSuccess()){

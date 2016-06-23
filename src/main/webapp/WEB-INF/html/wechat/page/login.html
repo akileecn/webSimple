@@ -4,8 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
-  <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
-  <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+  		.col_cv_alt {
+		    margin: 0 0 0 5px;
+		    text-align: left;
+		    font-size: 0.85em;
+		    color: #F00;
+		}
+  </style>
+  	<script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
+  	<script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../jquerymobile/js/common.js"></script>
   </head>
   <body>
    <div data-role="page" id="pageone">
@@ -15,14 +24,18 @@
        
        <div data-role="content" style="margin-top:-10px;padding-top:30px;">
            <div align="center">用户登录</div>
-           <form method="post">
-              <input type="text" name="fname" id="fname" placeholder="用户名">
-              <input type="text" name="fname" id="fname" placeholder="密码">
-              <input type="text" name="fname" id="fname" placeholder="验证码">
-              <img src="chrome.png">
+           <form id="loginForm"  method="post">
+              <input type="text" name="username" id="username" placeholder="身份证号码/邮箱/手机号码">
+              	<div class="col_cv_alt" data-error="username"></div>
+              <input type="password" name="password" id="password" placeholder="密码">
+              	<div class="col_cv_alt" data-error="password"></div>
+              <input type="text" name="captcha" placeholder="验证码">
+              	<div class="col_cv_alt" data-error="captcha"></div>
+              <img style="width:80px;height:40px;" id="captcha" src="">
+              <a href="javascript:changeCaptcha();">换一张</a>
            </form>
            <div align="center">
-              <a data-role="button" href="#">登录</a>
+              <a data-role="button" href="#" onclick="login()">登录</a>
               <a data-role="button" href="register.html">注册</a>
            </div>
        </div>
@@ -30,5 +43,29 @@
    </body>
 </html>
 <script>
-	console.log("asaaaaaaaaaaa");
+$(function(){
+	changeCaptcha();   //加载验证码
+});
+	function login(){
+		$.ajax({
+			url:baseUrl+"/user/login",
+			data:$("#loginForm").serialize(),
+			type:"post",
+			success:function(text){
+				if(text.success){
+					alert("登录成功");
+					location.href="main.html";
+				}else{
+					changeCaptcha();
+					$("#loginForm").showError(text.error);
+				}
+			}
+		});
+	
+	}
+	
+	//换验证码
+	function changeCaptcha(){
+		$("#captcha").attr("src",baseUrl+"/user/captchaImage.png?r="+Math.random());
+	}
 </script>
