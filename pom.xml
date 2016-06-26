@@ -184,6 +184,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.5.0-b01</version>
 		</dependency>
+		<!-- json -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.12</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>web</finalName>

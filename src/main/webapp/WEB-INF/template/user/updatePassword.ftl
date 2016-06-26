@@ -15,8 +15,9 @@
 				}
 			},"success":function(text) {
 				if(text.success){
-					alert("修改成功");
-					window.location.href="<@spring.url "/resume/list?recruitType="+userCenterType/>";
+					$.alert("修改成功",function(){
+						window.location.href="<@spring.url "/resume/list?recruitType="+userCenterType/>";
+					});
 				}else{
 					$('#updatePasswordForm').showError(text.error);
 					changeCaptcha();

@@ -10,6 +10,7 @@
 <style>
     ._more {
         position: relative;
+        float: left;
     }
 </style>
 <style type="text/css">
@@ -82,7 +83,7 @@
 	T.item='<@compress single_line=true>
 		<tr class="col_tab_t" data-id="%{id}" data-name="%{name}">
             <td width="30%"><a href="javascript:void(0)" class="_detail">%{name}</a></td>
-            <td><a href="javascript:void(0)" class="_detail"><img src="<@c.resource "images/add.png"/>" class="add _more" data-requirement="%{requirement}" data-description="%{description}">%{t.workCity}</a></td>
+            <td><img src="<@c.resource "images/add.png"/>" class="add _more" data-requirement="%{requirement}" data-description="%{description}">%{t.workCity}</td>
             <td>%{endDate}</td>
             <td>%{peopleNumber}</td>
             <td><a href="javascript:void(0)" class="col_tab_join _confirm">我要应聘</a></td>
@@ -91,10 +92,10 @@
 	//更多信息
 	T.more='<@compress single_line=true>
 		<div>
-			岗位职责:
-			<div style = "width: 400px;height:auto;">%{requirement}</div>
-			招聘要求：
+			职责描述:
 			<div style="width: 400px;height:auto;">%{description}</div>
+			任职要求：
+			<div style = "width: 400px;height:auto;">%{requirement}</div>
 		</div>
 	</@compress>';
 	//详情页
@@ -121,10 +122,10 @@
 						<@detailTr label="截止时间" name="endDate"/>
 					</tr>
 		            <tr>
-						<@detailTr label="任职要求" name="requirement" wide=true/>
+						<@detailTr label="职责描述" name="description" wide=true/>
 					</tr>
 		            <tr>
-						<@detailTr label="职责描述" name="description" wide=true/>
+						<@detailTr label="任职要求" name="requirement" wide=true/>
 		            <tr data-id="%{id}" data-name="%{name}">
 		                <td colspan="3">
 		                    <div class="pop_job_p"> <a class="pop_job_in _confirm"> 我要应聘 </a></div>
@@ -288,16 +289,12 @@
 			        content: T.complete
 			    });
 			}else{
-				if(text.message){
-					if(text.message.indexOf(",")>-1){
-						var parts=text.message.split(",");
-						if("notSubmit"==parts[0]){
-							alert("简历未提交");
-							window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+parts[1];
-						}
-					}else{
-						alert(text.message);
-					}
+				alert(text.message);
+				if("notLogin"==text.code){
+					window.location.href="<@spring.url "/index"/>";
+				}
+				if("notSubmit"==text.code){
+					window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+text.data.resumeId+"&applyJobId="+text.data.jobId;
 				}
 			}
 		});	

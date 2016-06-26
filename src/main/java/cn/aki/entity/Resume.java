@@ -85,6 +85,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private Date beginWorkDate;//begin_work_date datetime;-- 参加工作时间
 	private Date beginSchoolDate;//begin_school_date datetime;-- 开始时间
 	private String school;//school nvarchar(100);-- 毕业院校
+	@TranslateTypeCode
 	private String schoolType;//school_type nvarchar(32);-- 院校类别
 	private String major;//nvarchar(32);-- 专业
 	/*20160619*/

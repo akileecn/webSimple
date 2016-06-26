@@ -3,8 +3,9 @@
 <@bootstrap.head>
 <title>简历详情</title>
 <#-- 文件上传插件 -->
-<script src="<@c.resource "/jquery/jquery.ui.widget.js"/>"></script>
-<script src="<@c.resource "/jquery/jquery.fileupload.js"/>"></script>
+<script src="<@c.resource "jquery/jquery.ui.widget.js"/>"></script>
+<script src="<@c.resource "jquery/jquery.iframe-transport.js"/>"></script>
+<script src="<@c.resource "jquery/jquery.fileupload.js"/>"></script>
 </@bootstrap.head>
 <@bootstrap.body>
 <script type="text/javascript">
@@ -109,21 +110,59 @@
 		//提交
 		$("#submitForm").ajaxForm(function(text) {
 			if(text.success){
-				alert("提交成功");
+				<#if applyJobId??>
+				var T_complet='<@compress single_line=true>
+					<div class="pop_job pop_w2">
+					    <span class="close" onclick="art.dialog.list[\'abc\'].close();"></span>
+					    <h2> 提示 </h2>
+					    <div class="pop_job_col">
+					        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+					            <tr><td><div class="pop_job_p"><div class="pop_job_yix">
+			                        <div style="margin-right:50px;">
+			                            <div class="tt"><img src="<@c.resource "images/good.png"/>" width="52" height="52" style="margin:15px 0 0 0;"></div>
+			                            <div class="cop">感谢您应聘我行职位<div class=" clearfix"></div>
+			                            <p>我们会尽快和您联系， 请您耐心等待！ </p>
+			                            </div>
+			                        </div>
+			                        <div class="btn">
+			                            <input name="" type="submit" value="关闭" onclick="window.location.href=\'<@spring.url "/application/list?recruitType="+userCenterType/>\'">
+			                        </div>
+								</div></div></td></tr>
+					        </table>
+					    </div>
+					</div>
+				</@compress>';
+				//正式申请
+				$.post("<@spring.url "/application/apply"/>",{"jobId":"${applyJobId}"},function(text){
+					if(text.success){
+						if(typeof art.dialog.list['abc'] != 'undefined')art.dialog.list['abc'].close();
+					    art.dialog({
+					        id: 'abc',
+					        lock: true,
+					        content: T_complet
+					    });
+					}else{
+						$.alert(text.message);
+					}
+				});	
+				<#else>
+				$.alert("提交成功");
+				window.location.href="<@spring.url "/index"/>";
+				</#if>
 			}else if(text.message){
-				alert(text.message);
+				$.alert(text.message);
 			}
 		});
 
 		//保存基本信息
 		$("#baseForm").ajaxForm(function(text) {
 			if(text.success){
-				alert("保存成功");
+				$.alert("保存成功");
 				var data=$("#baseForm").getFormData();
 				$("#baseForm").html($.template(T.base.text,data));
 				$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
 			}else{
-				alert("表单信息有误");
+				$.alert("表单信息有误");
 				$("#baseForm").showError(text.error);
 			}
 		});
@@ -134,7 +173,7 @@
 			done : function(e, data) {
 				var message=data.result.message;
 				if(message){
-					alert(message);
+					$.alert(message);
 				}
 				if(data.result.success){
 					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
@@ -182,7 +221,7 @@
 	function addSub(dataType,templateType,data){
 		var $div=$("#"+dataType+"Div");
 		if(!T[dataType]){
-			alert(dataType);
+			$.alert(dataType);
 		}
 		var template=T[dataType][templateType];
 		if(templateType=="input"){
@@ -284,7 +323,7 @@
 				if(text.success){
 					switchSub(dataType,self,{id:text.data});
 				}else{
-					alert("表单信息有误");
+					$.alert("表单信息有误");
 					$form.showError(text.error);
 				}
 			}

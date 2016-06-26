@@ -37,6 +37,9 @@
 			<if test="name!=null and name!=''">
 				and name like '%'+#{name}+'%'
 			</if>
+			<if test="disabled!=null">
+				and disabled=#{disabled}
+			</if>
 		</where>
 	</sql>
 	
@@ -56,6 +59,7 @@
 			,name
 			,recruit_type as recruitType
 		from zp_job
+		where disabled=0
 		order by orderby desc
 	</select>
 </mapper>

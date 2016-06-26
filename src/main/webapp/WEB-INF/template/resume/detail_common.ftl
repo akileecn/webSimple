@@ -9,10 +9,10 @@
 </#macro>
 
 <#-- textarea标签 -->
-<#macro textarea label name required=false>
+<#macro textarea label name attr required=false>
 <td colspan="2">
     <label>${label}：</label>
-    <textarea name="${name}" cols="" rows="" class="w537"></textarea><#if required><span class="red">*</span></#if>
+    <textarea name="${name}" <#if attr??>${attr}</#if> cols="" rows="" class="w537"></textarea><#if required><span class="red">*</span></#if>
     <div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>

@@ -62,8 +62,9 @@
 		$("#loginForm").ajaxForm(function(text) {
 			$("#loginForm").find(".col_cv_alt").empty();
 			if(text.success){
-				alert("欢迎您访问瑞丰银行网站招聘栏目，请注意，招聘用户专门为投简历所使用，与我行其他用户没有关联。");
-				window.location.reload();
+				$.alert("欢迎您访问瑞丰银行网站招聘栏目，请注意，招聘用户专门为投简历所使用，与我行其他用户没有关联。",function(){
+					window.location.reload();
+				});
 			}else{
 				if(text.error){
 					changeCaptcha();
@@ -85,8 +86,9 @@
 		$.ajax({
 			url:"<@spring.url "/user/logout"/>"
 			,success:function(){
-				alert("退出登陆，感谢您关注瑞丰银行人才招聘！");
-				window.location.reload();
+				$.alert("退出登陆，感谢您关注瑞丰银行人才招聘！",function(){
+					window.location.reload();
+				});
 			}
 		});
 	}

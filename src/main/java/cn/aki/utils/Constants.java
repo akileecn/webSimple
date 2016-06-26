@@ -27,6 +27,15 @@ public interface Constants {
 	String DICT_CODE_OTHER="other";
 	/**字典类型 查询学历要求*/
 	String DICT_TYPE_CODE_SEARCH_EDUCATION="searchEducation";
-	/**申请错误 未提交简历*/
-	String APPLY_ERROR_NOT_SUBMIT="notSubmit";
+	/**
+	 * 错误代码
+	 * @author Aki
+	 * 2016年6月26日 下午7:40:16
+	 */
+	public interface ErrorCode{
+		/**未提交简历*/
+		String NOT_SUBMIT="notSubmit";
+		/**未登录*/
+		String NOT_LOGIN="notLogin";
+	}
 }

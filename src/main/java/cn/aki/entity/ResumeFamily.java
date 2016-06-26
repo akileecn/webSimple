@@ -19,6 +19,7 @@ public class ResumeFamily extends ResumeSubEntity{
 	private String relationship;//,relationship varchar(32) -- 关系
 	private String workCompany;	//,work_company varchar(100) -- 工作单位
 	private String workJob;		//,work_job varchar(32) -- 职位
+	@TranslateTypeCode("politicsStatus")
 	private String description;	//,description varchar(500) -- 说明
 	
 	@Size(max=32)@NotBlank

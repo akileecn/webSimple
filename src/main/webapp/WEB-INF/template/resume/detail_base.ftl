@@ -50,16 +50,16 @@
 				<@span label="电子邮箱" name="email"/>
             </tr>
             <tr>
-				<@span label="最高全日制学历" name="highestEducation" translate=true/>
-            	<@span label="最高学位" name="highestDegree" translate=true/>
+				<@span label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" translate=true/>
+            	<@span label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" translate=true/>
 			</tr>
 			<tr>
 				<@span label="开始时间" name="beginSchoolDate"/>
-            	<@span label="毕业时间" name="graduateDate"/>
+            	<@span label=((recruitType=="trainee")?string("预计毕业时间","毕业时间")) name="graduateDate"/>
 			</tr>
 			<tr>
 				<@span label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school"/>
-            	<@span label="院校类别" name="schoolType"/>
+            	<@span label="院校类别" name="schoolType" translate=true/>
 			</tr>
             <tr>
             	<@span label="专业" name="major"/>
@@ -142,12 +142,12 @@
 				<@input label="电子邮箱" name="email" required=true/>
 			</tr>
             <tr>
-				<@select label="最高全日制学历" name="highestEducation" dict="education" required=true/>
-            	<@select label="最高学位" name="highestDegree" dict="degree" required=true/>
+				<@select label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" dict="education" required=true/>
+            	<@select label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" dict="degree" required=true/>
 			</tr>
             <tr>
             	<@date label="开始时间" name="beginSchoolDate" required=true/>
-            	<@date label="毕业时间" name="graduateDate" required=true/>
+            	<@date label=((recruitType=="trainee")?string("预计毕业时间","毕业时间")) name="graduateDate" required=true/>
 			</tr>
             <tr>				
 				<@input label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school" required=true/>

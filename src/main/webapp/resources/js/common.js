@@ -40,8 +40,34 @@
 		return text;
 	}
 	//alert对象属性
-	$.alert=function(data){
+	$._alert=function(data){
 		alert(_toString(data));
+	}
+	//优化alert
+	$.alert=function(data,closeFunction){
+		if(art&&art.dialog){
+			var center=false;
+			if(data&&data.length<20){
+				center=true
+			}
+			var template='<div class="pop_job pop_w2">'
+					+'<span class="close" onclick="art.dialog.list[\'alert\'].close();"></span>'
+				    +'<h2>提示</h2>'
+				    +'<div class="pop_job_col" style="padding:10px;font-weight:bold;'+(center?"text-align:center;":"text-indent:2em;")+'">%{data}</div>'
+				    +'<div class="btn">'
+				    +	'<input name="" type="submit" value="关闭" onclick="art.dialog.list[\'alert\'].close();">'
+				    +'</div>'
+				+'</div>';
+			if(typeof art.dialog.list['alert'] != 'undefined')art.dialog.list['alert'].close();
+			art.dialog({
+				lock: true,
+				id: "alert",
+				content: _template(template,{"data":data}),
+				close:closeFunction
+			});
+		}else{
+			alert(data);
+		}
 	}
 	
 	//模板替换
@@ -162,4 +188,5 @@
 		}
 		
 	}
+	
 }(window.$));

@@ -25,7 +25,7 @@
 				}
 			},"success":function(text) {
 				if(text.success){
-					alert("修改成功");
+					$.alert("修改成功");
 					$('#forgetPasswordForm2').clearError();
 				}else{
 					$('#forgetPasswordForm2').showError(text.error);

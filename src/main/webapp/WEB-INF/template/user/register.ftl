@@ -6,7 +6,7 @@
 		$('#registerForm').ajaxForm({
 			"beforeSubmit":function(datas){
 				if(!$("#registerForm input[name='isAgree']").is(":checked")){
-					alert("阅读并接受《用户协议》之后才能注册");
+					$.alert("阅读并接受《用户协议》之后才能注册");
 					return false;
 				}
 				var password=$("#registerForm input[name='password']").val();
@@ -38,7 +38,7 @@
 						</@compress>'
 				    });
 				}else{
-					alert("表单信息有误");
+					$.alert("表单信息有误");
 					$('#registerForm').showError(text.error);
 					changeCaptcha();
 				}

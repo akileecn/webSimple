@@ -108,7 +108,6 @@
 	</tr><tr>
 	<#--<@span label="英语口语" name="speaking" translate=true/>-->
 	<@span label="熟练程度" name="proficiency" translate=true/>
-	</tr><tr>
 	<@span label="其他语言" name="others" translate=true/>
 </@subpage1>
 <@subpage2 name="foreignLanguage">
@@ -155,7 +154,7 @@
 		<@date label="开始时间" name="beginDate"/>
 		<@date label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@textarea label="职责描述" name="duty"/>
+		<@textarea label="职责描述" name="duty" attr="style=\"width:550px;\""/>
 	</@subpage2>
 	<#-- 学生干部 -->
 	<@subpage1 name="studentCadre" title="学生干部(填写学生干部经历)">
@@ -174,7 +173,7 @@
 		<@date label="开始时间" name="beginDate"/>
 		<@date label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@textarea label="职责描述" name="description"/>
+		<@textarea label="职责描述" name="description" attr="style=\"width:550px;\""/>
 	</@subpage2>
 </#if>
 <#-- 奖励记录 -->
@@ -225,7 +224,7 @@
 	<@span label="工作单位" name="workCompany"/>
 	<@span label="职位" name="workJob"/>
 	</tr><tr>
-	<@span label="政治面貌" name="description" wide=true/>
+	<@span label="政治面貌" name="description" translate=true/>
 </@subpage1>
 <@subpage2 name="family">
 	<@input label="姓名" name="name" required=true/>
@@ -234,5 +233,5 @@
 	<@input label="工作单位" name="workCompany" required=true/>
 	<@input label="职位" name="workJob" required=true/>
 	</tr><tr>
-	<@input label="政治面貌" name="description" required=true/>
+	<@select label="政治面貌" name="description" dict="politicsStatus" required=true/>
 </@subpage2>

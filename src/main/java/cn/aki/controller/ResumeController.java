@@ -133,9 +133,11 @@ public class ResumeController extends BaseController{
 	}
 	
 	@RequestMapping(path="/detail",method=GET)
-	public String toDetail(Integer id,String recruitType,Model model){
+	public String toDetail(Integer id,String recruitType,String applyJobId,Model model){
 		model.addAttribute("id", id);
 		model.addAttribute("recruitType", recruitType);
+		//应聘岗位id，由岗位页面拦截跳转得到
+		model.addAttribute("applyJobId", applyJobId);
 		return "resume/detail";
 	}
 	
@@ -190,9 +192,11 @@ public class ResumeController extends BaseController{
 	public SimpleResponse deleteComputer(ResumeComputer bean,BindingResult result){
 		return deleteSub(bean);
 	}
+	
 	@ResponseBody
-	@RequestMapping(path="/save/education",method=POST)
-	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form ,String recruitType,BindingResult result){
+	@RequestMapping(path="/save/education")
+	public FormResponse<Integer> saveEducation(String recruitType,@Valid ResumeEducation form ,BindingResult result){
+		//@Valid放其他参数会报错
 		return saveSub(form,recruitType,result);
 	}
 	@ResponseBody

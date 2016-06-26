@@ -10,6 +10,7 @@ public abstract class Response<T, E>{
 	protected T data;//返回数据
 	protected E error;//错误信息
 	protected String message;//提示信息
+	protected String code;//错误代码
 	
 	public T getData() {
 		return data;
@@ -22,7 +23,7 @@ public abstract class Response<T, E>{
 	 * @return
 	 */
 	public boolean isSuccess(){
-		return error==null&&data!=null;
+		return error==null&&code==null&&message==null&&data!=null;
 	}
 	public E getError() {
 		return error;
@@ -35,6 +36,12 @@ public abstract class Response<T, E>{
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

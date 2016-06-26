@@ -3,6 +3,7 @@ package cn.aki.service;
 import java.util.List;
 
 import cn.aki.entity.Application;
+import cn.aki.response.DataResponse;
 
 /**
  * 申请
@@ -20,5 +21,5 @@ public interface ApplicationService {
 	 * @param application
 	 * @return
 	 */
-	String apply(Application application);
+	DataResponse<Application> apply(Application application);
 }

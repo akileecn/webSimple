@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.aki.entity.Application;
-import cn.aki.response.SimpleResponse;
+import cn.aki.response.DataResponse;
 import cn.aki.service.ApplicationService;
 /**
  * 应聘
@@ -41,15 +41,8 @@ public class ApplicationController {
 	 */
 	@ResponseBody
 	@RequestMapping(path="/apply",method=RequestMethod.POST)
-	public SimpleResponse handleApply(Application application,Model model){
-		SimpleResponse response=new SimpleResponse();
-		String error=applicationService.apply(application);
-		if(error==null){
-			response.setSuccess(true);
-		}else{
-			response.setSuccess(false);
-			response.setMessage(error);
-		}
+	public DataResponse<Application> handleApply(Application application,Model model){
+		DataResponse<Application> response=applicationService.apply(application);
 		return response;
 	}
 	
