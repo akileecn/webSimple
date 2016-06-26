@@ -1,7 +1,5 @@
 <div class="col_cv_tab">
     <form id="baseForm" action="<@spring.url "/resume/save/base"/>" method="post"></form>
-    <#-- 头像上传 -->
-    <input id="fileupload" type="file" name="files[]" data-url="<@spring.url "/resume/photo/upload?id=${id}"/>" style="display:none;" multiple/>
 </div>
 <script type="text/javascript">
 	T.base={};
@@ -106,8 +104,11 @@
 				<td rowspan="4">
                     <div class="user_pic fr">
                         <label>个人照片：</label>
-                        <img id="photoImg" src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
-                        <div class="tip_note">点击照片上传，要求JPG格式，不超过50KB</div>
+                        <div style="position: relative;" width="150" height="180">
+                        	<img id="photoImg" src="<@spring.url "/resume/phote/show?id="+id />" onerror="this.src=\'<@c.resource "images/pic_tx.jpg"/>\'" width="150" height="180" alt="点击上传个人照片">
+                        	<input id="fileupload" type="file" name="files[]" data-url="<@spring.url "/resume/photo/upload?id=${id}"/>" style="position: absolute;width: 150px;height: 180px;opacity: 0;top:0;left: 105px;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);" multiple/>
+                        </div>
+                        <div class="tip_note">双击照片上传，要求JPG格式，不超过50KB</div>
                     </div>
                 </td>
             </tr>

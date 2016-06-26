@@ -167,24 +167,6 @@
 			}
 		});
 		
-		//头像上传
-		$('#fileupload').fileupload({
-			dataType : 'json',
-			done : function(e, data) {
-				var message=data.result.message;
-				if(message){
-					$.alert(message);
-				}
-				if(data.result.success){
-					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
-				}
-			}
-		});
-		
-		$("body").on("click","#photoImg",function(){
-			$('#fileupload').click();
-		});
-		
 	});
 	
 	//基本信息切换为编辑
@@ -214,6 +196,19 @@
 				}
 			}
 			$(this).citySelect(settings);
+		});
+		//头像上传
+		$('#fileupload').fileupload({
+			dataType : 'json',
+			done : function(e, data) {
+				var message=data.result.message;
+				if(message){
+					$.alert(message);
+				}
+				if(data.result.success){
+					$(".user_pic img").attr("src","<@spring.url "/resume/phote/show?id="+id />&r="+Math.random());
+				}
+			}
 		});
 	}
 	
