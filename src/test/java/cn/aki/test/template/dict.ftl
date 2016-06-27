@@ -24,6 +24,7 @@
 ,"recruitType":"campus:校园,society:社会,trainee:实习生"
 ,"computerCertificate":"全国计算机一级,全国计算机二级,全国计算机三级,软件工程师,其他"
 ,"computerProficiency":"开发程序,开发应用,OA办公,基本操作"
+,"recruitArea":"全国,浙江,绍兴,义乌"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');

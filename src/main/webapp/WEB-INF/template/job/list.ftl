@@ -11,6 +11,7 @@
     ._more {
         position: relative;
         float: left;
+        top:5px;
     }
 </style>
 <style type="text/css">
@@ -107,7 +108,7 @@
 		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
 		            <tr>
 						<@detailTr label="岗位名称" name="name"/>
-						<@detailTr label="所属机构" name="department"/>
+						<@detailTr label="招聘区域" name="t.department"/>
 					</tr>
 		            <tr>
 						<@detailTr label="工作地点" name="t.workCity"/>
@@ -289,13 +290,14 @@
 			        content: T.complete
 			    });
 			}else{
-				alert(text.message);
-				if("notLogin"==text.code){
-					window.location.href="<@spring.url "/index"/>";
-				}
-				if("notSubmit"==text.code){
-					window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+text.data.resumeId+"&applyJobId="+text.data.jobId;
-				}
+				$.alert(text.message,function(){
+					if("notLogin"==text.code){
+						window.location.href="<@spring.url "/index"/>";
+					}
+					if("notSubmit"==text.code){
+						window.location.href="<@spring.url "/resume/detail"/>?recruitType=${job.recruitType}&id="+text.data.resumeId+"&applyJobId="+text.data.jobId;
+					}
+				});
 			}
 		});	
 	

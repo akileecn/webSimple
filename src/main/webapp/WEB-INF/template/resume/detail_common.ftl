@@ -43,6 +43,13 @@
 		<input type="text" name="${name}" style="display:none;"/>
 	    <div class="col_cv_alt" data-error="${name}"></div>
 	</td>
+		<#elseif type=="prov">
+	<td class="selectCity">
+	    <label>${label}：</label>
+	    <select class="prov" style="width:185px;"></select><#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>	
 		<#elseif type=="city">
 	<td class="selectCity">
 	    <label>${label}：</label>

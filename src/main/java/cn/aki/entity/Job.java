@@ -28,6 +28,7 @@ public class Job extends BaseTimeEntity implements Translatable{
 	private String requirement;	//,requirement varchar(500) -- 要求
 	private String description;	//,description varchar(500) -- 描述
 	private Boolean disabled;	//,disabled tinyint(1) default 0 -- 是否失效
+	@TranslateTypeCode("recruitArea")
 	private String department;	//department nvarchar(100); -- 部门
 	private Integer orderby;//orderby int default 0; -- 排序 从大到小
 	

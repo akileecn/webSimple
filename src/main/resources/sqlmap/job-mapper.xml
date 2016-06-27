@@ -46,7 +46,7 @@
 	<select id="getList" resultType="job" parameterType="job">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
-		order by id desc
+		order by orderby desc,id desc
 	</select>
 	
 	<select id="get" resultType="job" parameterType="int">
@@ -60,6 +60,6 @@
 			,recruit_type as recruitType
 		from zp_job
 		where disabled=0
-		order by orderby desc
+		order by orderby desc,id desc
 	</select>
 </mapper>

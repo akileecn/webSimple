@@ -16,7 +16,7 @@
 		var value=$(this).find("option:selected").val();
 		var $input=$(this).siblings("input");
 		if(value=="other"){
-			$input.val("其他");
+			$input.val("");
 			$input.show();
 		}else{
 			$input.val(value);
@@ -52,7 +52,7 @@
 		}
 		if(dist){
 			value+=","+dist;
-		}else{
+		}else if($selectCity.is(":has(.more)")){
 			value+=",";
 		}
 		$selectCity.find("input[name]").val(value);
