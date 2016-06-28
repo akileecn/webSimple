@@ -56,30 +56,33 @@
   <body>
    <div data-role="page" id="pageone">
        <div data-role="header" data-position="fixed" data-theme="a">
-          <h1>个人中心</h1></h1>
+          <h1>个人中心</h1>
+          <a href="#" data-icon="" style="display:none;" onclick=""  data-iconpos="notext" data-direction="reverse"></a>
+          <a href="#" data-icon="" onclick="logout()"  data-iconpos="right" data-direction="reverse">退出</a>
        </div>
        
        <div data-role="content" style="margin-top:-10px">
             <div class="zhaopin full-screen">
               <ul id="meun">
-                <li url="myJob.html">
-                  <a>
-                    <img src="../img/me.png">
-                    <span>我的应聘</span>
-                  </a>
-                </li>
-                <li url="resume.html">
+                <li url="resume.html?recruitType=campus">
                   <a>
                     <img src="../img/resume.png">
-                    <span>我的简历</span>
+                    <span>校招简历</span>
                   </a>
                 </li>
-                <li url="notice.html">
+                <li url="resume.html?recruitType=society">
                   <a>
-                    <img src="../img/email.png">
-                    <span>通知信</span>
+                    <img src="../img/resume.png">
+                    <span>社招简历</span>
                   </a>
                 </li>
+                <li url="resume.html?recruitType=trainee">
+                  <a>
+                    <img src="../img/resume.png">
+                    <span>实习生简历</span>
+                  </a>
+                </li>
+                
                 <li url="jobList.html?recruitType=campus">
                   <a>
                     <img src="../img/xiaozhao2.png">
@@ -95,7 +98,19 @@
                 <li url="jobList.html?recruitType=trainee">
                   <a>
                     <img src="../img/xiaozhao.png">
-                    <span>实习生</span>
+                    <span>实习生岗位</span>
+                  </a>
+                </li>
+                <li url="myJob.html">
+                  <a>
+                    <img src="../img/me.png">
+                    <span>我的应聘</span>
+                  </a>
+                </li>
+                <li url="notice.html">
+                  <a>
+                    <img src="../img/email.png">
+                    <span>通知信</span>
                   </a>
                 </li>
               </ul>
@@ -111,6 +126,17 @@ $(document).ready(function() {
     		location.href=$(this).attr("url");
     	});
     });
-});	   
+});	 
+
+//注销
+function logout(){
+	$.ajax({
+		url:baseUrl+"/user/logout"
+		,success:function(){
+			alert("退出成功");
+			window.location.reload();
+		}
+	});
+}
 
 </script>

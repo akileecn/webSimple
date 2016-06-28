@@ -12,7 +12,7 @@
   <body>
    <div data-role="page" id="pageone">
        <div data-role="header" data-position="fixed"   data-theme="a">
-          <h1>校招岗位</h1>
+          <h1  id="recruit_title">校招岗位</h1>
           <a href="#" data-icon="home" onclick="goHome($(this))"  data-iconpos="notext" data-direction="reverse">Home</a>
        </div>
        <div data-role="content" style="margin-top:-10px" >
@@ -37,7 +37,9 @@ var page;
 var params = getUrlParam(location.search);
     params.PageNum = 1 ;
 $(document).ready(function() {
-// alert(baseUrl);
+    if(params!= null && params!= ""){
+    	$("#recruit_title").html("岗位-"+recruitType[params["recruitType"]]);
+    }
 	dataload(params);
 });	
 
@@ -83,7 +85,7 @@ function dataload(pagenum){
 */
 function detail(jobid){
 	
-	location.href="jobDetail.html?id="+jobid+"&_t="+Math.random();
+	location.href="jobDetail.html?id="+jobid+"&recruitType="+ params["recruitType"] +"&_t="+Math.random();
 }
 
 /***
@@ -105,19 +107,5 @@ function onpage(param){
 	dataload(params);
 }
 
-/**
-获取链接中的参数
-**/
-function getUrlParam(url){
-var Request = {};
-if(url.indexOf("?")!=-1){
-	var str = url.substr(1)　//去掉?号
-	　　strs = str.split("&");
-	for(var i=0;i<strs.length;i++)
-	{
-	 　 Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
-	}
-}
-return Request ;
-}
+
 </script>

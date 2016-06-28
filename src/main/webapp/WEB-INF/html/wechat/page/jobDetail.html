@@ -24,9 +24,13 @@
    <div data-role="content"  style="margin-top:-10px;">
       <div> 
          <ul id="jobDetail" data-role="listview" data-dividertheme="d" style="margin-top: 0;">
-              <li data-role="list-divider">工作地点</li>
+              <li data-role="list-divider">岗位名称</li>
               <li>
                   <span name="id" id="id" style="display:none;"></span>
+                  <span name="name">无</span>
+              </li>
+              <li data-role="list-divider">工作地点</li>
+              <li>
                   <span name="workCity">无</span>
               </li>
               <li data-role="list-divider">招聘人数</li>
@@ -59,23 +63,6 @@
     if(params.id){
         load(params);
     }
-
-    /**
-    	获取链接中的参数
-    **/
-    function getUrlParam(url){
-    	var Request = {};
-    	if(url.indexOf("?")!=-1){
-	    	var str = url.substr(1)　//去掉?号
-	    	　　strs = str.split("&");
-	    	for(var i=0;i<strs.length;i++)
-	    	{
-	    	 　 Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
-	    	}
-    	}
-    	return Request ;
-    }
-    
     
     /**
       	初始化数据加载
@@ -108,9 +95,37 @@
                申请岗位
     **/
     function apply(){
+    	console.log(params);
+    	if(confirm("您一季度只有一次申请机会，申请提交后无法修改")){
+    		$.ajax({
+    			url:baseUrl+"application/apply",
+    		    data:{"jobId":params.id},
+    		    type:"post",
+    		    success:function(text){
+    		    	console.log(text);
+    		    	if(text.success){
+    		    		alert("感谢您应聘我行职位，我们会尽快和你联系，请您耐心等待");
+    				}else{
+    					if(text.message){
+    						if(text.message.indexOf(",")>-1){
+    							var parts=text.message.split(",");
+    							if("notSubmit"==parts[0]){
+    								alert("简历未提交");
+    								console.log(params);
+    								location.href="resume.html?recruitType="+params["recruitType"]+"&t"+Math.random();
+    							}
+    						}else if(text.message=="请登录后操作"){
+    								alert(text.message);
+    							    location.href="login.html";
+    						}else{
+    							alert(text.message);
+    						}
+    					}
+    				}
+    		    }
+    		});
+    	}
     	
-    	alert("岗位id"+$("#id").text());
     }
-	console.log("asaaaaaaaaaaa   ===="+ location.search + " ============");
-	console.log(params);
+	
 </script>
