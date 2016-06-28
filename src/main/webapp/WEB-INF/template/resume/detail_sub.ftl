@@ -1,6 +1,6 @@
 <#-- subpage1+subpage2于deprecated文件夹下的模版效果相同 -->
 <#-- 教育经历 -->
-<@subpage1 name="education" title="教育经历(从最高学历填至"+(recruitType=="society")?string("高中","小学")+")" required=true>
+<@subpage1 name="education" title="教育经历(从最高学历填至本科或大专)" required=true>
 	<@span label="学校名称" name="schoolName"/>
 	<@span label="所学专业" name="major"/>
 	</tr><tr>
@@ -14,10 +14,14 @@
 	<@span label="结束时间" name="endDate"/>
 	</tr><tr>
 	<@span label="学校类别" name="schoolType" translate=true/>
+	<#if recruitType!="society">
 	<@span label="是否担任过学生干部" name="hasBeenCadre" translate=true attr="style=\"width:200px;\""/>
 	</tr><tr>
 	<@span label="年级排名" name="gradeRank" translate=true/>
+	</#if>
+	<#--
 	<@span label="学校位于" name="schoolLocation" translate=true/>
+	-->
 </@subpage1>
 <@subpage2 name="education">
 	<@input label="学校名称" name="schoolName" required=true/>
@@ -33,10 +37,14 @@
 	<@date label="结束时间" name="endDate" required=true/>
 	</tr><tr>
 	<@select label="学校类别" name="schoolType" required=true/>
+	<#if recruitType!="society">
 	<@radio label="是否担任过学生干部" name="hasBeenCadre" required=true/>
 	</tr><tr>
 	<@select label="年级排名" name="gradeRank" required=true/>
+	</#if>
+	<#--
 	<@select label="学校位于" name="schoolLocation" required=true/>
+	-->
 </@subpage2>
 <#if recruitType=="society">
 	<#-- 工作经历 -->
@@ -46,10 +54,12 @@
 		</tr><tr>
 		<@span label="部门名称" name="department"/>
 		<@span label="职位" name="job"/>
-		</tr><tr>	
+		</tr><tr>
+		<#--
 		<@span label="证明人" name="certifier"/>
 		<@span label="证明人电话" name="certifierMobile"/>
-		</tr>
+		</tr><tr>
+		-->
 		<@span label="工作地点" name="workPlace"/>
 		<@span label="职位类型" name="jobType" translate=true/>
 		</tr><tr>
@@ -70,10 +80,12 @@
 		</tr><tr>
 		<@input label="部门名称" name="department" required=true/>
 		<@input label="职位" name="job" required=true/>
-		</tr><tr>	
+		</tr><tr>
+		<#--	
 		<@input label="证明人" name="certifier" required=true/>
 		<@input label="证明人电话" name="certifierMobile" required=true/>
 		</tr><tr>
+		-->
 		<@input label="工作地点" name="workPlace" required=true/>
 		<@select label="职位类型" name="jobType" required=true/>
 		</tr><tr>
@@ -94,16 +106,15 @@
 	<@span label="英语等级" name="level" translate=true/>
 	<@span label="英语分数" name="score"/>
 	</tr><tr>
-	<@span label="英语口语" name="speaking" translate=true/>
+	<#--<@span label="英语口语" name="speaking" translate=true/>-->
 	<@span label="熟练程度" name="proficiency" translate=true/>
-	</tr><tr>
 	<@span label="其他语言" name="others" translate=true/>
 </@subpage1>
 <@subpage2 name="foreignLanguage">
 	<@select label="英语等级" name="level" dict="languageLevel" required=true/>
 	<@input label="英语分数" name="score" required=true/>
 	</tr><tr>
-	<@select label="英语口语" name="speaking" dict="languageProficiency"/>
+	<#--<@select label="英语口语" name="speaking" dict="languageProficiency"/>-->
 	<@select label="熟练程度" name="proficiency" dict="languageProficiency"/>
 	</tr><tr>
 	<@select label="其他语言" name="others" dict="language" type="other"/>
@@ -143,7 +154,7 @@
 		<@date label="开始时间" name="beginDate"/>
 		<@date label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@textarea label="职责描述" name="duty"/>
+		<@textarea label="职责描述" name="duty" attr="style=\"width:550px;\""/>
 	</@subpage2>
 	<#-- 学生干部 -->
 	<@subpage1 name="studentCadre" title="学生干部(填写学生干部经历)">
@@ -162,11 +173,11 @@
 		<@date label="开始时间" name="beginDate"/>
 		<@date label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@textarea label="职责描述" name="description"/>
+		<@textarea label="职责描述" name="description" attr="style=\"width:550px;\""/>
 	</@subpage2>
 </#if>
 <#-- 奖励记录 -->
-<@subpage1 name="award" title="奖励记录(请填写在校期间获奖情况)">
+<@subpage1 name="award" title="奖励记录(请填写在校"+(recruitType=="society")?string("或工作","")+"期间获奖情况)">
 	<@span label="奖励名称" name="name"/>
 	<@span label="获得时间" name="time"/>
 	</tr><tr>
@@ -213,7 +224,7 @@
 	<@span label="工作单位" name="workCompany"/>
 	<@span label="职位" name="workJob"/>
 	</tr><tr>
-	<@span label="政治面貌" name="description" wide=true/>
+	<@span label="政治面貌" name="description" translate=true/>
 </@subpage1>
 <@subpage2 name="family">
 	<@input label="姓名" name="name" required=true/>
@@ -222,5 +233,5 @@
 	<@input label="工作单位" name="workCompany" required=true/>
 	<@input label="职位" name="workJob" required=true/>
 	</tr><tr>
-	<@input label="政治面貌" name="description" required=true/>
+	<@select label="政治面貌" name="description" dict="politicsStatus" required=true/>
 </@subpage2>

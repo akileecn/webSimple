@@ -1281,6 +1281,7 @@ span.more:hover{
     text-align: right;
     margin-right:5px;
 	color:#333;
+	float: left;
 }
 .col_cv_tab tr td{
 	padding-top:5px;
@@ -1343,8 +1344,22 @@ span.more:hover{
 .col_cv_tab .user_pic.mr{
 	margin-right:35px;
 }
+.col_cv_tab .user_pic .img{
+	position: relative;
+}
 .col_cv_tab .user_pic img{
 	border:#CCC solid 1px;
+	width:120px;
+	height:150px;
+}
+.col_cv_tab .user_pic input{
+	width:120px;
+	height:150px;
+	position: absolute;
+	opacity: 0;
+	top:0;
+	left: 105px;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 .col_cv_tab .user_pic label{
 	width:100px;

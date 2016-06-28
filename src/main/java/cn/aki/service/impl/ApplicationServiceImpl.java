@@ -12,6 +12,7 @@ import cn.aki.dao.ResumeMapper;
 import cn.aki.entity.Application;
 import cn.aki.entity.Job;
 import cn.aki.entity.Resume;
+import cn.aki.response.DataResponse;
 import cn.aki.service.ApplicationService;
 import cn.aki.utils.Constants;
 
@@ -44,20 +45,24 @@ public class ApplicationServiceImpl implements ApplicationService{
 		return applicationMapper.getList(application);
 	}
 
-	public String apply(Application application) {
+	public DataResponse<Application> apply(Application application) {
+		DataResponse<Application>  response=new DataResponse<Application>();
 		Job job=jobMapper.get(application.getJobId());
 		if(job==null){
-			return "岗位不存在";
+			response.setMessage("岗位不存在");
+			return response;
 		}
-		String recruitType=job.getrecruitType();
+		String recruitType=job.getRecruitType();
 		if(recruitType==null){
-			return "岗位招聘类型未知";
+			response.setMessage("岗位招聘类型未知");
+			return response;
 		}
 		List<Application> oldList=applicationMapper.getList(application);
 		if(oldList!=null&&oldList.size()>0){
 			for(Application old:oldList){
-				if(old.getJob()!=null&&recruitType.equals(old.getJob().getrecruitType())){
-					return "本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待";
+				if(old.getJob()!=null&&recruitType.equals(old.getJob().getRecruitType())){
+					response.setMessage("本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待");
+					return response;
 				}
 			}
 		}
@@ -66,17 +71,22 @@ public class ApplicationServiceImpl implements ApplicationService{
 		resume.setRecruitType(recruitType);
 		resume=resumeMapper.getStatus(resume);
 		if(resume==null){
-			return "简历不存在";
+			response.setMessage("简历不存在");
+			return response;
 		}
 		//保存简历ID
 		application.setResumeId(resume.getId());
+		//传前台页面
+		response.setData(application);
 		if(resume.getIsSubmit()==false){
-			return Constants.APPLY_ERROR_NOT_SUBMIT+","+resume.getId();
+			response.setCode(Constants.ErrorCode.NOT_SUBMIT);
+			response.setMessage("简历未提交");
+			return response;
 		}
 		application.setStatus("1");
 		application.setCreateTime(new Date());
 		applicationMapper.save(application);
-		return null;
+		return response;
 	}
 
 }

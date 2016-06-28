@@ -28,18 +28,15 @@ public class Job extends BaseTimeEntity implements Translatable{
 	private String requirement;	//,requirement varchar(500) -- 要求
 	private String description;	//,description varchar(500) -- 描述
 	private Boolean disabled;	//,disabled tinyint(1) default 0 -- 是否失效
+	@TranslateTypeCode("recruitArea")
+	private String department;	//department nvarchar(100); -- 部门
+	private Integer orderby;//orderby int default 0; -- 排序 从大到小
 	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getrecruitType() {
-		return recruitType;
-	}
-	public void setrecruitType(String recruitType) {
-		this.recruitType = recruitType;
 	}
 	public String getWorkYear() {
 		return workYear;
@@ -94,6 +91,24 @@ public class Job extends BaseTimeEntity implements Translatable{
 	}
 	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
+	}
+	public String getRecruitType() {
+		return recruitType;
+	}
+	public void setRecruitType(String recruitType) {
+		this.recruitType = recruitType;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public Integer getOrderby() {
+		return orderby;
+	}
+	public void setOrderby(Integer orderby) {
+		this.orderby = orderby;
 	}
 	
 }

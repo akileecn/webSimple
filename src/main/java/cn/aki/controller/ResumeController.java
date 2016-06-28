@@ -6,6 +6,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.alibaba.fastjson.JSON;
 
 import cn.aki.entity.Resume;
 import cn.aki.entity.ResumeAward;
@@ -38,6 +41,7 @@ import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
 import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
+import cn.aki.utils.Constants;
 
 /**
  * 简历
@@ -55,22 +59,18 @@ public class ResumeController extends BaseController{
 	/**
 	 * 上传头像
 	 */
-	@ResponseBody
 	@RequestMapping(value = "/photo/upload")
-	public SimpleResponse upload(MultipartHttpServletRequest request,Resume resume) {
-		SimpleResponse response=new SimpleResponse();
+	public void upload(MultipartHttpServletRequest request,Resume resume,HttpServletResponse response) {
+		SimpleResponse json=new SimpleResponse();
 		Iterator<String> itr = request.getFileNames();
 		if (itr.hasNext()) {
 			MultipartFile mpf = request.getFile(itr.next());
 			//上传校验
 			if(mpf.getSize()>50*1024){
-				response.setMessage("上传文件必须小于50kb");
-				return response;
-			}
-			if(!mpf.getContentType().startsWith("image/")){
-				response.setMessage("只能上传图片");
-				return response;
-			}
+				json.setMessage("上传文件必须小于50kb");
+			}else if(!mpf.getContentType().startsWith("image/")){
+				json.setMessage("只能上传图片");
+			}else{
 			//文件命名
 //			String originalFileName=mpf.getOriginalFilename();
 //			String newFileName=resume.getId()+originalFileName.substring(originalFileName.indexOf("."));
@@ -80,19 +80,28 @@ public class ResumeController extends BaseController{
 //			if(!parentDir.exists()){
 //				parentDir.mkdirs();
 //			}
-			try {
-//				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
-//				String webPath=parentName+newFileName;
-				resume.setPhoto(mpf.getBytes());
-				resumeService.updatePhoto(resume);
-				response.setSuccess(true);
-				response.setMessage("上传成功");
-			} catch (IOException e) {
-				e.printStackTrace();
-				response.setMessage("上传失败");
+				try {
+	//				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(new File(parentDir, newFileName)));
+	//				String webPath=parentName+newFileName;
+					resume.setPhoto(mpf.getBytes());
+					resumeService.updatePhoto(resume);
+					json.setSuccess(true);
+					json.setMessage("上传成功");
+				} catch (IOException e) {
+					e.printStackTrace();
+					json.setMessage("上传失败");
+				}
 			}
 		}
-		return response;
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.println(JSON.toJSONString(json));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(path="/phote/show")
@@ -132,9 +141,11 @@ public class ResumeController extends BaseController{
 	}
 	
 	@RequestMapping(path="/detail",method=GET)
-	public String toDetail(Integer id,String recruitType,Model model){
+	public String toDetail(Integer id,String recruitType,String applyJobId,Model model){
 		model.addAttribute("id", id);
 		model.addAttribute("recruitType", recruitType);
+		//应聘岗位id，由岗位页面拦截跳转得到
+		model.addAttribute("applyJobId", applyJobId);
 		return "resume/detail";
 	}
 	
@@ -189,10 +200,12 @@ public class ResumeController extends BaseController{
 	public SimpleResponse deleteComputer(ResumeComputer bean,BindingResult result){
 		return deleteSub(bean);
 	}
+	
 	@ResponseBody
-	@RequestMapping(path="/save/education",method=POST)
-	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form,BindingResult result){
-		return saveSub(form,result);
+	@RequestMapping(path="/save/education")
+	public FormResponse<Integer> saveEducation(String recruitType,@Valid ResumeEducation form ,BindingResult result){
+		//@Valid放其他参数会报错
+		return saveSub(form,recruitType,result);
 	}
 	@ResponseBody
 	@RequestMapping(path="/delete/education",method=POST)
@@ -265,13 +278,29 @@ public class ResumeController extends BaseController{
 	 * @param result
 	 * @return
 	 */
-	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,String recruitType,BindingResult result){
 		FormResponse<Integer> response=handleFormError(result);
+		if(recruitType!=null){
+			final String errInfo="字段不能为空";
+			if(sub instanceof ResumeEducation&&!Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
+				Boolean hasBeenCadre=((ResumeEducation)sub).getHasBeenCadre();
+				String gradeRank=((ResumeEducation)sub).getGradeRank();
+				if(hasBeenCadre==null){
+					response.putError("hasBeenCadre", errInfo);
+				}
+				if(gradeRank==null){
+					response.putError("gradeRank", errInfo);
+				}
+			}
+		}
 		if(response.isSuccess()){
 			resumeSubService.saveOrUpdate(sub);
 			response.setData(sub.getId());
 		}
 		return response;
+	}
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
+		return saveSub(sub,null,result);
 	}
 	/**
 	 * 公共删除方法

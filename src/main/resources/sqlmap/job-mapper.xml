@@ -17,6 +17,7 @@
 			,disabled
 			,create_time as createTime
 			,modify_time as modifyTime
+			,department
 		from zp_job
 	</sql>
 	<sql id="whereSql">
@@ -36,13 +37,16 @@
 			<if test="name!=null and name!=''">
 				and name like '%'+#{name}+'%'
 			</if>
+			<if test="disabled!=null">
+				and disabled=#{disabled}
+			</if>
 		</where>
 	</sql>
 	
 	<select id="getList" resultType="job" parameterType="job">
 		<include refid="selectSql"/>
 		<include refid="whereSql"/>
-		order by id desc
+		order by orderby desc,id desc
 	</select>
 	
 	<select id="get" resultType="job" parameterType="int">
@@ -55,6 +59,7 @@
 			,name
 			,recruit_type as recruitType
 		from zp_job
-		order by id desc
+		where disabled=0
+		order by orderby desc,id desc
 	</select>
 </mapper>

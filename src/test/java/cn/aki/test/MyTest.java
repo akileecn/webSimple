@@ -5,9 +5,13 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.aki.entity.User;
 import cn.aki.response.FormResponse;
 import cn.aki.response.Response;
+import cn.aki.response.SimpleResponse;
+import cn.aki.utils.Constants;
 import cn.aki.utils.DateUtils;
 import cn.aki.utils.Md5Utils;
 
@@ -61,5 +65,13 @@ public class MyTest {
 		String password="123qwe";
 		System.err.println(password.matches("^(?![^a-zA-Z]+$)(?!\\D+$)[a-zA-Z\\d]{6,20}$"));
 		
+	}
+	
+	@Test
+	public void test6(){
+		SimpleResponse response=new SimpleResponse();
+		response.setMessage("错误信息");
+		response.setCode(Constants.ErrorCode.NOT_LOGIN);
+		System.err.println(JSON.toJSONString(response));
 	}
 }

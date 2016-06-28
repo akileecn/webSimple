@@ -26,11 +26,13 @@
 		      open="(" separator="," close=")">
 		        #{item}
 		</foreach>
+			and disabled=0
 		order by type_code,orderby desc
 	</select>
 	
-	<select id="getAllList" resultMap="dictDataResultMap" parameterType="list">
+	<select id="getAllList" resultMap="dictDataResultMap" parameterType="dictData">
 		<include refid="baseSql"/>
+		where disabled=0
 		order by type_code,orderby desc
 	</select>
 	
@@ -38,5 +40,6 @@
 		<include refid="baseSql"/>
 		where type_code=#{typeCode}
 			and code=#{code}
+			and disabled=0
 	</select>
 </mapper>

@@ -9,10 +9,10 @@
 </#macro>
 
 <#-- textarea标签 -->
-<#macro textarea label name required=false>
+<#macro textarea label name attr required=false>
 <td colspan="2">
     <label>${label}：</label>
-    <textarea name="${name}" cols="" rows="" class="w537"></textarea><#if required><span class="red">*</span></#if>
+    <textarea name="${name}" <#if attr??>${attr}</#if> cols="" rows="" class="w537"></textarea><#if required><span class="red">*</span></#if>
     <div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>
@@ -43,6 +43,13 @@
 		<input type="text" name="${name}" style="display:none;"/>
 	    <div class="col_cv_alt" data-error="${name}"></div>
 	</td>
+		<#elseif type=="prov">
+	<td class="selectCity">
+	    <label>${label}：</label>
+	    <select class="prov" style="width:185px;"></select><#if required><span class="red">*</span></#if>
+		<input type="text" name="${name}" style="display:none;"/>
+	    <div class="col_cv_alt" data-error="${name}"></div>
+	</td>	
 		<#elseif type=="city">
 	<td class="selectCity">
 	    <label>${label}：</label>
@@ -106,7 +113,7 @@
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	    <tr>
 	        <td colspan="2" style="text-align: center;">
-	            <input name="" type="button" value="+继续添加" class="new fr" onclick="addSub('${name}','input');">
+	            <input name="" type="button" value="+添加" class="new fr" onclick="addSub('${name}','input');">
 	        </td>
 	    </tr>
 	</table>

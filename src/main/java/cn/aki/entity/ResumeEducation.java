@@ -36,6 +36,7 @@ public class ResumeEducation extends ResumeSubEntity{
 	@TranslateTypeCode
 	private String gradeRank;		//,grade_rank varchar(32) -- 年级排名
 	@TranslateTypeCode
+	@Deprecated
 	private String schoolLocation;//school_location nvarchar(32); -- 学校位于城市或农村
 	
 	@Size(max=32)@NotBlank
@@ -77,11 +78,11 @@ public class ResumeEducation extends ResumeSubEntity{
 	public Boolean getHasBeenCadre() {
 		return hasBeenCadre;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getGradeRank() {
 		return gradeRank;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getSchoolLocation() {
 		return schoolLocation;
 	}

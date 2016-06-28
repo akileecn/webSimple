@@ -55,12 +55,14 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private String admissionOrder;		//,admission_order varchar(32) -- 录取批次
 	private String emergencyContact;	//,emergency_contact varchar(32) -- 紧急联系人
 	private String emergencyMobile;		//,emergency_mobile varchar(32) -- 紧急联系人电话
+	@Deprecated
 	private Integer childrenCount;		//,children_count int -- 子女
 	@TranslateTypeCode
 	private Boolean isRelativeHere;		//,is_relative_here tinyint -- 是否有亲友受雇与本公司
 	private String currentResidence;	//,current_residence varchar(100) -- 现居住地址
 	private String familyResidence;		//,family_residence varchar(100) -- 家庭住址
 	private String nativePlace;			//,native_place varchar(100) -- 籍贯
+	@Deprecated
 	private String studentOrigin;		//,student_origin varchar(100) -- 生源地
 	private String registeredResidence;	//,registered_residence varchar(100) -- 户口所在地
 	private String certificate;			//,certificate varchar(500) -- 持证情况
@@ -69,8 +71,10 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	@TranslateTypeCode
 	private String workYear;//,work_year varchar(32) -- 工作年前
 	@TranslateTypeCode
+	@Deprecated
 	private String workCity;//,work_city varchar(32) -- 期望工作城市
 	@TranslateTypeCode
+	@Deprecated
 	private String health;//,health varchar(32) -- 健康
 //	private String photo;	//头像
 	private byte[] photo;
@@ -81,6 +85,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private Date beginWorkDate;//begin_work_date datetime;-- 参加工作时间
 	private Date beginSchoolDate;//begin_school_date datetime;-- 开始时间
 	private String school;//school nvarchar(100);-- 毕业院校
+	@TranslateTypeCode
 	private String schoolType;//school_type nvarchar(32);-- 院校类别
 	private String major;//nvarchar(32);-- 专业
 	/*20160619*/
@@ -148,7 +153,6 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getPoliticsStatus() {
 		return politicsStatus;
 	}
-	@NotNull
 	public Date getJoinPartyDate() {
 		return joinPartyDate;
 	}
@@ -194,7 +198,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getEmergencyContact() {
 		return emergencyContact;
 	}
-	@NotBlank@Size(max=32)
+	@NotBlank@Size(max=32)@Pattern(regexp="^1\\d{10}$",message="{v.mobile}")
 	public String getEmergencyMobile() {
 		return emergencyMobile;
 	}
@@ -225,11 +229,11 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getRegisteredResidence() {
 		return registeredResidence;
 	}
-	@NotBlank@Size(max=500)
+	@Size(max=500)
 	public String getCertificate() {
 		return certificate;
 	}
-	@Size(max=500)@NotBlank
+	@Size(max=500)
 	public String getHobby() {
 		return hobby;
 	}
@@ -241,7 +245,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getWorkYear() {
 		return workYear;
 	}
-	@Size(max=32)@NotBlank
+	@Size(max=32)
 	public String getWorkCity() {
 		return workCity;
 	}

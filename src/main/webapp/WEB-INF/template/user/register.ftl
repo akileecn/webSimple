@@ -6,7 +6,7 @@
 		$('#registerForm').ajaxForm({
 			"beforeSubmit":function(datas){
 				if(!$("#registerForm input[name='isAgree']").is(":checked")){
-					alert("阅读并接受《用户协议》之后才能注册");
+					$.alert("阅读并接受《用户协议》之后才能注册");
 					return false;
 				}
 				var password=$("#registerForm input[name='password']").val();
@@ -38,7 +38,7 @@
 						</@compress>'
 				    });
 				}else{
-					alert("表单信息有误");
+					$.alert("表单信息有误");
 					$('#registerForm').showError(text.error);
 					changeCaptcha();
 				}
@@ -74,7 +74,7 @@
             	<img id="captcha" src="<@spring.url "/user/captchaImage.png"/>" width="78px" height="34px" alt="" />
             	<a href="javascript:changeCaptcha();">换一张</a>
             	<div class="col_cv_alt" data-error="captcha"></div>
-                <p class="tl"><input name="isAgree" type="checkbox" value=""/><a href="javascript:showUserAgreement();" style=" text-decoration:underline;">阅读并接受《用户协议》</a></p>
+                <p class="tl"><input name="isAgree" type="checkbox" value="" style="width:35px;"/><a href="javascript:showUserAgreement();" style=" text-decoration:underline;">阅读并接受《用户协议》</a></p>
             </li>
             <div class="btn_m">
                 <input type="button" class="button btnbg2" value="取消">

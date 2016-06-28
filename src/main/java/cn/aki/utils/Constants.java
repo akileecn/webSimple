@@ -21,10 +21,21 @@ public interface Constants {
 	String SHIRO_SESSION_KEY_RESUME_IDS="resumeIds";
 	/**shiro会话key 图片验证码*/
 	String SHIRO_SESSION_KEY_CAPTCHA="captcha";
+	/**shiro会话key 个人中心类型*/
+	String SHIRO_SESSION_KEY_USER_CENTER_TYPE="userCenterType";
 	/**字典code other*/
 	String DICT_CODE_OTHER="other";
 	/**字典类型 查询学历要求*/
 	String DICT_TYPE_CODE_SEARCH_EDUCATION="searchEducation";
-	/**申请错误 未提交简历*/
-	String APPLY_ERROR_NOT_SUBMIT="notSubmit";
+	/**
+	 * 错误代码
+	 * @author Aki
+	 * 2016年6月26日 下午7:40:16
+	 */
+	public interface ErrorCode{
+		/**未提交简历*/
+		String NOT_SUBMIT="notSubmit";
+		/**未登录*/
+		String NOT_LOGIN="notLogin";
+	}
 }

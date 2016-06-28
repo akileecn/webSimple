@@ -44,7 +44,9 @@ public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
 				form.setEducation(null);
 			}
 		}
-		return getPage(form.getPageNum(), form.getPageSize(),form.createJob());
+		Job job=form.createJob();
+		job.setDisabled(false);
+		return getPage(form.getPageNum(), form.getPageSize(),job);
 	}
 
 	public Job get(Integer id) {

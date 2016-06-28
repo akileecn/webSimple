@@ -22,7 +22,7 @@
 						</#list>
                     </div>
                     <span class="search_index col-xs-9 padding-l">
-			            <input type="text" placeholder="搜索" style="height:39px;">
+			            <input type="text" name="name" placeholder="搜索" style="height:39px;">
 			            <input type="submit" value="">
 			        </span>
                 </div>

@@ -19,7 +19,7 @@
 <#macro rightTitle title subTitle=title>
 <h3>${title}</h3>
 <div class="col_more fr">
-	<a href="<@spring.url "/index"/>">首页</a> - <a href="javascript:void(0);">${subTitle}</a> - <a href="javascript:void(0);"><span >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a>
+	<a href="<@spring.url "/index"/>"><#if userCenterType=="about">认识瑞丰<#else>${dictMap['recruitType'][userCenterType]!"首页"}</#if></a> - <a href="javascript:void(0);">${subTitle}</a><#-- - <a href="javascript:void(0);"><span >更多 &nbsp;<img src="<@c.resource "images/arrow1.png"/>" alt=""/></span></a>-->
 </div>   
 </#macro>
 <#macro right title subTitle=title>

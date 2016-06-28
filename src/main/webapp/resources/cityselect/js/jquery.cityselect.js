@@ -66,6 +66,9 @@ required:必选项
 
 		// 赋值地区（县）函数
 		var distStart=function(){
+			if(city_obj.length==0){
+				return;
+			}
 			var prov_id=prov_obj.get(0).selectedIndex;
 			var city_id=city_obj.get(0).selectedIndex;
 			if(!settings.required){

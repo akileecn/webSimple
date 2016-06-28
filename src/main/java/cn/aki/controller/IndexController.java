@@ -28,6 +28,8 @@ public class IndexController extends BaseController{
 		List<Job> hotJoblist=jobService.getHotList();
 		model.addAttribute("hotJoblist", hotJoblist);
 		model.addAttribute("user",UserUtils.getUser());
+		//清楚个人中心类型
+		UserUtils.setUserCenterType(null);
 		return "index/main";
 	}
 	

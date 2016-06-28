@@ -107,7 +107,6 @@ public class ResumeServiceImpl implements ResumeService{
 			validateNotEmpty(map, response);
 		//校招,实习必填
 		}else{
-			map.put("studentOrigin", resume.getStudentOrigin());
 			map.put("ceeProvince", resume.getCeeProvince());
 			map.put("ceeScore", resume.getCeeScore());
 			map.put("isFirstLine", resume.getIsFirstLine());

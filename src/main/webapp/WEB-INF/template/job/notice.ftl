@@ -10,7 +10,7 @@
     }
 </script>
 </@bootstrap.head>
-<@bootstrap.body menu="about">
+<@bootstrap.body>
 <div class="banner">
     <div class="banner_container">
         <img src="<@c.resource "images/about-banner.jpg"/>" width="1000">

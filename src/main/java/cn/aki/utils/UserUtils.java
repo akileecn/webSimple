@@ -113,5 +113,21 @@ public class UserUtils {
 	public static void refreshUser(User user){
 		SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_USER,user);
 	}
+	
+	/**
+	 * 设置个人中心类型
+	 * @param recruitType
+	 */
+	public static void setUserCenterType(String recruitType){
+		SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_USER_CENTER_TYPE,recruitType);
+	}
+	
+	/**
+	 * 获取个人中心类型
+	 * @return
+	 */
+	public static String getUserCenterType(){
+		return (String) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_USER_CENTER_TYPE);
+	}
 
 }

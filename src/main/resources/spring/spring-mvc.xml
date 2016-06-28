@@ -46,7 +46,7 @@
 	<!-- 简单controller -->
 	<mvc:view-controller path="/home" view-name="home"/>
 	
-	<!-- 拦截器
+	<!-- 拦截器 -->
 	<mvc:interceptors>
 	    <mvc:interceptor>
 	        <mvc:mapping path="/resume/**"/>
@@ -54,7 +54,7 @@
 	        <bean class="cn.aki.interceptor.ResumeSubIntercaptor"/>
 	    </mvc:interceptor>
 	</mvc:interceptors>
-	 -->
+	
 	
 	<!--
 		freemarker配置

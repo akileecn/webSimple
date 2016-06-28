@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
+import com.alibaba.fastjson.JSON;
+
+import cn.aki.response.SimpleResponse;
+import cn.aki.utils.Constants;
+
 public class AjaxFormAuthenticationFilter extends FormAuthenticationFilter{
 
 	@Override
@@ -17,10 +22,13 @@ public class AjaxFormAuthenticationFilter extends FormAuthenticationFilter{
 		//如果是ajax请求
 		if("XMLHttpRequest".equalsIgnoreCase(requestType)){
 			response.setCharacterEncoding("utf-8");
-			response.setContentType("application/json; charset=utf-8"); 
-			String json="{\"success\":false,\"message\":\"请登录后操作\",\"error\":\"请登录后操作\"}";
+			response.setContentType("application/json; charset=utf-8");
+			SimpleResponse json=new SimpleResponse();
+			json.setSuccess(false);
+			json.setCode(Constants.ErrorCode.NOT_LOGIN);
+			json.setMessage("请登录后操作");
 			PrintWriter out=response.getWriter();
-			out.println(json);
+			out.println(JSON.toJSONString(json));
 		}else{
 			super.redirectToLogin(request, response);
 		}
