@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.util.StringUtils;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.aki.dao.DictDataMapper;
@@ -53,9 +54,14 @@ public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
 		return jobMapper.get(id);
 	}
 
-	public List<Job> getHotList() {
+	public PageInfo<Job> getHotList(Integer pageNum) {
 		final int dedaultCount=16;
-		return jobMapper.getHotList(dedaultCount);
+		if(pageNum==null){
+			pageNum=1;
+		}
+		PageHelper.startPage(pageNum, dedaultCount, true);
+		List<Job> list=jobMapper.getHotList(dedaultCount);
+		return new PageInfo<Job>(list);
 	}
 
 }

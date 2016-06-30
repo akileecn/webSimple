@@ -55,7 +55,7 @@
 	</select>
 	
 	<select id="getHotList" resultType="job" parameterType="int">
-		select top ${_parameter} id
+		select id
 			,name
 			,recruit_type as recruitType
 		from zp_job

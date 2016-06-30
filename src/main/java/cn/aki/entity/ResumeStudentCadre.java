@@ -8,13 +8,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
+import cn.aki.form.validator.BeginAndEndDate;
 
 /**
  * 学生干部经历
  * @author aki
  * 2016年4月21日 下午7:21:42
  */
-public class ResumeStudentCadre extends ResumeSubEntity{
+public class ResumeStudentCadre extends ResumeSubEntity implements BeginAndEndDate{
 	private static final long serialVersionUID = 875804192695265860L;
 	private Date beginDate;			//,begin_date datetime -- 开始时间
 	private Date endDate;			//,end_date datetime -- 结束时间

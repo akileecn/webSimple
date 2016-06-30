@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,7 @@ import cn.aki.entity.ResumeStudentCadre;
 import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.form.validator.BeginAndEndDate;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
@@ -291,6 +293,13 @@ public class ResumeController extends BaseController{
 				if(gradeRank==null){
 					response.putError("gradeRank", errInfo);
 				}
+			}
+		}
+		if(sub instanceof BeginAndEndDate){
+			Date begin=((BeginAndEndDate) sub).getBeginDate();
+			Date end=((BeginAndEndDate) sub).getEndDate();
+			if(begin!=null&&end!=null&&end.getTime()<begin.getTime()){
+				response.putError("endDate", "结束时间必须大于开始时间");
 			}
 		}
 		if(response.isSuccess()){

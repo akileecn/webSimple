@@ -121,39 +121,35 @@
 <script type="text/javascript">
 	T.${name}={};
 	T.${name}.text='<@compress single_line=true>
-		<form action="" method="post" data-type="text" class="duoge">
-			<div class="col_cv_tab">
-			    <div class="edit2 fr">
-			        <a href="javascript:void(0);" onclick="switchSub(\'${name}\',this);"><img src="<@c.resource "images/icon-1.png"/>" width="18"></a>
-			    </div>
-			    <div class="del2 fr">
-			        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
-			    </div>
-		        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-		            <tr><span data-name="id" data-value="%{id}" style="display:none;"/><#nested></tr>
-		        </table>
-			</div>
-		</form>
+		<div class="col_cv_tab">
+		    <div class="edit2 fr">
+		        <a href="javascript:void(0);" onclick="switchSub(\'${name}\',this);"><img src="<@c.resource "images/icon-1.png"/>" width="18"></a>
+		    </div>
+		    <div class="del2 fr">
+		        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
+		    </div>
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	            <tr><span data-name="id" data-value="%{id}" style="display:none;"/><#nested></tr>
+	        </table>
+		</div>
 	</@compress>';
 </#macro>
 <#macro subpage2 name>
 	T.${name}.input='<@compress single_line=true>
-		<form action="" method="post" data-type="input" class="duoge">
-			<div class="col_cv_tab">
-				<div class="del2 fr">
-			        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
-			    </div>
-			    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-			        <tr><input type="hidden" name="id"/><#nested></tr>
-			        <tr>
-			            <td colspan="2" style="text-align: center;">
-			                <input type="reset" value="重置" class="reset">
-			                <input type="button" value="保存" class="submit" onclick="saveSub(\'${name}\',this)">
-			            </td>
-			        </tr>
-			    </table>
-			</div>
-		</form>
+		<div class="col_cv_tab">
+			<div class="del2 fr">
+		        <a href="javascript:void(0);" onclick="deleteSub(\'${name}\',this);"><img src="<@c.resource "images/icon-2.png"/>" width="18"></a>
+		    </div>
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		        <tr><input type="hidden" name="id"/><#nested></tr>
+		        <tr>
+		            <td colspan="2" style="text-align: center;">
+		                <input type="reset" value="重置" class="reset">
+		                <input type="button" value="保存" class="submit" onclick="saveSub(\'${name}\',this)">
+		            </td>
+		        </tr>
+		    </table>
+		</div>
 	</@compress>';
 </script>
 </#macro>

@@ -540,11 +540,17 @@ i.icon3{
 	text-decoration:none;
 }
 
-.search_ul input[type=radio]{
+.search_ul input[type="radio"]{
 	display:none;
 }
 
-.search_ul input[type=radio]:checked+label{
+.search_ul .cursor{
+	color:#FFF;
+	background:#006dba;	
+	text-decoration:none;		
+}
+
+.search_ul input[type="radio"]:checked+label{
 	color:#FFF;
 	background:#006dba;	
 	text-decoration:none;		

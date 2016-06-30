@@ -9,13 +9,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
+import cn.aki.form.validator.BeginAndEndDate;
 
 /**
  * 教育经历
  * @author aki
  * 2016年4月19日 上午10:40:23
  */
-public class ResumeEducation extends ResumeSubEntity{
+public class ResumeEducation extends ResumeSubEntity implements BeginAndEndDate{
 	private static final long serialVersionUID = -3184168895563521363L;
 	private String schoolName;		//,school_name varchar(32)
 	private String major;			//,major varchar(32)

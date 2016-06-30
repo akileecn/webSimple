@@ -32,6 +32,15 @@ public class JobController {
 	@Autowired
 	private StaticPageService staticPageService;
 	
+	//热招岗位
+	@ResponseBody
+	@RequestMapping(path="/hotList",method=RequestMethod.POST)
+	public PageResponse<Job> handleHotList(Integer pageNum){
+		PageResponse<Job> response=new PageResponse<Job>();
+		response.setData(jobService.getHotList(pageNum));
+		return response;
+	}
+	
 	@RequestMapping(path="/list",method=RequestMethod.GET)
 	public String toList(JobQueryForm form,Model model){
 		//默认跳转到校招
@@ -73,7 +82,7 @@ public class JobController {
 	@RequestMapping(path="/notice",method=RequestMethod.GET)
 	public String toNotice(Job job,Model model){
 		StaticPage staticPage=new StaticPage();
-		staticPage.setCode(Constants.STATIC_PAGE_CODE_RECRUIT_NOTICE);
+		staticPage.setCode(Constants.StaticPageCode.RECRUIT_NOTICE);
 		staticPage=staticPageService.get(staticPage); 
 		model.addAttribute("staticPage", staticPage);
 		return "job/notice";

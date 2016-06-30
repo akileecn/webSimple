@@ -7,10 +7,6 @@ public interface Constants {
 	String RECRUIT_TYPE_SOCIETY="society";
 	/**招聘类型 实习生招聘*/
 	String RECRUIT_TYPE_TRAINEE="trainee";
-	/**静态页 用户协议*/
-	String STATIC_PAGE_CODE_USER_AGREEMENT="userAgreement";
-	/**静态页 招聘公告*/
-	String STATIC_PAGE_CODE_RECRUIT_NOTICE="recruitNotice";
 	/**servletContext属性key 字典数据*/
 	String CONTEXT_ATTR_KEY_DICT_MAP="dictMap";
 	/** servletContext属性key 左侧跳转连接的招聘类型*/
@@ -37,5 +33,18 @@ public interface Constants {
 		String NOT_SUBMIT="notSubmit";
 		/**未登录*/
 		String NOT_LOGIN="notLogin";
+	}
+	/**
+	 * 静态页代码
+	 * @author Aki
+	 * 2016年6月28日 上午12:12:04
+	 */
+	public interface StaticPageCode{
+		/**静态页 用户协议*/
+		String USER_AGREEMENT="userAgreement";
+		/**静态页 招聘公告*/
+		String RECRUIT_NOTICE="recruitNotice";
+		/**邮件模版*/
+		String MAIL_TEMPLATE="mailTemplate";
 	}
 }

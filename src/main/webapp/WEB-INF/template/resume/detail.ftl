@@ -183,16 +183,16 @@
 			var parts=value.split(",");
 			var settings={url:"<@c.resource "cityselect/js/city.min.js"/>",nodata:"none"};
 			for(var i=0;i<parts.length;i++){
+				var $more=$(this).find(".more");
 				if(i==0){
 					settings.prov=parts[i];
+					$more.show();
 				}else if(i==1){
 					settings.city=parts[i];
 				}else if(i==2){
 					settings.dist=parts[i];
 				}else if(i==3){
-					var $more=$(this).find(".more");
 					$more.val(parts[i]);
-					$more.show();
 				}
 			}
 			$(this).citySelect(settings);
@@ -220,11 +220,11 @@
 		}
 		var template=T[dataType][templateType];
 		if(templateType=="input"){
-			$div.append(template);
+			$div.append('<form action="" method="post" data-type="input" class="duoge">'+template+"</form>");
 			//初始化时间插件
 			$div.find(":last-child .form_datetime").datetimepicker();
 		}else if(templateType=="text"){
-			$div.append($.template(template,data));
+			$div.append('<form action="" method="post" data-type="text" class="duoge">'+$.template(template,data)+"</form>");
 		}
 	}
 	
