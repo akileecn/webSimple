@@ -15,7 +15,9 @@ import cn.aki.dao.ResumeComputerMapper;
 import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeFamilyMapper;
 import cn.aki.dao.ResumeForeignLanguageMapper;
+import cn.aki.dao.ResumePracticeMapper;
 import cn.aki.dao.ResumeStudentCadreMapper;
+import cn.aki.dao.ResumeTrainMapper;
 import cn.aki.dao.ResumeWorkMapper;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.service.ResumeSubService;
@@ -44,6 +46,12 @@ public class WechatResumeSubServiceImpl implements WechatResumeSubService,Initia
 	@SuppressWarnings("unused")
 	@Autowired
 	private ResumeStudentCadreMapper studentCadreMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumePracticeMapper practiceMapper;
+	@SuppressWarnings("unused")
+	@Autowired
+	private ResumeTrainMapper trainMapper;
 	
 	private HashMap<Class<? extends ResumeSubEntity>, BaseResumeSubMapper<? extends ResumeSubEntity>> mapperMap;
 

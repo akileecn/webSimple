@@ -11,7 +11,9 @@ import cn.aki.dao.ResumeEducationMapper;
 import cn.aki.dao.ResumeFamilyMapper;
 import cn.aki.dao.ResumeForeignLanguageMapper;
 import cn.aki.dao.ResumeMapper;
+import cn.aki.dao.ResumePracticeMapper;
 import cn.aki.dao.ResumeStudentCadreMapper;
+import cn.aki.dao.ResumeTrainMapper;
 import cn.aki.dao.ResumeWorkMapper;
 import cn.aki.entity.Resume;
 import cn.aki.entity.ResumeAward;
@@ -19,7 +21,9 @@ import cn.aki.entity.ResumeComputer;
 import cn.aki.entity.ResumeEducation;
 import cn.aki.entity.ResumeFamily;
 import cn.aki.entity.ResumeForeignLanguage;
+import cn.aki.entity.ResumePractice;
 import cn.aki.entity.ResumeStudentCadre;
+import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.service.WechatResumeService;
 
@@ -41,7 +45,12 @@ public class WechatResumeServiceImpl implements WechatResumeService {
 	@Autowired
 	private ResumeForeignLanguageMapper foreignLanguageMapper;
 	@Autowired
-	private ResumeStudentCadreMapper studentCadreMapper;	
+	private ResumeStudentCadreMapper studentCadreMapper;
+	@Autowired
+	private ResumePracticeMapper practiceMapper;
+	@Autowired
+	private ResumeTrainMapper trainMapper;
+	
 	public Resume getResume(Resume resume,boolean isAll) {
 		
 		resume = resumeMapper.get(resume);
@@ -54,6 +63,9 @@ public class WechatResumeServiceImpl implements WechatResumeService {
 			List<ResumeWork> workList=workMapper.getList(resumeId);
 			List<ResumeComputer> computerList=computerMapper.getList(resumeId);
 			List<ResumeForeignLanguage> foreignLanguageList=foreignLanguageMapper.getList(resumeId);
+			List<ResumePractice> practiceList=practiceMapper.getList(resumeId);
+			List<ResumeTrain> trainList=trainMapper.getList(resumeId);
+			
 			resume.setAwardList(awardList);
 			resume.setEducationList(educationList);
 			resume.setFamilyList(familyList);
@@ -61,6 +73,8 @@ public class WechatResumeServiceImpl implements WechatResumeService {
 			resume.setComputerList(computerList);
 			resume.setStudentCadreList(studentCadreList);
 			resume.setForeignLanguageList(foreignLanguageList);
+			resume.setPracticeList(practiceList);
+			resume.setTrainList(trainList);
 		}
 		return resume ; 
 	}

@@ -3,6 +3,8 @@ package cn.aki.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,9 @@ import cn.aki.entity.ResumeComputer;
 import cn.aki.entity.ResumeEducation;
 import cn.aki.entity.ResumeFamily;
 import cn.aki.entity.ResumeForeignLanguage;
+import cn.aki.entity.ResumePractice;
 import cn.aki.entity.ResumeStudentCadre;
+import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.response.DataResponse;
@@ -25,6 +29,7 @@ import cn.aki.response.SimpleResponse;
 import cn.aki.service.TranslateService;
 import cn.aki.service.WechatResumeService;
 import cn.aki.service.WechatResumeSubService;
+import cn.aki.utils.UserUtils;
 
 @Controller
 @RequestMapping("/wechatResume/")
@@ -72,6 +77,14 @@ public class WechatResumeController  extends BaseController{
 	public DataResponse<Map<String,Object>> getResume(Resume resume){
 		DataResponse<Map<String,Object>> response = new DataResponse<Map<String,Object>>();
 		Map<String,Object> map = new HashMap<String,Object>();
+		System.out.println("************"+resume.getId());
+		
+		Integer userid = UserUtils.getUserId();
+		if("".equals(userid) || userid == null ){
+			response.setMessage("noLogin");
+			return response ;
+		}
+		
 		Resume data = wechatResumeService.getResume(resume,true);
 		map.put("resume", data);
 		map.put("dicts",  translateService.findDicts(dictTypes));
@@ -88,15 +101,21 @@ public class WechatResumeController  extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(path="updateResumeBase",method=RequestMethod.POST)
-	public FormResponse<Void> saveResumeBase(Resume form,BindingResult result){
+	public FormResponse<Void> saveResumeBase(@Valid Resume form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsFirstLine());
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsRelativeHere());
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestEducation());
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestDegree());
 		FormResponse<Void> response=handleFormError(result);
-		form.setUserId(0);
+		Integer userid = UserUtils.getUserId();
+		if("".equals(userid) || userid == null ){
+			response.setMessage("noLogin");
+			return response;
+		}
+		
 		if(response.isSuccess()){
+			form.setUserId(userid);
 			wechatResumeService.updateResume(form);
 		}
 		return response;
@@ -119,9 +138,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveEducation",method=RequestMethod.POST)
-	public FormResponse<Integer> saveEducation(ResumeEducation form,BindingResult result){
+	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -142,9 +160,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveWork",method=RequestMethod.POST)
-	public FormResponse<Integer> saveWork(ResumeWork form,BindingResult result){
+	public FormResponse<Integer> saveWork(@Valid ResumeWork form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -164,9 +181,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveStudentCadre",method=RequestMethod.POST)
-	public FormResponse<Integer> saveStudentCadre(ResumeStudentCadre form,BindingResult result){
+	public FormResponse<Integer> saveStudentCadre(@Valid ResumeStudentCadre form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -185,9 +201,8 @@ public class WechatResumeController  extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(path="saveAward",method=RequestMethod.POST)	
-	public FormResponse<Integer> saveAward(ResumeAward form,BindingResult result){
+	public FormResponse<Integer> saveAward(@Valid ResumeAward form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -209,9 +224,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveForeignLanguage",method=RequestMethod.POST)
-	public FormResponse<Integer> saveForeignLanguage(ResumeForeignLanguage form,BindingResult result){
+	public FormResponse<Integer> saveForeignLanguage(@Valid ResumeForeignLanguage form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -232,9 +246,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveComputer",method=RequestMethod.POST)
-	public FormResponse<Integer> saveComputer(ResumeComputer form,BindingResult result){
+	public FormResponse<Integer> saveComputer(@Valid ResumeComputer form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 
@@ -256,9 +269,8 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveFamily",method=RequestMethod.POST)
-	public FormResponse<Integer> saveFamily(ResumeFamily form,BindingResult result){
+	public FormResponse<Integer> saveFamily(@Valid ResumeFamily form,BindingResult result){
 		System.out.println("++++++++++++++++=================");
-		form.setResumeId(1);
 		return saveSub(form,result);
 	}
 	
@@ -273,11 +285,73 @@ public class WechatResumeController  extends BaseController{
 	@RequestMapping(path="deleteFamily",method=RequestMethod.POST)
 	public SimpleResponse deleteFamily(ResumeFamily resumefamily,BindingResult result){
 		System.out.println("delete family.........."+resumefamily.getId());
-		resumefamily.setResumeId(1);
 		return deleteSub(resumefamily) ;
 		
 	}	
 	
+	
+	
+	/****
+	 * 
+	 * 保存实践活动信息
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping(path="savePractice",method=RequestMethod.POST)
+	public FormResponse<Integer> savePractice(@Valid ResumePractice form,BindingResult result){
+		System.out.println("++++++++++++++++=================");
+		return saveSub(form,result);
+	}
+	
+	/***
+	 * 
+	 * 删除实践活动信息
+	 * @param resumefamily
+	 * @param result
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path="deletePractice",method=RequestMethod.POST)
+	public SimpleResponse deletePractice(ResumePractice form,BindingResult result){
+		System.out.println("delete family.........."+form.getId());
+		return deleteSub(form) ;
+		
+	}	
+		
+	
+	/****
+	 * 
+	 * 保存培训信息
+	 * @param form
+	 * @param result
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping(path="saveTrain",method=RequestMethod.POST)
+	public FormResponse<Integer> saveTrain(@Valid ResumeTrain form,BindingResult result){
+		System.out.println("++++++++++++++++=================");
+		return saveSub(form,result);
+	}
+	
+	/***
+	 * 
+	 * 删除培训信息
+	 * @param resumefamily
+	 * @param result
+	 * @return Train
+	 */
+	@ResponseBody
+	@RequestMapping(path="deleteTrain",method=RequestMethod.POST)
+	public SimpleResponse deleteTrain(ResumeTrain resumefamily,BindingResult result){
+		System.out.println("delete family.........."+resumefamily.getId());
+		return deleteSub(resumefamily) ;
+		
+	}	
+		
 	
 	
 	/**

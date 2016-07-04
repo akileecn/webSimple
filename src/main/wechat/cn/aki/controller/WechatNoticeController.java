@@ -15,6 +15,7 @@ import cn.aki.response.DataResponse;
 import cn.aki.response.PageResponse;
 import cn.aki.service.WechatNoticeService;
 import cn.aki.service.impl.WechatNoticeServiceImpl;
+import cn.aki.utils.UserUtils;
 
 /***
  * 
@@ -39,8 +40,14 @@ public class WechatNoticeController{
 	@RequestMapping(path="/list",method=RequestMethod.POST)
 	public DataResponse<List<Notice>> getNotice(Notice notice){
 		DataResponse<List<Notice>> response = new DataResponse<List<Notice>>();
-		//notice.setId(1);
-		notice.setUserId(0);
+
+		Integer userid = UserUtils.getUserId();
+		if("".equals(userid) || userid == null ){
+			response.setMessage("noLogin");
+			return response ;
+		}
+		
+		notice.setUserId(userid);
 		List<Notice> notices = wechatNoticeService.getList(notice);
 		System.out.println(notice.toString());
 		response.setData(notices);

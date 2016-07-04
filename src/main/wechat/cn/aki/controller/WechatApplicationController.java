@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.aki.entity.Application;
 import cn.aki.response.DataResponse;
 import cn.aki.service.WechatApplicationService;
+import cn.aki.utils.UserUtils;
 
 @Controller
 @RequestMapping("/wechatApplication/")
-public class WecharApplicationController {
+public class WechatApplicationController {
 
 	
 	@Autowired
@@ -24,11 +25,15 @@ public class WecharApplicationController {
 	@ResponseBody
 	@RequestMapping(path="list",method=RequestMethod.POST)
 	public DataResponse<List<Application>> getList(Application application){
-		//application.setJobId(1);
-		application.setUserId(0);;
 		DataResponse<List<Application>> response = new DataResponse<List<Application>>();
+		Integer userid = UserUtils.getUserId();
+		if("".equals(userid) || userid == null ){
+			response.setMessage("noLogin");
+			return response ;
+		}
+		application.setUserId(userid);;
+
 		List<Application> list = wecharApplicationService.getList(application);
-		//System.out.println(list.toString());
 		response.setData(list);
 		return response ;
 	}
