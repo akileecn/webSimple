@@ -25,7 +25,7 @@
        </div>
    </div>
    </body>
-</html>
+
 <script>
 $(document).ready(function() {
 	
@@ -60,6 +60,16 @@ function dataload(){
 	    		}else{
 	    		    $("#notice").html("<h3>无通知信息！</h3>");
 	    		}
+	    	}else{
+				if(text.message=="noLogin"){
+					showDialog({
+						head:"提示",
+						title:"请登录后操作",
+						content:"",
+						href:"login.html",
+						type:"opens"
+					});
+				}
 	    	}
 	    }
 		
@@ -69,3 +79,4 @@ function dataload(){
 	console.log("asaaaaaaaaaaa");
 	
 </script>
+</html>

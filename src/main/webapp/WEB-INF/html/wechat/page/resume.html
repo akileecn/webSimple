@@ -27,6 +27,12 @@
      .ui-collapsible-content {
 	    padding:0;
 	 }
+     .col_cv_alt {
+	    margin: 0 0 0 5px;
+	    text-align: left;
+	    font-size: 0.85em;
+	    color: #F00;
+	 }
   </style>
   </head>
   <body>
@@ -44,91 +50,123 @@
                       <input id="reusmeId" type="hidden" name="id">
                       <label for="name">姓名<font color="red">*</font>：</label>
                       		<input type="text" name="name" id="name" width="50%">
+                      		<div class="col_cv_alt" data-error="name"></div>
                       <label for="gender">性别<font color="red">*</font>:</label>
                       		<select name="gender" id="gender" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="gender"></div>
                       <label for="idNumber">身份证号码<font color="red">*</font>:</label>
                       		<input type="text" name="idNumber" id="idNumber">
+                      		<div class="col_cv_alt" data-error="idNumber"></div>
                       <label for="birthday">出生日期<font color="red">*</font>:</label>
                       		<input type="date" name="birthday" id="birthday">
+                      		<div class="col_cv_alt" data-error="birthday"></div>
                       <label for="nation">民族<font color="red">*</font>:</label>
                       		<select name="nation" id="nation" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="nation"></div>
                       <label for="height">身高：</label>
                       		<input type="text" name="height" id="height">
+                      		<div class="col_cv_alt" data-error="height"></div>
                       <label for="weight">体重：</label>
                       		<input type="text" name="weight" id="weight">
+                      		<div class="col_cv_alt" data-error="weight"></div>
                       <label for="marriage">婚姻状况<font color="red">*</font>:</label>
                       		<select name="marriage" id="marriage" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="marriage"></div>
                       <label for="nativePlace">籍贯<font color="red">*</font>:</label>
                       		<input type="text" name="nativePlace" id="nativePlace">
                       			    <select class="prov"></select> 
-		<select class="city" disabled="disabled"></select>
-		<select class="dist" disabled="disabled"></select>
-		<input type="text" class="more" placeholder="____街道____号" style="display:none;"/>
+									<select class="city" disabled="disabled"></select>
+									<select class="dist" disabled="disabled"></select>
+									<input type="text" class="more" placeholder="____街道____号" style="display:none;"/>
+							<div class="col_cv_alt" data-error="nativePlace"></div>
                       <label for="registeredResidence">户口所在地<font color="red">*</font>:</label>
                       		<input type="text" name="registeredResidence" id="registeredResidence">
+                      		<div class="col_cv_alt" data-error="registeredResidence"></div>
                       <label for="lname">政治面貌：</label>
                       		<select name="politicsStatus" id="politicsStatus" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="politicsStatus"></div>
                       <label for="mobile">联系电话<font color="red">*</font>:</label>
                       		<input type="text" name="mobile" id="mobile">
+                      		<div class="col_cv_alt" data-error="mobile"></div>
                       <label for="email">电子邮箱：</label>
                       		<input type="email" name="email" id="email">
+                      		<div class="col_cv_alt" data-error="email"></div>
                       <label for="workYear">工作年限<font color="red">*</font>:</label>
                       		<select name="workYear" id="workYear" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="workYear"></div>
                       <label for="workCity">期望工作地点<font color="red">*</font>:</label>
                       		<select name="workCity" id="workCity" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="workCity"></div>
                       <label for="highestEducation">最高全日制学历<font color="red">*</font>:</label>
                       		<select name="highestEducation" id="education" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="highestEducation"></div>
                       <label for="highestDegree">最高学位（校招必填）：</label>
                       		<select name="highestDegree" id="degree" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="highestDegree"></div>
                       <label for="graduateDate">毕业时间<font color="red">*</font>:</label>
                       		<input type="text" name="graduateDate" id="graduateDate">
+                      		<div class="col_cv_alt" data-error="graduateDate"></div>
                 <div >
                       <label for="ceeProvince">高考省份：</label>
                       		<input type="text" name="ceeProvince" id="ceeProvince">
+                      		<div class="col_cv_alt" data-error="ceeProvince"></div>
                       <label for="ceeScore">高考分数：</label>
                       		<input type="text" name="ceeScore" id="ceeScore">
+                      		<div class="col_cv_alt" data-error="ceeScore"></div>
                       <label for="isFirstLine">是否一本分数线以上（校园招聘必填）：</label>
                       		<select name="isFirstLine" id="isFirstLine"  data-native-menu="true">
 							          <option value="1">是</option>
 							          <option value="0">否</option>
 							</select>
+							<div class="col_cv_alt" data-error="isFirstLine"></div>
                       <label for="artsOrScience">文理科（校园招聘必填）：</label>
                       		<select name="artsOrScience" id="artsOrScience" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="artsOrScience"></div>
                       <label for="admissionOrder">录取批次（校园招聘必填）：</label>
                       		<select name="admissionOrder" id="admissionOrder" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="admissionOrder"></div>
 				</div>		
                       <label for="emergencyContact">紧急联系人<font color="red">*</font>:</label>
                       		<input type="text" name="emergencyContact" id="emergencyContact">
+							<div class="col_cv_alt" data-error="emergencyContact"></div>
                       <label for="emergencyMobile">紧急联系人电话<font color="red">*</font>:</label>
                       		<input type="text" name="emergencyMobile" id="emergencyMobile">
+							<div class="col_cv_alt" data-error="emergencyMobile"></div>
                       <label for="childrenCount">子女（个）：</label>
                       		<input type="text" name="childrenCount" id="childrenCount">
+							<div class="col_cv_alt" data-error="childrenCount"></div>
                       <label for="isRelativeHere">是否有亲友受雇与本公司：</label>
                       		<select name="isRelativeHere" id="isRelativeHere" data-native-menu="true">
 							          <option value="1">是</option>
 							          <option value="0">否</option>
 							</select>
+							<div class="col_cv_alt" data-error="isRelativeHere"></div>
                       <label for="currentResidence">现居住地址<font color="red">*</font>:</label>
                       		<input type="text" name="currentResidence" id="currentResidence">
+							<div class="col_cv_alt" data-error="currentResidence"></div>
                       <label for="lname">家庭住址生源地持证情况：</label>
                       		<input type="text" name="familyResidence" id="familyResidence">
+							<div class="col_cv_alt" data-error="familyResidence"></div>
                       <label for="health">健康状况<font color="red">*</font>:</label>
                       		<select name="health" id="health" data-native-menu="true">
 							</select>
+							<div class="col_cv_alt" data-error="health"></div>
                       <label for="hobby">爱好特长<font color="red">*</font>:</label>
 	                      	<textarea name="hobby" id="hobby" placeholder="不超过300字"></textarea>
+							<div class="col_cv_alt" data-error="hobby"></div>
                       <label for="personality">性格特点：</label>
 	                      	<textarea name="personality" id="info" placeholder="不超过300字"></textarea>
+							<div class="col_cv_alt" data-error="personality"></div>
                     </div> 
                     <div align="center">
 	                    <div align="center" class='bgc'>
@@ -140,7 +178,7 @@
             </div>           
        
             <div id="Education" data-role="collapsible">
-                <h1>教育经历</h1>
+                <h1>教育经历(从最高学历填至本科或大专)</h1>
                 <div id="education_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'education')">添加</a>
@@ -148,31 +186,15 @@
             </div>
             
             <div id="Work" data-role="collapsible">
-                <h1>工作实习经历（社会招聘必填）</h1>
+                <h1>工作经历(仅填写全职工作经历)</h1>
                 <div id="work_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'work')">添加</a>
       			</div> 
             </div>
             
-            <div id="StudentCadre" data-role="collapsible">
-                <h1>学生干部情况（从初中开始）（仅限校园招聘）</h1>
-                <div id="studentCadre_forms"></div>
-	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'studentCadre')">添加</a>
-      			</div> 
-            </div>
-            
-            <div id="Award" data-role="collapsible">
-                <h1>奖励记录</h1>
-                <div id="award_forms"></div>
-	            <div data-role="controlgroup" data-type="horizontal" align="right">
-      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'award')">添加</a>
-      			</div>   
-            </div>
-            
             <div id="ForeignLanguage" data-role="collapsible">
-                <h1>外语情况</h1>
+                <h1>外语水平</h1>
                 <div id="foreignLanguage_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'foreignLanguage')">添加</a>
@@ -180,21 +202,54 @@
             </div>
             
             <div id="Computer" data-role="collapsible">
-                <h1>计算机情况</h1>
+                <h1>计算机技能</h1>
                 <div id="computer_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'computer')">添加</a>
       			</div>    
             </div>
             
+            <div id="Practice" data-role="collapsible">
+                <h1>实践活动(填写实习、社会实践及项目经历)</h1>
+                <div id="practice_forms"></div>
+	            <div data-role="controlgroup" data-type="horizontal" align="right">
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'practice')">添加</a>
+      			</div> 
+            </div>
+                        
+            <div id="StudentCadre" data-role="collapsible">
+                <h1>学生干部(填写学生干部经历)</h1>
+                <div id="studentCadre_forms"></div>
+	            <div data-role="controlgroup" data-type="horizontal" align="right">
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'studentCadre')">添加</a>
+      			</div> 
+            </div>
+            
+            <div id="Award" data-role="collapsible">
+                <h1>奖励记录(请填写在校期间获奖情况)</h1>
+                <div id="award_forms"></div>
+	            <div data-role="controlgroup" data-type="horizontal" align="right">
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'award')">添加</a>
+      			</div>   
+            </div>
+            
+            <div id="Train" data-role="collapsible">
+                <h1>培训经历(请填写正规培训机构培训信息)</h1>
+                <div id="train_forms"></div>
+	            <div data-role="controlgroup" data-type="horizontal" align="right">
+      				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'train')">添加</a>
+      			</div>
+            </div>
+            
             <div id="Family" data-role="collapsible">
-                <h1>家庭成员</h1>
+                <h1>家庭成员(请填写家庭和社会主要成员，父母必须填写)</h1>
                 <div id="family_forms">
                 </div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'family')">添加</a>
       			</div>
             </div>
+ 
             <div align="center">
               <a data-role="button" href="#" onclick="sumbit_resume()">提交</a>
             </div>
@@ -203,69 +258,105 @@
        </div>
    </div>
    </body>
-</html>
+
 <script>
 var _dicts ;
-var resumeId = 1;
 var params = getUrlParam(location.search);
 
 $(document).ready(function() {
     if(params!= null && params!= ""){
     	$("#recruit_title").html("我的简历-"+recruitType[params["recruitType"]]);
     }
-	LoadBase();
+	//显示控制
+	if(params.recruitType=='trainee'){
+		
+		$("#Work").remove();
+		
+	}else if(params.recruitType=='campus'){
+		
+		$("#Work").remove();
+		
+	}else if(params.recruitType=='society'){
+		
+		$("#Practice").remove();
+		$("#StudentCadre").remove();
+		
+	}
+    
+    //数据加载
+    LoadBase(params);
 	
 });
 
-   function LoadBase(){
+   function LoadBase(param){
 		$.ajax({
 			url:baseUrl+"wechatResume/getResume",
-			data:{"id":"1","userId":"0"},
+			data:param,
 			type:"post",
 			success:function(text){
 				console.log(text);
 				if(text.success){
-				var _data = text.data.resume;   //简历信息
-				_dicts = text.data.dicts;   //所有字典
-				console.log(_dicts);
-				    //初始化基本信息
-					setData($("#baseForm"),_data);
-				    //教育 
-				    //educationList
-				    if(_data.educationList && _data.educationList.length>0){
-				    	setListData($("#Education"),_data.educationList,"education");
-				    }
-				    //工作 Work
-				    //workList
-				    if(_data.workList && _data.workList.length>0){
-				    	setListData($("#Work"),_data.workList,'work');
-				    }
-				    //学生干部 StudentCadre
-				    //studentCadreList
-				    if(_data.studentCadreList && _data.studentCadreList.length>0){
-				    	setListData($("#StudentCadre"),_data.studentCadreList,'studentCadre');
-				    }
-				    //奖励 Award
-				    //awardList
-				    if(_data.awardList && _data.awardList.length>0){
-				    	setListData($("#Award"),_data.awardList,'award');
-				    }
-				    //外语 ForeignLanguage
-				    //foreignLanguageList
-				    if(_data.foreignLanguageList && _data.foreignLanguageList.length>0){
-				    	setListData($("#ForeignLanguage"),_data.foreignLanguageList,'foreignLanguage');
-				    }
-				    //计算机 Computer
-				    //computerList
-				    if(_data.computerList && _data.computerList.length>0){
-				    	setListData($("#Computer"),_data.computerList,"computer");
-				    }
-				    //家庭成员 Family
-				    //familyList
-				    if(_data.familyList && _data.familyList.length>0){
-				    	setListData($("#Family"),_data.familyList,"family");
-				    }
-				}
+						var _data = text.data.resume;   //简历信息
+						_dicts = text.data.dicts;   //所有字典
+						console.log(_dicts);
+						    //初始化基本信息
+							setData($("#baseForm"),_data);
+						    //教育 
+						    //educationList
+						    if(_data.educationList && _data.educationList.length>0){
+						    	setListData($("#Education"),_data.educationList,"education");
+						    }
+						    //工作 Work
+						    //workList
+						    if(_data.workList && _data.workList.length>0){
+						    	setListData($("#Work"),_data.workList,'work');
+						    }
+						    //学生干部 StudentCadre
+						    //studentCadreList
+						    if(_data.studentCadreList && _data.studentCadreList.length>0){
+						    	setListData($("#StudentCadre"),_data.studentCadreList,'studentCadre');
+						    }
+						    //奖励 Award
+						    //awardList
+						    if(_data.awardList && _data.awardList.length>0){
+						    	setListData($("#Award"),_data.awardList,'award');
+						    }
+						    //外语 ForeignLanguage
+						    //foreignLanguageList
+						    if(_data.foreignLanguageList && _data.foreignLanguageList.length>0){
+						    	setListData($("#ForeignLanguage"),_data.foreignLanguageList,'foreignLanguage');
+						    }
+						    //计算机 Computer
+						    //computerList
+						    if(_data.computerList && _data.computerList.length>0){
+						    	setListData($("#Computer"),_data.computerList,"computer");
+						    }
+						    //家庭成员 Family
+						    //familyList
+						    if(_data.familyList && _data.familyList.length>0){
+						    	setListData($("#Family"),_data.familyList,"family");
+						    }
+						    //实践活动Practice
+						    //practiceList
+						    if(_data.practiceList && _data.practiceList.length>0){
+						    	setListData($("#Practice"),_data.practiceList,"practice");
+						    }
+						    //培训经历Train
+						    //trainList
+						    if(_data.trainList && _data.trainList.length>0){
+						    	setListData($("#Train"),_data.trainList,"train");
+						    }
+				}else{
+					if(text.message=="noLogin"){
+						showDialog({
+    						head:"提示",
+    						title:"请登录后操作",
+    						content:"",
+    						href:"login.html",
+    						type:"opens"
+    					});
+					}
+			   }
 			}
 		});
    }
@@ -352,6 +443,7 @@ $(document).ready(function() {
 					   alert("保存成功");
 					   form.find("input[name='id']").val(text.data);
 				   }else{
+					   form.showError(text.error);
 					   alert("保存失败");
 				   }
 			   }
@@ -408,7 +500,7 @@ $(document).ready(function() {
 	  }
    }
    
-   /***
+    /***
 	   *
 	   * 新增
 	   *
@@ -421,9 +513,10 @@ $(document).ready(function() {
 			   if(_name && _dicts[_name]){
 				   InitSelect($(this),_dicts[_name],null);
 			   }
-		   });
+		});
+   		$F.find("input[name='resumeId']").val(params.id);
 
-   		alert($F.html())
+   		//alert($F.html())
    		$F.appendTo($("#"+formName+"_forms"));
    	  } 
   
@@ -450,7 +543,7 @@ $(document).ready(function() {
 	   var resumeId = $("#resumeId").val();
 	   $.ajax({
 		   url:baseUrl+"/resume/submit",
-		   data:{"id":resumeId},
+		   data:{"id":params.id},
 		   type:"post",
 		   success:function(text){
 				if(text.success){
@@ -464,3 +557,4 @@ $(document).ready(function() {
 
   
 </script>
+</html>

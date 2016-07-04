@@ -20,6 +20,7 @@
    <div data-role="page" id="pageone">
        <div data-role="header" data-position="fixed" data-theme="a">
           <h1>用户注册</h1>
+          <a href="#" data-icon="home" onclick="goHome($(this))"  data-iconpos="notext" data-direction="reverse">Home</a>
        </div>
        
        <div data-role="content" style="margin-top:-10px;padding-top:30px;">
@@ -69,17 +70,18 @@
               <br>
               <div>
               	 <input name="isAgree" type="checkbox" value="">
-              	 <a href="#" style="text-decoration:underline;margin-left:35px;">阅读并接受《用户协议》</a>
+                 <a id="dialog" href="isAgree.html" style="text-decoration:underline;margin-left:35px;"  data-inline="true" data-rel="dialog" data-transition="pop">阅读并接受《用户协议》</a>
               </div> 
            </form>
            <br>
            <div align="center">
               <a data-role="button" href="#" onclick="register()">注册</a>
            </div>
+   		</div>
    </div>
    </body>
-</html>
 <script>
+
 $(function(){
 	changeCaptcha();
 });
@@ -89,7 +91,12 @@ function register(){
 	$.ajax({
 		beforeSend:function(datas){
 			if(!$("#registerForm input[name='isAgree']").is(":checked")){
-				alert("阅读并接受《用户协议》之后才能注册");
+				showDialog({
+					head:"提示",
+					title:"阅读并接受《用户协议》之后才能注册",
+					content:"",
+					type:"back"
+				});
 				return false;
 			}
 			var password=$("#registerForm input[name='password']").val();
@@ -106,8 +113,13 @@ function register(){
 	    type:"post",
 		success:function(text) {
 			if(text.success){
-				alert("注册成功");
-				location.href="login.html";
+				showDialog({
+					head:"提示",
+					title:"注册成功",
+					content:"",
+					href:"login.html",
+					type:"opens"
+				});
 			}else{
 				changeCaptcha();
 				$('#registerForm').showError(text.error);
@@ -121,4 +133,7 @@ function register(){
 function changeCaptcha(){
 	$("#captcha").attr("src",baseUrl+"/user/captchaImage.png?r="+Math.random());
 }
+
+
 </script>
+</html>

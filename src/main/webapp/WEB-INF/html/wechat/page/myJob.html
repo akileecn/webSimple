@@ -22,31 +22,7 @@
          		 -->
          		<a data-role="button" href="#" data-inline="true">我的应聘</a>
          		<table id="application" data-role="table" >
-					     <thead>
-					       <tr>
-					         <th>投递时间</th>
-					         <th>岗位名称</th>
-					         <th>招聘机构</th>
-					         <th>工作城市</th>
-					         <th>状态</th>
-					       </tr>
-					     </thead>
-					     <tbody>
-					       <tr>
-					       	 <th>2016-5-1</th>
-					         <td>前台柜员</td>
-					         <td>绍兴分行</td>
-					         <td>绍兴</td>
-					         <td>通过</td>
-					       </tr>
-					       <tr>
-					       	 <th>2016-5-1</th>
-					         <td>前台柜员</td>
-					         <td>绍兴分行</td>
-					         <td>绍兴</td>
-					         <td>通过</td>
-					       </tr>
-					     </tbody>
+					    
 					  </table>     
        </div>
        <div data-role="footer" data-position="fixed">
@@ -54,7 +30,7 @@
        </div>
    </div>
    </body>
-</html>
+
 <script>
 $(document).ready(function() {
 	
@@ -83,8 +59,10 @@ function dataload(){
 	    			for(var i=0;i<data.length;i++){
 	    				var hl = "<tbody><tr>"
 	    						+'<td><b class="ui-table-cell-label">投递时间</b>'+data[i]["createTime"]+'</td>'
-	    				        +'<td><b class="ui-table-cell-label">岗位名称</b>'+data[i]["job"]["name"]+'</td>'
-	    				        +'<td><b class="ui-table-cell-label">状态</b>'+data[i]["status"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">招聘类型</b>'+data[i]["job"]["t"]["recruitType"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">岗位名称</b>'+data[i]["job"]["t"]["workCity"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">工作地点</b>'+data[i]["job"]["name"]+'</td>'
+	    				        +'<td><b class="ui-table-cell-label">状态</b>'+'已投递'+'</td>'
 	    				        +'</tr><tr><td><hr></td></tr></tbody>';
 	    				html+=hl;
 	    			}
@@ -93,9 +71,20 @@ function dataload(){
 	    		}else{
 	    		    $("#application").html("<h3>无应聘信息！</h3>");
 	    		}
+	    	}else{
+				if(text.message=="noLogin"){
+					showDialog({
+						head:"提示",
+						title:"请登录后操作",
+						content:"",
+						href:"login.html",
+						type:"opens"
+					});
+				}
 	    	}
 	    }
 		
 	});
 }
 </script>
+</html>

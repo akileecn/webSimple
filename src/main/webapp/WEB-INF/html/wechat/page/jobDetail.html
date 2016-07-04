@@ -56,7 +56,7 @@
 
    
    </body>
-</html>
+
 <script>
     var params = getUrlParam(location.search);
     var jobid ;
@@ -104,19 +104,33 @@
     		    success:function(text){
     		    	console.log(text);
     		    	if(text.success){
-    		    		alert("感谢您应聘我行职位，我们会尽快和你联系，请您耐心等待");
+    					showDialog({
+    						head:"提示",
+    						title:"感谢您应聘我行职位，我们会尽快和你联系，请您耐心等待",
+    						content:"",
+    						type:"back"
+    					});
     				}else{
     					if(text.message){
     						if(text.message.indexOf(",")>-1){
     							var parts=text.message.split(",");
     							if("notSubmit"==parts[0]){
-    								alert("简历未提交");
-    								console.log(params);
-    								location.href="resume.html?recruitType="+params["recruitType"]+"&t"+Math.random();
+        							showDialog({
+        	    						head:"提示",
+        	    						title:"简历未提交",
+        	    						content:"",
+        	    						href:"resume.html?recruitType="+params["recruitType"]+"&t"+Math.random(),
+        	    						type:"opens"
+        	    					});
     							}
     						}else if(text.message=="请登录后操作"){
-    								alert(text.message);
-    							    location.href="login.html";
+    							showDialog({
+    	    						head:"提示",
+    	    						title:"请登录后操作",
+    	    						content:"",
+    	    						href:"login.html",
+    	    						type:"opens"
+    	    					});
     						}else{
     							alert(text.message);
     						}
@@ -129,3 +143,4 @@
     }
 	
 </script>
+</html>
