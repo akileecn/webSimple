@@ -1,0 +1,33 @@
+<div data-role="dialog" id="aboutPage">
+     <div data-role="header" data-theme="d">
+         <h1 id="dialog_head"></h1>
+     </div>
+     <div data-role="content" data-theme="c">
+         <h2 id="dialog_title"></h2>
+         <p id="dialog_content"></p>
+         <a id="dialog_href" href=""  data-role="button" data-rel="opens" data-theme="c">确定</a>
+     </div>
+<script>
+	$("#dialog_head").html(Dialog.head);
+	$("#dialog_title").html(Dialog.title);
+	$("#dialog_content").html(Dialog.content);
+	
+	if(Dialog.type){
+		$("#dialog_href").attr({"data-rel":Dialog.type});
+	}
+	if(Dialog.type=="opens"){
+		if(Dialog.href){
+			$("#dialog_href").attr({"href":"javascript:_to('"+ Dialog.href +"')"});
+		}else{
+			$("#dialog_href").attr({"data-rel":"back"});
+		}
+	}else{
+		$("#dialog_href").attr({"href":Dialog.href});
+	}
+	$("#alert-dialog").remove();
+	
+	function _to(url){
+		location.href=url;
+	}
+</script>	
+</div>
