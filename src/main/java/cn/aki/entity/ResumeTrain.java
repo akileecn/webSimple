@@ -5,12 +5,13 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.form.validator.BeginAndEndDate;
 /**
  * 培训
  * @author Aki
  * 2016年6月15日 上午1:27:41
  */
-public class ResumeTrain extends ResumeSubEntity{
+public class ResumeTrain extends ResumeSubEntity implements BeginAndEndDate{
 	private static final long serialVersionUID = -6502839555761944495L;
 	private Date beginDate;//,begin_date datetime -- 开始时间
 	private Date endDate;//,end_date datetime -- 结束时间

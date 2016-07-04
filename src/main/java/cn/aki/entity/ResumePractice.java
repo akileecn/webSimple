@@ -7,12 +7,13 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.form.validator.BeginAndEndDate;
 /**
  * 实践活动
  * @author Aki
  * 2016年6月15日 上午12:42:47
  */
-public class ResumePractice extends ResumeSubEntity{
+public class ResumePractice extends ResumeSubEntity implements BeginAndEndDate{
 	private static final long serialVersionUID = 6963448672229867451L;
 	private String name;//,name nvarchar(100) -- 活动、公司名称
 	private String job;//,job nvarchar(32) -- 职位

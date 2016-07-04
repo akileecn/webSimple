@@ -1,7 +1,7 @@
 package cn.aki.job;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +14,13 @@ import cn.aki.utils.SpringContextUtils;
  */
 @Component("refreshDictJob")
 public class RefreshDictJob implements InitializingBean{
-	private static Logger logger=LoggerFactory.getLogger(RefreshDictJob.class);
+//	private static Logger logger=LoggerFactory.getLogger(RefreshDictJob.class);
 	private TranslateService translateService;
 	
 	public void execute(){
-		logger.info("execute translateService refresh begin");
+//		logger.info("execute translateService refresh begin");
 		translateService.refresh();
-		logger.info("translateService refresh done");
+//		logger.info("translateService refresh done");
 	}
 
 	public void afterPropertiesSet() throws Exception {
