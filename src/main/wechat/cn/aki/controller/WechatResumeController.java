@@ -26,6 +26,8 @@ import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
+import cn.aki.service.ResumeService;
+import cn.aki.service.ResumeSubService;
 import cn.aki.service.TranslateService;
 import cn.aki.service.WechatResumeService;
 import cn.aki.service.WechatResumeSubService;
@@ -39,6 +41,12 @@ public class WechatResumeController  extends BaseController{
 	WechatResumeService wechatResumeService ;
 	@Autowired
 	private WechatResumeSubService wechatResumeSubService;
+	
+	@Autowired
+	private ResumeService resumeService;
+	@Autowired
+	private ResumeSubService resumeSubService;
+	
 	@Autowired
 	TranslateService translateService ;
 	
@@ -102,11 +110,6 @@ public class WechatResumeController  extends BaseController{
 	@ResponseBody
 	@RequestMapping(path="updateResumeBase",method=RequestMethod.POST)
 	public FormResponse<Void> saveResumeBase(@Valid Resume form,BindingResult result){
-		System.out.println("++++++++++++++++=================");
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsFirstLine());
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getIsRelativeHere());
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestEducation());
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+form.getHighestDegree());
 		FormResponse<Void> response=handleFormError(result);
 		Integer userid = UserUtils.getUserId();
 		if("".equals(userid) || userid == null ){
@@ -116,7 +119,7 @@ public class WechatResumeController  extends BaseController{
 		
 		if(response.isSuccess()){
 			form.setUserId(userid);
-			wechatResumeService.updateResume(form);
+			resumeService.update(form);
 		}
 		return response;
 	}
