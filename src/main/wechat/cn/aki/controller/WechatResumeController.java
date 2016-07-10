@@ -72,6 +72,7 @@ public class WechatResumeController  extends BaseController{
 			,"artsOrScience"
 			,"admissionOrder"
 			,"recruitType"
+			,"highestEducation"
 };
 	
 	/**
