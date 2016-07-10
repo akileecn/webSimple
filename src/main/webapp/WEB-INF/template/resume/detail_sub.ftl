@@ -92,7 +92,7 @@
 		<@input label="行业" name="industry" required=true/>
 		<@date label="开始时间" name="beginDate" required=true/>
 		</tr><tr>
-		<@date label="结束时间" name="endDate" required=true/>
+		<@date label="结束时间" name="endDate"/>
 		</tr><tr>
 		<@textarea label="离职原因" name="dimissionReason" required=true/>
 		</tr><tr>

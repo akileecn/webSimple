@@ -9,13 +9,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.base.ResumeSubEntity;
 import cn.aki.entity.translate.TranslateTypeCode;
+import cn.aki.form.validator.BeginAndEndDate;
 
 /**
  * 工作经历
  * @author aki
  * 2016年4月19日 上午11:09:44
  */
-public class ResumeWork extends ResumeSubEntity{
+public class ResumeWork extends ResumeSubEntity implements BeginAndEndDate{
 	private static final long serialVersionUID = -1752143847655142682L;
 	private String company;			//,company varchar(100)
 	private String department;		//,department varchar(32)
@@ -75,7 +76,7 @@ public class ResumeWork extends ResumeSubEntity{
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	@NotNull
+//	@NotNull
 	public Date getEndDate() {
 		return endDate;
 	}

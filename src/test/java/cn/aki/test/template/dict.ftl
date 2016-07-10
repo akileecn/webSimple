@@ -25,6 +25,7 @@
 ,"computerCertificate":"全国计算机一级,全国计算机二级,全国计算机三级,软件工程师,其他"
 ,"computerProficiency":"开发程序,开发应用,OA办公,基本操作"
 ,"recruitArea":"全国,浙江,绍兴,义乌"
+,"highestEducation":"全日制大专,全日制本科,全日制硕士研究生,博士研究生"
 }/>
 <#list data?keys as key>
 insert into zp_dict_type(code,name)values('${key}',N'${key}');

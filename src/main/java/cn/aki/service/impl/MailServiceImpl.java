@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 
 import cn.aki.dao.StaticPageMapper;
 import cn.aki.entity.StaticPage;
@@ -20,7 +19,8 @@ import cn.aki.entity.User;
 import cn.aki.service.MailService;
 import cn.aki.utils.DateUtils;
 
-@Service("mailService")
+//@Service("mailService")
+@Deprecated
 public class MailServiceImpl implements MailService{
 	@Autowired
 	private StaticPageMapper staticPageMapper;

@@ -93,7 +93,7 @@
 	//更多信息
 	T.more='<@compress single_line=true>
 		<div>
-			职责描述:
+			职责描述：
 			<div style="width: 400px;height:auto;">%{description}</div>
 			任职要求：
 			<div style = "width: 400px;height:auto;">%{requirement}</div>
