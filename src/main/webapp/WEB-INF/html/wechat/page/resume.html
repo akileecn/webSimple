@@ -352,12 +352,10 @@ $(document).ready(function() {
 			data:param,
 			type:"post",
 			success:function(text){
-				console.log(text);
 				if(text.success){
 						var _data = text.data.resume;   //简历信息
 						_dicts = text.data.dicts;   //所有字典
 						_dicts.YesOrNo={"false":"否","true":"是"};
-						console.log(_dicts);
 						    //初始化基本信息
 							setData($("#baseForm"),_data);
 						    //教育 
@@ -486,14 +484,13 @@ $(document).ready(function() {
 	   var fieldset = _this.parent();;
 	   for(var i=0;i<10;i++){
 		   if(fieldset.is("fieldset")){
-			   alert("OK");
 			   form = fieldset.find("form");
 			   break;
 		   }else{
 			   fieldset = fieldset.parent(); 
 		   }
 	   }
-	   console.log(form.serialize());
+	   
 	   if(form.is("form")){
 		   $.ajax({
 			   url:baseUrl+_this.attr("url"),
@@ -502,16 +499,42 @@ $(document).ready(function() {
 			   success:function(text){
 				   console.log(text);
 				   if(text.success){
-					   alert("保存成功");
+						showDialog({
+    						head:"提示",
+    						title:"保存成功",
+    						content:"",
+    						href:"",
+    						type:"back"
+    					});
 					   form.find("input[name='id']").val(text.data);
-				   }else{
+				   }else if(text.error){
 					   form.showError(text.error);
-					   alert("保存失败");
+						showDialog({
+    						head:"提示",
+    						title:"表单信息有误",
+    						content:"",
+    						href:"",
+    						type:"back"
+    					});
+				   }else{
+						showDialog({
+    						head:"提示",
+    						title:"保存失败",
+    						content:"",
+    						href:"",
+    						type:"back"
+    					});
 				   }
 			   }
 		   });
 	   }else{
-		   alert("保存异常");
+			showDialog({
+				head:"提示",
+				title:"保存异常",
+				content:"",
+				href:"",
+				type:"back"
+			});
 	   }
 	   
    }
@@ -525,7 +548,6 @@ $(document).ready(function() {
 		   var fieldset = _this.parent();;
 		   for(var i=0;i<10;i++){
 			   if(fieldset.is("fieldset")){
-				   alert("OK");
 				   break;
 			   }else{
 				   fieldset = fieldset.parent(); 
@@ -534,10 +556,8 @@ $(document).ready(function() {
 		   if(fieldset.is("fieldset")){
 			   var form = fieldset.find("form");
 			   var id   = form.find("input[name='id']").val();
-			   console.log("del.............       ."+id);
 			   //删除数据
 			   if(id>-1){
-				   console.log("del11111111       ."+id);
 				   $.ajax({
 					   url:baseUrl+_this.attr("url"),
 					   data:form.serialize(),
@@ -546,9 +566,21 @@ $(document).ready(function() {
 						   if(text.success){
 							   //删除页面元素
 							   fieldset.remove();
-							   //alert("删除成功");
+								showDialog({
+									head:"提示",
+									title:"删除成功",
+									content:"",
+									href:"",
+									type:"back"
+								});
 						   }else{
-							   alert("删除失败");
+								showDialog({
+									head:"提示",
+									title:"删除失败",
+									content:"",
+									href:"",
+									type:"back"
+								});
 						   }
 					   }
 				   });
@@ -557,7 +589,13 @@ $(document).ready(function() {
 				   fieldset.remove();
 			   }
 		   }else{
-			   alert("删除异常");
+				showDialog({
+					head:"提示",
+					title:"删除异常",
+					content:"",
+					href:"",
+					type:"back"
+				});
 		   }
 	  }
    }
@@ -607,9 +645,21 @@ $(document).ready(function() {
 		   type:"post",
 		   success:function(text){
 				if(text.success){
-					alert("提交成功");
+					showDialog({
+						head:"提示",
+						title:"提交成功",
+						content:"",
+						href:"",
+						type:"back"
+					});
 				}else if(text.message){
-					alert(text.message);
+					showDialog({
+						head:"提示",
+						title:text.message,
+						content:"",
+						href:"",
+						type:"back"
+					});
 				}
 		   }
 	   });
