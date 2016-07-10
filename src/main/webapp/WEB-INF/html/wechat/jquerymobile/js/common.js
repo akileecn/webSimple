@@ -1,5 +1,5 @@
 //应用路径
-var baseUrl="/web/" ;
+var baseUrl="/recruit/" ;
 var recruitType = {"campus":"校招","society":"社招","trainee":"实习生"};
 /**
 获取链接中的参数
