@@ -1,9 +1,11 @@
 package cn.aki.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import cn.aki.dao.ApplicationMapper;
@@ -24,6 +26,9 @@ public class ApplicationServiceImpl implements ApplicationService{
 	private JobMapper jobMapper;
 	@Autowired
 	private ResumeMapper resumeMapper;
+	//招聘周期
+	@Value("${application.interval}")
+	private Integer interval;
 	
 	public void delete(Application application) {
 		applicationMapper.delete(application);
@@ -59,8 +64,13 @@ public class ApplicationServiceImpl implements ApplicationService{
 		}
 		List<Application> oldList=applicationMapper.getList(application);
 		if(oldList!=null&&oldList.size()>0){
+			Calendar cal=Calendar.getInstance();
+			cal.add(Calendar.DATE, 0-interval);
+			long time=cal.getTime().getTime();
 			for(Application old:oldList){
-				if(old.getJob()!=null&&recruitType.equals(old.getJob().getRecruitType())){
+				if(old.getJob()!=null&&recruitType.equals(old.getJob().getRecruitType())
+						//interval天之内有投递简历
+						&&(old.getCreateTime()!=null&&old.getCreateTime().getTime()>time)){
 					response.setMessage("本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待");
 					return response;
 				}

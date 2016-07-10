@@ -40,7 +40,7 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	private Date joinPartyDate;			//,join_party_date timestamp -- 入党时间
 	private String mobile;				//,mobile varchar(11)
 	private String email;				//,email varchar(50)
-	@TranslateTypeCode("education")
+	@TranslateTypeCode
 	private String highestEducation;	//,highest_education varchar(32) -- 最高学历
 	@TranslateTypeCode("degree")
 	private String highestDegree;		//,highest_degree varchar(32) -- 最高学位

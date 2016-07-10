@@ -100,6 +100,11 @@ public class ResumeServiceImpl implements ResumeService{
 	public void validate(Resume resume, FormResponse<?> response) {
 		String recruitType=resume.getRecruitType();
 		Map<String,Object> map=new HashMap<String, Object>();
+		Date beginSchooleDate=resume.getBeginSchoolDate();
+		Date graduateDate=resume.getGraduateDate();
+		if(beginSchooleDate!=null&&graduateDate!=null&&graduateDate.getTime()<beginSchooleDate.getTime()){
+			response.putError("graduateDate", "毕业时间必须大于开始时间");
+		}
 		//社招必填
 		if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
 			map.put("beginWorkDate", resume.getBeginWorkDate());

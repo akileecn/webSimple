@@ -59,19 +59,6 @@ public class UserUtils {
 		return false;
 	}
 	/**
-	 * 获得用户的简历Id
-	 * @return
-	 */
-	public static Integer getResumeId(){
-		@SuppressWarnings("unchecked")
-		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS);
-		if(ids!=null&&ids.size()>0){
-			return ids.get(0);
-		}
-//		return 1;
-		return null;
-	}
-	/**
 	 * 创建验证码
 	 * @return
 	 */

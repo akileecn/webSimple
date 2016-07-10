@@ -143,7 +143,7 @@
 				<@input label="电子邮箱" name="email" required=true/>
 			</tr>
             <tr>
-				<@select label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" dict="education" required=true/>
+				<@select label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" required=true/>
             	<@select label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" dict="degree" required=true/>
 			</tr>
             <tr>

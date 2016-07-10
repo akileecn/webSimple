@@ -820,7 +820,7 @@ span.more:hover{
 	overflow: hidden;
 }
 .reg_con li input{
-	font-size:0.75em;
+	/*font-size:0.75em;*/
 	width:215px;
 	border:#CCC solid 1px; 
 	padding:8px 5px 5px; 
