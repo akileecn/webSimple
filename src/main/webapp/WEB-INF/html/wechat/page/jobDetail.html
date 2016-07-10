@@ -111,10 +111,7 @@
     						type:"back"
     					});
     				}else{
-    					if(text.message){
-    						if(text.message.indexOf(",")>-1){
-    							var parts=text.message.split(",");
-    							if("notSubmit"==parts[0]){
+    					if("notSubmit"==text.code){
         							showDialog({
         	    						head:"提示",
         	    						title:"简历未提交",
@@ -122,8 +119,7 @@
         	    						href:"resume.html?recruitType="+params["recruitType"]+"&t"+Math.random(),
         	    						type:"opens"
         	    					});
-    							}
-    						}else if(text.message=="请登录后操作"){
+    					}else if("notLogin"==text.code){
     							showDialog({
     	    						head:"提示",
     	    						title:"请登录后操作",
@@ -131,9 +127,13 @@
     	    						href:"login.html",
     	    						type:"opens"
     	    					});
-    						}else{
-    							alert(text.message);
-    						}
+    					}else{
+    							showDialog({
+    	    						head:"提示",
+    	    						title:text.message,
+    	    						content:"",
+    	    						type:"back"
+    	    					});
     					}
     				}
     		    }

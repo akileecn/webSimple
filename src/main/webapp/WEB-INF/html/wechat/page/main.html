@@ -63,11 +63,11 @@
        <div data-role="content" style="margin-top:-10px">
             <div class="zhaopin full-screen">
               <ul id="meun">
-                <li url="jobList.html?recruitType=campus">
-                  <a><img src="../img/xiaozhao2.png"><span>校招岗位</span></a>
-                </li>
                 <li url="jobList.html?recruitType=society">
                   <a><img src="../img/shezhao.png"><span>社招岗位</span></a>
+                </li>
+                <li url="jobList.html?recruitType=campus">
+                  <a><img src="../img/xiaozhao2.png"><span>校招岗位</span></a>
                 </li>
                 <li url="jobList.html?recruitType=trainee">
                   <a><img src="../img/xiaozhao.png"><span>实习生岗位</span></a>
@@ -127,7 +127,10 @@ function getResumes(){
 		                  '</li>'+
 		                  '<li url="notice.html">'+
 		                     '<a><img src="../img/email.png"><span>通知信</span></a>'+
-		                  '</li>';
+		                  '</li>'+
+		                  '<li url="updatePassword.html">'+
+		                   	  '<a><img src="../img/password.png"><span>修改密码</span></a>'+
+		                   '</li>';
 					$("#meun").append(html);       //添加登录后的内容
 					$("#header").append(logoutH);  //退出功能
 					$("#userTool").remove();       //移除登录功能
