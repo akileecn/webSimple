@@ -113,6 +113,7 @@ public class ResumeServiceImpl implements ResumeService{
 		//校招,实习必填
 		}else{
 			map.put("ceeProvince", resume.getCeeProvince());
+			map.put("ceeYear", resume.getCeeYear());
 			map.put("ceeScore", resume.getCeeScore());
 			map.put("isFirstLine", resume.getIsFirstLine());
 			map.put("artsOrScience", resume.getArtsOrScience());

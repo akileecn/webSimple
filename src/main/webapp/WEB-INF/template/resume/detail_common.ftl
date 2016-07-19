@@ -18,10 +18,13 @@
 </#macro>
 
 <#-- 时间控件 -->
-<#macro date label name required=false>
+<#macro year label name required=false>
+<@date label=label name=name required=required type="year"/>
+</#macro>
+<#macro date label name type required=false>
 <td>
     <label>${label}：</label>
-    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime w185"><#if required><span class="red">*</span></#if>
+    <input type="text"  name="${name}" placeholder="请输入${label}" class="form_datetime<#if type??>_${type}</#if> w185"><#if required><span class="red">*</span></#if>
     <div class="col_cv_alt" data-error="${name}"></div>
 </td>
 </#macro>
@@ -101,7 +104,7 @@
 <#macro span label name attr translate=false wide=false>
 <td <#if wide>colspan="2"</#if>>
     <label <#if attr??>${attr}</#if>>${label}：</label>
-    <span data-name="${name}" <#if translate>data-value="%{${name}}">%{t.${name}}</span><#else>>%{${name}}</span></#if>
+    <span <#if wide>style="width:500px;float:left;"</#if> data-name="${name}" <#if translate>data-value="%{${name}}">%{t.${name}}</span><#else>>%{${name}}</span></#if>
 </td>
 </#macro>
 

@@ -91,6 +91,8 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	/*20160619*/
 	private Boolean isSubmit;//is_submit bit not null default 0; -- 是否提交
 	private Boolean isLocked;//is_lock bit not null default 0; -- 是否锁定
+	/*20160719*/
+	private String ceeYear;//cee_year nvarchar(32); -- 增加高考年份
 	
 	/*关联*/
 	@TranslateTypeCode
@@ -275,8 +277,15 @@ public class Resume extends BaseTimeEntity implements UserSub,Translatable{
 	public String getMajor() {
 		return major;
 	}
+	@Size(max=32)
+	public String getCeeYear() {
+		return ceeYear;
+	}
 	
 	
+	public void setCeeYear(String ceeYear) {
+		this.ceeYear = ceeYear;
+	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}

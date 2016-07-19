@@ -145,7 +145,7 @@
 		<@span label="开始时间" name="beginDate"/>
 		<@span label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@span label="职责描述" name="duty"/>
+		<@span label="职责描述" name="duty" wide=true/>
 	</@subpage1>
 	<@subpage2 name="practice">
 		<@input label="活动/公司名称" name="name" required=true/>
@@ -164,7 +164,7 @@
 		<@span label="开始时间" name="beginDate"/>
 		<@span label="结束时间" name="endDate"/>
 		</tr><tr>
-		<@span label="职责描述" name="description"/>
+		<@span label="职责描述" name="description" wide=true/>
 	</@subpage1>
 	<@subpage2 name="studentCadre">
 		<@input label="职务" name="name" required=true/>

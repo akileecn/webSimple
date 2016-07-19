@@ -177,6 +177,7 @@
 		$form.autofill(data);
 		//初始化时间插件
 		$form.find(".form_datetime").datetimepicker();
+		$form.find(".form_datetime_year").datetimepicker({"format":"yyyy","startView":"decade","minView":"decade"});
 		//初始化省市区联动
 		$form.find(".selectCity").each(function(){
 			var value=$(this).find("input[name]").val();

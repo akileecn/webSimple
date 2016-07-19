@@ -66,6 +66,7 @@
 			,major
 			,is_submit as isSubmit
 			,is_lock as isLocked
+			,cee_year as ceeYear
 		from zp_resume
 	</sql>
 	
@@ -421,6 +422,7 @@
 			school=#{school},
 			school_type=#{schoolType},
 			major=#{major},
+			cee_year=#{ceeYear},
 		</set>
 		<include refid="whereSql"/>
 	</update>

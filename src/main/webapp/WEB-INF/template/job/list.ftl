@@ -171,7 +171,7 @@
                             </div>
                         </div>
                         <div class="btn">
-                            <input name="" type="submit" value="关闭" onclick="art.dialog.list[\'abc\'].close();">
+                            <input name="" type="submit" value="关闭" onclick="window.location.href=\'<@spring.url "/application/list"/>\'"/>
                         </div>
 					</div></div></td></tr>
 		        </table>

@@ -32,37 +32,38 @@
             <tr>
             <#-- <@span label="生源地" name="studentOrigin"/> -->
 				<@span label="婚姻状况" name="marriage" translate=true/>
-			</tr>
-            <tr>
             	<@span label="政治面貌" name="politicsStatus" translate=true/>
-				<@span label="入党（团）时间" name="joinPartyDate"/>
-			</tr>
-			<tr>
-				<@span label="移动电话" name="mobile"/>
-			<#if recruitType=="society">
-				<@span label="参加工作时间" name="beginWorkDate"/>
 			</tr>
             <tr>
+				<@span label="入党（团）时间" name="joinPartyDate"/>
+				<@span label="移动电话" name="mobile"/>
+			</tr>
+			<#if recruitType=="society">
+			<tr>
+				<@span label="参加工作时间" name="beginWorkDate"/>
 				<@span label="参加工作年限" name="workYear" translate=true/>
+			</tr>
 			</#if>
+            <tr>
 				<@span label="电子邮箱" name="email"/>
+				<@span label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" translate=true/>
             </tr>
             <tr>
-				<@span label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" translate=true/>
             	<@span label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" translate=true/>
-			</tr>
-			<tr>
 				<@span label="开始时间" name="beginSchoolDate"/>
-            	<@span label=((recruitType=="trainee")?string("预计毕业时间","毕业时间")) name="graduateDate"/>
 			</tr>
 			<tr>
+            	<@span label=((recruitType=="trainee")?string("预计毕业时间","毕业时间")) name="graduateDate"/>
 				<@span label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school"/>
+			</tr>
+			<tr>
             	<@span label="院校类别" name="schoolType" translate=true/>
+            	<@span label="专业" name="major"/>
 			</tr>
             <tr>
-            	<@span label="专业" name="major"/>
 			<#if recruitType!="society">
 				<@span label="高考省市" name="ceeProvince"/>
+				<@span label="高考年份" name="ceeYear"/>
 			</tr>
             <tr>
 				<@span label="高考分数" name="ceeScore"/>
@@ -89,9 +90,9 @@
 			-->
             <tr><@span label="现居住地址" name="currentResidence" wide=true/></tr>
             <tr><@span label="家庭住址" name="familyResidence" wide=true/></tr>
-            <tr><@span label="持证情况" name="certificate"/></tr>
-            <tr><@span label="爱好特长" name="hobby"/></tr>
-            <tr><@span label="性格特点" name="personality"/></tr>
+            <tr><@span label="持证情况" name="certificate" wide=true/></tr>
+            <tr><@span label="爱好特长" name="hobby" wide=true/></tr>
+            <tr><@span label="性格特点" name="personality" wide=true/></tr>
         </table>
 	</@compress>';
 	T.base.input='<@compress single_line=true>
@@ -127,38 +128,38 @@
             <tr>
             <#-- <@select label="生源地" name="studentOrigin" required=true type="city"/> -->
 				<@select label="婚姻状况" name="marriage" required=true/>
-			</tr>
-            <tr>
             	<@select label="政治面貌" name="politicsStatus" required=true/>
+			</tr>
+            <tr>
 				<@date label="入党（团）时间" name="joinPartyDate"/>
-			</tr>
-            <tr>
 				<@input label="移动电话" name="mobile" required=true/>
+			</tr>
 			<#if recruitType=="society">
+            <tr>
 				<@date label="参加工作时间" name="beginWorkDate" required=true/>
-			</tr>
-            <tr>
 				<@select label="参加工作年限" name="workYear" required=true/>
+			</tr>
 			</#if>
+            <tr>
 				<@input label="电子邮箱" name="email" required=true/>
-			</tr>
-            <tr>
 				<@select label=((recruitType=="trainee")?string("目前就读学历","最高全日制学历")) name="highestEducation" required=true/>
-            	<@select label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" dict="degree" required=true/>
 			</tr>
             <tr>
+            	<@select label=((recruitType=="trainee")?string("预计取得学位","最高学位")) name="highestDegree" dict="degree" required=true/>
             	<@date label="开始时间" name="beginSchoolDate" required=true/>
+			</tr>
+            <tr>
             	<@date label=((recruitType=="trainee")?string("预计毕业时间","毕业时间")) name="graduateDate" required=true/>
+				<@input label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school" required=true/>
 			</tr>
             <tr>				
-				<@input label=((recruitType=="trainee")?string("所在院校","毕业院校")) name="school" required=true/>
 				<@select label="院校类别" name="schoolType" required=true/>
-			</tr>
-            <tr>
 				<@input label="专业" name="major" required=true/>
-			<#if recruitType!="society">
-				<@select label="高考省市" name="ceeProvince" required=true type="prov"/>
 			</tr>
+			<#if recruitType!="society">
+            <tr>
+				<@select label="高考省市" name="ceeProvince" required=true type="prov"/>
+				<@date label="高考年份" name="ceeYear" required=true type="year"/>
             <tr>
 				<@input label="高考分数" name="ceeScore" required=true/>
             	<@radio label="是否一本分数线以上" name="isFirstLine" required=true/>
