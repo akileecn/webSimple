@@ -159,7 +159,7 @@
 	<#-- 学生干部 -->
 	<@subpage1 name="studentCadre" title="学生干部(填写学生干部经历)">
 		<@span label="职务" name="name"/>
-		<@span label="级别" name="level" translate=true/>
+		<@span label="级别" name="cadreLevel" translate=true/>
 		</tr><tr>
 		<@span label="开始时间" name="beginDate"/>
 		<@span label="结束时间" name="endDate"/>
@@ -168,7 +168,7 @@
 	</@subpage1>
 	<@subpage2 name="studentCadre">
 		<@input label="职务" name="name" required=true/>
-		<@select label="级别" name="level" dict="cadreLevel"/>
+		<@select label="级别" name="cadreLevel" dict="cadreLevel"/>
 		</tr><tr>
 		<@date label="开始时间" name="beginDate"/>
 		<@date label="结束时间" name="endDate"/>
