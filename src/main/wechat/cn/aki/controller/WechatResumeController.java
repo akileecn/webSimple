@@ -1,5 +1,6 @@
 package cn.aki.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import cn.aki.entity.ResumeStudentCadre;
 import cn.aki.entity.ResumeTrain;
 import cn.aki.entity.ResumeWork;
 import cn.aki.entity.base.ResumeSubEntity;
+import cn.aki.form.validator.BeginAndEndDate;
 import cn.aki.response.DataResponse;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
@@ -31,6 +33,7 @@ import cn.aki.service.ResumeSubService;
 import cn.aki.service.TranslateService;
 import cn.aki.service.WechatResumeService;
 import cn.aki.service.WechatResumeSubService;
+import cn.aki.utils.Constants;
 import cn.aki.utils.UserUtils;
 
 @Controller
@@ -73,6 +76,9 @@ public class WechatResumeController  extends BaseController{
 			,"admissionOrder"
 			,"recruitType"
 			,"highestEducation"
+			,"cadreLevel"
+			,"computerProficiency"
+			,"computerCertificate"
 };
 	
 	/**
@@ -111,6 +117,7 @@ public class WechatResumeController  extends BaseController{
 	@RequestMapping(path="updateResumeBase",method=RequestMethod.POST)
 	public FormResponse<Void> saveResumeBase(@Valid Resume form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result);
+		resumeService.validate(form, response);
 		Integer userid = UserUtils.getUserId();
 		if("".equals(userid) || userid == null ){
 			response.setMessage("noLogin");
@@ -141,8 +148,10 @@ public class WechatResumeController  extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(path="saveEducation",method=RequestMethod.POST)
-	public FormResponse<Integer> saveEducation(@Valid ResumeEducation form,BindingResult result){
-		return saveSub(form,result);
+	public FormResponse<Integer> saveEducation(String recruitType,@Valid ResumeEducation form,BindingResult result){
+		//@Valid放其他参数会报错
+		System.err.println(recruitType+"=============== "+form.getResumeId());
+		return saveSub(form,recruitType,result);
 	}
 	
 	
@@ -339,12 +348,44 @@ public class WechatResumeController  extends BaseController{
 	@ResponseBody
 	@RequestMapping(path="deleteTrain",method=RequestMethod.POST)
 	public SimpleResponse deleteTrain(ResumeTrain resumefamily,BindingResult result){
-		System.out.println("delete family.........."+resumefamily.getId());
 		return deleteSub(resumefamily) ;
 		
 	}	
 		
-	
+	/**
+	 * 公共修改方法
+	 * @param sub
+	 * @param result
+	 * @return
+	 */
+	private FormResponse<Integer> saveSub(ResumeSubEntity sub,String recruitType,BindingResult result){
+		FormResponse<Integer> response=handleFormError(result);
+		if(recruitType!=null){
+			final String errInfo="字段不能为空";
+			if(sub instanceof ResumeEducation&&!Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
+				Boolean hasBeenCadre=((ResumeEducation)sub).getHasBeenCadre();
+				String gradeRank=((ResumeEducation)sub).getGradeRank();
+				if(hasBeenCadre==null){
+					response.putError("hasBeenCadre", errInfo);
+				}
+				if(gradeRank==null){
+					response.putError("gradeRank", errInfo);
+				}
+			}
+		}
+		if(sub instanceof BeginAndEndDate){
+			Date begin=((BeginAndEndDate) sub).getBeginDate();
+			Date end=((BeginAndEndDate) sub).getEndDate();
+			if(begin!=null&&end!=null&&end.getTime()<begin.getTime()){
+				response.putError("endDate", "结束时间必须大于开始时间");
+			}
+		}
+		if(response.isSuccess()){
+			resumeSubService.saveOrUpdate(sub);
+			response.setData(sub.getId());
+		}
+		return response;
+	}	
 	
 	/**
 	 * 公共修改方法
@@ -353,12 +394,7 @@ public class WechatResumeController  extends BaseController{
 	 * @return
 	 */
 	private FormResponse<Integer> saveSub(ResumeSubEntity sub,BindingResult result){
-		FormResponse<Integer> response=handleFormError(result);
-		if(response.isSuccess()){
-			resumeSubService.saveOrUpdate(sub);
-			response.setData(sub.getId());
-		}
-		return response;
+		return saveSub(sub,null,result);
 	}
 	/**
 	 * 公共删除方法

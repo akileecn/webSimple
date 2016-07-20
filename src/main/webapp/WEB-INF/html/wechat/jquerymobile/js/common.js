@@ -74,12 +74,13 @@ H.family = '<fieldset class="ui-controlgroup ui-controlgroup-vertical ui-corner-
 				'<form method="post">'+
 				  '<div data-role="fieldcontain" class="ui-field-contain">'+
 					  '<input type="hidden" name="resumeId">'+
+					  '<input type="hidden" name="recruitType">'+
 					  '<input type="hidden" name="id">'+
-					  '<label for="name">姓名<font color="red">*</font>:</label>'+
+					  '<label for="name"><font color="red">* </font>姓名:</label>'+
 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+
 					  		'<div class="col_cv_alt" data-error="name"></div> '+
 					  		'<div class="col_cv_alt" data-error="name"></div>'+
-					  '<label for="relationship">关系<font color="red">*</font>:</label>'+
+					  '<label for="relationship"><font color="red">* </font>关系:</label>'+
 								'<div class="ui-select"><select name="relationship" id="relationship" data-native-menu="true" tabindex="-1"></select><div style="display: none;" id="relationship-listbox-placeholder"></div></div>'+
 								'<div class="col_cv_alt" data-error="relationship"></div> '+
 								'<div class="col_cv_alt" data-error="relationship"></div>'+
@@ -105,17 +106,20 @@ H.family = '<fieldset class="ui-controlgroup ui-controlgroup-vertical ui-corner-
 H.computer = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding: 0 15px 15px 15px;"><div class="ui-controlgroup-controls ">'+
 	                '<form method="post">'+
                         '<input type="hidden" name="resumeId">'+
+  					    '<input type="hidden" name="recruitType">'+
 	                    '<input type="hidden" name="id">'+
 	                    '<div data-role="fieldcontain" class="ui-field-contain">'+
-	                      '<label for="certificate">证书名称<font color="red">*</font>:</label>'+
-	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="certificate" id="certificate"></div>'+
-	                      		'<div class="col_cv_alt" data-error="certificate"></div>'+
-	                      '<label for="obtainDate">取得时间<font color="red">*</font>:</label>'+
+	                      '<label for="certificate"><font color="red">* </font>证书名称:</label>'+
+						  		'<div class="ui-select"><select name="certificate" id="computerCertificate" data-native-menu="true" tabindex="-1">'+
+								'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
+								'<div class="col_cv_alt" data-error="certificate"></div>'+
+	                      '<label for="obtainDate"><font color="red">* </font>取得时间:</label>'+
 	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="obtainDate" id="obtainDate"></div>'+
 	                      		'<div class="col_cv_alt" data-error="obtainDate"></div>'+
-	                      '<label for="level">掌握程度<font color="red">*</font>:</label>'+
-	                      		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="level" id="level"></div>'+
-	                      		'<div class="col_cv_alt" data-error="level"></div>'+
+	                      '<label for="level"><font color="red">* </font>掌握程度:</label>'+
+		                        '<div class="ui-select"><select name="level" id="computerProficiency" data-native-menu="true" tabindex="-1">'+
+								'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
+								'<div class="col_cv_alt" data-error="level"></div>'+
 	                      '<label for="detail">详细说明：</label>'+
 		                        '<textarea name="detail" id="detail" placeholder="" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
 		                        '<div class="col_cv_alt" data-error="detail"></div>'+
@@ -131,13 +135,14 @@ H.computer = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corn
 H.foreignLanguage = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding: 0 15px 15px 15px;"><div class="ui-controlgroup-controls ">'+
 					    '<form method="post">'+
 					'<input type="hidden" name="resumeId">'+
+					'<input type="hidden" name="recruitType">'+
 					'<input type="hidden" name="id">'+
 					'<div data-role="fieldcontain" class="ui-field-contain">'+
-					  '<label for="level">英语等级<font color="red">*</font>:</label>'+
+					  '<label for="level"><font color="red">* </font>英语等级:</label>'+
 					  		'<div class="ui-select"><select name="level" id="languageLevel" data-native-menu="true" tabindex="-1">'+
 							'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
 							'<div class="col_cv_alt" data-error="level"></div>'+
-					  '<label for="score">英语分数<font color="red">*</font>:</label>'+
+					  '<label for="score"><font color="red">* </font>英语分数:</label>'+
 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="score" id="score"></div>'+
 					  		'<div class="col_cv_alt" data-error="score"></div>'+
 					  '<label for="proficiency">熟练程度：</label>'+
@@ -159,20 +164,21 @@ H.foreignLanguage = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical 
 
 H.award = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding: 0 15px 15px 15px;"><div class="ui-controlgroup-controls ">'+ 
 			    '<form method="post">'+ 
-			'<input type="hidden" name="resumeId">'+ 
+			'<input type="hidden" name="resumeId">'+
+			'<input type="hidden" name="recruitType">'+ 
 			'<input type="hidden" name="id">'+ 
 			'<div data-role="fieldcontain" class="ui-field-contain">'+ 
-			  '<label for="name">奖励名称<font color="red">*</font>:</label>'+ 
+			  '<label for="name"><font color="red">* </font>奖励名称:</label>'+ 
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+
 			  		'<div class="col_cv_alt" data-error="name"></div>'+
-			  '<label for="time">获得时间<font color="red">*</font>:</label>'+ 
+			  '<label for="time"><font color="red">* </font>获得时间:</label>'+ 
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="time" id="time"></div>'+
 			  		'<div class="col_cv_alt" data-error="time"></div>'+
-			  '<label for="level">级别<font color="red">*</font>:</label>'+ 
+			  '<label for="level"><font color="red">* </font>级别:</label>'+ 
 			  		'<div class="ui-select"><select name="level" id="awardLevel" data-native-menu="true" tabindex="-1">'+ 
 					'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
 					'<div class="col_cv_alt" data-error="level"></div>'+
-			  '<label for="description">奖励描述<font color="red">*</font>:</label>'+ 
+			  '<label for="description"><font color="red">* </font>奖励描述:</label>'+ 
 			      	'<textarea name="description" id="description" placeholder="" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
 			      	'<div class="col_cv_alt" data-error="description"></div>'+
 			'</div>'+ 
@@ -186,13 +192,14 @@ H.award = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-
 H.studentCadre = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding: 0 15px 15px 15px;"><div class="ui-controlgroup-controls ">'+                
 					    '<form method="post">'+
 					'<input type="hidden" name="resumeId">'+
+					'<input type="hidden" name="recruitType">'+
 					'<input type="hidden" name="id">'+
 					'<div data-role="fieldcontain" class="ui-field-contain">'+
 					  '<label for="name">职务：</label>'+
 					  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+
 					  		'<div class="col_cv_alt" data-error="name"></div>'+
 					  '<label for="level">级别：</label>'+
-					  		'<div class="ui-select"><select name="level" id="level" data-native-menu="true" tabindex="-1">'+
+					  		'<div class="ui-select"><select name="level" id="cadreLevel" data-native-menu="true" tabindex="-1">'+
 							'</select><div style="display: none;" id="level-listbox-placeholder"></div></div>'+
 							'<div class="col_cv_alt" data-error="level"></div>'+
 					  '<label for="beginDate">开始时间：</label>'+
@@ -215,43 +222,44 @@ H.studentCadre = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-
 H.work = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-all" data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding: 0 15px 15px 15px;"><div class="ui-controlgroup-controls ">'+                
 			     '<form method="post">'+  
 			'<div data-role="fieldcontain" class="ui-field-contain">'+  
-			  '<input type="hidden" name="resumeId">'+  
+			  '<input type="hidden" name="resumeId">'+
+			  '<input type="hidden" name="recruitType">'+  
 			  '<input type="hidden" name="id">'+  
-			  '<label for="company">单位名称<font color="red">*</font>:</label>'+  
+			  '<label for="company"><font color="red">* </font>单位名称:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="company" id="company"></div>'+
 			  		'<div class="col_cv_alt" data-error="company"></div>'+
-			  '<label for="annualSalary">年薪 <font color="red">*</font>:</label>'+  
+			  '<label for="annualSalary"><font color="red">* </font>年薪 :</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="annualSalary" id="annualSalary"></div>'+
 			  		'<div class="col_cv_alt" data-error="annualSalary"></div>'+
-			  '<label for="department">部门名称<font color="red">*</font>:</label>'+  
+			  '<label for="department"><font color="red">* </font>部门名称:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="department" id="department"></div>'+
 			  		'<div class="col_cv_alt" data-error="department"></div>'+
-			  '<label for="job">职位<font color="red">*</font>:</label>'+  
+			  '<label for="job"><font color="red">* </font>职位:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="job" id="job"></div>'+
 			  		'<div class="col_cv_alt" data-error="job"></div>'+
-			  '<label for="workPlace">工作地点<font color="red">*</font>:</label>'+  
+			  '<label for="workPlace"><font color="red">* </font>工作地点:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="workPlace" id="workPlace"></div>'+
 			  		'<div class="col_cv_alt" data-error="workPlace"></div>'+
-			  '<label for="jobType">职位类型<font color="red">*</font>:</label>'+  
+			  '<label for="jobType"><font color="red">* </font>职位类型:</label>'+  
 			  		'<div class="ui-select"><select name="jobType" id="jobType" data-native-menu="true" tabindex="-1">'+  
 					'</select><div style="display: none;" id="jobType-listbox-placeholder"></div></div>'+
 					'<div class="col_cv_alt" data-error="jobType"></div>'+
-			  '<label for="industry">行业<font color="red">*</font>:</label>'+  
+			  '<label for="industry"><font color="red">* </font>行业:</label>'+  
 				  	'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="industry" id="industry"></div>'+
 				  	'<div class="col_cv_alt" data-error="industry"></div>'+
-			  '<label for="beginDate">开始时间<font color="red">*</font>:</label>'+  
+			  '<label for="beginDate"><font color="red">* </font>开始时间:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+
 			  		'<div class="col_cv_alt" data-error="beginDate"></div>'+
-			  '<label for="endDate">结束时间<font color="red">*</font>:</label>'+  
+			  '<label for="endDate"><font color="red">* </font>结束时间:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+
 			  		'<div class="col_cv_alt" data-error="endDate"></div>'+
-			  '<label for="dimissionReason">离职原因<font color="red">*</font>:</label>'+  
+			  '<label for="dimissionReason"><font color="red">* </font>离职原因:</label>'+  
 			      	'<textarea name="dimissionReason" id="dimissionReason" placeholder="" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
 			      	'<div class="col_cv_alt" data-error="dimissionReason"></div>'+
-			  '<label for="duty">职责描述<font color="red">*</font>:</label>'+  
+			  '<label for="duty"><font color="red">* </font>职责描述:</label>'+  
 			      	'<textarea name="duty" id="duty" placeholder="" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+
 			      	'<div class="col_cv_alt" data-error="duty"></div>'+
-			  '<label for="performance">工作业绩<font color="red">*</font>:</label>'+  
+			  '<label for="performance"><font color="red">* </font>工作业绩:</label>'+  
 			      	'<textarea name="performance" id="performance" placeholder="" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow"></textarea>'+  
 			      	'<div class="col_cv_alt" data-error="performance"></div>'+
 			'</div>'+  
@@ -266,36 +274,37 @@ H.education = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-cor
 				       '<form method="post">'+
 				'<div data-role="fieldcontain" class="ui-field-contain">'+
 				  '<input type="hidden" name="resumeId">'+
+				  '<input type="hidden" name="recruitType">'+
 				  '<input type="hidden" name="id">'+
-				  '<label for="schoolName">学校名称<font color="red">*</font>:</label>'+
+				  '<label for="schoolName"><font color="red">* </font>学校名称:</label>'+
 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="schoolName" id="schoolName"></div>'+
 				  		'<div class="col_cv_alt" data-error="schoolName"></div>'+
-				  '<label for="major">所学专业 <font color="red">*</font>:</label>'+
+				  '<label for="major"><font color="red">* </font>所学专业 :</label>'+
 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="major" id="major"></div>'+
 				  		'<div class="col_cv_alt" data-error="major"></div>'+
-				  '<label for="graduateType">毕业方式<font color="red">*</font>:</label>'+
+				  '<label for="graduateType"><font color="red">* </font>毕业方式:</label>'+
 				  		'<div class="ui-select"><select name="graduateType" id="graduateType" data-native-menu="true">'+
 						'</select></div>'+
 						'<div class="col_cv_alt" data-error="graduateType"></div>'+
-				  '<label for="degree">学位<font color="red">*</font>:</label>'+
+				  '<label for="degree"><font color="red">* </font>学位:</label>'+
 				  		'<div class="ui-select"><select name="degree" id="degree" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="degree-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="degree"></div>'+
-				  '<label for="education">学历<font color="red">*</font>:</label>'+
+				  '<label for="education"><font color="red">* </font>学历:</label>'+
 				  		'<div class="ui-select"><select name="education" id="education" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="education-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="education"></div>'+
-				  '<label for="learnType">学习形式<font color="red">*</font>:</label>'+
+				  '<label for="learnType"><font color="red">* </font>学习形式:</label>'+
 				  		'<div class="ui-select"><select name="learnType" id="learnType" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="learnType-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="learnType"></div>'+ 
-				  '<label for="beginDate">开始时间<font color="red">*</font>:</label>'+
+				  '<label for="beginDate"><font color="red">* </font>开始时间:</label>'+
 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+
 				  		'<div class="col_cv_alt" data-error="beginDate"></div>'+ 
-				  '<label for="endDate">结束时间<font color="red">*</font>:</label>'+
+				  '<label for="endDate"><font color="red">* </font>结束时间:</label>'+
 				  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+
 				  		'<div class="col_cv_alt" data-error="endDate"></div>'+ 
-				  '<label for="schoolType">学校类别<font color="red">*</font>:</label>'+
+				  '<label for="schoolType"><font color="red">* </font>学校类别:</label>'+
 				  		'<div class="ui-select"><select name="schoolType" id="schoolType" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="schoolType-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="schoolType"></div>'+ 
@@ -319,20 +328,21 @@ H.practice= '<fieldset class="ui-controlgroup ui-controlgroup-vertical ui-corner
 				    '<form method="post">'+
 				'<div data-role="fieldcontain" class="ui-field-contain">'+
 				    '<input type="hidden" name="resumeId">'+
+					'<input type="hidden" name="recruitType">'+
 				    '<input type="hidden" name="id">'+ 
-					'<label for="name">活动/公司名称<font color="red">*</font>:</label>'+ 
+					'<label for="name"><font color="red">* </font>活动/公司名称:</label>'+ 
 							'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="name" id="name"></div>'+ 
 							'<div class="col_cv_alt" data-error="name"></div>'+ 
-					'<label for="job">职位<font color="red">*</font>:</label>'+ 
+					'<label for="job"><font color="red">* </font>职位:</label>'+ 
 							'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="text" name="job" id="job"></div>'+ 
 							'<div class="col_cv_alt" data-error="job"></div>'+ 
-					'<label for="beginDate">开始时间<font color="red">*</font>:</label>'+ 
+					'<label for="beginDate"><font color="red">* </font>开始时间:</label>'+ 
 							'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+ 
 							'<div class="col_cv_alt" data-error="beginDate"></div> '+ 
-					'<label for="endDate">结束时间<font color="red">*</font>:</label>'+ 
+					'<label for="endDate"><font color="red">* </font>结束时间:</label>'+ 
 							'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+ 
 							'<div class="col_cv_alt" data-error="endDate"></div> '+ 
-					'<label for="duty">职责描述<font color="red">*</font>:</label>'+ 
+					'<label for="duty"><font color="red">* </font>职责描述:</label>'+ 
 							'<textarea name="duty" id="duty" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow" style="height: 52px;"></textarea>'+ 
 							'<div class="col_cv_alt" data-error="duty"></div>'+ 
 				'</div>'+
@@ -348,6 +358,7 @@ H.train='<fieldset class="ui-controlgroup ui-controlgroup-vertical ui-corner-all
     		'<form method="post">'+
 			'<div data-role="fieldcontain" class="ui-field-contain">'+
 			    '<input type="hidden" name="resumeId">'+
+				'<input type="hidden" name="recruitType">'+
 			    '<input type="hidden" name="id">'+                 
 				'<label for="beginDate">开始时间:</label>'+
 						'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+

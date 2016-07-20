@@ -4,12 +4,60 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
+  <link rel="stylesheet" href="../mobiscroll/mobiscroll.css" >
   <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
   <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
   <script src="../jquerymobile/js/jquery.formautofill.min.js"></script>  
   <script src="../cityselect/js/jquery.cityselect.js"></script>
+  <script src="../mobiscroll/mobiscroll.js"></script>
   <script src="../jquerymobile/js/common.js"></script>
-  
+  	    <script type="text/javascript">
+
+	    	// 初始化插件内容
+	    	var opt_data = {
+	            preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+	            theme: 'jqm', //皮肤样式
+	            display: 'modal', //显示方式
+	            mode: 'clickpick', //日期选择模式
+	            dateFormat: 'yyyy-mm-dd', // 日期格式
+	            setText: '确定', //确认按钮名称
+	            cancelText: '取消',//取消按钮名籍我
+	            dateOrder: 'yymmdd', //面板中日期排列格式
+	            dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+	            yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+	            endYear:2020, //结束年份
+	            showNow:true,
+	            nowText:'今天',
+	            hourText:'小时',
+	            minuteText:'分'
+	        };
+	    	
+	    	// 初始化插件内容
+	    	var opt_data_year = {
+	            preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
+	            theme: 'jqm', //皮肤样式
+	            display: 'modal', //显示方式
+	            mode: 'clickpick', //日期选择模式
+	            dateFormat: 'yyyy', // 日期格式
+	            setText: '确定', //确认按钮名称
+	            cancelText: '取消',//取消按钮名籍我
+	            dateOrder: 'yymmdd', //面板中日期排列格式
+	            dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+	            yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
+	            endYear:2020, //结束年份
+	            showNow:true,
+	            nowText:'今天',
+	            hourText:'小时',
+	            minuteText:'分'
+	        };
+	    	
+			// 使用定义插件
+	        $(document).on("pageinit", "#pageone", function(){
+	        	$('.my-date').mobiscroll(opt_data);
+	        	$('.my-date-year').mobiscroll(opt_data_year);
+	        });
+
+	    </script>	
   <style>
      .clone{
      	display:none;
@@ -66,131 +114,134 @@
                     <div data-role="fieldcontain">
                       <input id="reusmeId" type="hidden" name="id">
                       <input id="recruitType" type="hidden" name="recruitType">
-                      <label for="name">姓名<font color="red">*</font>：</label>
+                      <label for="name"><font color="red">* </font>姓名：</label>
                       		<input type="text" name="name" id="name" width="50%">
                       		<div class="col_cv_alt" data-error="name"></div>
-                      <label for="gender">性别<font color="red">*</font>:</label>
+                      <label for="gender"><font color="red">* </font>性别:</label>
                       		<select name="gender" id="gender" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="gender"></div>
-                      <label for="birthday">出生日期<font color="red">*</font>:</label>
+                      <label for="birthday"><font color="red">* </font>出生日期:</label>
                       		<input type="date" name="birthday" id="birthday">
                       		<div class="col_cv_alt" data-error="birthday"></div>
-                      <label for="nation">民族<font color="red">*</font>:</label>
+                      <label for="nation"><font color="red">* </font>民族:</label>
                       		<select name="nation" id="nation" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="nation"></div>
-                      <label for="height">身高(cm)：</label>
+                      <label for="height"><font color="red">* </font>身高(cm)：</label>
                       		<input type="text" name="height" id="height">
                       		<div class="col_cv_alt" data-error="height"></div>
-                      <label for="weight">体重(kg)：</label>
+                      <label for="weight"><font color="red">* </font>体重(kg)：</label>
                       		<input type="text" name="weight" id="weight">
                       		<div class="col_cv_alt" data-error="weight"></div>
-                      <label for="idNumber">身份证号码<font color="red">*</font>:</label>
+                      <label for="idNumber"><font color="red">* </font>身份证号码:</label>
                       		<input type="text" name="idNumber" id="idNumber">
                       		<div class="col_cv_alt" data-error="idNumber"></div>
-                      <label for="nativePlace">籍贯:<font color="red">*</font>:</label>
+                      <label for="nativePlace"><font color="red">* </font>籍贯:</label>
                       <div class="selectCity">
                       		<select class="prov"  data-role="none"></select> 
 							<select class="city"  data-role="none" disabled="disabled"></select>
 							<div class="col_cv_alt" data-role="none" data-error="nativePlace"></div>
 							<input type="text" data-role="none" name="nativePlace" id="nativePlace" style="display:none;">
                       </div>
-                      <label for="registeredResidence">户口所在地:<font color="red">*</font>:</label>
+                      <label for="registeredResidence"><font color="red">* </font>户口所在地:</label>
                       <div class="selectCity">
                       		<select class="prov" data-role="none"></select> 
 							<select class="city" data-role="none" disabled="disabled"></select>
 							<div class="col_cv_alt" data-role="none" data-error="registeredResidence"></div>
 							<input type="text" data-role="none" name="registeredResidence" id="registeredResidence" style="display:none;">
                       </div>
-                      <label for="marriage">婚姻状况:<font color="red">*</font>:</label>
+                      <label for="marriage"><font color="red">* </font>婚姻状况::</label>
                       		<select name="marriage" id="marriage" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="marriage"></div>
-                      <label for="lname">政治面貌：</label>
+                      <label for="lname"><font color="red">* </font>政治面貌：</label>
                       		<select name="politicsStatus" id="politicsStatus" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="politicsStatus"></div>
-                      <label for="joinPartyDate">入党(团)时间:<font color="red">*</font>:</label>
+                      <label for="joinPartyDate">入党(团)时间::</label>
                       		<input type="date" name="joinPartyDate" id="joinPartyDate">
                       		<div class="col_cv_alt" data-error="joinPartyDate"></div>
-                      <label for="mobile">移动电话:<font color="red">*</font>:</label>
+                      <label for="mobile"><font color="red">* </font>移动电话::</label>
                       		<input type="text" name="mobile" id="mobile">
                       		<div class="col_cv_alt" data-error="mobile"></div>
-                      <label for="email">电子邮箱：</label>
+                      <label for="email"><font color="red">* </font>电子邮箱：</label>
                       		<input type="email" name="email" id="email">
                       		<div class="col_cv_alt" data-error="email"></div>
               <div class="society">        
-                      <label for="beginWorkDate">参加工作时间：</label>
+                      <label for="beginWorkDate"><font color="red">* </font>参加工作时间：</label>
                       		<input type="date" name="beginWorkDate" id="beginWorkDate">
                       		<div class="col_cv_alt" data-error="beginWorkDate"></div>
-                      <label for="workYear">参加工作年限<font color="red">*</font>:</label>
+                      <label for="workYear"><font color="red">* </font>参加工作年限:</label>
                       		<select name="workYear" id="workYear" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="workYear"></div>
               </div>        
-                      <label class="trainee" for="highestEducation" text="目前就读学历">最高全日制学历<font color="red">*</font>:</label>
+                      <label class="trainee" for="highestEducation" text="<font color='red'>* </font>目前就读学历:"><font color="red">* </font>最高全日制学历:</label>
                       		<select name="highestEducation" id="highestEducation" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="highestEducation"></div>
-                      <label class="trainee" for="highestDegree" text="预计取得学位">最高学位：</label>
+                      <label class="trainee" for="highestDegree" text="<font color='red'>* </font>预计取得学位:"><font color="red">* </font>最高学位：</label>
                       		<select name="highestDegree" id="degree" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="highestDegree"></div>
-                      <label for="beginSchoolDate">开始时间<font color="red">*</font>:</label>
+                      <label for="beginSchoolDate"><font color="red">* </font>开始时间:</label>
                       		<input type="date" name="beginSchoolDate" id="beginSchoolDate">
-                      		<div class="col_cv_alt" data-error="graduateDate"></div>
-                      <label class="trainee" for="graduateDate" text="预计毕业时间" >毕业时间<font color="red">*</font>:</label>
+                      		<div class="col_cv_alt" data-error="beginSchoolDate"></div>
+                      <label class="trainee" for="graduateDate" text="<font color='red'>* </font>预计毕业时间:" ><font color="red">* </font>毕业时间:</label>
                       		<input type="date" name="graduateDate" id="graduateDate">
                       		<div class="col_cv_alt" data-error="graduateDate"></div>
-                      <label class="trainee" for="school" text="所在院校">毕业院校：</label>
+                      <label class="trainee" for="school" text="<font color='red'>* </font>所在院校:"><font color="red">* </font>毕业院校：</label>
                       		<input type="text" name="school" id="school">
-                      		<div class="col_cv_alt" data-error="ceeScore"></div>		
-                      <label for="schoolType">院校类别：</label>
+                      		<div class="col_cv_alt" data-error="school"></div>		
+                      <label for="schoolType"><font color="red">* </font>院校类别：</label>
                       		<select name="schoolType" id="schoolType"  data-native-menu="true">
 							</select>
-							<div class="col_cv_alt" data-error="isFirstLine"></div>
-					  <label for="major">专业：</label>
+							<div class="col_cv_alt" data-error="schoolType"></div>
+					  <label for="major"><font color="red">* </font>专业：</label>
                       		<input type="text" name="major" id="major">
-                      		<div class="col_cv_alt" data-error="ceeScore"></div>	
+                      		<div class="col_cv_alt" data-error="major"></div>	
              <div class="CampusAndTrainee">         
-                      <label for="ceeProvince">高考省市：</label>
+                      <label for="ceeProvince"><font color='red'>* </font>高考省市：</label>
                       <div class="selectCity">
                       		<select class="prov" data-role="none"></select> 
 							<div class="col_cv_alt" data-role="none" data-error="ceeProvince"></div>
 							<input type="text" data-role="none" name="ceeProvince" id="ceeProvince" style="display:none;">
                       </div>
-                      <label for="ceeScore">高考分数：</label>
+                      <label for="ceeYear"><font color='red'>* </font>高考年份：</label>
+                      		<input type="text" class="my-date-year" data-role="datebox" name="ceeYear" id="ceeYear" >
+                      		<div class="col_cv_alt" data-error="ceeYear"></div>
+                      <label for="ceeScore"><font color='red'>* </font>高考分数：</label>
                       		<input type="text" name="ceeScore" id="ceeScore">
                       		<div class="col_cv_alt" data-error="ceeScore"></div>
-					  <label for="isFirstLine">是否一本分数线以上:</label>
+					  <label for="isFirstLine"><font color='red'>* </font>是否一本分数线以上:</label>
 						        <input type="radio" data-role="none" name="isFirstLine" id="t" value="true">
 						                 是
 						        <input type="radio" data-role="none" name="isFirstLine" id="f" value="false">
 						                 否	
 						        <div class="col_cv_alt" data-error="isFirstLine"></div>
-                      <label for="artsOrScience">文理科：</label>
+                      <label for="artsOrScience"><font color='red'>* </font>文理科：</label>
                       		<select name="artsOrScience" id="artsOrScience" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="artsOrScience"></div>
-                      <label for="admissionOrder">录取批次：</label>
+                      <label for="admissionOrder"><font color='red'>* </font>录取批次：</label>
                       		<select name="admissionOrder" id="admissionOrder" data-native-menu="true">
 							</select>
 							<div class="col_cv_alt" data-error="admissionOrder"></div>
               </div> 
-                      <label for="emergencyContact">紧急联系人<font color="red">*</font>:</label>
+                      <label for="emergencyContact"><font color="red">* </font>紧急联系人:</label>
                       		<input type="text" name="emergencyContact" id="emergencyContact">
 							<div class="col_cv_alt" data-error="emergencyContact"></div>
-                      <label for="emergencyMobile">紧急联系人电话<font color="red">*</font>:</label>
+                      <label for="emergencyMobile"><font color="red">* </font>紧急联系人电话:</label>
                       		<input type="text" name="emergencyMobile" id="emergencyMobile">
 							<div class="col_cv_alt" data-error="emergencyMobile"></div>
-					  <label for="isRelativeHere">是否有亲友受雇与本公司：</label>
+					  <label for="isRelativeHere"><font color="red">* </font>是否有亲友受雇与本公司：</label>
 						    <input type="radio" data-role="none" name="isRelativeHere" id="t" value="true">
 						          是
 						    <input type="radio" data-role="none" name="isRelativeHere" id="f" value="false">
 						         否	
 						    <div class="col_cv_alt" data-error="isRelativeHere"></div>		
-                      <label for="currentResidence">现居住地址<font color="red">*</font>:</label>
+                      <label for="currentResidence"><font color="red">* </font>现居住地址:</label>
                       <div class="selectCity">
                       		<select class="prov" data-role="none"></select> 
 							<select class="city" data-role="none" disabled="disabled"></select>
@@ -199,7 +250,7 @@
 							<div class="col_cv_alt" data-role="none" data-error="currentResidence"></div>
 							<input type="text" data-role="none" name="currentResidence" id="currentResidence" style="display:none;">
                       </div>
-                      <label for="lname">家庭住址：</label>
+                      <label for="lname"><font color="red">* </font>家庭住址：</label>
                       <div class="selectCity">
                       		<select class="prov" data-role="none"></select> 
 							<select class="city" data-role="none" disabled="disabled"></select>
@@ -208,10 +259,10 @@
 							<div class="col_cv_alt" data-role="none" data-error="familyResidence"></div>
 							<input type="text" data-role="none" name="familyResidence" id="familyResidence" style="display:none;">
                       </div>
-                      <label for="certificate">持证情况<font color="red">*</font>:</label>
+                      <label for="certificate">持证情况:</label>
                       		<textarea name="certificate" id="certificate" placeholder=""></textarea>
 							<div class="col_cv_alt" data-error="certificate"></div>
-                      <label for="hobby">爱好特长<font color="red">*</font>:</label>
+                      <label for="hobby">爱好特长:</label>
 	                      	<textarea name="hobby" id="hobby" placeholder=""></textarea>
 							<div class="col_cv_alt" data-error="hobby"></div>
                       <label for="personality">性格特点：</label>
@@ -228,7 +279,7 @@
             </div>           
        
             <div id="Education" data-role="collapsible">
-                <h1>教育经历(从最高学历填至本科或大专)</h1>
+                <h1><font color="red">* </font>教育经历(从最高学历填至本科或大专)</h1>
                 <div id="education_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'education')">添加</a>
@@ -236,7 +287,7 @@
             </div>
             
             <div id="Work" data-role="collapsible">
-                <h1>工作经历(仅填写全职工作经历)</h1>
+                <h1><font color="red">* </font>工作经历(仅填写全职工作经历)</h1>
                 <div id="work_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"  onclick="add($(this),'work')">添加</a>
@@ -276,7 +327,7 @@
             </div>
             
             <div id="Award" data-role="collapsible">
-                <h1>奖励记录(请填写在校期间获奖情况)</h1>
+                <h1>奖励记录(请填写在校或工作期间获奖情况)</h1>
                 <div id="award_forms"></div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
       				<a data-role="button"  href="#" data-icon="plus"   onclick="add($(this),'award')">添加</a>
@@ -292,7 +343,7 @@
             </div>
             
             <div id="Family" data-role="collapsible">
-                <h1>家庭成员(请填写家庭和社会主要成员，父母必须填写)</h1>
+                <h1><font color="red">* </font>家庭成员(请填写家庭和社会主要成员，父母必须填写)</h1>
                 <div id="family_forms">
                 </div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
@@ -314,7 +365,10 @@ var _dicts ;
 var params = getUrlParam(location.search);
 
 $(document).ready(function() {
-    if(params!= null && params!= ""){
+	
+	//$('input:jqmData(role="datebox")').mobiscroll().date();
+	
+	if(params!= null && params!= ""){
     	$("#recruit_title").html("我的简历-"+recruitType[params["recruitType"]]);
     }
 	//显示控制
@@ -324,7 +378,7 @@ $(document).ready(function() {
 		$(".society").remove();
 		$(".trainee").each(function(){
 			if($(this).attr("text")){
-				$(this).text($(this).attr("text"));
+				$(this).html($(this).attr("text"));
 			}
 		});
 		
@@ -340,7 +394,9 @@ $(document).ready(function() {
 		$(".CampusAndTrainee").remove();
 		
 	}
-    
+	//初始化时间插件
+	//$form.find(".form_datetime").datetimepicker();
+	//$form.find(".form_datetime_year").datetimepicker({"format":"yyyy","startView":"decade","minView":"decade"});
     //数据加载
     LoadBase(params);
 	
@@ -615,6 +671,7 @@ $(document).ready(function() {
 			   }
 		});
    		$F.find("input[name='resumeId']").val(params.id);
+   		$F.find("input[name='recruitType']").val(params.recruitType);
    		$F.appendTo($("#"+formName+"_forms"));
    	  } 
   
