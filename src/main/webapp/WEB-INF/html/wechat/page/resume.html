@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="../mobiscroll/mobiscroll.css" >
   <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
   <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
-  <script src="../jquerymobile/js/jquery.formautofill.min.js"></script>  
+  <script src="../jquerymobile/js/jquery.formautofill.min.js"></script>
+  <script src="../jquerymobile/js/jquery.ui.widget.js"></script>
+  <script src="../jquerymobile/js/jquery.iframe-transport.js"></script>
+  <script src="../jquerymobile/js/jquery.fileupload.js"></script>  
   <script src="../cityselect/js/jquery.cityselect.js"></script>
   <script src="../mobiscroll/mobiscroll.js"></script>
   <script src="../jquerymobile/js/common.js"></script>
@@ -98,6 +101,22 @@
 	      border-radius:5px;
 	      min-height: 2.4em;
 	 }
+	 
+	 img {
+	    border: #CCC solid 1px;
+	    width: 120px;
+	    height: 150px;
+	 }
+	 
+	 .img input {
+	    width: 120px;
+	    height: 150px;
+	    position: absolute;
+	    opacity: 0;
+	    top: 80px;
+	    left: 105px;
+	    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+	}
   </style>
   </head>
   <body>
@@ -114,6 +133,14 @@
                     <div data-role="fieldcontain">
                       <input id="reusmeId" type="hidden" name="id">
                       <input id="recruitType" type="hidden" name="recruitType">
+                      
+                      <label>个人照片：</label>
+                      <div class="tip_note" data-role="none">点击照片上传，要求JPG格式，不超过50KB</div>
+                      <div class="img" align="center" data-role="none">
+                        	<img id="photoImg" src="" onerror="" alt="点击上传个人照片" data-role="none"/>
+                        	<input id="fileupload" type="file" name="files[]" data-url="" multiple data-role="none"/>
+                      </div>
+                      
                       <label for="name"><font color="red">* </font>姓名：</label>
                       		<input type="text" name="name" id="name" width="50%">
                       		<div class="col_cv_alt" data-error="name"></div>
@@ -399,7 +426,28 @@ $(document).ready(function() {
 	//$form.find(".form_datetime_year").datetimepicker({"format":"yyyy","startView":"decade","minView":"decade"});
     //数据加载
     LoadBase(params);
-	
+    //照片加载
+    $("#photoImg").attr("onerror","this.src='"+ baseUrl +"resources/images/pic_tx.jpg'");
+    $("#photoImg").attr("src",baseUrl+"resume/phote/show?id="+params.id);
+    $("#fileupload").attr("data-url",baseUrl+"resume/photo/upload?id="+params.id);
+    
+  //头像上传
+	$('#fileupload').fileupload({
+		dataType : 'json',
+		done : function(e, data) {
+			var message=data.result.message;
+			if(message){
+				showDialog({
+					head:"提示",
+					title:message,
+					content:"",
+					type:"back"
+				});
+				$("#photoImg").attr("src",baseUrl+"resume/phote/show?id="+params.id);
+			}
+		}
+	});
+
 });
 
    function LoadBase(param){
