@@ -4,6 +4,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.Base64Utils;
 
 import cn.aki.entity.User;
 
@@ -32,6 +33,13 @@ public class UserLoginForm extends User{
 	}
 	public void setCaptcha(String captcha) {
 		this.captcha = captcha;
+	}
+	@Override
+	public void setPassword(String password) {
+		if(password!=null){
+			//前台密码解密
+			super.setPassword(new String(Base64Utils.decodeFromString(password)));
+		}
 	}
 	
 }

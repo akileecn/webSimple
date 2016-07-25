@@ -46,6 +46,10 @@
 	<!-- ajax请求被拦截是返回json -->
 	<bean id="ajaxFormAuthenticationFilter" class="cn.aki.other.AjaxFormAuthenticationFilter"/>
 	
+	<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
+	<!-- security datasource: -->
+	<bean id="myRealm" class="cn.aki.other.MyShiroRealm"/>
+	
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 	    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
 	    <property name="realm" ref="myRealm"/>
@@ -54,10 +58,6 @@
 	    <!-- <property name="sessionMode" value="native"/> -->
 	</bean>
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	
-	<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
-	<!-- security datasource: -->
-	<bean id="myRealm" class="cn.aki.other.MyShiroRealm"/>
 	
 	<!-- 为了能够使用shiro的注解 -->
 	<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->

@@ -30,6 +30,7 @@
 	<script src="<@c.resource "jquery/jquery.form.js"/>"></script>
 	<#-- 自动填充表单 -->
 	<script src="<@c.resource "jquery/jquery.formautofill.min.js"/>"></script>
+	<script src="<@c.resource "js/base64.js"/>"></script>
 	<#-- 公共方法 -->
 	<script src="<@c.resource "js/common.js"/>"></script>
 	<#-- 美工样式相关 -->

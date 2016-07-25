@@ -59,17 +59,24 @@
 <div class="clearfix"> </div>
 <script>
 	$(document).ready(function() {
-		$("#loginForm").ajaxForm(function(text) {
-			$("#loginForm").find(".col_cv_alt").empty();
-			if(text.success){
-				$.alert("欢迎您访问瑞丰银行网站招聘栏目，请注意，招聘用户专门为投简历所使用，与我行其他用户没有关联。",function(){
-					window.location.reload();
-				});
-			}else{
-				if(text.error){
-					changeCaptcha();
-					for(var key in text.error){
-						$("#loginForm").find(".col_cv_alt[data-error='"+key+"']").text(text.error[key]);
+		$("#loginForm").ajaxForm({
+			beforeSerialize: function($form, options){
+				var $password=$form.find("input[name='password']");
+				var b = new Base64();
+				$password.val(b.encode($password.val()));
+			},"success":function(text) {
+				$("#loginForm").find(".col_cv_alt").empty();
+				$("#loginForm").find("input[name='password']").val("");
+				if(text.success){
+					$.alert("欢迎您访问瑞丰银行网站招聘栏目，请注意，招聘用户专门为投简历所使用，与我行其他用户没有关联。",function(){
+						window.location.reload();
+					});
+				}else{
+					if(text.error){
+						changeCaptcha();
+						for(var key in text.error){
+							$("#loginForm").find(".col_cv_alt[data-error='"+key+"']").text(text.error[key]);
+						}
 					}
 				}
 			}

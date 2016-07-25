@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import org.junit.Test;
+import org.springframework.util.Base64Utils;
 
 import com.alibaba.fastjson.JSON;
 
@@ -73,5 +74,13 @@ public class MyTest {
 		response.setMessage("错误信息");
 		response.setCode(Constants.ErrorCode.NOT_LOGIN);
 		System.err.println(JSON.toJSONString(response));
+	}
+	
+	@Test
+	public void test7(){
+		String encode=Base64Utils.encodeToString("123456".getBytes());
+		System.err.println("encode:"+encode);
+		String decode=new String(Base64Utils.decodeFromString("MTIzNDU2"));
+		System.err.println("decode:"+decode);
 	}
 }
