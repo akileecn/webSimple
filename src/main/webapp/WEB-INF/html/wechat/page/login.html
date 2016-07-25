@@ -14,6 +14,7 @@
   </style>
   	<script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
   	<script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../jquerymobile/js/base64.js"></script>
     <script src="../jquerymobile/js/common.js"></script>
   </head>
   <body>
@@ -52,11 +53,16 @@ $(function(){
 	changeCaptcha();   //加载验证码
 });
 	function login(){
+		var $password=$("#loginForm").find("input[name='password']");
+		var b = new Base64();
+		$password.val(b.encode($password.val()));
 		$.ajax({
 			url:baseUrl+"/user/login",
 			data:$("#loginForm").serialize(),
 			type:"post",
 			success:function(text){
+				$("#loginForm").find(".col_cv_alt").empty();
+				$("#loginForm").find("input[name='password']").val("");
 				if(text.success){
 					showDialog({
 						head:"提示",
