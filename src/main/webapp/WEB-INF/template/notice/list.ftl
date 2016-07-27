@@ -1,5 +1,10 @@
 <@bootstrap.head>
 <title>我的通知</title>
+<style type="text/css">
+	.new_true span{
+		font-weight: bold;
+	}
+</style>
 </@bootstrap.head>
 <@bootstrap.body>
 <div class="container">
@@ -30,12 +35,12 @@
 	var T={};
 	//列表
 	T.item='<@compress single_line=true>
-        <tr class="col_tab_t">
-            <td>%{createTime}</td>
-            <td width="30%"><a href="javascript:showDetail(\'%{id}\')" class="_tanchu">%{title}</a></td>
+        <tr class="col_tab_t new_%{isNew}">
+            <td><span>%{createTime}</span></td>
+            <td width="30%"><a href="javascript:void(0)" class="_tanchu" onclick="showDetail(\'%{id}\',this)"><span>%{title}</span></a></td>
             <td>
                 <div class="btn notice_btn">
-                    <input type="submit" value="查看" class="_tanchu" onclick="showDetail(\'%{id}\')">
+                    <input type="submit" value="查看" class="_tanchu" onclick="showDetail(\'%{id}\',this)">
                     <input type="reset" value="删除" onclick="deleteNotice(\'%{id}\',this)">
                 </div>
             </td>
@@ -77,7 +82,8 @@
 	$("#listForm").submit();
 	
     //详情
-	function showDetail(id){
+	function showDetail(id,self){
+		$(self).parents("tr").removeClass("new_true");
 		$.post("<@spring.url "/notice/detail"/>",{"id":id},function(text){
 			if(text.success){
 				art.dialog({

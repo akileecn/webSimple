@@ -19,7 +19,11 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	}
 
 	public Notice get(Notice notice) {
-		return noticeMapper.get(notice);
+		notice=noticeMapper.get(notice);
+		//更新为已读状态
+		notice.setIsNew(false);
+		noticeMapper.update(notice);
+		return notice;
 	}
 
 	public List<Notice> getList(Notice notice) {
@@ -28,6 +32,10 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 	public void delete(Notice notice) {
 		noticeMapper.delete(notice);
+	}
+
+	public Integer countNewByUserId(Integer userId) {
+		return noticeMapper.countNewByUserId(userId);
 	}
 
 }

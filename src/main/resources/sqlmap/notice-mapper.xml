@@ -3,9 +3,7 @@
 <mapper namespace="cn.aki.dao.NoticeMapper">
 	<sql id="whereSql">
 		<where>
-			<if test="id!=null">
-				id=#{id}
-			</if>
+			id=#{id}
 			and user_id=#{userId}
 		</where>
 	</sql>
@@ -17,12 +15,13 @@
 			,create_time as createTime
 			,title
 			,content
+			,is_new as isNew
 		from zp_notice
 	</sql>
 	
 	<!-- 获得用户通知数 -->
-	<select id="getCountByUserId" parameterType="int" resultType="int">
-		select count(1) from zp_notice where user_id=#{userId};
+	<select id="countNewByUserId" parameterType="int" resultType="int">
+		select count(1) from zp_notice where user_id=#{userId} and is_new=1;
 	</select>
 	
 	<!-- 获得 -->
@@ -34,7 +33,7 @@
 	<!-- 查询 -->
 	<select id="getList" parameterType="notice" resultType="notice">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		where user_id=#{userId}
 		order by id desc
 	</select>
 	
@@ -83,9 +82,7 @@
 	<update id="update" parameterType="notice">
 		update zp_notice
 		<set>
-			user_id=#{userId},
-			title=#{title},
-			content=#{content},
+			is_new=#{isNew},
 		</set>
 		<include refid="whereSql"/>
 	</update>

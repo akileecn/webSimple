@@ -21,8 +21,6 @@ public class User extends BaseTimeEntity{
 	
 	/*关联*/
 	private Set<Role> roles;
-	//通知数
-	private Integer noticeCount;
 	
 	public String getUsername() {
 		return username;
@@ -77,12 +75,6 @@ public class User extends BaseTimeEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Integer getNoticeCount() {
-		return noticeCount;
-	}
-	public void setNoticeCount(Integer noticeCount) {
-		this.noticeCount = noticeCount;
 	}
 	
 }

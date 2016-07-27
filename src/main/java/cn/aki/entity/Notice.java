@@ -11,6 +11,8 @@ public class Notice extends BaseEntity implements UserSub{
 	private Date createTime;	//,create_time datetime -- 创建时间
 	private String title;		//,title nvarchar(100) -- 标题
 	private String content;		//,content nvarchar(1000) -- 内容
+	/*20160727*/
+	private Boolean isNew;//is_new bit default 1; -- 是否为新通知
 	
 	public Integer getUserId() {
 		return userId;
@@ -35,6 +37,12 @@ public class Notice extends BaseEntity implements UserSub{
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public Boolean getIsNew() {
+		return isNew;
+	}
+	public void setIsNew(Boolean isNew) {
+		this.isNew = isNew;
 	}
 	
 }

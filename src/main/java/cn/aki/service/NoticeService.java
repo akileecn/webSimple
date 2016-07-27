@@ -10,4 +10,10 @@ public interface NoticeService extends BaseService<Notice>{
 	void save(Notice notice);
 	Notice get(Notice notice);
 	void delete(Notice notice);
+	/**
+	 * 获得用户的新通知数
+	 * @param userId
+	 * @return
+	 */
+	Integer countNewByUserId(Integer userId);
 }

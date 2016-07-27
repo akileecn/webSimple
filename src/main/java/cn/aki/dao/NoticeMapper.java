@@ -10,5 +10,5 @@ public interface NoticeMapper {
 	List<Notice> getList(Notice notice);
 	void update(Notice notice);
 	void delete(Notice notice);
-	Integer getCountByUserId(Integer userId);
+	Integer countNewByUserId(Integer userId);
 }
