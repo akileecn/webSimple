@@ -5,62 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../jquerymobile/css/jquery.mobile-1.4.5.css">
   <link rel="stylesheet" href="../mobiscroll/mobiscroll.css" >
+  <!-- 日期插件样式 -->
   <script src="../jquerymobile/js/jquery-1.12.3.min.js"></script>
   <script src="../jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
   <script src="../jquerymobile/js/jquery.formautofill.min.js"></script>
+  <!-- 文件上传 -->
   <script src="../jquerymobile/js/jquery.ui.widget.js"></script>
   <script src="../jquerymobile/js/jquery.iframe-transport.js"></script>
-  <script src="../jquerymobile/js/jquery.fileupload.js"></script>  
+  <script src="../jquerymobile/js/jquery.fileupload.js"></script>
+  <!-- 日期插件 -->
+  <link href="../../resources/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../../resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+  <script src="../../resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="../../resources/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+  <!-- 省市下拉 -->
   <script src="../cityselect/js/jquery.cityselect.js"></script>
   <script src="../mobiscroll/mobiscroll.js"></script>
   <script src="../jquerymobile/js/common.js"></script>
-  	    <script type="text/javascript">
-
-	    	// 初始化插件内容
-	    	var opt_data = {
-	            preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
-	            theme: 'jqm', //皮肤样式
-	            display: 'modal', //显示方式
-	            mode: 'clickpick', //日期选择模式
-	            dateFormat: 'yyyy-mm-dd', // 日期格式
-	            setText: '确定', //确认按钮名称
-	            cancelText: '取消',//取消按钮名籍我
-	            dateOrder: 'yymmdd', //面板中日期排列格式
-	            dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
-	            yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
-	            endYear:2020, //结束年份
-	            showNow:true,
-	            nowText:'今天',
-	            hourText:'小时',
-	            minuteText:'分'
-	        };
-	    	
-	    	// 初始化插件内容
-	    	var opt_data_year = {
-	            preset: 'date', //日期格式 date（日期）|datetime（日期加时间）
-	            theme: 'jqm', //皮肤样式
-	            display: 'modal', //显示方式
-	            mode: 'clickpick', //日期选择模式
-	            dateFormat: 'yyyy', // 日期格式
-	            setText: '确定', //确认按钮名称
-	            cancelText: '取消',//取消按钮名籍我
-	            dateOrder: 'yymmdd', //面板中日期排列格式
-	            dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
-	            yearText: '年', monthText: '月',  dayText: '日',  //面板中年月日文字
-	            endYear:2020, //结束年份
-	            showNow:true,
-	            nowText:'今天',
-	            hourText:'小时',
-	            minuteText:'分'
-	        };
-	    	
-			// 使用定义插件
-	        $(document).on("pageinit", "#pageone", function(){
-	        	$('.my-date').mobiscroll(opt_data);
-	        	$('.my-date-year').mobiscroll(opt_data_year);
-	        });
-
-	    </script>	
   <style>
      .clone{
      	display:none;
@@ -127,7 +88,7 @@
        </div>   
        <div data-role="content" style="margin-top:-10px" >
             <div id="Base" data-role="collapsible">
-                <h1>基本信息</h1>
+                <h1><font color="red">* </font>基本信息</h1>
                 <fieldset data-role="controlgroup" style="border:solid #ddd 3px;border-radius:10px;padding:0 15px 15px 15px;"> 
  	    	        <form id="baseForm" method="post">
                     <div data-role="fieldcontain">
@@ -236,7 +197,7 @@
 							<input type="text" data-role="none" name="ceeProvince" id="ceeProvince" style="display:none;">
                       </div>
                       <label for="ceeYear"><font color='red'>* </font>高考年份：</label>
-                      		<input type="text" class="my-date-year" data-role="datebox" name="ceeYear" id="ceeYear" >
+                      		<input type="text" class="form_datetime_year"   name="ceeYear" id="ceeYear" >
                       		<div class="col_cv_alt" data-error="ceeYear"></div>
                       <label for="ceeScore"><font color='red'>* </font>高考分数：</label>
                       		<input type="text" name="ceeScore" id="ceeScore">
@@ -370,7 +331,7 @@
             </div>
             
             <div id="Family" data-role="collapsible">
-                <h1><font color="red">* </font>家庭成员(请填写家庭和社会主要成员，父母必须填写)</h1>
+                <h1><font color="red">* </font>家庭成员(父母、配偶必填)</h1>
                 <div id="family_forms">
                 </div>
 	            <div data-role="controlgroup" data-type="horizontal" align="right">
@@ -393,11 +354,11 @@ var params = getUrlParam(location.search);
 
 $(document).ready(function() {
 	
-	//$('input:jqmData(role="datebox")').mobiscroll().date();
-	
+
 	if(params!= null && params!= ""){
     	$("#recruit_title").html("我的简历-"+recruitType[params["recruitType"]]);
     }
+	
 	//显示控制
 	if(params.recruitType=='trainee'){
 		
@@ -421,11 +382,20 @@ $(document).ready(function() {
 		$(".CampusAndTrainee").remove();
 		
 	}
+	
+	//初始化时间插件
+	//$("").find(".form_datetime").datetimepicker();
+	//console.log($("#baseForm").find(".form_datetime_year"));
+	$("#baseForm").find(".form_datetime_year").datetimepicker({"format":"yyyy","startView":"decade","minView":"decade"});
+	
+	
+	//数据加载
+    LoadBase(params);
+
 	//初始化时间插件
 	//$form.find(".form_datetime").datetimepicker();
 	//$form.find(".form_datetime_year").datetimepicker({"format":"yyyy","startView":"decade","minView":"decade"});
-    //数据加载
-    LoadBase(params);
+
     //照片加载
     $("#photoImg").attr("onerror","this.src='"+ baseUrl +"resources/images/pic_tx.jpg'");
     $("#photoImg").attr("src",baseUrl+"resume/phote/show?id="+params.id);
@@ -513,6 +483,29 @@ $(document).ready(function() {
 							//初始化省市区联动
 							initSelectCity($("#baseForm"));
 							
+							//显示控制,控制后面生成的附属信息显示
+							if(params.recruitType=='trainee'){
+								
+								$("#Work").remove();
+								$(".society").remove();
+								$(".trainee").each(function(){
+									if($(this).attr("text")){
+										$(this).html($(this).attr("text"));
+									}
+								});
+								
+							}else if(params.recruitType=='campus'){
+								
+								$("#Work").remove();
+								$(".society").remove();
+								
+							}else if(params.recruitType=='society'){
+								
+								$("#Practice").remove();
+								$("#StudentCadre").remove();
+								$(".CampusAndTrainee").remove();
+								
+							}
 						    
 				}else{
 					if(text.message=="noLogin"){

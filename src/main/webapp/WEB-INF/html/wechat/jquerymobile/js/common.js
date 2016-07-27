@@ -250,7 +250,7 @@ H.work = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-corner-a
 			  '<label for="beginDate"><font color="red">* </font>开始时间:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="beginDate" id="beginDate"></div>'+
 			  		'<div class="col_cv_alt" data-error="beginDate"></div>'+
-			  '<label for="endDate"><font color="red">* </font>结束时间:</label>'+  
+			  '<label for="endDate">结束时间:</label>'+  
 			  		'<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="date" name="endDate" id="endDate"></div>'+
 			  		'<div class="col_cv_alt" data-error="endDate"></div>'+
 			  '<label for="dimissionReason"><font color="red">* </font>离职原因:</label>'+  
@@ -308,14 +308,20 @@ H.education = '<fieldset class=" ui-controlgroup ui-controlgroup-vertical ui-cor
 				  		'<div class="ui-select"><select name="schoolType" id="schoolType" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="schoolType-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="schoolType"></div>'+ 
-				  '<label for="hasBeenCadre">是否担任过学生干部：</label>'+
-				  		'<div class="ui-select"><select name="hasBeenCadre" id="YesOrNo" data-native-menu="true" tabindex="-1">'+
-						'</select><div style="display: none;" id="hasBeenCadre-listbox-placeholder"></div></div>'+
-						'<div class="col_cv_alt" data-error="hasBeenCadre"></div>'+ 
-				'<label for="gradeRank">年级排名：</label>'+
+				'<div class="CampusAndTrainee">'+
+				  '<label for="hasBeenCadre"><font color="red">* </font>是否担任过学生干部:</label>'+
+				  		//'<div class="ui-select"><select name="hasBeenCadre" id="YesOrNo" data-native-menu="true" tabindex="-1">'+
+						//'</select><div style="display: none;" id="hasBeenCadre-listbox-placeholder"></div></div>'+
+				    	'<input type="radio" data-role="none" name="hasBeenCadre" id="t" value="true">'+
+				          '是     '+
+				        '<input type="radio" data-role="none" name="hasBeenCadre" id="f" value="false">'+
+				          '否'+	
+				        '<div class="col_cv_alt" data-error="hasBeenCadre"></div>'+ 
+				  '<label for="gradeRank"><font color="red">* </font>年级排名:</label>'+
 				  		'<div class="ui-select"><select name="gradeRank" id="gradeRank" data-native-menu="true" tabindex="-1">'+
 						'</select><div style="display: none;" id="gradeRank-listbox-placeholder"></div></div>'+
 						'<div class="col_cv_alt" data-error="gradeRank"></div>'+ 
+				'</div>'+
 				'</div>'+
 				'<div data-role="controlgroup" data-type="horizontal" align="center" class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all"><div class="ui-controlgroup-controls ">'+
 				    '<a data-role="button" href="#" data-icon="check" style="margin-left:10px;" onclick="save($(this))" url="wechatResume/saveEducation" class="ui-link ui-btn ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all ui-first-child" role="button">保存</a>'+
