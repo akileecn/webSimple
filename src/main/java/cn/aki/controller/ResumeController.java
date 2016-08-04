@@ -70,8 +70,8 @@ public class ResumeController extends BaseController{
 			//上传校验
 			if(mpf.getSize()>50*1024){
 				json.setMessage("上传文件必须小于50kb");
-			}else if(!mpf.getContentType().startsWith("image/")){
-				json.setMessage("只能上传图片");
+			}else if(!mpf.getContentType().equals("image/jpeg")&&!mpf.getContentType().equals("image/png")){
+				json.setMessage("只能上传jpg、png格式图片");
 			}else{
 			//文件命名
 //			String originalFileName=mpf.getOriginalFilename();
