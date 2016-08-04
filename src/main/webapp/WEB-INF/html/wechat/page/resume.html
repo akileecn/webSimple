@@ -484,28 +484,7 @@ $(document).ready(function() {
 							initSelectCity($("#baseForm"));
 							
 							//显示控制,控制后面生成的附属信息显示
-							if(params.recruitType=='trainee'){
-								
-								$("#Work").remove();
-								$(".society").remove();
-								$(".trainee").each(function(){
-									if($(this).attr("text")){
-										$(this).html($(this).attr("text"));
-									}
-								});
-								
-							}else if(params.recruitType=='campus'){
-								
-								$("#Work").remove();
-								$(".society").remove();
-								
-							}else if(params.recruitType=='society'){
-								
-								$("#Practice").remove();
-								$("#StudentCadre").remove();
-								$(".CampusAndTrainee").remove();
-								
-							}
+							showOrRemove()
 						    
 				}else{
 					if(text.message=="noLogin"){
@@ -714,6 +693,7 @@ $(document).ready(function() {
    		$F.find("input[name='resumeId']").val(params.id);
    		$F.find("input[name='recruitType']").val(params.recruitType);
    		$F.appendTo($("#"+formName+"_forms"));
+   		showOrRemove()
    	  } 
   
    /****
@@ -877,5 +857,31 @@ $(document).ready(function() {
 		});
  	}
 
+ 	
+ 	function showOrRemove(){
+ 	   	//显示控制,控制后面生成的附属信息显示
+		if(params.recruitType=='trainee'){
+			
+			$("#Work").remove();
+			$(".society").remove();
+			$(".trainee").each(function(){
+				if($(this).attr("text")){
+					$(this).html($(this).attr("text"));
+				}
+			});
+			
+		}else if(params.recruitType=='campus'){
+			
+			$("#Work").remove();
+			$(".society").remove();
+			
+		}else if(params.recruitType=='society'){
+			
+			$("#Practice").remove();
+			$("#StudentCadre").remove();
+			$(".CampusAndTrainee").remove();
+			
+		}
+ 	}
 </script>
 </html>
