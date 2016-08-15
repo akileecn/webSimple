@@ -74,7 +74,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 					//添加额外用户信息
 					Subject subject=SecurityUtils.getSubject();
 					Session session=subject.getSession();
-					session.setAttribute(Constants.SHIRO_SESSION_KEY_USER, user);
+					session.setAttribute(Constants.SessionKey.USER, user);
 					//拥有简历ID
 					Resume condition=new Resume();
 					condition.setUserId(user.getId());
@@ -87,7 +87,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 							}
 						}
 					}
-					session.setAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS, resumeIds);
+					session.setAttribute(Constants.SessionKey.RESUME_IDS, resumeIds);
 					return info;
 				}else{
 					throw new IncorrectCredentialsException();

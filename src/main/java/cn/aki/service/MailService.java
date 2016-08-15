@@ -10,6 +10,7 @@ import cn.aki.entity.User;
  * @author Aki
  * 2016年6月28日 上午12:15:58
  */
+@Deprecated
 public interface MailService {
 	/**
 	 * 发送邮件

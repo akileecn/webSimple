@@ -31,6 +31,7 @@ import cn.aki.form.UserRegisterForm;
 import cn.aki.form.UserUpdatePassworForm;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
+import cn.aki.service.MessageService;
 import cn.aki.service.UserService;
 import cn.aki.utils.Md5Utils;
 import cn.aki.utils.UserUtils;
@@ -48,12 +49,39 @@ public class UserController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private ResourceBundleMessageSource messageSource;
+	@Autowired
+	private MessageService messageService;
 	
 	@ModelAttribute("userLoginForm")
 	public UserLoginForm createUserLoginForm(){
 		return new UserLoginForm();
 	}
 	
+	//发送注册短信验证码
+	@RequestMapping(value="/sendMessage/register",method=RequestMethod.POST)
+	public SimpleResponse sendRegisterMessage(String mobile,String captcha){
+		if(!UserUtils.isValidCaptcha(captcha)){
+			SimpleResponse response=new SimpleResponse();
+			response.setSuccess(false);
+			response.setMessage("验证码错误");
+			return response;
+		}
+		return messageService.sendRegisterMessage(mobile);
+	}
+	
+	//发送修改密码短信验证码
+	@RequestMapping(value="/sendMessage/updatePassword",method=RequestMethod.POST)
+	public SimpleResponse sendUpdatePasswordMessage(String mobile,String captcha){
+		if(!UserUtils.isValidCaptcha(captcha)){
+			SimpleResponse response=new SimpleResponse();
+			response.setSuccess(false);
+			response.setMessage("验证码错误");
+			return response;
+		}
+		return messageService.sendUpdatePasswordMessage(mobile);
+	}
+	
+	//验证码图片
 	@RequestMapping(value="/captchaImage.png",method=RequestMethod.GET)
 	public void createCaptchaImage(HttpServletResponse response){
 		UserUtils.createCaptcha(response);
@@ -101,8 +129,14 @@ public class UserController extends BaseController{
 	public FormResponse<Void> handleRegister(@Valid UserRegisterForm form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
-			//保存用户
-			userService.save(form);
+			//验证短信验证码
+			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha());
+			if(!isValid){
+				response.putError("messageCaptcha", "手机验证码错误");
+			}else{
+				//保存用户
+				userService.save(form);
+			}
 		}
 		return response;
 	}

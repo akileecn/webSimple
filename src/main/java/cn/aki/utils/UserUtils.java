@@ -28,7 +28,7 @@ public class UserUtils {
 	 * @return
 	 */
 	public static User getUser(){
-		return (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_USER);
+		return (User)getAttribute(Constants.SessionKey.USER);
 	}
 	/**
 	 * 获得用户ID
@@ -48,7 +48,7 @@ public class UserUtils {
 	 */
 	public static boolean hasResume(Integer resumeId){
 		@SuppressWarnings("unchecked")
-		List<Integer> ids=(List<Integer>) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_RESUME_IDS);
+		List<Integer> ids=(List<Integer>)getAttribute(Constants.SessionKey.RESUME_IDS);
 		if(ids!=null&&resumeId!=null){
 			for(Integer id:ids){
 				if(id.equals(resumeId)){
@@ -71,7 +71,7 @@ public class UserUtils {
         wordFactory.setMaxLength(4);
         cs.setWordFactory(wordFactory);
         Captcha captcha=cs.getCaptcha();
-        SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA, captcha.getChallenge());
+        setAttribute(Constants.SessionKey.CAPTCHA, captcha.getChallenge());
         try {
 			ImageIO.write(captcha.getImage(), "png", response.getOutputStream());
 		} catch (IOException e) {
@@ -85,11 +85,11 @@ public class UserUtils {
 	 */
 	public static boolean isValidCaptcha(String captcha){
 		Session session=SecurityUtils.getSubject().getSession();
-		String validCaptcha=(String) session.getAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA);
+		String validCaptcha=(String) session.getAttribute(Constants.SessionKey.CAPTCHA);
 		System.err.println(validCaptcha);
 		boolean isValid=(captcha!=null&&captcha.equals(validCaptcha));
 		//原验证码失效
-		session.removeAttribute(Constants.SHIRO_SESSION_KEY_CAPTCHA);
+		session.removeAttribute(Constants.SessionKey.CAPTCHA);
 		return isValid;
 	}
 	
@@ -98,7 +98,7 @@ public class UserUtils {
 	 * @param user
 	 */
 	public static void refreshUser(User user){
-		SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_USER,user);
+		setAttribute(Constants.SessionKey.USER,user);
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class UserUtils {
 	 * @param recruitType
 	 */
 	public static void setUserCenterType(String recruitType){
-		SecurityUtils.getSubject().getSession().setAttribute(Constants.SHIRO_SESSION_KEY_USER_CENTER_TYPE,recruitType);
+		setAttribute(Constants.SessionKey.USER_CENTER_TYPE,recruitType);
 	}
 	
 	/**
@@ -114,7 +114,25 @@ public class UserUtils {
 	 * @return
 	 */
 	public static String getUserCenterType(){
-		return (String) SecurityUtils.getSubject().getSession().getAttribute(Constants.SHIRO_SESSION_KEY_USER_CENTER_TYPE);
+		return (String)getAttribute(Constants.SessionKey.USER_CENTER_TYPE);
 	}
 
+	/**
+	 * 设置用户属性
+	 * @param key
+	 * @param value
+	 * 2016年8月15日下午4:44:17
+	 */
+	public static void setAttribute(String key,Object value){
+		SecurityUtils.getSubject().getSession().setAttribute(key, value);
+	}
+	/**
+	 * 获取用户属性
+	 * @param key
+	 * @return
+	 * 2016年8月15日下午4:44:30
+	 */
+	public static Object getAttribute(String key){
+		return SecurityUtils.getSubject().getSession().getAttribute(key);
+	}
 }

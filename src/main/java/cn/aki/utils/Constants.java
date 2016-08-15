@@ -11,18 +11,28 @@ public interface Constants {
 	String CONTEXT_ATTR_KEY_DICT_MAP="dictMap";
 	/** servletContext属性key 左侧跳转连接的招聘类型*/
 	String CONTEXT_ATTR_KEY_LEFT_RECRUIT_TYPE="leftRecruitType";
-	/**shiro会话key 用户对象*/
-	String SHIRO_SESSION_KEY_USER="user";
-	/**shiro会话key 简历ID*/
-	String SHIRO_SESSION_KEY_RESUME_IDS="resumeIds";
-	/**shiro会话key 图片验证码*/
-	String SHIRO_SESSION_KEY_CAPTCHA="captcha";
-	/**shiro会话key 个人中心类型*/
-	String SHIRO_SESSION_KEY_USER_CENTER_TYPE="userCenterType";
 	/**字典code other*/
 	String DICT_CODE_OTHER="other";
 	/**字典类型 查询学历要求*/
 	String DICT_TYPE_CODE_SEARCH_EDUCATION="searchEducation";
+	
+	/**
+	 * shiro会话key
+	 * @author Aki
+	 * 2016年8月15日下午3:06:42
+	 */
+	public interface SessionKey{
+		/**用户对象*/
+		String USER="user";
+		/**简历ID*/
+		String RESUME_IDS="resumeIds";
+		/**图片验证码*/
+		String CAPTCHA="captcha";
+		/**个人中心类型*/
+		String USER_CENTER_TYPE="userCenterType";
+		/**短信验证码*/
+		String MESSAGE_CAPTCHA="messageCaptcha";
+	}
 	/**
 	 * 错误代码
 	 * @author Aki
@@ -46,5 +56,11 @@ public interface Constants {
 		String RECRUIT_NOTICE="recruitNotice";
 		/**邮件模版*/
 		String MAIL_TEMPLATE="mailTemplate";
+		/**短信模版*/
+		String MESSAGE_TEMPLATE="messageTemplate";
+		/**短信模版_注册*/
+		String MESSAGE_TEMPLATE_ATTR_REGISTER="register";
+		/**短信模版_修改密码*/
+		String MESSAGE_TEMPLATE_ATTR_UPDATE_PASSWORD="updatePassword";
 	}
 }
