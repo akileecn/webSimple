@@ -6,6 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src/main/wechat"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -24,5 +25,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/net.pusuo.patchca.0.5.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ImApi-2.1.jar" sourcepath="D:/Software/Java/ImApi-2.1.src.zip"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mm.mysql-2.0.4-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

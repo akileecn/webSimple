@@ -32,6 +32,7 @@
 	            # more URL-to-FilterChain definitions here
 	            /user/login=anon
 	            /user/register=anon
+	            /user/sendMessage/**=anon
 	            /user/captchaImage.png=anon
 	            /user/forgetPassword/**=anon
 	            /user/**=authc

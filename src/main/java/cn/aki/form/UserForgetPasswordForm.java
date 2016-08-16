@@ -5,8 +5,12 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 
 import cn.aki.entity.User;
-
-public class UserForgetPassworForm extends User{
+/**
+ * 根据密保问题找回密码
+ * @author Aki
+ * 2016年8月16日下午5:14:00
+ */
+public class UserForgetPasswordForm extends User{
 	private static final long serialVersionUID = -6085578076561677077L;
 	private String captcha;
 	

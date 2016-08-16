@@ -25,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.druid.util.StringUtils;
 
 import cn.aki.entity.User;
-import cn.aki.form.UserForgetPassworForm;
+import cn.aki.form.UserForgetPasswordForm;
+import cn.aki.form.UserForgetPasswordForm2;
 import cn.aki.form.UserLoginForm;
 import cn.aki.form.UserRegisterForm;
 import cn.aki.form.UserUpdatePassworForm;
@@ -58,6 +59,7 @@ public class UserController extends BaseController{
 	}
 	
 	//发送注册短信验证码
+	@ResponseBody
 	@RequestMapping(value="/sendMessage/register",method=RequestMethod.POST)
 	public SimpleResponse sendRegisterMessage(String mobile,String captcha){
 		if(!UserUtils.isValidCaptcha(captcha)){
@@ -70,6 +72,7 @@ public class UserController extends BaseController{
 	}
 	
 	//发送修改密码短信验证码
+	@ResponseBody
 	@RequestMapping(value="/sendMessage/updatePassword",method=RequestMethod.POST)
 	public SimpleResponse sendUpdatePasswordMessage(String mobile,String captcha){
 		if(!UserUtils.isValidCaptcha(captcha)){
@@ -132,7 +135,7 @@ public class UserController extends BaseController{
 			//验证短信验证码
 			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha());
 			if(!isValid){
-				response.putError("messageCaptcha", "手机验证码错误");
+				response.putError("messageCaptcha", "短信验证码错误");
 			}else{
 				//保存用户
 				userService.save(form);
@@ -170,7 +173,7 @@ public class UserController extends BaseController{
 	//跳转至忘记密码
 	@RequestMapping(value="/forgetPassword",method=RequestMethod.GET)
 	public String toForgetPassword(){
-		return "user/forgetPassword";
+		return "user/forgetPassword2";
 	}
 	
 	@ResponseBody
@@ -194,10 +197,10 @@ public class UserController extends BaseController{
 		return response;
 		
 	}
-	//忘记密码
+	//密保问题找回密码
 	@ResponseBody
 	@RequestMapping(value="/forgetPassword/byQuestion",method=RequestMethod.POST)
-	public FormResponse<Void> handleForgetPassword(@Valid UserForgetPassworForm form,BindingResult result){
+	public FormResponse<Void> handleForgetPassword(@Valid UserForgetPasswordForm form,BindingResult result){
 		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
 			User user=userService.getByUsername(form.getUsername());
@@ -212,6 +215,27 @@ public class UserController extends BaseController{
 				userService.update(user);
 			}else{
 				response.putError("answer", "问题答案不正确");
+			}
+		}
+		return response;
+	}
+	
+	//短信验证码找回密码
+	@ResponseBody
+	@RequestMapping(value="/forgetPassword/byMobile",method=RequestMethod.POST)
+	public FormResponse<Void> handleForgetPassword2(@Valid UserForgetPasswordForm2 form,BindingResult result){
+		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
+		if(response.isSuccess()){
+			User user=userService.getByUsername(form.getMobile());
+			if(user==null){
+				response.putError("mobile", "用户不存在");
+			}else if(messageService.isValidCaptcha(form.getMessageCaptcha())){
+				user.setModifyTime(new Date());
+				//密码加密
+				user.setPassword(Md5Utils.encrypt(form.getPassword()));
+				userService.update(user);
+			}else{
+				response.putError("messageCaptcha", "短信验证码错误");
 			}
 		}
 		return response;

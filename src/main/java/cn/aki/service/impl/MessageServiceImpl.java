@@ -28,7 +28,7 @@ import cn.aki.utils.UserUtils;
 public class MessageServiceImpl implements MessageService,InitializingBean{
 	private final Logger logger=LoggerFactory.getLogger(MessageServiceImpl.class);
 	/**短信的配置参数*/
-	@Value("${message.username}")
+	@Value("${message.host}")
 	private String host;//短信服务器数据库地址
 	@Value("${message.dbName}")
 	private String dbName;//数据库名称
@@ -57,13 +57,14 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 			SimpleResponse response=new SimpleResponse();
 			response.setSuccess(false);
 			response.setMessage("用户不存在");
+			return response;
 		}
 		return sendMessageCaptcha(mobile, Constants.StaticPageCode.MESSAGE_TEMPLATE_ATTR_UPDATE_PASSWORD);
 	}
 	
 	public boolean isValidCaptcha(String code) {
 		MessageCaptcha captcha=(MessageCaptcha) UserUtils.getAttribute(Constants.SessionKey.MESSAGE_CAPTCHA);
-		return (captcha!=null&&captcha.getCode().equals(code));
+		return (captcha!=null&&captcha.isValid(code));
 	}
 	
 	/**
@@ -81,7 +82,7 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 		String content=template.getContent();
 		MessageCaptcha captcha=MessageCaptcha.newInstance();
 		content=content.replace("${code}", captcha.getCode());
-		UserUtils.setAttribute(Constants.SessionKey.MESSAGE_CAPTCHA, captcha.getCode());
+		UserUtils.setAttribute(Constants.SessionKey.MESSAGE_CAPTCHA, captcha);
 		return send(mobile, content);
 	}
 	
@@ -98,8 +99,12 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 		Random random = new Random();
 		long smId = random.nextInt(1000);
 		long srcId = random.nextInt(100);
-		int result=handler.sendSM(new String[]{mobile},content,smId,srcId);
-		logger.info("send:[mobile:{},content:{},smId:{},srcId:{},resultCode:{}]",mobile,content,smId,srcId,result);
+		int result=1;
+		try{
+			result=handler.sendSM(new String[]{mobile},content,smId,srcId);
+		}finally{
+			logger.info("send:[mobile:{},content:{},smId:{},srcId:{},resultCode:{}]",mobile,content,smId,srcId,result);
+		}
 		switch (result) {
 		case APIClient.IMAPI_SUCC:
 			response.setSuccess(true);
