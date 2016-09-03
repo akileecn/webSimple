@@ -73,8 +73,10 @@
 			    <div class="col_cv_alt" data-error="mobile"></div>
 			</li>
 			<@input label="短信验证码" name="messageCaptcha"/>
+			<#--
 			<@input label="找回密码问题" name="question"/>
 			<@input label="答案" name="answer"/>
+			-->
             <li>
             	<label>验证码：</label>
                 <input type="text" name="captcha" style="width:70px;"/>
@@ -128,7 +130,7 @@
 				            	<a href="javascript:changeCaptcha(\'captcha4sendMessage\');">换一张</a>
 				            	<div id="errorDiv" class="col_cv_alt" style="margin:0;"></div>
 				            </li>
-							<input type="button" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
+							<input type="button" id="sendButton" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
 				        </ul>
 			    	</form>
 			    </div>
@@ -137,8 +139,27 @@
 	    });
 	    changeCaptcha('captcha4sendMessage');
 	}
+	
+	//计时
+	var INTERVAL=60;
+	var _time=INTERVAL;
+	function timer(){
+		if(_time>0){
+			$("#sendButton").val(_time+"秒后重新发送");
+			_time--;
+			setTimeout(timer,1000);
+		}else{
+			$("#sendButton").val("发送");
+			_time=INTERVAL;
+		}
+	}
 	//提交发送短信表单
 	function submitSendMessageForm(){
+		if(_time!=INTERVAL){
+			return;
+		}else{
+			timer();
+		}
 		$("#sendMessageForm").ajaxSubmit({
 			"success":function(text){
 				if(text.success){

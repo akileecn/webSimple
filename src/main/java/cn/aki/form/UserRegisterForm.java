@@ -56,16 +56,16 @@ public class UserRegisterForm extends User{
 	public String getEmail() {
 		return super.getEmail();
 	}
-	@Override
-	@NotBlank()@Size(max=100)
-	public String getQuestion() {
-		return super.getQuestion();
-	}
-	@Override
-	@NotBlank()@Size(max=100)
-	public String getAnswer() {
-		return super.getAnswer();
-	}
+//	@Override
+//	@NotBlank()@Size(max=100)
+//	public String getQuestion() {
+//		return super.getQuestion();
+//	}
+//	@Override
+//	@NotBlank()@Size(max=100)
+//	public String getAnswer() {
+//		return super.getAnswer();
+//	}
 
 	@Override
 	@NotBlank()@Size(max=32)

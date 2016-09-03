@@ -1,3 +1,4 @@
+<#-- @Deprecated -->
 <#include "user/common.ftl"/>
 <@bootstrap.head>
 <title>忘记密码</title>

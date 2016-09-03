@@ -15,8 +15,10 @@
 				}
 			},"success":function(text) {
 				if(text.success){
-					$.alert("修改成功");
-					$('#forgetPasswordForm').clearError();
+					$.alert("修改成功",function(){
+						window.location.href="<@spring.url "/index"/>";
+					});
+					//$('#forgetPasswordForm').clearError();
 				}else{
 					$('#forgetPasswordForm').showError(text.error);
 					changeCaptcha();
@@ -56,7 +58,7 @@
 				            	<a href="javascript:changeCaptcha(\'captcha4sendMessage\');">换一张</a>
 				            	<div id="errorDiv" class="col_cv_alt" style="margin:0;"></div>
 				            </li>
-							<input type="button" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
+							<input type="button" id="sendButton" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
 				        </ul>
 			    	</form>
 			    </div>
@@ -65,8 +67,26 @@
 	    });
 	    changeCaptcha('captcha4sendMessage');
 	}
+	//计时
+	var INTERVAL=60;
+	var _time=INTERVAL;
+	function timer(){
+		if(_time>0){
+			$("#sendButton").val(_time+"秒后重新发送");
+			_time--;
+			setTimeout(timer,1000);
+		}else{
+			$("#sendButton").val("发送");
+			_time=INTERVAL;
+		}
+	}
 	//提交发送短信表单
 	function submitSendMessageForm(){
+		if(_time!=INTERVAL){
+			return;
+		}else{
+			timer();
+		}
 		$("#sendMessageForm").ajaxSubmit({
 			"success":function(text){
 				if(text.success){

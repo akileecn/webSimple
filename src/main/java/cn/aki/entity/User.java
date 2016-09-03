@@ -15,7 +15,9 @@ public class User extends BaseTimeEntity{
 	private String idNumber;	//,id_number varchar(32) -- 身份证号码
 	private String mobile;		//,mobile varchar(32) -- 手机号码
 	private String email;		//,email varchar(50) -- 邮箱
+	@Deprecated
 	private String question;	//,question varchar(100) -- 问题
+	@Deprecated
 	private String answer;		//,answer varchar(100) -- 答案
 	private String name;		//姓名s
 	
