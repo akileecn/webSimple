@@ -28,5 +28,5 @@ public interface MessageService {
 	 * @return
 	 * 2016年8月15日下午5:02:43
 	 */
-	boolean isValidCaptcha(String code);
+	boolean isValidCaptcha(String code,String mobile);
 }

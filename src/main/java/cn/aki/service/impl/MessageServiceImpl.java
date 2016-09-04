@@ -65,9 +65,9 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 		return sendMessageCaptcha(mobile, Constants.StaticPageCode.MESSAGE_TEMPLATE_ATTR_UPDATE_PASSWORD);
 	}
 	
-	public boolean isValidCaptcha(String code) {
+	public boolean isValidCaptcha(String code,String mobile) {
 		MessageCaptcha captcha=(MessageCaptcha) UserUtils.getAttribute(Constants.SessionKey.MESSAGE_CAPTCHA);
-		return (captcha!=null&&captcha.isValid(code));
+		return (captcha!=null&&captcha.isValid(code,mobile));
 	}
 	
 	/**

@@ -133,7 +133,7 @@ public class UserController extends BaseController{
 		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
 			//验证短信验证码
-			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha());
+			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha(),form.getMobile());
 			if(!isValid){
 				response.putError("messageCaptcha", "短信验证码错误");
 			}else{
@@ -229,7 +229,7 @@ public class UserController extends BaseController{
 			User user=userService.getByUsername(form.getMobile());
 			if(user==null){
 				response.putError("mobile", "用户不存在");
-			}else if(messageService.isValidCaptcha(form.getMessageCaptcha())){
+			}else if(messageService.isValidCaptcha(form.getMessageCaptcha(),form.getMobile())){
 				user.setModifyTime(new Date());
 				//密码加密
 				user.setPassword(Md5Utils.encrypt(form.getPassword()));

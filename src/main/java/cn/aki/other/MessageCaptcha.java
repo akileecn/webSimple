@@ -8,6 +8,7 @@ import java.util.Random;
  * 2016年8月15日下午3:16:38
  */
 public class MessageCaptcha {
+	private String mobile;//手机号码
 	private String code;//验证码
 	private long createTime;//创建时间
 	private long validTime;//有效时间(毫秒)
@@ -43,10 +44,10 @@ public class MessageCaptcha {
 	 * @return
 	 * 2016年8月15日下午3:20:07
 	 */
-	public boolean isValid(String code){
+	public boolean isValid(String code,String mobile){
 		long currentTime=new Date().getTime();
 		//有效且验证码相同s
-		return (currentTime<createTime+validTime&&this.code.equals(code));
+		return (this.mobile.equals(mobile)&&currentTime<createTime+validTime&&this.code.equals(code));
 	}
 	
 	public String getCode() {
@@ -67,4 +68,11 @@ public class MessageCaptcha {
 	public void setValidTime(long validTime) {
 		this.validTime = validTime;
 	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	
 }
