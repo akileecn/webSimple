@@ -80,7 +80,7 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 	private SimpleResponse sendMessageCaptcha(String mobile,String templateAttr){
 		//校验
 		MessageCaptcha captcha=(MessageCaptcha) UserUtils.getAttribute(Constants.SessionKey.MESSAGE_CAPTCHA);
-		if(captcha!=null&&((new Date().getTime()-captcha.getCreateTime())>DEFAULT_INTERVAL)){
+		if(captcha!=null&&((new Date().getTime()-captcha.getCreateTime())<DEFAULT_INTERVAL)){
 			SimpleResponse response=new SimpleResponse();
 			response.setSuccess(false);
 			response.setMessage("短信发送过于频繁");
