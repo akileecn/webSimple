@@ -47,26 +47,27 @@
               </div>	   
               <div><input type="text" name="mobile" id="mobile" placeholder="请输入手机号">
               	   <div class="col_cv_alt" data-error="mobile"></div>
+              <div>
+                <input type="text" name="fname" id="fname" placeholder="短信验证码">
+              	<div class="col_cv_alt" data-error="fname"></div>
+                <a data-role="button" href="#" id="sendButton" onclick="showSendMessage();">获取手机验证码</a>
+              </div>
               </div>
               <br>
+              <!-- 
               <div><input type="text" name="question" placeholder="找回密码问题">
               	   <div class="col_cv_alt" data-error="question"></div>
               </div>	   
               <div><input type="text" name="answer" placeholder="答案">
               	   <div class="col_cv_alt" data-error="answer"></div></div>
               <br>
+               -->
               <div>
 	                <input type="text" name="captcha" placeholder="验证码">
 	              	<div class="col_cv_alt" data-error="captcha"></div>
 	                <img style="width:80px;height:40px;" id="captcha" src="">
 	                <a href="javascript:changeCaptcha();">换一张</a>
               </div>
-              <!-- 
-              <div>
-                <div><input type="text" name="fname" id="fname" placeholder="短信验证码"></div>
-                <div><a data-role="button" href="#">获取手机验证码</a></div>
-              </div>
-               -->
               <br>
               <div>
               	 <input name="isAgree" type="checkbox" value="">
@@ -134,6 +135,53 @@ function changeCaptcha(){
 	$("#captcha").attr("src",baseUrl+"/user/captchaImage.png?r="+Math.random());
 }
 
+//计时
+var INTERVAL=60;
+var _time=INTERVAL;
+function timer(){
+	if(_time>0){
+		$("#sendButton").text(_time+"秒后重新发送");
+		_time--;
+		setTimeout(timer,1000);
+	}else{
+		$("#sendButton").text("获取手机验证码");
+		_time=INTERVAL;
+	}
+}
+
+//显示发送短信界面
+function showSendMessage(){
+	if(_time!=INTERVAL){
+		return;
+	}
+	$("[data-error='mobile']").empty();
+	var mobile=$("input[name='mobile']").val();
+	if(!/^1\d{10}$/.test(mobile)){
+		$("[data-error='mobile']").text("手机号码格式不正确");
+		return;
+	}
+	
+	if(_time!=INTERVAL){
+		return;
+	}else{
+		timer();
+	}
+	
+	//发送
+	//发送
+	$.ajax({
+		url:baseUrl+"user/sendMessage/register",
+		data:{"mobile":mobile},
+		type:"post",
+		success:function(text){
+			if(text.success){
+				$("[data-error='mobile']").text("短信发送成功");
+			}else{
+				$("[data-error='mobile']").text(text.message);
+			}	
+		}
+	});
+}
 
 </script>
 </html>

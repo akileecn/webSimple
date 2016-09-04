@@ -62,11 +62,12 @@
 		$.ajax({
 			url:"<@spring.url "/user/sendMessage/updatePassword"/>"
 			,data:{"mobile":mobile}
+			,type:"post"
 			,success:function(text){
 				if(text.success){
-					$("#errorDiv").text("短信发送成功");
+					$("[data-error='mobile']").text("短信发送成功");
 				}else{
-					$("#errorDiv").text(text.message);
+					$("[data-error='mobile']").text(text.message);
 				}	
 			}
 		});
