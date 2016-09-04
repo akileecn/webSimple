@@ -1,5 +1,6 @@
 package cn.aki.service.impl;
 
+import java.util.Date;
 import java.util.Random;
 
 import javax.annotation.PreDestroy;
@@ -27,6 +28,8 @@ import cn.aki.utils.UserUtils;
 @Service("messageService")
 public class MessageServiceImpl implements MessageService,InitializingBean{
 	private final Logger logger=LoggerFactory.getLogger(MessageServiceImpl.class);
+	/**默认发送时间间隔*/
+	private static final long DEFAULT_INTERVAL=50*1000;
 	/**短信的配置参数*/
 	@Value("${message.host}")
 	private String host;//短信服务器数据库地址
@@ -75,12 +78,21 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 	 * 2016年8月15日下午4:38:31
 	 */
 	private SimpleResponse sendMessageCaptcha(String mobile,String templateAttr){
+		//校验
+		MessageCaptcha captcha=(MessageCaptcha) UserUtils.getAttribute(Constants.SessionKey.MESSAGE_CAPTCHA);
+		if(captcha!=null&&((new Date().getTime()-captcha.getCreateTime())>DEFAULT_INTERVAL)){
+			SimpleResponse response=new SimpleResponse();
+			response.setSuccess(false);
+			response.setMessage("短信发送过于频繁");
+			return response;
+		}
+		//发送
 		StaticPage template=new StaticPage();
 		template.setCode(Constants.StaticPageCode.MESSAGE_TEMPLATE);
 		template.setAttr(templateAttr);
 		template=staticPageMapper.get(template);
 		String content=template.getContent();
-		MessageCaptcha captcha=MessageCaptcha.newInstance();
+		captcha=MessageCaptcha.newInstance();
 		content=content.replace("${code}", captcha.getCode());
 		UserUtils.setAttribute(Constants.SessionKey.MESSAGE_CAPTCHA, captcha);
 		return send(mobile, content);

@@ -62,12 +62,12 @@ public class UserController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/sendMessage/register",method=RequestMethod.POST)
 	public SimpleResponse sendRegisterMessage(String mobile,String captcha){
-		if(!UserUtils.isValidCaptcha(captcha)){
-			SimpleResponse response=new SimpleResponse();
-			response.setSuccess(false);
-			response.setMessage("验证码错误");
-			return response;
-		}
+//		if(!UserUtils.isValidCaptcha(captcha)){
+//			SimpleResponse response=new SimpleResponse();
+//			response.setSuccess(false);
+//			response.setMessage("验证码错误");
+//			return response;
+//		}
 		return messageService.sendRegisterMessage(mobile);
 	}
 	
@@ -75,12 +75,12 @@ public class UserController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/sendMessage/updatePassword",method=RequestMethod.POST)
 	public SimpleResponse sendUpdatePasswordMessage(String mobile,String captcha){
-		if(!UserUtils.isValidCaptcha(captcha)){
-			SimpleResponse response=new SimpleResponse();
-			response.setSuccess(false);
-			response.setMessage("验证码错误");
-			return response;
-		}
+//		if(!UserUtils.isValidCaptcha(captcha)){
+//			SimpleResponse response=new SimpleResponse();
+//			response.setSuccess(false);
+//			response.setMessage("验证码错误");
+//			return response;
+//		}
 		return messageService.sendUpdatePasswordMessage(mobile);
 	}
 	

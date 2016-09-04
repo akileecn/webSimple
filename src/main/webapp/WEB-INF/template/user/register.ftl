@@ -50,6 +50,100 @@
 	function changeCaptcha(id){
 		$("#"+(id?id:"captcha")).attr("src","<@spring.url "/user/captchaImage.png"/>?r="+Math.random());
 	}
+	
+	//显示用户协议
+	function showUserAgreement(){
+		$.get("<@spring.url "/staticPage/userAgreement"/>",function(text){
+			art.dialog({
+		        lock: true,
+		        id: "abc",
+		        content: text
+		    });
+		});
+	}
+	//计时
+	var INTERVAL=60;
+	var _time=INTERVAL;
+	function timer(){
+		if(_time>0){
+			$("#sendButton").val(_time+"秒后重新获取");
+			_time--;
+			setTimeout(timer,1000);
+		}else{
+			$("#sendButton").val("获取短信验证码");
+			_time=INTERVAL;
+		}
+	}
+	//直接发送短信
+	function showSendMessage(){
+		if(_time!=INTERVAL){
+			return;
+		}
+		//验证
+		$("[data-error='mobile']").empty();
+		var mobile=$("input[name='mobile']").val();
+		if(!/^1\d{10}$/.test(mobile)){
+			$("[data-error='mobile']").text("手机号码格式不正确");
+			return;
+		}
+		//倒计时
+		timer();
+		//发送
+		$.ajax({
+			url:"<@spring.url "/user/sendMessage/register"/>"
+			,data:{"mobile":mobile}
+			,success:function(text){
+				if(text.success){
+					$("#errorDiv").text("短信发送成功");
+				}else{
+					$("#errorDiv").text(text.message);
+				}	
+			}
+		});
+		<#-- 短信发送不需要验证码
+		art.dialog({
+	        lock: true,
+	        id: "abc",
+	        content: $.template('<@compress single_line=true>
+			<div class="pop_job">
+			    <span class="close" onclick="art.dialog.list[\'abc\'].close();changeCaptcha();"></span>
+			    <h2>获取短信验证码</h2>
+			    <div class="pop_job_col" style="padding:10px;">
+					<form id="sendMessageForm" action="<@spring.url "/user/sendMessage/register"/>" method="post" class="reg_con userForm">
+						<ul style="padding:0;">
+					        <li>
+					        	<input type="hidden" name="mobile" value="%{mobile}"/>
+				            	<label style="width:50px;">验证码：</label>
+				                <input type="text" name="captcha" style="width:70px;"/>
+				            	<img id="captcha4sendMessage" src="<@spring.url "/user/captchaImage.png"/>" width="78px" height="34px" alt="" />
+				            	<a href="javascript:changeCaptcha(\'captcha4sendMessage\');">换一张</a>
+				            	<div id="errorDiv" class="col_cv_alt" style="margin:0;"></div>
+				            </li>
+							<input type="button" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
+				        </ul>
+			    	</form>
+			    </div>
+			</div>
+	        </@compress>',{"mobile":mobile})
+	    });
+	    changeCaptcha('captcha4sendMessage');
+	    -->
+	}
+	<#--
+	//提交发送短信表单
+	function submitSendMessageForm(){
+		$("#sendMessageForm").ajaxSubmit({
+			"success":function(text){
+				if(text.success){
+					$("#errorDiv").text("短信发送成功");
+				}else{
+					changeCaptcha('captcha4sendMessage');
+					$("#errorDiv").text(text.message);
+				}	
+			}
+		});
+	}
+	-->
 </script>
 </@bootstrap.head>
 <@bootstrap.body>
@@ -68,7 +162,7 @@
 			<li>
 			    <label>手机号码：</label>
 			    <input type="text" name="mobile" placeholder="请输入手机号码"/>
-			    <input type="button" value="获取短信验证码" style="width:90px;" onclick="showSendMessage();"/>
+			    <input type="button" id="sendButton" value="获取短信验证码" style="width:90px;" onclick="showSendMessage();"/>
 			    <span class="red">*</span>
 			    <div class="col_cv_alt" data-error="mobile"></div>
 			</li>
@@ -93,83 +187,4 @@
     </form>
 	</@c.right>
 </div>
-<script>
-	//显示用户协议
-	function showUserAgreement(){
-		$.get("<@spring.url "/staticPage/userAgreement"/>",function(text){
-			art.dialog({
-		        lock: true,
-		        id: "abc",
-		        content: text
-		    });
-		});
-	}
-	//显示发送短信界面
-	function showSendMessage(){
-		$("[data-error='mobile']").empty();
-		var mobile=$("input[name='mobile']").val();
-		if(!/^1\d{10}$/.test(mobile)){
-			$("[data-error='mobile']").text("手机号码格式不正确");
-			return;
-		}
-		art.dialog({
-	        lock: true,
-	        id: "abc",
-	        content: $.template('<@compress single_line=true>
-			<div class="pop_job">
-			    <span class="close" onclick="art.dialog.list[\'abc\'].close();changeCaptcha();"></span>
-			    <h2>获取短信验证码</h2>
-			    <div class="pop_job_col" style="padding:10px;">
-					<form id="sendMessageForm" action="<@spring.url "/user/sendMessage/register"/>" method="post" class="reg_con userForm">
-						<ul style="padding:0;">
-					        <li>
-					        	<input type="hidden" name="mobile" value="%{mobile}"/>
-				            	<label style="width:50px;">验证码：</label>
-				                <input type="text" name="captcha" style="width:70px;"/>
-				            	<img id="captcha4sendMessage" src="<@spring.url "/user/captchaImage.png"/>" width="78px" height="34px" alt="" />
-				            	<a href="javascript:changeCaptcha(\'captcha4sendMessage\');">换一张</a>
-				            	<div id="errorDiv" class="col_cv_alt" style="margin:0;"></div>
-				            </li>
-							<input type="button" id="sendButton" class="button btnbg1" value="发送" style="margin: 0 auto;display: block;" onclick="submitSendMessageForm();"/>
-				        </ul>
-			    	</form>
-			    </div>
-			</div>
-	        </@compress>',{"mobile":mobile})
-	    });
-	    changeCaptcha('captcha4sendMessage');
-	}
-	
-	//计时
-	var INTERVAL=60;
-	var _time=INTERVAL;
-	function timer(){
-		if(_time>0){
-			$("#sendButton").val(_time+"秒后重新发送");
-			_time--;
-			setTimeout(timer,1000);
-		}else{
-			$("#sendButton").val("发送");
-			_time=INTERVAL;
-		}
-	}
-	//提交发送短信表单
-	function submitSendMessageForm(){
-		if(_time!=INTERVAL){
-			return;
-		}else{
-			timer();
-		}
-		$("#sendMessageForm").ajaxSubmit({
-			"success":function(text){
-				if(text.success){
-					$("#errorDiv").text("短信发送成功");
-				}else{
-					changeCaptcha('captcha4sendMessage');
-					$("#errorDiv").text(text.message);
-				}	
-			}
-		});
-	}
-</script>
 </@bootstrap.body>
