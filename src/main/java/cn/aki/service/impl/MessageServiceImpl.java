@@ -93,6 +93,7 @@ public class MessageServiceImpl implements MessageService,InitializingBean{
 		template=staticPageMapper.get(template);
 		String content=template.getContent();
 		captcha=MessageCaptcha.newInstance();
+		captcha.setMobile(mobile);
 		content=content.replace("${code}", captcha.getCode());
 		UserUtils.setAttribute(Constants.SessionKey.MESSAGE_CAPTCHA, captcha);
 		return send(mobile, content);
