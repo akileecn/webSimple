@@ -22,16 +22,16 @@ import cn.aki.form.validator.UserUnique;
 public class UserRegisterForm extends User{
 	private static final long serialVersionUID = 3099193257950243875L;
 	private String captcha;
-	private String messageCaptcha;
+//	private String messageCaptcha;
 	
 	@NotBlank()
 	public String getCaptcha() {
 		return captcha;
 	}
-	@NotBlank()
-	public String getMessageCaptcha() {
-		return messageCaptcha;
-	}
+//	@NotBlank()
+//	public String getMessageCaptcha() {
+//		return messageCaptcha;
+//	}
 	@Override
 	public String getUsername() {
 		return super.getUsername();
@@ -56,16 +56,16 @@ public class UserRegisterForm extends User{
 	public String getEmail() {
 		return super.getEmail();
 	}
-//	@Override
-//	@NotBlank()@Size(max=100)
-//	public String getQuestion() {
-//		return super.getQuestion();
-//	}
-//	@Override
-//	@NotBlank()@Size(max=100)
-//	public String getAnswer() {
-//		return super.getAnswer();
-//	}
+	@Override
+	@NotBlank()@Size(max=100)
+	public String getQuestion() {
+		return super.getQuestion();
+	}
+	@Override
+	@NotBlank()@Size(max=100)
+	public String getAnswer() {
+		return super.getAnswer();
+	}
 
 	@Override
 	@NotBlank()@Size(max=32)
@@ -76,9 +76,9 @@ public class UserRegisterForm extends User{
 	public void setCaptcha(String captcha) {
 		this.captcha = captcha;
 	}
-	public void setMessageCaptcha(String messageCaptcha) {
-		this.messageCaptcha = messageCaptcha;
-	}
+//	public void setMessageCaptcha(String messageCaptcha) {
+//		this.messageCaptcha = messageCaptcha;
+//	}
 	/**
 	 * 创建简历
 	 * @return

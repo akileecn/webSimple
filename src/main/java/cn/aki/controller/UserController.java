@@ -50,7 +50,7 @@ public class UserController extends BaseController{
 	private UserService userService;
 	@Autowired
 	private ResourceBundleMessageSource messageSource;
-	@Autowired
+//	@Autowired
 	private MessageService messageService;
 	
 	@ModelAttribute("userLoginForm")
@@ -133,13 +133,13 @@ public class UserController extends BaseController{
 		FormResponse<Void> response=handleFormError(result,form.getCaptcha());
 		if(response.isSuccess()){
 			//验证短信验证码
-			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha(),form.getMobile());
-			if(!isValid){
-				response.putError("messageCaptcha", "短信验证码错误");
-			}else{
+//			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha(),form.getMobile());
+//			if(!isValid){
+//				response.putError("messageCaptcha", "短信验证码错误");
+//			}else{
 				//保存用户
 				userService.save(form);
-			}
+//			}
 		}
 		return response;
 	}
@@ -173,7 +173,7 @@ public class UserController extends BaseController{
 	//跳转至忘记密码
 	@RequestMapping(value="/forgetPassword",method=RequestMethod.GET)
 	public String toForgetPassword(){
-		return "user/forgetPassword2";
+		return "user/forgetPassword";
 	}
 	
 	@ResponseBody

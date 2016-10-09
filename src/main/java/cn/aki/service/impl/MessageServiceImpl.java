@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.jasson.im.api.APIClient;
@@ -25,7 +24,8 @@ import cn.aki.service.MessageService;
 import cn.aki.utils.Constants;
 import cn.aki.utils.UserUtils;
 
-@Service("messageService")
+//@Service("messageService")
+@Deprecated
 public class MessageServiceImpl implements MessageService,InitializingBean{
 	private final Logger logger=LoggerFactory.getLogger(MessageServiceImpl.class);
 	/**默认发送时间间隔*/

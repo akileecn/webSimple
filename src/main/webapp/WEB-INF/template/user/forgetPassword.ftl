@@ -26,8 +26,9 @@
 				}
 			},"success":function(text) {
 				if(text.success){
-					$.alert("修改成功");
-					$('#forgetPasswordForm2').clearError();
+					$.alert("修改成功",function(){
+						window.location.href="<@spring.url "/index"/>";
+					});
 				}else{
 					$('#forgetPasswordForm2').showError(text.error);
 					changeCaptcha();

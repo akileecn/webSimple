@@ -160,6 +160,8 @@
 			<@input label="真实姓名" name="name"/>
 			<@input label="身份证号码" name="idNumber"/>
 			<@input label="邮箱" name="email"/>
+			<@input label="手机号码" name="mobile"/>
+			<#--
 			<li>
 			    <label>手机号码：</label>
 			    <input type="text" name="mobile" placeholder="请输入手机号码"/>
@@ -168,10 +170,9 @@
 			    <div class="col_cv_alt" data-error="mobile"></div>
 			</li>
 			<@input label="短信验证码" name="messageCaptcha"/>
-			<#--
+			-->
 			<@input label="找回密码问题" name="question"/>
 			<@input label="答案" name="answer"/>
-			-->
             <li>
             	<label>验证码：</label>
                 <input type="text" name="captcha" style="width:70px;"/>
