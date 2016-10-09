@@ -68,6 +68,8 @@
 				<prop key="template_exception_handler">rethrow</prop>
 				<prop key="default_encoding">UTF-8</prop>
 				<prop key="boolean_format">是,否</prop>
+				<!-- 默认数字每3位用“,”分隔，需要修正-->
+				<prop key="number_format">#</prop>
 				<prop key="time_format">HH:mm:ss</prop>
 				<prop key="date_format">yyyy-MM-dd</prop>
 				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
