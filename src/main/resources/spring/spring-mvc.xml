@@ -19,7 +19,6 @@
 	<aop:aspectj-autoproxy/>
 	<!-- 静态资源 -->	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<mvc:resources mapping="/wechat/**" location="/WEB-INF/html/wechat/" />
 	<!-- 注解驱动(有resources标签时必须配,另外不配会导致springValidation失效) -->
 	<!-- 并相当于注册了RequestMappingHandlerMapping,RequestMappingHandlerAdapter,ExceptionHandlerExceptionResolver -->
 	<mvc:annotation-driven validator="validator" conversion-service="conversionService">
@@ -44,8 +43,8 @@
 	</bean>
 	
 	<!-- 简单controller -->
-	<mvc:view-controller path="/home" view-name="home"/>
-	
+	<mvc:view-controller path="/" view-name="redirect:/index"/>
+
 	<!-- 拦截器 -->
 	<mvc:interceptors>
 	    <mvc:interceptor>
@@ -54,8 +53,7 @@
 	        <bean class="cn.aki.interceptor.ResumeSubIntercaptor"/>
 	    </mvc:interceptor>
 	</mvc:interceptors>
-	
-	
+
 	<!--
 		freemarker配置
 		freemarkerSettings属性为java.util.Properties,freemarkerVariables属性为java.util.Map,其他属性直接配

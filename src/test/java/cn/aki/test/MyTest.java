@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Base64Utils;
 
 import com.alibaba.fastjson.JSON;
@@ -17,9 +19,16 @@ import cn.aki.utils.DateUtils;
 import cn.aki.utils.Md5Utils;
 
 public class MyTest {
+	
 	public static void main(String[] args) {
 		System.err.println(Md5Utils.encrypt("123qwe"));
 		System.err.println(Md5Utils.isEncrypted("123456", "6a15a216fc555826c06f8e0cd8ef141d"));
+	}
+	
+	@Test
+	public void logTest(){
+		Logger log = LoggerFactory.getLogger(MyTest.class);
+		log.info("hello");
 	}
 	
 	@Test

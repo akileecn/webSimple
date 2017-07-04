@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import cn.aki.service.MessageService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -32,7 +33,6 @@ import cn.aki.form.UserRegisterForm;
 import cn.aki.form.UserUpdatePassworForm;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
-import cn.aki.service.MessageService;
 import cn.aki.service.UserService;
 import cn.aki.utils.Md5Utils;
 import cn.aki.utils.UserUtils;
@@ -52,7 +52,7 @@ public class UserController extends BaseController{
 	private ResourceBundleMessageSource messageSource;
 //	@Autowired
 	private MessageService messageService;
-	
+
 	@ModelAttribute("userLoginForm")
 	public UserLoginForm createUserLoginForm(){
 		return new UserLoginForm();
@@ -70,7 +70,7 @@ public class UserController extends BaseController{
 //		}
 		return messageService.sendRegisterMessage(mobile);
 	}
-	
+
 	//发送修改密码短信验证码
 	@ResponseBody
 	@RequestMapping(value="/sendMessage/updatePassword",method=RequestMethod.POST)
@@ -83,7 +83,7 @@ public class UserController extends BaseController{
 //		}
 		return messageService.sendUpdatePasswordMessage(mobile);
 	}
-	
+
 	//验证码图片
 	@RequestMapping(value="/captchaImage.png",method=RequestMethod.GET)
 	public void createCaptchaImage(HttpServletResponse response){
@@ -240,7 +240,7 @@ public class UserController extends BaseController{
 		}
 		return response;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value="/logout")
 	public SimpleResponse handleLogout(){
