@@ -1,0 +1,46 @@
+mybatis:
+  type-aliases-package: cn.aki.entity
+  mapper-locations: classpath:sqlmap/*-mapper.xml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/recruit
+    username: root
+    password: 234wer
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 1
+      minIdle: 1
+      maxActive: 20
+  freemarker:
+    template-loader-path: /WEB-INF/template/
+    settings: 
+      incompatible_improvements: 2.3.24
+      template_exception_handler: rethrow
+      default_encoding: UTF-8
+      boolean_format: 是,否
+      number_format: '#'
+      time_format: HH:mm:ss
+      date_format: yyyy-MM-dd
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      classic_compatible: true
+      auto_import: '"/spring.ftl" as spring,"/base/common.ftl" as c,"/base/bootstrap.ftl" as bootstrap'
+    cache: true
+logging:
+  level:
+    cn.aki.dao: debug
+    cn.aki: info
+#自定义
+my:
+  refererBase: http://localhost:8080
+  applicationInterval: 90
+  shiro:
+    /user/login: anon
+    /user/register: anon
+    /user/sendMessage/**: anon
+    /user/captchaImage.png: anon
+    /user/forgetPassword/**: anon
+    /user/**: authc
+    /resume/**: authc
+    /notice/**: authc
+    /application/**: authc
+
