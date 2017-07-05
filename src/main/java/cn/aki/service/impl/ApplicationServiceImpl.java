@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cn.aki.config.MyProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,16 @@ import cn.aki.service.ApplicationService;
 import cn.aki.utils.Constants;
 
 @Service("applicationService")
-public class ApplicationServiceImpl implements ApplicationService{
+public class ApplicationServiceImpl implements ApplicationService {
 	@Autowired
 	private ApplicationMapper applicationMapper;
 	@Autowired
 	private JobMapper jobMapper;
 	@Autowired
 	private ResumeMapper resumeMapper;
-	//招聘周期
-	@Value("${application.interval}")
-	private Integer interval;
-	
+	@Autowired
+	private MyProperties properties;
+
 	public void delete(Application application) {
 		applicationMapper.delete(application);
 	}
@@ -51,36 +51,36 @@ public class ApplicationServiceImpl implements ApplicationService{
 	}
 
 	public DataResponse<Application> apply(Application application) {
-		DataResponse<Application>  response=new DataResponse<Application>();
-		Job job=jobMapper.get(application.getJobId());
-		if(job==null){
+		DataResponse<Application> response = new DataResponse<Application>();
+		Job job = jobMapper.get(application.getJobId());
+		if (job == null) {
 			response.setMessage("岗位不存在");
 			return response;
 		}
-		String recruitType=job.getRecruitType();
-		if(recruitType==null){
+		String recruitType = job.getRecruitType();
+		if (recruitType == null) {
 			response.setMessage("岗位招聘类型未知");
 			return response;
 		}
-		List<Application> oldList=applicationMapper.getList(application);
-		if(oldList!=null&&oldList.size()>0){
-			Calendar cal=Calendar.getInstance();
-			cal.add(Calendar.DATE, 0-interval);
-			long time=cal.getTime().getTime();
-			for(Application old:oldList){
-				if(old.getJob()!=null&&recruitType.equals(old.getJob().getRecruitType())
+		List<Application> oldList = applicationMapper.getList(application);
+		if (oldList != null && oldList.size() > 0) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, 0 - properties.getApplicationInterval());
+			long time = cal.getTime().getTime();
+			for (Application old : oldList) {
+				if (old.getJob() != null && recruitType.equals(old.getJob().getRecruitType())
 						//interval天之内有投递简历
-						&&(old.getCreateTime()!=null&&old.getCreateTime().getTime()>time)){
+						&& (old.getCreateTime() != null && old.getCreateTime().getTime() > time)) {
 					response.setMessage("本季度您已申请过岗位，我们会尽快和您联系，请您耐心等待");
 					return response;
 				}
 			}
 		}
-		Resume resume=new Resume();
+		Resume resume = new Resume();
 		resume.setUserId(application.getUserId());
 		resume.setRecruitType(recruitType);
-		resume=resumeMapper.getStatus(resume);
-		if(resume==null){
+		resume = resumeMapper.getStatus(resume);
+		if (resume == null) {
 			response.setMessage("简历不存在");
 			return response;
 		}
@@ -88,7 +88,7 @@ public class ApplicationServiceImpl implements ApplicationService{
 		application.setResumeId(resume.getId());
 		//传前台页面
 		response.setData(application);
-		if(resume.getIsSubmit()==false){
+		if (!resume.getIsSubmit()) {
 			response.setCode(Constants.ErrorCode.NOT_SUBMIT);
 			response.setMessage("简历未提交");
 			return response;

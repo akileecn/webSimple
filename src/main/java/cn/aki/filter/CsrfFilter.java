@@ -1,16 +1,16 @@
 package cn.aki.filter;
 
-import java.io.IOException;
+import cn.aki.config.MyProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
 
 /**
  * 跨站请求伪造简单拦截
@@ -19,8 +19,9 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 @Component("csrfFilter")
 public class CsrfFilter extends GenericFilterBean{
-	@Value("${referer.base}")
-	private String refererBase;
+	@Autowired
+	private MyProperties properties;
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest=(HttpServletRequest) request;
@@ -28,7 +29,7 @@ public class CsrfFilter extends GenericFilterBean{
 		String method=httpRequest.getMethod();
 		if("POST".equals(method)){
 			//对不是来源自本网站的请求做拦截
-			if(referer==null||!referer.startsWith(refererBase)){
+			if(referer==null||!referer.startsWith(properties.getRefererBase())){
 				return;
 			}
 		}

@@ -32,10 +32,10 @@ public class IndexController extends BaseController{
 		UserUtils.setUserCenterType(null);
 		return "index/main";
 	}
-	
-	@RequestMapping("/error")
-	public String toError(){
-		return "index/error";
-	}
-	
+
+//	@RequestMapping("/error") // 与spring boot端口冲突
+//	public String toError(){
+//		return "index/error";
+//	}
+
 }
