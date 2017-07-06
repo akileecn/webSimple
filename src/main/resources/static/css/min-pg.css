@@ -1,0 +1,71 @@
+/*兼容修正样式*/
+.col-xs-4 .box_4{
+	height: 375px;
+    overflow: hidden;
+}
+.col-xs-8 .box_4{
+	height: 375px;
+    overflow: hidden;
+}
+div.box_4 .login li input{
+	padding: 5px 5px 5px;
+}
+ul.hotjob{
+	width:580px;
+}
+ul.hotjob LI{
+	width:270px;
+}
+table.col_tab .col_tab_title td{
+    text-align: center;
+}
+table.col_tab .col_tab_t td{
+    text-align: center;
+}
+
+div.content_article p{
+    text-indent: initial;
+}
+
+.weixin_center{
+	text-align:center;
+	padding-top:50px;
+}
+.weixin_center img{
+	width: 72%;
+}
+.weixin_center h4{
+	line-height: 46px;
+    font-weight: bold;
+}
+
+td .col_tab_joingo {
+    background: #ECECEC;
+    color: #000;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: right;
+    /*WIDTH: 140px;*/
+    display: inline-block;
+    padding: 0 15px;
+}
+
+
+#user_center .col_cv_main .col_cv.fr{
+	width: 620px;
+	_width: 620px;
+}
+#user_center .col_cv_main .col_cv_title{
+	margin-top:0 !important;
+}
+.pop_job_col .con{
+}
+.pop_job_col .title{
+	text-align:left;
+}
+.w833{
+width:135px;
+}
+.pop_job_col .h300{
+	width:668px
+}

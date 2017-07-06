@@ -1,14 +1,6 @@
 package cn.aki.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import cn.aki.config.MyProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import cn.aki.dao.ApplicationMapper;
 import cn.aki.dao.JobMapper;
 import cn.aki.dao.ResumeMapper;
@@ -18,6 +10,12 @@ import cn.aki.entity.Resume;
 import cn.aki.response.DataResponse;
 import cn.aki.service.ApplicationService;
 import cn.aki.utils.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService {

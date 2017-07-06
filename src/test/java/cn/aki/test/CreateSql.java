@@ -25,7 +25,7 @@ public class CreateSql {
 		/*配置*/
 		CONFIGURATION=new Configuration(Configuration.VERSION_2_3_24);
 		try {
-			CONFIGURATION.setDirectoryForTemplateLoading(new File(CreateSql.class.getResource("./template").getPath()));
+			CONFIGURATION.setDirectoryForTemplateLoading(new File(CreateSql.class.getResource("templates").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -9,11 +9,15 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.hibernate.validator.HibernateValidator;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -32,7 +36,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// 静态资源
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 
 	@Bean
@@ -75,6 +79,24 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("/", "/index");
+	}
+
+	// 国际化
+	@Bean("messageSource")
+	public MessageSource ResourceBundleMessageSource(){
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.addBasenames("i18n.validationMessages");
+		return messageSource;
+	}
+
+	// 表单验证
+	@Bean
+	public LocalValidatorFactoryBean localValidatorFactoryBean( MessageSource messageSource){
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.setProviderClass(HibernateValidator.class);
+		validator.setValidationMessageSource(messageSource);
+		return validator;
 	}
 
 }

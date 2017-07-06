@@ -17,7 +17,8 @@
 		<druid.verson>1.1.0</druid.verson>
 		<pagehelper.verson>1.1.2</pagehelper.verson>
 		<shiro.verson>1.2.4</shiro.verson>
-		<quartz.verson>2.2.1</quartz.verson>
+		<fastjson.verson>1.2.12</fastjson.verson>
+		<lombok.verson>1.16.16</lombok.verson>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -72,12 +73,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		<!-- 上传 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
-		</dependency>
 		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -89,27 +84,16 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.verson}</version>
 		</dependency>
-		<!-- quartz定时任务 -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>${quartz.verson}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-jobs</artifactId>
-			<version>${quartz.verson}</version>
-		</dependency>
 		<!-- json -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.12</version>
+			<version>${fastjson.verson}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
+			<version>${lombok.verson}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -124,7 +108,7 @@
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 					<compilerArguments>
-						<extdirs>${project.basedir}\src\main\webapp\WEB-INF\lib</extdirs><!--指定外部lib-->
+						<extdirs>${project.basedir}\src\main\resources\lib</extdirs><!--指定外部lib-->
 					</compilerArguments>
 				</configuration>
 			</plugin>

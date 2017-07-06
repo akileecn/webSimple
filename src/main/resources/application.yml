@@ -12,8 +12,7 @@ spring:
       minIdle: 1
       maxActive: 20
   freemarker:
-    template-loader-path: /WEB-INF/template/
-    settings: 
+    settings:
       incompatible_improvements: 2.3.24
       template_exception_handler: rethrow
       default_encoding: UTF-8
@@ -25,6 +24,9 @@ spring:
       classic_compatible: true
       auto_import: '"/spring.ftl" as spring,"/base/common.ftl" as c,"/base/bootstrap.ftl" as bootstrap'
     cache: true
+  http:
+    multipart:
+      max-file-size: 50KB
 logging:
   level:
     cn.aki.dao: debug

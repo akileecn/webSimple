@@ -4,22 +4,16 @@ import cn.aki.other.AjaxFormAuthenticationFilter;
 import cn.aki.other.MyShiroRealm;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/7/5.
@@ -29,30 +23,31 @@ import java.util.Map;
 public class ShiroConfig {
 	private static final String INDEX = "/index";
 
+	@Autowired
+	private MyProperties properties;
+
+	@Bean("myShiroRealm")
+	public Realm myShiroRealm(){
+		return new MyShiroRealm();
+	}
+
 	@Bean("securityManager")
-	public SecurityManager securityManager(){
+	public SecurityManager securityManager(@Qualifier("myShiroRealm")Realm realm){
 		RealmSecurityManager manager = new DefaultWebSecurityManager();
-		manager.setRealm(new MyShiroRealm());
+		manager.setRealm(realm);
 		return manager;
 	}
 
 	@Bean
-	public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager,
-														 MyProperties properties){
+	public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager);
 		bean.setLoginUrl(INDEX);
 		bean.setSuccessUrl(INDEX);
 		bean.setUnauthorizedUrl(INDEX);
 		bean.getFilters().put("authc", new AjaxFormAuthenticationFilter());
-		Map<String,String> map = bean.getFilterChainDefinitionMap();
 		bean.setFilterChainDefinitionMap(properties.getShiro());
 		return bean;
-	}
-
-	@Bean("lifecycleBeanPostProcessor")
-	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-		return new LifecycleBeanPostProcessor();
 	}
 
 	@Bean

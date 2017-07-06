@@ -1,10 +1,12 @@
 package cn.aki.controller;
 
 import cn.aki.entity.User;
-import cn.aki.form.*;
+import cn.aki.form.UserForgetPasswordForm;
+import cn.aki.form.UserLoginForm;
+import cn.aki.form.UserRegisterForm;
+import cn.aki.form.UserUpdatePassworForm;
 import cn.aki.response.FormResponse;
 import cn.aki.response.SimpleResponse;
-import cn.aki.service.MessageService;
 import cn.aki.service.UserService;
 import cn.aki.utils.Md5Utils;
 import cn.aki.utils.UserUtils;
@@ -17,7 +19,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,39 +45,11 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private ResourceBundleMessageSource messageSource;
-	//	@Autowired
-	private MessageService messageService;
+	private MessageSource messageSource;
 
 	@ModelAttribute("userLoginForm")
 	public UserLoginForm createUserLoginForm() {
 		return new UserLoginForm();
-	}
-
-	//发送注册短信验证码
-	@ResponseBody
-	@RequestMapping(value = "/sendMessage/register", method = RequestMethod.POST)
-	public SimpleResponse sendRegisterMessage(String mobile, String captcha) {
-//		if(!UserUtils.isValidCaptcha(captcha)){
-//			SimpleResponse response=new SimpleResponse();
-//			response.setSuccess(false);
-//			response.setMessage("验证码错误");
-//			return response;
-//		}
-		return messageService.sendRegisterMessage(mobile);
-	}
-
-	//发送修改密码短信验证码
-	@ResponseBody
-	@RequestMapping(value = "/sendMessage/updatePassword", method = RequestMethod.POST)
-	public SimpleResponse sendUpdatePasswordMessage(String mobile, String captcha) {
-//		if(!UserUtils.isValidCaptcha(captcha)){
-//			SimpleResponse response=new SimpleResponse();
-//			response.setSuccess(false);
-//			response.setMessage("验证码错误");
-//			return response;
-//		}
-		return messageService.sendUpdatePasswordMessage(mobile);
 	}
 
 	//验证码图片
@@ -126,14 +100,8 @@ public class UserController extends BaseController {
 	public FormResponse<Void> handleRegister(@Valid UserRegisterForm form, BindingResult result) {
 		FormResponse<Void> response = handleFormError(result, form.getCaptcha());
 		if (response.isSuccess()) {
-			//验证短信验证码
-//			boolean isValid=messageService.isValidCaptcha(form.getMessageCaptcha(),form.getMobile());
-//			if(!isValid){
-//				response.putError("messageCaptcha", "短信验证码错误");
-//			}else{
 			//保存用户
 			userService.save(form);
-//			}
 		}
 		return response;
 	}
@@ -215,27 +183,6 @@ public class UserController extends BaseController {
 		return response;
 	}
 
-	//短信验证码找回密码
-	@ResponseBody
-	@RequestMapping(value = "/forgetPassword/byMobile", method = RequestMethod.POST)
-	public FormResponse<Void> handleForgetPassword2(@Valid UserForgetPasswordForm2 form, BindingResult result) {
-		FormResponse<Void> response = handleFormError(result, form.getCaptcha());
-		if (response.isSuccess()) {
-			User user = userService.getByUsername(form.getMobile());
-			if (user == null) {
-				response.putError("mobile", "用户不存在");
-			} else if (messageService.isValidCaptcha(form.getMessageCaptcha(), form.getMobile())) {
-				user.setModifyTime(new Date());
-				//密码加密
-				user.setPassword(Md5Utils.encrypt(form.getPassword()));
-				userService.update(user);
-			} else {
-				response.putError("messageCaptcha", "短信验证码错误");
-			}
-		}
-		return response;
-	}
-
 	@ResponseBody
 	@RequestMapping(value = "/logout")
 	public SimpleResponse handleLogout() {
@@ -251,9 +198,9 @@ public class UserController extends BaseController {
 	 */
 	private <T> FormResponse<T> handleFormError(BindingResult result, String captcha) {
 		FormResponse<T> response = super.handleFormError(result);
-		if (!UserUtils.isValidCaptcha(captcha)) {
-			response.putError("captcha", "验证码错误");
-		}
+//		if (!UserUtils.isValidCaptcha(captcha)) {
+//			response.putError("captcha", "验证码错误");
+//		}
 		return response;
 	}
 

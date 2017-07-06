@@ -4,6 +4,7 @@ import cn.aki.entity.User;
 import cn.aki.service.NoticeService;
 import cn.aki.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/")
-public class IndexController extends BaseController{
+public class IndexController extends BaseController implements ErrorController{
+	private static final String ERROR_PATH = "/error";
 	@Autowired
 	private NoticeService noticeService;
 
@@ -33,9 +35,13 @@ public class IndexController extends BaseController{
 		return "index/main";
 	}
 
-//	@RequestMapping("/error") // 与spring boot端口冲突
-//	public String toError(){
-//		return "index/error";
-//	}
+	@RequestMapping(path = ERROR_PATH, produces = "text/html")
+	public String toError(){
+		return "index/error";
+	}
 
+	@Override
+	public String getErrorPath() {
+		return ERROR_PATH;
+	}
 }
