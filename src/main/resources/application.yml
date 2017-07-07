@@ -1,3 +1,5 @@
+server:
+  port: 8081
 mybatis:
   type-aliases-package: cn.aki.entity
   mapper-locations: classpath:sqlmap/*-mapper.xml
@@ -45,4 +47,5 @@ my:
     /resume/**: authc
     /notice/**: authc
     /application/**: authc
-
+  redis:
+    host: 192.168.31.200

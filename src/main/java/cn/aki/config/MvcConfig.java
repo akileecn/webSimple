@@ -83,7 +83,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	// 国际化
 	@Bean("messageSource")
-	public MessageSource ResourceBundleMessageSource(){
+	public MessageSource messageSource(){
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setDefaultEncoding("UTF-8");
 		messageSource.addBasenames("i18n.validationMessages");
@@ -92,10 +92,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	// 表单验证
 	@Bean
-	public LocalValidatorFactoryBean localValidatorFactoryBean( MessageSource messageSource){
+	public LocalValidatorFactoryBean localValidatorFactoryBean(){
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.setProviderClass(HibernateValidator.class);
-		validator.setValidationMessageSource(messageSource);
+		validator.setValidationMessageSource(messageSource());
 		return validator;
 	}
 

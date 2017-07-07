@@ -15,4 +15,11 @@ public class MyProperties {
 	private String refererBase; // 跨站请求伪造
 	private Integer applicationInterval; // 应聘周期
 	private Map<String,String> shiro;
+	private Redis redis;
+
+	@Data
+	public static class Redis{
+		private String host;
+		private Boolean enable = true;
+	}
 }
