@@ -35,7 +35,7 @@ logging:
     cn.aki: info
 #自定义
 my:
-  refererBase: http://localhost:8080
+  refererBase: http://localhost
   applicationInterval: 90
   shiro:
     /user/login: anon
