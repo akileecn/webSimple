@@ -35,7 +35,7 @@
 				and publish_date=#{publishDate}
 			</if>
 			<if test="name!=null and name!=''">
-				and name like '%'+#{name}+'%'
+				and name like CONCAT('%',#{name},'%')
 			</if>
 			<if test="disabled!=null">
 				and disabled=#{disabled}

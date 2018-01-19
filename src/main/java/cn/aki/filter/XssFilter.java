@@ -21,15 +21,13 @@ public class XssFilter extends GenericFilterBean{
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request);
 		chain.doFilter(xssRequest, response);  
-		
 	}
 
 	public static class XssHttpServletRequestWrapper extends HttpServletRequestWrapper{
 
-		public XssHttpServletRequestWrapper(HttpServletRequest request) {
+		XssHttpServletRequestWrapper(HttpServletRequest request) {
 			super(request);
 		}
 

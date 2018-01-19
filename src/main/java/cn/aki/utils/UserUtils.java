@@ -1,12 +1,6 @@
 package cn.aki.utils;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
-
+import cn.aki.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.patchca.color.SingleColorFactory;
@@ -15,7 +9,11 @@ import org.patchca.service.Captcha;
 import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.word.AdaptiveRandomWordFactory;
 
-import cn.aki.entity.User;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 用户工具类

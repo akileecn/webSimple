@@ -1,8 +1,8 @@
 package cn.aki.dao;
 
-import java.util.List;
-
 import cn.aki.entity.Application;
+
+import java.util.List;
 
 public interface ApplicationMapper{
 	void save(Application application);
