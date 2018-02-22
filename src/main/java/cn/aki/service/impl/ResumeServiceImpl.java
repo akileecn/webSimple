@@ -1,181 +1,158 @@
 package cn.aki.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import cn.aki.dao.*;
+import cn.aki.entity.*;
+import cn.aki.service.ResumeService;
+import cn.aki.utils.Constants;
+import cn.aki.utils.Response;
+import cn.aki.vo.ResumeAllVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import cn.aki.dao.ResumeAwardMapper;
-import cn.aki.dao.ResumeComputerMapper;
-import cn.aki.dao.ResumeEducationMapper;
-import cn.aki.dao.ResumeFamilyMapper;
-import cn.aki.dao.ResumeForeignLanguageMapper;
-import cn.aki.dao.ResumeMapper;
-import cn.aki.dao.ResumePracticeMapper;
-import cn.aki.dao.ResumeStudentCadreMapper;
-import cn.aki.dao.ResumeTrainMapper;
-import cn.aki.dao.ResumeWorkMapper;
-import cn.aki.entity.Resume;
-import cn.aki.entity.ResumeAward;
-import cn.aki.entity.ResumeComputer;
-import cn.aki.entity.ResumeEducation;
-import cn.aki.entity.ResumeFamily;
-import cn.aki.entity.ResumeForeignLanguage;
-import cn.aki.entity.ResumePractice;
-import cn.aki.entity.ResumeStudentCadre;
-import cn.aki.entity.ResumeTrain;
-import cn.aki.entity.ResumeWork;
-import cn.aki.response.FormResponse;
-import cn.aki.service.ResumeService;
-import cn.aki.utils.Constants;
+import java.util.*;
 
 @Service("resumeService")
-public class ResumeServiceImpl implements ResumeService{
-	@Autowired
-	private ResumeMapper resumeMapper;
-	@Autowired
-	private ResumeAwardMapper awardMapper;
-	@Autowired
-	private ResumeEducationMapper educationMapper;
-	@Autowired
-	private ResumeFamilyMapper familyMapper;
-	@Autowired
-	private ResumeWorkMapper workMapper;
-	@Autowired
-	private ResumeComputerMapper computerMapper;
-	@Autowired
-	private ResumeForeignLanguageMapper foreignLanguageMapper;
-	@Autowired
-	private ResumeStudentCadreMapper studentCadreMapper;
-	@Autowired
-	private ResumePracticeMapper practiceMapper;
-	@Autowired
-	private ResumeTrainMapper trainMapper;
-	
-	public Resume get(Resume resume,boolean isAll) {
-		resume=resumeMapper.get(resume);
-		if(isAll&&resume!=null){
-			Integer resumeId=resume.getId();
-			List<ResumeAward> awardList=awardMapper.getList(resumeId);
-			List<ResumeEducation> educationList=educationMapper.getList(resumeId);
-			List<ResumeFamily> familyList=familyMapper.getList(resumeId);
-			List<ResumeStudentCadre> studentCadreList=studentCadreMapper.getList(resumeId);
-			List<ResumeWork> workList=workMapper.getList(resumeId);
-			List<ResumeComputer> computerList=computerMapper.getList(resumeId);
-			List<ResumeForeignLanguage> foreignLanguageList=foreignLanguageMapper.getList(resumeId);
-			List<ResumePractice> practiceList=practiceMapper.getList(resumeId);
-			List<ResumeTrain> trainList=trainMapper.getList(resumeId);
-			resume.setAwardList(awardList);
-			resume.setEducationList(educationList);
-			resume.setFamilyList(familyList);
-			resume.setWorkList(workList);
-			resume.setComputerList(computerList);
-			resume.setStudentCadreList(studentCadreList);
-			resume.setForeignLanguageList(foreignLanguageList);
-			resume.setPracticeList(practiceList);
-			resume.setTrainList(trainList);
-		}
-		return resume;
-	}
+public class ResumeServiceImpl implements ResumeService {
+    @Autowired
+    private ResumeMapper resumeMapper;
+    @Autowired
+    private ResumeAwardMapper awardMapper;
+    @Autowired
+    private ResumeEducationMapper educationMapper;
+    @Autowired
+    private ResumeFamilyMapper familyMapper;
+    @Autowired
+    private ResumeWorkMapper workMapper;
+    @Autowired
+    private ResumeComputerMapper computerMapper;
+    @Autowired
+    private ResumeForeignLanguageMapper foreignLanguageMapper;
+    @Autowired
+    private ResumeStudentCadreMapper studentCadreMapper;
+    @Autowired
+    private ResumePracticeMapper practiceMapper;
+    @Autowired
+    private ResumeTrainMapper trainMapper;
 
-	public void update(Resume resume) {
-		resume.setModifyTime(new Date());
-		resumeMapper.update(resume);
-	}
+    public Resume get(Resume resume) {
+        return resumeMapper.get(resume);
+    }
 
-	public void updatePhoto(Resume resume) {
-		resumeMapper.updatePhoto(resume);
-	}
+    @Override
+    public ResumeAllVO getAll(Resume resume) {
+        ResumeAllVO vo = new ResumeAllVO();
+        resume = resumeMapper.get(resume);
+        if (resume != null) {
+            vo.setResume(resume);
+            final int resumeId = resume.getId();
+            vo.setAwardList(awardMapper.getList(resumeId));
+            vo.setEducationList(educationMapper.getList(resumeId));
+            vo.setFamilyList(familyMapper.getList(resumeId));
+            vo.setWorkList(workMapper.getList(resumeId));
+            vo.setComputerList(computerMapper.getList(resumeId));
+            vo.setStudentCadreList(studentCadreMapper.getList(resumeId));
+            vo.setForeignLanguageList(foreignLanguageMapper.getList(resumeId));
+            vo.setPracticeList(practiceMapper.getList(resumeId));
+            vo.setTrainList(trainMapper.getList(resumeId));
+        }
+        return vo;
+    }
 
-	public Resume getPhoto(Resume resume) {
-		return resumeMapper.getPhoto(resume);
-	}
+    public void update(Resume resume) {
+        resume.setModifyTime(new Date());
+        resumeMapper.update(resume);
+    }
 
-	public void validate(Resume resume, FormResponse<?> response) {
-		String recruitType=resume.getRecruitType();
-		Map<String,Object> map=new HashMap<String, Object>();
-		Date beginSchooleDate=resume.getBeginSchoolDate();
-		Date graduateDate=resume.getGraduateDate();
-		if(beginSchooleDate!=null&&graduateDate!=null&&graduateDate.getTime()<beginSchooleDate.getTime()){
-			response.putError("graduateDate", "毕业时间必须大于开始时间");
-		}
-		//社招必填
-		if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
-			map.put("beginWorkDate", resume.getBeginWorkDate());
-			map.put("workYear", resume.getWorkYear());
-			validateNotEmpty(map, response);
-		//校招,实习必填
-		}else{
-			map.put("ceeProvince", resume.getCeeProvince());
-			map.put("ceeYear", resume.getCeeYear());
-			map.put("ceeScore", resume.getCeeScore());
-			map.put("isFirstLine", resume.getIsFirstLine());
-			map.put("artsOrScience", resume.getArtsOrScience());
-			map.put("admissionOrder", resume.getAdmissionOrder());
-			validateNotEmpty(map, response);
-		}
-		
-	}
-	
-	/**
-	 * 验证字段是否为空
-	 * @param map
-	 * @param response
-	 */
-	private void validateNotEmpty(Map<String,Object> map,FormResponse<?> response){
-		final String errInfo="字段不能为空";
-		Set<String> fields=map.keySet();
-		for(String field:fields){
-			if(StringUtils.isEmpty(map.get(field))){
-				response.putError(field, errInfo);
-			}
-		}
-	}
+    public void updatePhoto(Resume resume) {
+        resumeMapper.updatePhoto(resume);
+    }
 
-	@Transactional
-	public String submit(Resume resume) {
-		/*校验*/
-		resume=resumeMapper.get(resume);
-		if(resume==null){
-			return "简历不存在";
-		}
-		if(resume.getModifyTime()==null){
-			return "简历基本信息未保存";
-		}
-		String recruitType=resume.getRecruitType();
-		if(recruitType==null){
-			return "简历招聘类型未知";
-		}else{
-			Integer resumeId=resume.getId();
-			Integer educationCount=educationMapper.getCount(resumeId);
-			Integer workCount=workMapper.getCount(resumeId);
-			List<ResumeFamily> familyList=familyMapper.getList(resumeId);
-			if(familyList==null||familyList.size()==0){
-				return "未填写家庭关系";
-			}
-			if(educationCount==0){
-				return "未填写教育经历";
-			}
-			if(Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)){
-				if(workCount==0){
-					return "未填写工作经历";
-				}
-			}
-		}
-		resume.setIsSubmit(true);
-		/*更新状态*/
-		resumeMapper.updateStatus(resume);
-		return null;
-	}
+    public Resume getPhoto(Resume resume) {
+        return resumeMapper.getPhoto(resume);
+    }
 
-	public List<Resume> getList(Resume resume) {
-		return resumeMapper.getList(resume);
-	}
+    public void validate(Resume resume, Response<?> response) {
+        String recruitType = resume.getRecruitType();
+        Map<String, Object> map = new HashMap<String, Object>();
+        Date beginSchooleDate = resume.getBeginSchoolDate();
+        Date graduateDate = resume.getGraduateDate();
+        if (beginSchooleDate != null && graduateDate != null && graduateDate.getTime() < beginSchooleDate.getTime()) {
+            response.setSuccess(false);
+            response.setMessage("毕业时间必须大于开始时间");
+            return;
+        }
+        //社招必填
+        if (Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)) {
+            map.put("参加工作时间", resume.getBeginWorkDate());
+            map.put("参加工作年限", resume.getWorkYear());
+            validateNotEmpty(map, response);
+            //校招,实习必填
+        } else {
+            map.put("高考省市", resume.getCeeProvince());
+            map.put("高考年份", resume.getCeeYear());
+            map.put("高考分数", resume.getCeeScore());
+            map.put("是否一本分数线以上", resume.getIsFirstLine());
+            map.put("文理科", resume.getArtsOrScience());
+            map.put("录取批次", resume.getAdmissionOrder());
+            validateNotEmpty(map, response);
+        }
+
+    }
+
+    /**
+     * 验证字段是否为空
+     */
+    private void validateNotEmpty(Map<String, Object> map, Response<?> response) {
+        Set<String> fields = map.keySet();
+        for (String field : fields) {
+            if (StringUtils.isEmpty(map.get(field))) {
+                response.setSuccess(false);
+                response.setMessage(field + "不能为空");
+                break;
+            }
+        }
+    }
+
+    @Transactional
+    public String submit(Resume resume) {
+        /*校验*/
+        resume = resumeMapper.get(resume);
+        if (resume == null) {
+            return "简历不存在";
+        }
+        if (resume.getModifyTime() == null) {
+            return "简历基本信息未保存";
+        }
+        String recruitType = resume.getRecruitType();
+        if (recruitType == null) {
+            return "简历招聘类型未知";
+        } else {
+            Integer resumeId = resume.getId();
+            Integer educationCount = educationMapper.getCount(resumeId);
+            Integer workCount = workMapper.getCount(resumeId);
+            List<ResumeFamily> familyList = familyMapper.getList(resumeId);
+            if (familyList == null || familyList.size() == 0) {
+                return "未填写家庭关系";
+            }
+            if (educationCount == 0) {
+                return "未填写教育经历";
+            }
+            if (Constants.RECRUIT_TYPE_SOCIETY.equals(recruitType)) {
+                if (workCount == 0) {
+                    return "未填写工作经历";
+                }
+            }
+        }
+        resume.setIsSubmit(true);
+        /*更新状态*/
+        resumeMapper.updateStatus(resume);
+        return null;
+    }
+
+    public List<Resume> getList(Resume resume) {
+        return resumeMapper.getList(resume);
+    }
 
 }

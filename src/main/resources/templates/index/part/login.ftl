@@ -61,9 +61,9 @@
 	$(document).ready(function() {
 		$("#loginForm").ajaxForm({
 			beforeSerialize: function($form, options){
-				var $password=$form.find("input[name='password']");
-				var b = new Base64();
-				$password.val(b.encode($password.val()));
+				// var $password=$form.find("input[name='password']");
+				// var b = new Base64();
+				// $password.val(b.encode($password.val()));
 			},"success":function(text) {
 				$("#loginForm").find(".col_cv_alt").empty();
 				$("#loginForm").find("input[name='password']").val("");

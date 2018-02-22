@@ -24,7 +24,7 @@
 			$.ajax({
 				url:"<@spring.url "/job/hotList"/>"
 				,data:{"pageNum":pageNum}
-				,type:"post"
+				,type:"get"
 				,success:function(text){
 					if(text.success){
 						var list=text.data.list;

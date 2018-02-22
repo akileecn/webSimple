@@ -28,7 +28,7 @@ insert into zp_static_page(code,attr,template,title,content)values('userAgreemen
 <p>3、所有与本网站链接的网站及其内容和版权由相应的提供者与拥有者负责，本网站不对其内容或形式或性质担负任何直接或间接的商业或法律责任；</p>
 <p>4、本网转载文章、资料及相关图片出于传递更多信息之目的，并不意味着赞同其观点或证实其内容的真实性。如其他网站或个人从本网下载使用，必须保留本网注明的“来源”，并自负版权等法律责任。如对信息内容有疑议，请及时与我们联系。如本网转载稿涉及版权等问题，请作者在两周内速来电或来函与本网站联系。</p>
 ');
-insert into zp_static_page(code,attr,template,title,content)values('recruitotice',null,null,'招聘公告示例','招聘公告内容示例');
+insert into zp_static_page(code,attr,template,title,content)values('recruitNotice',null,null,'招聘公告示例','招聘公告内容示例');
 -- 增加短信模版
 insert into zp_static_page(code,attr,content)values('messageTemplate','register','欢迎注册瑞丰银行招聘网账号，您的注册验证码为${code}，有效时间为3分钟，请妥善保管，过期需重新申请。');
 insert into zp_static_page(code,attr,content)values('messageTemplate','updatePassword','欢迎登陆瑞丰银行招聘网站，您的验证码为${code}。');

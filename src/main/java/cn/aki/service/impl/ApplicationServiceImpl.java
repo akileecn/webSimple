@@ -7,9 +7,9 @@ import cn.aki.dao.ResumeMapper;
 import cn.aki.entity.Application;
 import cn.aki.entity.Job;
 import cn.aki.entity.Resume;
-import cn.aki.response.DataResponse;
 import cn.aki.service.ApplicationService;
 import cn.aki.utils.Constants;
+import cn.aki.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +48,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return applicationMapper.getList(application);
 	}
 
-	public DataResponse<Application> apply(Application application) {
-		DataResponse<Application> response = new DataResponse<Application>();
+	public Response<Application> apply(Application application) {
+		Response<Application> response = new Response<>();
+		response.setSuccess(false);
 		Job job = jobMapper.get(application.getJobId());
 		if (job == null) {
 			response.setMessage("岗位不存在");
@@ -94,6 +95,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		application.setStatus("1");
 		application.setCreateTime(new Date());
 		applicationMapper.save(application);
+		response.setSuccess(true);
 		return response;
 	}
 

@@ -22,9 +22,13 @@ import cn.aki.service.TranslateService;
 @Component
 @Aspect
 public class TranslateAspect{
+	private final TranslateService translateService;
+
 	@Autowired
-	private TranslateService translateService;
-	
+	public TranslateAspect(TranslateService translateService) {
+		this.translateService = translateService;
+	}
+
 	@Pointcut("execution(* cn.aki.service.*.get*(..))")
 	private void inAnyMethod(){
 	}
@@ -38,7 +42,7 @@ public class TranslateAspect{
 				if(result instanceof Translatable){
 					translateService.translate((Translatable) result);
 				}else if(result instanceof List){
-					if(result!=null&&((List<?>)result).size()>0){
+					if(((List<?>) result).size() > 0){
 						if(((List<?>)result).get(0) instanceof Translatable){
 							translateService.translate((List<? extends Translatable>)result);
 						}

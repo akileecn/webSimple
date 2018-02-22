@@ -32,13 +32,14 @@ spring:
 logging:
   level:
     cn.aki.dao: debug
-    cn.aki: info
+    cn.aki: debug
 #自定义
 my:
   refererBase: http://localhost
   applicationInterval: 90
   shiro:
     /user/login: anon
+#    /user/logout: anon
     /user/register: anon
     /user/sendMessage/**: anon
     /user/captchaImage.png: anon
@@ -49,3 +50,4 @@ my:
     /application/**: authc
   redis:
     host: 192.168.31.200
+    enable: false

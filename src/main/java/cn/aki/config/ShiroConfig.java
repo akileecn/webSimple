@@ -28,8 +28,11 @@ import org.springframework.context.annotation.DependsOn;
 public class ShiroConfig {
 	private static final String INDEX = "/index";
 
-	@Autowired
-	private MyProperties properties;
+	private final MyProperties properties;
+
+	public ShiroConfig(MyProperties properties) {
+		this.properties = properties;
+	}
 
 	@Bean
 	public Realm realm() {
