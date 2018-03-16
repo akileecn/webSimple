@@ -20,7 +20,7 @@ public class TranslateController {
         return Response.success(translateService.findDicts(types));
     }
 
-    @RequestMapping("/dict")
+    @GetMapping("/dict")
     public Response<Map<String, String>> getDict(String type) {
         return Response.success(translateService.findDict(type));
     }

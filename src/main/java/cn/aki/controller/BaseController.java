@@ -2,6 +2,7 @@ package cn.aki.controller;
 
 import cn.aki.utils.Response;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 /**
  * controller基类
@@ -17,7 +18,8 @@ public abstract class BaseController {
     protected <T> Response<T> handleFormError(Response<T> response, BindingResult result) {
         if (result.hasErrors()) {
             response.setSuccess(false);
-            String message = result.getFieldError().getDefaultMessage();
+            FieldError fieldError = result.getFieldError();
+            String message = fieldError.getField() + fieldError.getDefaultMessage();
             response.setMessage(message.contains("NumberFormatException") ? "请输入整数" : message);
         } else {
             response.setSuccess(true);

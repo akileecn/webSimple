@@ -7,16 +7,13 @@ import cn.aki.service.ResumeService;
 import cn.aki.service.ResumeSubService;
 import cn.aki.utils.Constants;
 import cn.aki.utils.Response;
-import com.alibaba.fastjson.JSON;
+import cn.aki.utils.UserUtils;
+import cn.aki.vo.ResumeAllVO;
 import org.assertj.core.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +21,8 @@ import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * 简历
@@ -37,7 +30,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  * @author aki
  * 2016年4月29日 上午9:48:40
  */
-@Controller
+@RestController
 @RequestMapping("/resume")
 public class ResumeController extends BaseController {
     @Autowired
@@ -48,38 +41,30 @@ public class ResumeController extends BaseController {
     /**
      * 上传头像
      */
-    @RequestMapping(value = "/photo/upload")
-    public void upload(@RequestParam("file") MultipartFile file, Resume resume, HttpServletResponse response) {
-        Response json = new Response();
+    @PostMapping("/photo/upload")
+    public Response<Void> upload(@RequestParam("file") MultipartFile file, Resume resume) {
+        Response<Void> response = Response.fail("上传失败");
         if (!file.isEmpty()) {
             //上传校验
             if (file.getSize() > 50 * 1024) {
-                json.setMessage("上传文件必须小于50kb");
+                response.setMessage("上传文件必须小于50kb");
             } else if (!file.getContentType().equals("image/jpeg") && !file.getContentType().equals("image/png")) {
-                json.setMessage("只能上传jpg、png格式图片");
+                response.setMessage("只能上传jpg、png格式图片");
             } else {
-                //文件命名
                 try {
                     resume.setPhoto(file.getBytes());
                     resumeService.updatePhoto(resume);
-                    json.setSuccess(true);
-                    json.setMessage("上传成功");
+                    response.setSuccess(true);
+                    response.setMessage("上传成功");
                 } catch (IOException e) {
                     e.printStackTrace();
-                    json.setMessage("上传失败");
                 }
             }
         }
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println(JSON.toJSONString(json));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return response;
     }
 
-    @RequestMapping(path = "/photo/show")
+    @GetMapping("/photo/show")
     public void getPhoto(Resume resume, HttpServletResponse response) {
         resume = resumeService.getPhoto(resume);
         if (resume != null && resume.getPhoto() != null) {
@@ -91,25 +76,15 @@ public class ResumeController extends BaseController {
         }
     }
 
-    @RequestMapping(path = "/list", method = GET)
-    public String toList(Resume resume, Model model) {
-        List<Resume> list = resumeService.getList(resume);
-        model.addAttribute("resume", resume);
-        model.addAttribute("list", list);
-        return "resume/list";
+    @GetMapping("/list")
+    public Response<List<Resume>> list(String resumeType) {
+        Resume condition = new Resume();
+        condition.setRecruitType(resumeType);
+        condition.setUserId(UserUtils.getUserId());
+        return Response.success(resumeService.getList(condition));
     }
 
-    @RequestMapping(path = "/detail", method = GET)
-    public String toDetail(Integer id, String recruitType, String applyJobId, Model model) {
-        model.addAttribute("id", id);
-        model.addAttribute("recruitType", recruitType);
-        //应聘岗位id，由岗位页面拦截跳转得到
-        model.addAttribute("applyJobId", applyJobId);
-        return "resume/detail";
-    }
-
-    @ResponseBody
-    @RequestMapping(path = "/save/base", method = POST)
+    @PostMapping("/save/base")
     public Response<Void> saveBase(@Valid Resume form, BindingResult result) {
         Response<Void> response = handleFormError(result);
         resumeService.validate(form, response);
@@ -119,14 +94,12 @@ public class ResumeController extends BaseController {
         return response;
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/detail/all", method = POST)
-    public Response<Resume> handleDetail(Resume resume) {
-        return Response.success(resumeService.get(resume));
+    @GetMapping("/detail/all")
+    public Response<ResumeAllVO> handleDetail(Resume resume) {
+        return Response.success(resumeService.getAll(resume));
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/submit", method = POST)
+    @PostMapping("/submit")
     public Response handleSubmit(Resume resume) {
         Response response = new Response();
         String message = resumeService.submit(resume);
@@ -136,111 +109,93 @@ public class ResumeController extends BaseController {
     }
 
     /* begin从属信息 */
-    @ResponseBody
-    @RequestMapping(path = "/save/award", method = POST)
+    @PostMapping("/save/award")
     public Response<Integer> saveAward(@Valid ResumeAward form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/award", method = POST)
+    @PostMapping("/delete/award")
     public Response deleteAward(ResumeAward bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/computer", method = POST)
+    @PostMapping("/save/computer")
     public Response<Integer> saveComputer(@Valid ResumeComputer form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/computer", method = POST)
+    @PostMapping("/delete/computer")
     public Response deleteComputer(ResumeComputer bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/education")
+    @PostMapping("/save/education")
     public Response<Integer> saveEducation(String recruitType, @Valid ResumeEducation form, BindingResult result) {
         //@Valid放其他参数会报错
         return saveSub(form, recruitType, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/education", method = POST)
+    @PostMapping("/delete/education")
     public Response deleteEducation(ResumeEducation bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/family", method = POST)
+    @PostMapping("/save/family")
     public Response<Integer> saveFamily(@Valid ResumeFamily form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/family", method = POST)
+    @PostMapping("/delete/family")
     public Response deleteFamily(ResumeFamily bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/foreignLanguage", method = POST)
+    @PostMapping("/save/foreignLanguage")
     public Response<Integer> saveForeignLanguage(@Valid ResumeForeignLanguage form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/foreignLanguage", method = POST)
+    @PostMapping("/delete/foreignLanguage")
     public Response deleteForeignLanguage(ResumeForeignLanguage bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/studentCadre", method = POST)
+    @PostMapping("/save/studentCadre")
     public Response<Integer> saveStudentCadre(@Valid ResumeStudentCadre form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/studentCadre", method = POST)
+    @PostMapping("/delete/studentCadre")
     public Response deleteStudentCadre(ResumeStudentCadre bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/work", method = POST)
+    @PostMapping("/save/work")
     public Response<Integer> saveWork(@Valid ResumeWork form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/work", method = POST)
+    @PostMapping("/delete/work")
     public Response deleteWork(ResumeWork bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/practice", method = POST)
+    @PostMapping("/save/practice")
     public Response<Integer> savePractice(@Valid ResumePractice form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/practice", method = POST)
+    @PostMapping("/delete/practice")
     public Response deletePractice(ResumePractice bean) {
         return deleteSub(bean);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/save/train", method = POST)
+    @PostMapping("/save/train")
     public Response<Integer> saveTrain(@Valid ResumeTrain form, BindingResult result) {
         return saveSub(form, result);
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/delete/train", method = POST)
+    @PostMapping("/delete/train")
     public Response deleteTrain(ResumeTrain bean) {
         return deleteSub(bean);
     }
